@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&family=Scoutie+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+:root {
+  --primary-base: #FFFFFF;
+  --surface-muted: #F9FAFB;
+  --surface-card: #FFFFFF;
+  --surface-dark: #0A0A0A;
+  --brand-red: #FF0000;
+  --brand-red-hover: #E00000;
+  --chrome-silver: #C0C0C0;
+  --chrome-subtle: #D4D4D4;
+  --border-subtle: #E5E7EB;
+  --border-dark: #2A2A2A;
+  --text-primary: #0A0A0A;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+
+  --font-scoutie: 'Scoutie Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-noto-bengali: 'Noto Serif Bengali', 'Scoutie Sans', serif;
+  --font-sans: var(--font-scoutie);
+  --font-serif-bengali: var(--font-noto-bengali);
+}
+
+@theme {
+  --color-primary: #0A0A0A;
+  --color-primary-foreground: #FFFFFF;
+  --color-primary-base: #FFFFFF;
+  --color-surface-muted: #F9FAFB;
+  --color-surface-card: #FFFFFF;
+  --color-surface-dark: #0A0A0A;
+  --color-brand-red: #FF0000;
+  --color-brand-red-hover: #E00000;
+  --color-chrome-silver: #C0C0C0;
+  --color-chrome-subtle: #D4D4D4;
+  --color-border-subtle: #E5E7EB;
+  --color-border-dark: #2A2A2A;
+  --color-text-primary: #0A0A0A;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6B7280;
+
+  --font-sans: var(--font-scoutie);
+  --font-bengali: var(--font-noto-bengali);
+}
+
+/* Infinite Marquee Animation for InfinityBandScroll */
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 25s linear infinite;
+}
+
+/* Base default typography */
+html {
+  font-family: var(--font-scoutie);
+}
+
+body {
+  background-color: var(--primary-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dynamic Font Assignment: Bangla uses Noto Serif Bengali */
+html[lang="bn"],
+html[lang="bn"] body,
+html[lang="bn"] * {
+  font-family: 'Noto Serif Bengali', 'Scoutie Sans', serif;
+}
+
+/* Dynamic Font Assignment: English uses Scoutie Sans */
+html[lang="en"],
+html[lang="en"] body,
+html[lang="en"] * {
+  font-family: 'Scoutie Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Industrial border utility per design.md */
+.border-industrial {
+  border-width: 1px;
+  border-color: #E5E7EB;
+}
+
+.border-industrial-thick {
+  border-width: 1.5px;
+  border-color: #E5E7EB;
+}
+
+.border-industrial-chrome {
+  border-width: 1px;
+  border-color: #C0C0C0;
+}
+
+/* Custom transitions and interactive states */
+.card-industrial {
+  border: 1px solid #E5E7EB;
+  border-radius: 0.75rem; /* rounded-xl */
+  background-color: #FFFFFF;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-industrial:hover {
+  transform: translateY(-4px);
+  border-color: #C0C0C0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Technical engineering dot grid background for deep industrial canvas */
+.bg-engineering-grid {
+  background-color: #F3F4F7;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

@@ -1,0 +1,58 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#0A0A0A"/>
+  <!-- Technical Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1C1C1C" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#grid)" />
+
+  <!-- Industrial Circular Machine Vector Graphic (Dark Theme Neo-Industrial Line Art) -->
+  <g transform="translate(150, 60)">
+    <!-- Base Plate -->
+    <path d="M 50 420 L 450 420 L 420 460 L 80 460 Z" fill="#161616" stroke="#2A2A2A" stroke-width="2"/>
+    <rect x="120" y="440" width="260" height="6" rx="3" fill="#FF0000"/>
+
+    <!-- Support Pillars -->
+    <rect x="90" y="160" width="28" height="260" rx="2" fill="#161616" stroke="#2A2A2A" stroke-width="2"/>
+    <rect x="382" y="160" width="28" height="260" rx="2" fill="#161616" stroke="#2A2A2A" stroke-width="2"/>
+    <rect x="236" y="240" width="28" height="180" rx="2" fill="#161616" stroke="#2A2A2A" stroke-width="2"/>
+
+    <!-- Central Cylinder Unit -->
+    <rect x="150" y="200" width="200" height="160" rx="8" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="2"/>
+    <circle cx="250" cy="280" r="60" fill="#0A0A0A" stroke="#2A2A2A" stroke-width="2"/>
+    <circle cx="250" cy="280" r="40" fill="#161616" stroke="#FF0000" stroke-width="2"/>
+    <circle cx="250" cy="280" r="16" fill="#C0C0C0" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Cam Box and Feeders Rings -->
+    <ellipse cx="250" cy="180" rx="140" ry="30" fill="#161616" stroke="#2A2A2A" stroke-width="2"/>
+    <ellipse cx="250" cy="175" rx="120" ry="20" fill="#1A1A1A" stroke="#C0C0C0" stroke-width="1.5"/>
+
+    <!-- Top Yarn Creel / Feeder Structure -->
+    <path d="M 110 160 L 250 80 L 390 160" stroke="#C0C0C0" stroke-width="2" fill="none"/>
+    <line x1="250" y1="80" x2="250" y2="30" stroke="#C0C0C0" stroke-width="2"/>
+    <circle cx="250" cy="30" r="8" fill="#FF0000" stroke="#FFFFFF" stroke-width="1.5"/>
+
+    <!-- Yarn Cones Array -->
+    <g stroke="#2A2A2A" stroke-width="1.5">
+      <path d="M 130 90 L 150 90 L 145 60 L 135 60 Z" fill="#FF0000"/>
+      <path d="M 180 80 L 200 80 L 195 50 L 185 50 Z" fill="#C0C0C0"/>
+      <path d="M 300 80 L 320 80 L 315 50 L 305 50 Z" fill="#C0C0C0"/>
+      <path d="M 350 90 L 370 90 L 365 60 L 355 60 Z" fill="#FF0000"/>
+    </g>
+
+    <!-- Digital Controller Console -->
+    <rect x="360" y="240" width="70" height="90" rx="4" fill="#161616" stroke="#2A2A2A" stroke-width="1.5"/>
+    <rect x="370" y="250" width="50" height="35" rx="2" fill="#0A0A0A" stroke="#2A2A2A"/>
+    <circle cx="380" cy="305" r="4" fill="#FF0000"/>
+    <circle cx="395" cy="305" r="4" fill="#C0C0C0"/>
+    <circle cx="410" cy="305" r="4" fill="#10B981"/>
+
+    <!-- Spec Callout Badge -->
+    <g transform="translate(130, 480)">
+      <rect width="240" height="34" rx="6" fill="#161616" stroke="#2A2A2A" stroke-width="1"/>
+      <text x="120" y="22" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">TASNEEM INDUSTRIAL SPEC</text>
+    </g>
+  </g>
+</svg>

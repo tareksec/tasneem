@@ -1,0 +1,190 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { MessageCircle, ArrowUpRight, ShieldCheck, Ship, Wrench } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { COMPANY_INFO } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+
+export function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const { dict, locale } = useTranslation();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isSlowConnection, setIsSlowConnection] = useState(false);
+
+  // Network connection-aware check (fallback to poster on 2G or data-saver)
+  useEffect(() => {
+    if (typeof navigator !== "undefined") {
+      const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } })?.connection;
+      if (conn?.saveData || conn?.effectiveType === "2g" || conn?.effectiveType === "slow-2g") {
+        setIsSlowConnection(true);
+      }
+    }
+  }, []);
+
+  // Safe autoplay trigger
+  useEffect(() => {
+    if (videoRef.current && !shouldReduceMotion && !isSlowConnection) {
+      videoRef.current.play().catch(() => {
+        // Autoplay may be restricted by strict browser settings; poster frame is visible
+      });
+    }
+  }, [shouldReduceMotion, isSlowConnection]);
+
+  return (
+    <section className="relative -mt-[68px] sm:-mt-[74px] pt-28 sm:pt-36 pb-20 sm:pb-28 lg:pb-32 min-h-[90vh] lg:min-h-[94vh] flex items-center overflow-hidden bg-neutral-950">
+      {/* 1. Full-Bleed Video Background (Edge-to-Edge) */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        {shouldReduceMotion || isSlowConnection ? (
+          /* Reduced-motion / Slow connection: Static high-res poster frame */
+          <Image
+            src="/video/hero-video-poster.png"
+            alt="Industrial circular knitting machines operating in factory"
+            fill
+            className="object-cover"
+            priority
+          />
+        ) : (
+          /* HTML5 Video: Autoplay, Muted, Loop, Playsinline, Poster Fallback */
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/video/hero-video-poster.png"
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          >
+            <source src="/video/hero-knitting-machines.webm" type="video/webm" />
+            <source src="/video/hero-knitting-machines.mp4" type="video/mp4" />
+          </video>
+        )}
+      </div>
+
+      {/* 2. Localized Gradient Behind Text Region (NOT a full-frame overlay) */}
+      {/* Confined to the left 60-65% on desktop; widened on mobile for stacked readability */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/35 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/65 lg:to-transparent lg:w-[68%] xl:w-[60%] pointer-events-none"
+      />
+
+      {/* Subtle top & bottom vignette to blend seamlessly with navbar and following section */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"
+      />
+
+      {/* 3. Hero Text Content (Positioned Upper-Left / Left-Aligned on Top of Video) */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left">
+          
+          {/* Top Status Pill */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-xs font-semibold text-white mb-5 sm:mb-6 shadow-sm w-fit"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>{dict.hero.badge}</span>
+          </motion.div>
+
+          {/* H1 Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 }}
+            className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm"
+          >
+            {dict.hero.title}
+          </motion.h1>
+
+          {/* Sub-headline */}
+          <motion.p
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
+            className="mt-4 sm:mt-5 text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
+          >
+            {dict.hero.subtitle}
+          </motion.p>
+
+          {/* Dual CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut", delay: 0.24 }}
+            className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+          >
+            {/* Primary CTA */}
+            <Link
+              href="/quote"
+              className="bg-[#FF0000] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#E00000] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-red-950/30"
+            >
+              <span>{dict.hero.primaryCta}</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+
+            {/* Secondary CTA: WhatsApp */}
+            <a
+              href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
+                "Hello Tasneem Knit Industry, I am contacting you for machine specifications and quotation."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-400" />
+              <span>{dict.hero.whatsappCta} ({COMPANY_INFO.whatsappFormatted})</span>
+            </a>
+          </motion.div>
+
+          {/* Value Micro-Badges (Trust Badges inside the text area) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.35, delay: 0.3 }}
+            className="mt-8 sm:mt-10 pt-6 sm:pt-7 border-t border-white/15 flex flex-wrap items-center gap-5 sm:gap-7 text-xs text-neutral-200 font-medium"
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Ship className="w-3.5 h-3.5 text-[#FF4D4D]" />
+              </div>
+              <span>{dict.hero.cfrBadge}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              </div>
+              <span>{dict.hero.inspectionBadge}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <Wrench className="w-3.5 h-3.5 text-[#FF4D4D]" />
+              </div>
+              <span>{dict.hero.installBadge}</span>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+
+      {/* 4. Natural Video Visibility Indicator (Bottom Right) */}
+      <div className="hidden lg:flex absolute bottom-6 right-6 z-10 bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-[11px] font-semibold text-white/90 shadow-md items-center gap-2 pointer-events-none">
+        <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-pulse" />
+        <span>
+          {locale === "bn"
+            ? "কারখানা ফ্লোর • টেক্সটাইল নিটিং মেশিনারি"
+            : "Factory Floor • Circular Knitting Machinery"}
+        </span>
+      </div>
+    </section>
+  );
+}
