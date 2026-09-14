@@ -90,7 +90,18 @@ export default function AdminQuotesPage() {
   const [isSavingNotes, setIsSavingNotes] = useState(false);
 
   const loadQuotes = () => {
-    setQuotes(AdminStore.getQuotes());
+    fetch("/api/admin/quotes")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.quotes)) {
+          setQuotes(data.quotes);
+        } else {
+          setQuotes(AdminStore.getQuotes());
+        }
+      })
+      .catch(() => {
+        setQuotes(AdminStore.getQuotes());
+      });
   };
 
   useEffect(() => {
@@ -100,7 +111,16 @@ export default function AdminQuotesPage() {
     return () => window.removeEventListener("tasneem-store-updated", handleUpdate);
   }, []);
 
-  const handleStatusChange = (id: string, newStatus: QuoteStatus) => {
+  const handleStatusChange = async (id: string, newStatus: QuoteStatus) => {
+    try {
+      await fetch("/api/admin/quotes", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+    } catch (e) {
+      console.warn("Could not patch quote:", e);
+    }
     AdminStore.updateQuoteStatus(id, newStatus);
     showToast(`Inquiry [${id}] status changed to ${newStatus}`, "success");
     loadQuotes();
@@ -109,8 +129,15 @@ export default function AdminQuotesPage() {
     }
   };
 
-  const handleDelete = (quote: QuoteRecord) => {
+  const handleDelete = async (quote: QuoteRecord) => {
     if (confirm(`Are you sure you want to delete inquiry "${quote.id}" from ${quote.company}?`)) {
+      try {
+        await fetch(`/api/admin/quotes?id=${encodeURIComponent(quote.id)}`, {
+          method: "DELETE",
+        });
+      } catch (e) {
+        console.warn("Could not delete quote:", e);
+      }
       AdminStore.deleteQuote(quote.id);
       showToast(`Inquiry [${quote.id}] deleted`, "success");
       if (selectedQuote?.id === quote.id) {
@@ -125,9 +152,18 @@ export default function AdminQuotesPage() {
     setEditNotes(quote.adminNotes || "");
   };
 
-  const handleSaveNotes = () => {
+  const handleSaveNotes = async () => {
     if (!selectedQuote) return;
     setIsSavingNotes(true);
+    try {
+      await fetch("/api/admin/quotes", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: selectedQuote.id, adminNotes: editNotes }),
+      });
+    } catch (e) {
+      console.warn("Could not save notes to API:", e);
+    }
     AdminStore.updateQuoteStatus(selectedQuote.id, selectedQuote.status, editNotes);
     setSelectedQuote((prev) => (prev ? { ...prev, adminNotes: editNotes } : null));
     setIsSavingNotes(false);

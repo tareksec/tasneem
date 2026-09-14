@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Gauge, Check } from "lucide-react";
-import { CATEGORIES, getMachinesByCategory, getCategoryInfo } from "@/lib/machines-data";
+import { CATEGORIES, getCategoryInfo } from "@/lib/machines-data";
+import { getDbMachines } from "@/lib/db/machines";
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { MachineCategory } from "@/lib/types";
@@ -24,7 +25,7 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const machines = getMachinesByCategory(category as MachineCategory);
+  const machines = await getDbMachines({ category });
 
   return (
     <div className="py-12 sm:py-16 bg-white text-[#0A0A0A]">

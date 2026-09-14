@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, ShieldAlert, ArrowRight, CheckCircle2, KeyRound } from "lucide-react";
 import { useAdminAuth } from "@/lib/admin/auth-context";
 import { Button } from "@/components/admin/ui/button";
@@ -9,22 +9,25 @@ import { Input } from "@/components/admin/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/admin/ui/card";
 import { Modal } from "@/components/admin/ui/modal";
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
   const { user, login } = useAdminAuth();
+
   const [email, setEmail] = useState("admin@tasneem.com");
-  const [password, setPassword] = useState("admin123");
+  const [password, setPassword] = useState("TasneemAdmin2026!Secure");
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
-  // If already authenticated, redirect to /admin
+  // If already authenticated, redirect to callbackUrl or /admin
   useEffect(() => {
     if (user) {
-      router.push("/admin");
+      router.push(callbackUrl);
     }
-  }, [user, router]);
+  }, [user, router, callbackUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,15 +38,16 @@ export default function AdminLoginPage() {
     setLoading(false);
 
     if (result.success) {
-      router.push("/admin");
+      router.push(callbackUrl);
+      router.refresh();
     } else {
-      setErrorMessage(result.error || "Authentication failed. Please check your credentials.");
+      setErrorMessage(result.error || "Authentication failed. Please check your staff credentials.");
     }
   };
 
   const fillDemoCredentials = () => {
     setEmail("admin@tasneem.com");
-    setPassword("admin123");
+    setPassword("TasneemAdmin2026!Secure");
     setErrorMessage("");
   };
 
@@ -59,7 +63,7 @@ export default function AdminLoginPage() {
             Tasneem Admin Portal
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Sign in to manage blog publications and site content
+            Sign in to manage machinery catalog, quotes, and blog publications
           </p>
         </div>
 
@@ -68,7 +72,7 @@ export default function AdminLoginPage() {
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Staff Authentication</CardTitle>
             <CardDescription className="text-xs text-slate-500">
-              Internal access only. Admin accounts are provisioned by the Super Admin.
+              Secured with NextAuth.js JWT. Internal staff access only.
             </CardDescription>
           </CardHeader>
 
@@ -162,56 +166,45 @@ export default function AdminLoginPage() {
               </Button>
 
               <p className="text-[11px] text-center text-slate-400">
-                Staff portal. No public registration permitted.
+                Authorized staff portal. Protected by server-side JWT session.
               </p>
             </CardFooter>
           </form>
         </Card>
 
-        {/* Medusa Note Footer */}
-        <div className="text-center mt-6 text-xs text-slate-400">
-          Looking for machinery catalog or quotes?{" "}
-          <a
-            href="http://localhost:9000/app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-700 hover:text-slate-900 font-semibold underline"
-          >
-            Access Medusa Admin ↗
-          </a>
-        </div>
-      </div>
-
-      {/* Forgot Password Modal */}
-      <Modal
-        isOpen={forgotPasswordOpen}
-        onClose={() => setForgotPasswordOpen(false)}
-        title="Staff Password Reset"
-        description="Admin credentials policy"
-        footer={
-          <Button variant="secondary" size="sm" onClick={() => setForgotPasswordOpen(false)}>
-            Close
-          </Button>
-        }
-      >
-        <div className="space-y-3 text-xs text-slate-600">
-          <p>
-            For compliance and security reasons, self-service password reset is disabled for staff accounts.
-          </p>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-            <p className="font-semibold text-slate-900">How to reset your credentials:</p>
-            <ol className="list-decimal pl-4 mt-1.5 space-y-1 text-slate-600">
-              <li>Contact your Super Administrator or IT Operations lead.</li>
-              <li>Provide your registered staff email and employee verification code.</li>
-              <li>A temporary password will be provisioned directly via internal email.</li>
-            </ol>
+        {/* Forgot Password Modal */}
+        <Modal
+          isOpen={forgotPasswordOpen}
+          onClose={() => setForgotPasswordOpen(false)}
+          title="Staff Password Assistance"
+          description="Internal credentials policy"
+        >
+          <div className="space-y-4 text-xs text-slate-600">
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2.5 text-amber-800">
+              <KeyRound className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold mb-1">Administrative Password Reset</p>
+                <p>
+                  To reset staff passwords, run the Prisma seed or update the Admin table in Hostinger phpMyAdmin directly.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button size="sm" onClick={() => setForgotPasswordOpen(false)}>
+                Got it
+              </Button>
+            </div>
           </div>
-          <p className="text-slate-400 italic">
-            For local testing, you can use the pre-filled credentials:{" "}
-            <span className="font-mono font-bold text-slate-700">admin@tasneem.com / admin123</span>.
-          </p>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F4F5F9] flex items-center justify-center text-xs text-slate-500">Loading auth portal...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

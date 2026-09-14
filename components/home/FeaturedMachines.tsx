@@ -1,16 +1,31 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Gauge, Layers, SlidersHorizontal } from "lucide-react";
-import { MACHINES } from "@/lib/machines-data";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { Machine } from "@/lib/types";
 
-export function FeaturedMachines() {
+export function FeaturedMachines({ initialMachines }: { initialMachines?: Machine[] }) {
   const { dict } = useTranslation();
-  // Select first 4 featured machines
-  const featured = MACHINES.slice(0, 4);
+  const [machines, setMachines] = useState<Machine[]>(initialMachines || []);
+
+  useEffect(() => {
+    if (!initialMachines || initialMachines.length === 0) {
+      fetch("/api/machines")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && Array.isArray(data.machines)) {
+            setMachines(data.machines.slice(0, 4));
+          }
+        })
+        .catch((err) => console.error("Failed to load featured machines:", err));
+    }
+  }, [initialMachines]);
+
+  const featured = machines.slice(0, 4);
 
   return (
     <section className="py-20 lg:py-24 bg-[#F9FAFB] border-b border-[#E5E7EB]">

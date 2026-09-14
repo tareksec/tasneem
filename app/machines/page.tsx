@@ -15,7 +15,7 @@ import {
   CheckCircle2,
   Sparkles,
 } from "lucide-react";
-import { CATEGORIES, MAIN_CATEGORIES, CIRCULAR_SUB_CATEGORIES, getAllMachines } from "@/lib/machines-data";
+import { CATEGORIES, MAIN_CATEGORIES, CIRCULAR_SUB_CATEGORIES } from "@/lib/machines-data";
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -35,7 +35,14 @@ export default function MachinesIndexPage() {
   const itemsPerPage = 8;
 
   useEffect(() => {
-    setMachines(getAllMachines(false));
+    fetch("/api/machines")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.machines)) {
+          setMachines(data.machines);
+        }
+      })
+      .catch((err) => console.error("Failed to load machines:", err));
   }, []);
 
   // Reset to page 1 whenever filters change

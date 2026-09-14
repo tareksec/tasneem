@@ -29,7 +29,19 @@ git pull origin main || {
 echo "--> Installing dependencies with npm..."
 npm install
 
-# 6. Build Next.js application
+# 6. Prisma Database Setup
+echo "--> Generating Prisma Client..."
+npx prisma generate
+
+# If DATABASE_URL is set in environment, sync schema
+if [ -n "$DATABASE_URL" ]; then
+  echo "--> Syncing schema with Hostinger MySQL (prisma db push)..."
+  npx prisma db push --skip-generate || echo "--> Note: DB push failed or skipped. Run manually if needed."
+else
+  echo "--> Notice: DATABASE_URL not detected in shell environment. Remember to set it in Hostinger hPanel."
+fi
+
+# 7. Build Next.js application
 echo "--> Building production application (npm run build)..."
 npm run build
 

@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tasneem Knitting Industry
 
-## Getting Started
+Marketing + Admin Portal for **Tasneem Knitting Industry** (Industrial Circular Knitting, Dyeing, Shearing & Textile Machinery Importer in Bangladesh).
 
-First, run the development server:
+Built with **Next.js 16 (App Router, React 19, TypeScript)** and designed to run with **zero extra cost** on **Hostinger Node.js Web/Cloud Hosting** using built-in MySQL, Prisma ORM, NextAuth JWT authentication, and local filesystem media uploads.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack Decisions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js 16 (App Router, Server Components & Route Handlers)
+- **Database:** Hostinger Built-in MySQL (`provider = "mysql"`)
+- **ORM:** Prisma v6
+- **Auth:** NextAuth.js (Auth.js) with Credentials provider & JWT session strategy
+- **Password Hashing:** `bcryptjs`
+- **File & Media Storage:** Filesystem storage (`/public/uploads`), served directly as static assets
+- **Styling:** Tailwind CSS v4 + Vanilla CSS Design System
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Quick Local Development
 
-To learn more about Next.js, take a look at the following resources:
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Generate Prisma client:
+   ```bash
+   npx prisma generate
+   ```
 
-## Deploy on Vercel
+4. Push schema to your local or staging MySQL database:
+   ```bash
+   npx prisma db push
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Seed existing machine catalog and default admin user:
+   ```bash
+   npm run db:seed
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. Run the local dev server:
+   ```bash
+   npm run dev
+   ```
+
+Visit [http://localhost:3000](http://localhost:3000) for the public site, and [http://localhost:3000/admin/login](http://localhost:3000/admin/login) for the admin portal.
+
+---
+
+## 🌐 Hostinger Production Deployment Guide
+
+For full instructions on setting up MySQL, configuring Environment Variables in hPanel, running migrations, and seeding data on Hostinger shared/cloud hosting, read:
+
+👉 **[HOSTINGER_SETUP.md](./HOSTINGER_SETUP.md)**
+
+### Default Admin Credentials (Post-Seed)
+- **Email:** `admin@tasneem.com`
+- **Password:** `TasneemAdmin2026!Secure` (configured in `.env`)

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getMachinesByCategory, getCategoryInfo } from "@/lib/machines-data";
+import { getCategoryInfo } from "@/lib/machines-data";
+import { getDbMachines } from "@/lib/db/machines";
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MachineCategory } from "@/lib/types";
 
@@ -9,9 +10,9 @@ interface RelatedMachinesProps {
   category: MachineCategory;
 }
 
-export function RelatedMachines({ currentMachineId, category }: RelatedMachinesProps) {
+export async function RelatedMachines({ currentMachineId, category }: RelatedMachinesProps) {
   const categoryInfo = getCategoryInfo(category);
-  const allInCategory = getMachinesByCategory(category);
+  const allInCategory = await getDbMachines({ category });
   const related = allInCategory.filter((m) => m.id !== currentMachineId).slice(0, 4);
 
   if (related.length === 0) return null;

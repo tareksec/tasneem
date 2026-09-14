@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { QuoteRequestData } from "@/lib/types";
 import { COMPANY_INFO } from "@/lib/constants";
+import prisma from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -57,6 +58,52 @@ Notes: ${data.message || "None"}`;
     const whatsappDirectLink = `https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
       whatsappMessage
     )}`;
+
+    // Save Quote & Customer records to MySQL Database
+    try {
+      await prisma.quote.create({
+        data: {
+          id: quoteId,
+          name: data.name.trim(),
+          company: data.company.trim(),
+          phoneOrWhatsApp: data.phoneOrWhatsApp.trim(),
+          email: data.email?.trim() || null,
+          machineType: data.machineType.trim(),
+          machineId: data.machineId || null,
+          gauge: data.gauge || null,
+          cylinderDiameter: data.cylinderDiameter || null,
+          feederCount: data.feederCount || null,
+          productionTarget: data.productionTarget || null,
+          quantity: data.quantity || "1",
+          preferredBrand: data.preferredBrand || null,
+          deliveryRequirement: data.deliveryRequirement || null,
+          message: data.message || null,
+          status: "new",
+          whatsappUrl: whatsappDirectLink,
+        },
+      });
+
+      if (data.email && data.email.trim()) {
+        await prisma.customer
+          .upsert({
+            where: { email: data.email.trim().toLowerCase() },
+            update: {
+              name: data.name.trim(),
+              company: data.company.trim(),
+              phone: data.phoneOrWhatsApp.trim(),
+            },
+            create: {
+              name: data.name.trim(),
+              company: data.company.trim(),
+              email: data.email.trim().toLowerCase(),
+              phone: data.phoneOrWhatsApp.trim(),
+            },
+          })
+          .catch((err) => console.warn("Customer upsert notice:", err));
+      }
+    } catch (dbError) {
+      console.warn("Could not save quote to database:", dbError);
+    }
 
     // Quote notification email routed to confirmed company domain email (sales@tasneemknitindustry.com)
     console.log(`[B2B Quote Request Received] Ref: ${quoteId} -> Routing notification to: ${COMPANY_INFO.email}`, data);

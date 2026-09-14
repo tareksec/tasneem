@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Calendar, Clock, BookOpen, Search, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { adminStore } from "@/lib/admin/admin-store";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { BlogPost } from "@/lib/admin/types";
 
 export default function PublicBlogPage() {
   const { locale } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [allPosts, setAllPosts] = useState<BlogPost[]>(() => {
+    try {
+      return adminStore.getBlogPosts().filter((p) => p.status === "published");
+    } catch {
+      return [];
+    }
+  });
 
-  const allPosts = adminStore.getBlogPosts().filter((p) => p.status === "published");
+  useEffect(() => {
+    fetch("/api/blog")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.posts) && data.posts.length > 0) {
+          setAllPosts(data.posts);
+        }
+      })
+      .catch((err) => console.error("Failed to load blog posts:", err));
+  }, []);
 
   const categories = [
     { key: "All", name: locale === "bn" ? "সব আর্টিকেল" : "All Articles" },

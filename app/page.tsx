@@ -9,8 +9,11 @@ import { IndustriesSection } from "@/components/home/IndustriesSection";
 import { ProjectsGalleryPlaceholder } from "@/components/home/ProjectsGalleryPlaceholder";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { QuoteCtaBanner } from "@/components/home/QuoteCtaBanner";
+import { getDbFeaturedMachines } from "@/lib/db/machines";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const featuredMachines = await getDbFeaturedMachines(4);
+
   return (
     <>
       {/* 1. Hero */}
@@ -26,7 +29,7 @@ export default function HomePage() {
       <CategoriesSection />
 
       {/* 4. Featured Machines */}
-      <FeaturedMachines />
+      <FeaturedMachines initialMachines={featuredMachines} />
 
       {/* 5 & 6. Sticky Card Overlap: Sourcing & Why Tasneem */}
       <SourcingWhyTasneemStack />

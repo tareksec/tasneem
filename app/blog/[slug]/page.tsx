@@ -32,10 +32,23 @@ export default function PublicBlogDetailPage() {
 
   useEffect(() => {
     if (slug) {
-      // Find by slug_en, slug_bn, or id
-      const found = AdminStore.getBlogPostBySlug(slug) || AdminStore.getBlogPostById(slug);
-      setPost(found || null);
-      setLoading(false);
+      fetch(`/api/blog?slug=${encodeURIComponent(slug)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.post) {
+            setPost(data.post);
+          } else {
+            const fallback = AdminStore.getBlogPostBySlug(slug) || AdminStore.getBlogPostById(slug);
+            setPost(fallback || null);
+          }
+        })
+        .catch(() => {
+          const fallback = AdminStore.getBlogPostBySlug(slug) || AdminStore.getBlogPostById(slug);
+          setPost(fallback || null);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [slug]);
 

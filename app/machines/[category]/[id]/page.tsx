@@ -11,7 +11,8 @@ import {
   CheckCircle2,
   HelpCircle,
 } from "lucide-react";
-import { MACHINES, getMachineById, getCategoryInfo } from "@/lib/machines-data";
+import { getCategoryInfo } from "@/lib/machines-data";
+import { getDbMachineById, getDbMachines } from "@/lib/db/machines";
 import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCategory } from "@/lib/types";
 import { MachineSpecTable, SpecRow } from "@/components/machines/MachineSpecTable";
@@ -19,10 +20,10 @@ import { MachineStickyCta } from "@/components/machines/MachineStickyCta";
 import { MachineGallery } from "@/components/machines/MachineGallery";
 import { RelatedMachines } from "@/components/machines/RelatedMachines";
 
-
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const machines = await getDbMachines();
   const params: { category: string; id: string }[] = [];
-  MACHINES.forEach((m) => {
+  machines.forEach((m) => {
     params.push({ category: m.category, id: m.id });
     if (m.mainCategory && m.mainCategory !== m.category) {
       params.push({ category: m.mainCategory, id: m.id });
@@ -37,7 +38,7 @@ export default async function MachineDetailPage({
   params: Promise<{ category: string; id: string }>;
 }) {
   const { category, id } = await params;
-  const machine = getMachineById(id);
+  const machine = await getDbMachineById(id);
 
   const matchesCategory =
     machine &&

@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { COMPANY_INFO } from "@/lib/constants";
-import { MACHINES, CATEGORIES } from "@/lib/machines-data";
+import { CATEGORIES } from "@/lib/machines-data";
+import { getDbMachines } from "@/lib/db/machines";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = COMPANY_INFO.domain;
 
   // Static core routes
@@ -48,9 +49,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Dynamic machine detail routes
-  const machineRoutes = MACHINES.map((m) => ({
+  const machines = await getDbMachines();
+  const machineRoutes = machines.map((m) => ({
     url: `${baseUrl}/machines/${m.category}/${m.id}`,
-    lastModified: new Date(),
+    lastModified: m.updatedAt ? new Date(m.updatedAt) : new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
     alternates: {

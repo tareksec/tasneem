@@ -1,0 +1,193 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ----------------------------------------------------
+// Admin Staff Authentication
+// ----------------------------------------------------
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Hashed with bcrypt
+  name      String?
+  role      String   @default("Admin")
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+// ----------------------------------------------------
+// Industrial Machinery Catalog
+// ----------------------------------------------------
+model Machine {
+  id                 String   @id // Unique machine slug, e.g. "jiunn-long-double-jersey"
+  name               String
+  name_bn            String?
+  brand              String
+  manufacturer       String
+  machineType        String
+  category           String   // e.g. "double-jersey", "single-jersey", "dyeing", etc.
+  mainCategory       String?
+  subCategory        String?
+  cylinderDiameter   String?
+  gauge              String?
+  feeders            Int?
+  numberOfSystems    Int?
+  machineSpeed       String?
+  fabricType         String?
+  fabricType_bn      String?
+  productionCapacity String?
+  application        Json?    // String array
+  application_bn     Json?    // String array
+  powerRequirement   String?
+  dimensions         String?
+  weight             String?
+  origin             String
+  warranty           String?
+  availability       String   @default("contact-for-availability")
+  price              Float?
+  description        String   @db.Text
+  description_bn     String?  @db.Text
+  features           Json?    // String array
+  features_bn        Json?    // String array
+  images             Json?    // String array of image URLs
+  galleryImages      Json?    // Array of MachineGalleryImage objects
+  status             String   @default("published") // "published" | "draft"
+  seoTitle_en        String?
+  seoTitle_bn        String?
+  seoDesc_en         String?  @db.Text
+  seoDesc_bn         String?  @db.Text
+  ogImage            String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([category])
+  @@index([status])
+  @@map("machines")
+}
+
+// ----------------------------------------------------
+// Technical Knowledge & Sourcing Blog
+// ----------------------------------------------------
+model BlogPost {
+  id           String   @id @default(cuid())
+  title_en     String
+  title_bn     String?
+  slug_en      String   @unique
+  slug_bn      String?
+  cover_image  String?
+  excerpt_en   String?  @db.Text
+  excerpt_bn   String?  @db.Text
+  body_en      String   @db.LongText
+  body_bn      String?  @db.LongText
+  category     String
+  tags         Json?    // String array
+  seo_title_en String?
+  seo_title_bn String?
+  seo_desc_en  String?  @db.Text
+  seo_desc_bn  String?  @db.Text
+  status       String   @default("draft") // "published" | "draft"
+  published_at String?
+  author       String   @default("Admin Staff")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@map("blog_posts")
+}
+
+// ----------------------------------------------------
+// Customer B2B Quote & Sourcing Inquiries
+// ----------------------------------------------------
+model Quote {
+  id                  String   @id // e.g. "TK-QUOTE-XXXXXX"
+  name                String
+  company             String
+  phoneOrWhatsApp     String
+  email               String?
+  machineType         String
+  machineId           String?
+  machineName         String?
+  gauge               String?
+  cylinderDiameter    String?
+  feederCount         String?
+  productionTarget    String?
+  quantity            String   @default("1")
+  preferredBrand      String?
+  deliveryRequirement String?
+  message             String?  @db.Text
+  status              String   @default("new") // "new" | "contacted" | "quoted" | "closed"
+  adminNotes          String?  @db.Text
+  whatsappUrl         String?  @db.Text
+  submittedAt         DateTime @default(now())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("quotes")
+}
+
+// ----------------------------------------------------
+// Customer Records
+// ----------------------------------------------------
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  company   String
+  email     String   @unique
+  phone     String?
+  address   String?
+  district  String?
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("customers")
+}
+
+// ----------------------------------------------------
+// Factory Installation Gallery
+// ----------------------------------------------------
+model GalleryItem {
+  id              String   @id @default(cuid())
+  type            String   @default("image") // "image" | "video"
+  file            String   // Relative image path or video URL
+  thumbnail       String?
+  title_en        String
+  title_bn        String?
+  description_en  String?  @db.Text
+  description_bn  String?  @db.Text
+  location        String?
+  installedDate   String?
+  relatedCategory String?
+  published       Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([published, sortOrder])
+  @@map("gallery_items")
+}
+
+// ----------------------------------------------------
+// URL 301 Redirect Rules
+// ----------------------------------------------------
+model RedirectRule {
+  id          String   @id @default(cuid())
+  source      String   @unique
+  destination String
+  permanent   Boolean  @default(true)
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  @@map("redirect_rules")
+}

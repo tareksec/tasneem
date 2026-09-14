@@ -92,6 +92,46 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
 
   const [tagInput, setTagInput] = useState("");
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success && data.url) {
+        setPost((prev) => ({ ...prev, cover_image: data.url }));
+        toast({
+          type: "success",
+          message: "Image uploaded successfully",
+          description: `Saved to filesystem: ${data.url}`,
+        });
+      } else {
+        toast({
+          type: "error",
+          message: "Upload failed",
+          description: data.error || "Could not upload file to server.",
+        });
+      }
+    } catch (err: any) {
+      toast({
+        type: "error",
+        message: "Upload error",
+        description: err.message || "Failed to reach upload server.",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Auto-generate slug from title if slug has not been manually edited
   const handleTitleChange = (val: string, locale: ContentLocale) => {
@@ -148,6 +188,21 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       status: finalStatus,
       published_at: finalStatus === "published" && !post.published_at ? now : post.published_at,
     };
+
+    try {
+      // Save to database via API
+      const res = await fetch("/api/admin/blog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postToSave),
+      });
+      const data = await res.json();
+      if (data.success && data.post) {
+        postToSave.id = data.post.id;
+      }
+    } catch (e) {
+      console.warn("Could not save to /api/admin/blog:", e);
+    }
 
     const saved = AdminStore.saveBlogPost(postToSave);
     setSaving(false);
@@ -637,6 +692,25 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Direct Filesystem Upload */}
+            <div className="space-y-1.5 pt-2 border-t border-slate-100">
+              <label className="text-xs font-semibold text-slate-700 block">
+                Upload Image (Saved to Filesystem)
+              </label>
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 cursor-pointer"
+              />
+              {uploading && (
+                <p className="text-[11px] text-blue-600 font-medium animate-pulse">
+                  Uploading image to server filesystem...
+                </p>
+              )}
             </div>
 
             {/* Custom Image URL */}
