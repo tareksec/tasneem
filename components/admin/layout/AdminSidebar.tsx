@@ -5,253 +5,254 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  FileText,
-  SlidersHorizontal,
-  Store,
-  ExternalLink,
-  ChevronRight,
-  Menu,
-  X,
-  ShieldCheck,
-  Sparkles,
   Cpu,
   Inbox,
-  Link2,
+  FileText,
   Images,
+  SlidersHorizontal,
+  Link2,
+  ExternalLink,
+  LogOut,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface NavItem {
-  name: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  exact?: boolean;
-  isExternal?: boolean;
-  badge?: string;
-}
-
-interface NavGroup {
-  label: string;
-  items: NavItem[];
-}
+import { useAdminAuth } from "@/lib/admin/auth-context";
 
 interface AdminSidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
 }
 
+// 3D Fluid Yarn Knot SVG (Pixel-perfect recreation of the colorful twisted 3D ribbon/knot in the reference design)
+export function Knot3DAccent({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("w-14 h-14 select-none drop-shadow-[0_8px_16px_rgba(255,105,97,0.35)]", className)}
+      aria-hidden="true"
+    >
+      <defs>
+        {/* Yellow to Coral Gradient */}
+        <linearGradient id="knotGrad1" x1="15" y1="20" x2="85" y2="85" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFDE59" />
+          <stop offset="35%" stopColor="#FFA048" />
+          <stop offset="70%" stopColor="#FF4976" />
+          <stop offset="100%" stopColor="#D8307F" />
+        </linearGradient>
+
+        {/* Coral to Purple Gradient */}
+        <linearGradient id="knotGrad2" x1="80" y1="30" x2="30" y2="80" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FF5C8A" />
+          <stop offset="50%" stopColor="#D9387E" />
+          <stop offset="100%" stopColor="#9C27B0" />
+        </linearGradient>
+
+        {/* Gloss highlight */}
+        <linearGradient id="knotHighlight" x1="30" y1="20" x2="70" y2="60" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* Back Loop Shadow / Body */}
+      <path
+        d="M32 68 C20 54 22 34 38 24 C52 14 72 20 78 36 C84 52 74 72 58 80 C44 87 28 80 22 66"
+        stroke="url(#knotGrad2)"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Front Intertwined Loop */}
+      <path
+        d="M24 46 C20 32 30 18 46 20 C62 22 74 38 68 54 C62 70 42 78 28 72 C18 67 16 52 28 42 C40 32 64 36 74 48 C82 58 78 74 64 80"
+        stroke="url(#knotGrad1)"
+        strokeWidth="15"
+        strokeLinecap="round"
+      />
+
+      {/* Specular 3D Highlight Reflection */}
+      <path
+        d="M36 24 C46 19 60 23 68 34"
+        stroke="url(#knotHighlight)"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M26 68 C22 58 26 48 34 44"
+        stroke="url(#knotHighlight)"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { user, logout } = useAdminAuth();
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
 
-  const navGroups: NavGroup[] = [
+  const navItems = [
     {
-      label: "MAIN MENU",
-      items: [
-        {
-          name: "Dashboard",
-          href: "/admin",
-          icon: LayoutDashboard,
-          exact: true,
-        },
-        {
-          name: "Blog Posts",
-          href: "/admin/blog",
-          icon: FileText,
-          badge: "3",
-        },
-        {
-          name: "Projects Gallery",
-          href: "/admin/gallery",
-          icon: Images,
-          badge: "Upload",
-        },
-        {
-          name: "Site Content",
-          href: "/admin/site-content",
-          icon: SlidersHorizontal,
-          badge: "4 Sections",
-        },
-      ],
+      name: "Analytics",
+      href: "/admin",
+      icon: LayoutDashboard,
+      exact: true,
     },
     {
-      label: "COMMERCE & CATALOG",
-      items: [
-        {
-          name: "Machine Catalog",
-          href: "/admin/products",
-          icon: Cpu,
-          badge: "Catalog",
-        },
-        {
-          name: "Quotes Inbox",
-          href: "/admin/quotes",
-          icon: Inbox,
-          badge: "Leads",
-        },
-        {
-          name: "301 Redirects",
-          href: "/admin/redirects",
-          icon: Link2,
-          badge: "SEO",
-        },
-        {
-          name: "Medusa Engine",
-          href: "http://localhost:9000/app",
-          icon: Store,
-          isExternal: true,
-          badge: "Backend",
-        },
-      ],
+      name: "Catalog",
+      href: "/admin/products",
+      icon: Cpu,
     },
     {
-      label: "PREVIEW & SYSTEM",
-      items: [
-        {
-          name: "View Live Site",
-          href: "/",
-          icon: ExternalLink,
-          isExternal: true,
-        },
-      ],
+      name: "Quotes",
+      href: "/admin/quotes",
+      icon: Inbox,
+      badge: "New",
+    },
+    {
+      name: "Blog",
+      href: "/admin/blog",
+      icon: FileText,
+    },
+    {
+      name: "Gallery",
+      href: "/admin/gallery",
+      icon: Images,
+    },
+    {
+      name: "Content",
+      href: "/admin/site-content",
+      icon: SlidersHorizontal,
+    },
+    {
+      name: "Redirects",
+      href: "/admin/redirects",
+      icon: Link2,
     },
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full justify-between p-4 sm:p-5">
-      {/* Brand Header */}
-      <div>
-        <div className="flex items-center justify-between pb-6 pt-1 px-2 border-b border-slate-100">
-          <Link href="/admin" className="flex items-center gap-3 group">
-            <div className="h-9 w-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow-sm group-hover:bg-[#FF0000] transition-colors duration-200">
-              T
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-slate-900 text-base tracking-tight leading-none">
-                Tasneem
-              </span>
-              <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">
-                Admin Portal
-              </span>
-            </div>
-          </Link>
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
-            aria-label="Close sidebar menu"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
+    <div className="flex flex-col h-full items-center justify-between py-6 px-2.5 select-none">
+      {/* Top Section: Brand Squircle & Navigation */}
+      <div className="flex flex-col items-center w-full space-y-6">
+        {/* Brand Logo Squircle */}
+        <Link
+          href="/admin"
+          className="group relative flex items-center justify-center"
+          title="Tasneem Admin Portal"
+        >
+          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-[#FF6662] via-[#FF5579] to-[#FF4186] p-0.5 flex items-center justify-center shadow-lg shadow-rose-500/25 transition-transform duration-200 group-hover:scale-105 active:scale-95">
+            {/* White Ribbon / T monogram */}
+            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
+              <path
+                d="M5 6C5 4.89543 5.89543 4 7 4H17C18.1046 4 19 4.89543 19 6C19 7.10457 18.1046 8 17 8H13.5V18C13.5 19.1046 12.6046 20 11.5 20C10.3954 20 9.5 19.1046 9.5 18V8H7C5.89543 8 5 7.10457 5 6Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </Link>
 
-        {/* Nav Sections */}
-        <nav className="mt-6 space-y-6">
-          {navGroups.map((group) => (
-            <div key={group.label} className="space-y-1.5">
-              <p className="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                {group.label}
-              </p>
-              <div className="space-y-1">
-                {group.items.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = item.exact
-                    ? pathname === item.href
-                    : item.isExternal
-                    ? false
-                    : pathname.startsWith(item.href);
+        {/* Vertical Icon Navigation */}
+        <nav className="flex flex-col items-center space-y-2.5 w-full">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
 
-                  if (item.isExternal) {
-                    return (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn(
-                          "flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150 group cursor-pointer",
-                          "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                        )}
-                        title="Opens Medusa Admin catalog, quotes, and customer accounts in a new window"
-                      >
-                        <div className="flex items-center gap-3">
-                          <Icon className="h-4 w-4 text-slate-400 group-hover:text-slate-700 transition-colors" />
-                          <span>{item.name}</span>
-                        </div>
-                        {item.badge ? (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200/60 group-hover:border-slate-300">
-                            {item.badge} ↗
-                          </span>
-                        ) : (
-                          <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-slate-500" />
-                        )}
-                      </a>
-                    );
-                  }
+            return (
+              <div key={item.name} className="relative w-full flex justify-center">
+                <Link
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  onMouseEnter={() => setShowTooltip(item.name)}
+                  onMouseLeave={() => setShowTooltip(null)}
+                  className={cn(
+                    "relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 cursor-pointer",
+                    isActive
+                      ? "bg-[#383A42] text-white shadow-inner"
+                      : "text-slate-400 hover:text-white hover:bg-white/5"
+                  )}
+                  aria-label={item.name}
+                >
+                  <Icon className={cn("w-5 h-5 transition-transform", isActive ? "scale-105" : "")} />
 
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={cn(
-                        "flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150 cursor-pointer",
-                        isActive
-                          ? "bg-[#FF0000] text-white shadow-xs font-semibold"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                      )}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Icon
-                          className={cn(
-                            "h-4 w-4 transition-colors",
-                            isActive ? "text-white" : "text-slate-400 group-hover:text-slate-700"
-                          )}
-                        />
-                        <span>{item.name}</span>
-                      </div>
-                      {item.badge && (
-                        <span
-                          className={cn(
-                            "text-[10px] font-semibold px-2 py-0.5 rounded-md",
-                            isActive
-                              ? "bg-white/20 text-white"
-                              : "bg-slate-100 text-slate-600 border border-slate-200/60"
-                          )}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </Link>
-                  );
-                })}
+                  {/* Active Capsule Indicator Tab on Right Edge (Pixel-perfect match with reference) */}
+                  {isActive && (
+                    <span
+                      className="absolute -right-2.5 w-1.5 h-3.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                      aria-hidden="true"
+                    />
+                  )}
+
+                  {/* Red dot badge if item has badge */}
+                  {item.badge && !isActive && (
+                    <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#FF4565]" />
+                  )}
+                </Link>
+
+                {/* Floating Tooltip */}
+                {showTooltip === item.name && (
+                  <div className="absolute left-14 top-1/2 -translate-y-1/2 z-50 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-semibold whitespace-nowrap shadow-xl border border-white/10 animate-in fade-in zoom-in-95 pointer-events-none">
+                    {item.name}
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
       </div>
 
-      {/* Bottom Card - DealDeck Style Medusa Engine status */}
-      <div className="mt-8 pt-4 border-t border-slate-100">
-        <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-4 text-white shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center text-amber-400">
-                <Store className="h-4 w-4" />
-              </div>
-              <span className="text-xs font-bold text-white">Medusa Admin</span>
+      {/* Bottom Section: 3D Fluid Knot, User Avatar & Controls */}
+      <div className="flex flex-col items-center w-full space-y-4 pt-4">
+        {/* 3D Fluid Yarn Knot (Signature design accent from reference image) */}
+        <div className="relative cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95" title="Tasneem Knitting Technology">
+          <Knot3DAccent />
+        </div>
+
+        {/* User Avatar with Red Badge "6" */}
+        <div className="relative mt-1">
+          <div
+            className="w-10 h-10 rounded-[14px] bg-gradient-to-tr from-slate-700 to-slate-500 overflow-hidden ring-2 ring-white/15 p-0.5 flex items-center justify-center cursor-pointer shadow-md"
+            title={`${user?.name || "Admin Staff"} (${user?.role || "Administrator"})`}
+          >
+            {/* Stylized portrait avatar */}
+            <div className="w-full h-full rounded-[12px] bg-slate-800 flex items-center justify-center text-xs font-bold text-white uppercase">
+              {user?.name ? user.name.slice(0, 2) : "TS"}
             </div>
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" title="Connected" />
           </div>
-          <p className="text-[11px] text-slate-300 mt-2 leading-relaxed">
-            Machine catalog, quote inbox, and orders are managed directly in Medusa.
-          </p>
-          <a
-            href="http://localhost:9000/app"
+
+          {/* Red Notification Pill (Count 6 matching reference) */}
+          <span
+            className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-[#FF4565] text-white text-[9px] font-extrabold flex items-center justify-center ring-2 ring-[#111217]"
+            title="6 unread notifications"
+          >
+            6
+          </span>
+        </div>
+
+        {/* Bottom Actions: Logout & Menu */}
+        <div className="flex items-center gap-1.5 text-slate-400">
+          <button
+            type="button"
+            onClick={() => logout()}
+            className="p-1.5 rounded-xl hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            title="Sign Out"
+            aria-label="Sign Out"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+          <Link
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 block w-full text-center py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-colors duration-150"
+            className="p-1.5 rounded-xl hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            title="View Live Site"
+            aria-label="View Live Site"
           >
-            Launch Medusa ↗
-          </a>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </div>
@@ -259,20 +260,30 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
 
   return (
     <>
-      {/* Desktop Fixed Left Sidebar */}
-      <aside className="hidden lg:flex w-64 xl:w-72 flex-col fixed inset-y-0 left-0 bg-white border-r border-slate-200/80 z-30 shadow-[2px_0_12px_rgba(0,0,0,0.02)]">
+      {/* Desktop Compact Dark Sidebar */}
+      <aside className="hidden lg:flex w-20 xl:w-[84px] flex-col shrink-0 bg-[#111217] z-30 select-none">
         {sidebarContent}
       </aside>
 
-      {/* Mobile / Tablet Drawer */}
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed inset-y-0 left-0 w-72 max-w-[85vw] bg-white shadow-2xl z-50 animate-in slide-in-from-left duration-200">
+          <div className="fixed inset-y-0 left-0 w-24 bg-[#111217] shadow-2xl z-50 animate-in slide-in-from-left duration-200">
+            <div className="absolute top-2 right-2">
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                className="p-1 text-slate-400 hover:text-white"
+                aria-label="Close menu"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
             {sidebarContent}
           </div>
         </div>
