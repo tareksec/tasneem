@@ -82,6 +82,16 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/logo/logo-mark.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: "/logo/logo-mark.png",
+    apple: [
+      { url: "/logo/logo-mark.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || "google-site-verification-tasneem-pending",
   },
@@ -95,6 +105,9 @@ export default function RootLayout({
   return (
     <html lang="bn" className={`${notoSerifBengali.variable} h-full antialiased`}>
       <head>
+        <link rel="icon" href="/logo/logo-mark.png" type="image/png" />
+        <link rel="shortcut icon" href="/logo/logo-mark.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo/logo-mark.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
