@@ -16,6 +16,7 @@ import {
   LogOut,
   ExternalLink,
   Store,
+  Home,
 } from "lucide-react";
 import { useAdminAuth } from "@/lib/admin/auth-context";
 import { cn } from "@/lib/utils";
@@ -78,6 +79,19 @@ export function AdminTopBar({ onToggleMobileSidebar }: AdminTopBarProps) {
 
       {/* Center & Right Controls: Search, Domain Dropdown, Actions */}
       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+        {/* Visit Public Website Home Button */}
+        <Link
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/90 hover:bg-white border border-slate-200/80 text-xs font-bold text-slate-800 hover:text-[#800020] shadow-2xs hover:border-[#800020]/30 transition-all group cursor-pointer"
+          title="Open Public Website Home"
+        >
+          <Home className="w-3.5 h-3.5 text-[#800020] group-hover:scale-110 transition-transform" />
+          <span>Home</span>
+          <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-[#800020] transition-colors" />
+        </Link>
+
         {/* Domain Selector Pill (Pixel-perfect matching reference image dropdown) */}
         <div className="relative">
           <button
