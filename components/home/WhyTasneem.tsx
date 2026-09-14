@@ -73,17 +73,10 @@ export function WhyTasneem() {
       {/* 2. Top Header Zone */}
       <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
         <MotionSection delay={0.05} className="flex flex-col items-center">
-          {/* Glowing Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-[#F9E6EA] backdrop-blur-md text-xs font-bold text-[#800020] shadow-md mb-3.5">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
-            <span className="text-[#800020] font-extrabold tracking-wider uppercase">
-              {dict.whyTasneem.badge}
-            </span>
-            <span className="text-neutral-400 font-normal">•</span>
-            <span className="text-neutral-700 font-medium">
-              {locale === "bn" ? "কেন শীর্ষ টেক্সটাইল মিলগুলো তাসনীমকে বেছে নেয়" : "Why Leading Mills Choose Tasneem"}
-            </span>
-          </div>
+          {/* Section kicker keyword context preserved in DOM for SEO/GEO */}
+          <span className="sr-only">
+            {dict.whyTasneem.badge} • {locale === "bn" ? "কেন শীর্ষ টেক্সটাইল মিলগুলো তাসনীমকে বেছে নেয়" : "Why Leading Mills Choose Tasneem"}
+          </span>
 
           {/* Section Heading */}
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#2D2D2D] leading-tight">
@@ -136,7 +129,7 @@ export function WhyTasneem() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             <Link
               href="/about"
-              className="bg-[#800020] hover:bg-[#5A0017] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-md shadow-rose-950/25 hover:scale-[1.03] min-h-[40px]"
+              className="bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-md shadow-rose-950/25 hover:scale-[1.03] min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <span>{dict.common.readMore}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -144,7 +137,7 @@ export function WhyTasneem() {
 
             <Link
               href="/machines"
-              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center justify-center gap-1.5 shadow-xs hover:border-neutral-400 min-h-[40px]"
+              className="bg-white/90 hover:bg-white active:scale-[0.98] border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center justify-center gap-1.5 shadow-xs hover:border-neutral-400 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <span>{dict.common.viewAllMachines}</span>
               <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />

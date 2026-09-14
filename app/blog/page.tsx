@@ -29,7 +29,9 @@ export default function PublicBlogPage() {
           setAllPosts(data.posts);
         }
       })
-      .catch((err) => console.error("Failed to load blog posts:", err));
+      .catch(() => {
+        // Fallback to local adminStore posts if API route is unavailable
+      });
   }, []);
 
   const categories = [
@@ -54,10 +56,7 @@ export default function PublicBlogPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800 mb-4 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#800020]" />
-            <span>{locale === "bn" ? "টেকনিক্যাল তথ্য ও মার্কেট গাইড" : "Technical Knowledge & Sourcing Insights"}</span>
-          </div>
+          <span className="sr-only">{locale === "bn" ? "টেকনিক্যাল তথ্য ও মার্কেট গাইড" : "Technical Knowledge & Sourcing Insights"}</span>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-950">
             {locale === "bn"
               ? "সার্কুলার নিটিং মেশিনারি ও টেক্সটাইল ব্লগ"
@@ -79,7 +78,7 @@ export default function PublicBlogPage() {
                 key={cat.key}
                 type="button"
                 onClick={() => setSelectedCategory(cat.key)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] active:scale-95 ${
                   selectedCategory === cat.key
                     ? "bg-[#2D2D2D] text-white shadow-xs"
                     : "bg-neutral-100 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-200"
@@ -98,7 +97,7 @@ export default function PublicBlogPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={locale === "bn" ? "আর্টিকেল বা বিষয় লিখে খুঁজুন..." : "Search articles..."}
-              className="w-full pl-9 pr-4 py-2 rounded-full border border-neutral-200 bg-neutral-50 text-xs focus:bg-white focus:outline-none focus:border-neutral-950 transition-colors"
+              className="w-full pl-9 pr-4 py-2 rounded-full border border-neutral-200 bg-neutral-50 text-xs focus:bg-white focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition-colors"
             />
           </div>
         </div>

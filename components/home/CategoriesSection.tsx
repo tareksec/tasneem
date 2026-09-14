@@ -58,11 +58,10 @@ export function CategoriesSection() {
         <div className="max-w-7xl mx-auto flex flex-col gap-6">
           {/* Header */}
           <div className="flex flex-col gap-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] shadow-xs w-fit">
-              <Cpu className="w-3.5 h-3.5 text-[#800020] animate-pulse shrink-0" />
+            <div className="sr-only">
               <span>{locale === "bn" ? "মেশিনারি ক্যাটালগ" : dict.categories.badge}</span>
-              <span className="text-neutral-400">•</span>
-              <span className="text-neutral-600 font-normal">
+              <span> • </span>
+              <span>
                 {locale === "bn" ? "৫টি মূল ক্যাটাগরি" : "5 Primary Categories"}
               </span>
             </div>
@@ -73,7 +72,7 @@ export function CategoriesSection() {
             </h2>
             <Link
               href="/machines"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D2D2D] hover:text-[#800020] bg-white hover:bg-[#FDF2F4]/30 border border-neutral-300/80 px-4 py-2.5 rounded-xl transition-all self-start mt-1 shadow-xs min-h-[40px]"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D2D2D] hover:text-[#800020] bg-white hover:bg-[#FDF2F4]/30 border border-neutral-300/80 px-4 py-2.5 rounded-xl transition-all self-start mt-1 shadow-xs min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
             >
               <span>{dict.categories.viewAllBtn}</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#800020]" />
@@ -162,7 +161,7 @@ export function CategoriesSection() {
 
                     <Link
                       href={`/machines/${category.slug}`}
-                      className="w-full bg-[#800020] hover:bg-[#5A0017] text-white font-bold text-sm py-3 px-5 rounded-full shadow-md transition-colors flex items-center justify-center gap-1.5 min-h-[44px]"
+                      className="w-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm py-3 px-5 rounded-full shadow-md transition-all flex items-center justify-center gap-1.5 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                     >
                       <span>{locale === "bn" ? "মেশিন মডেল দেখুন" : "Explore Machinery"}</span>
                       <ArrowUpRight className="w-4 h-4 text-white" />
@@ -189,11 +188,10 @@ export function CategoriesSection() {
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-2 shadow-xs">
-                <Cpu className="w-3.5 h-3.5 text-[#800020] animate-pulse" />
+              <div className="sr-only">
                 <span>{locale === "bn" ? "মেশিনারি ক্যাটালগ" : dict.categories.badge}</span>
-                <span className="text-neutral-400">•</span>
-                <span className="text-neutral-600 font-normal">
+                <span> • </span>
+                <span>
                   {locale === "bn" ? "৫টি মূল ক্যাটাগরি" : "5 Primary Categories"}
                 </span>
               </div>
@@ -206,7 +204,7 @@ export function CategoriesSection() {
 
             <Link
               href="/machines"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2D2D2D] hover:text-[#800020] bg-white hover:bg-[#FDF2F4]/30 border border-neutral-300/80 px-4 py-2 rounded-xl transition-all self-start sm:self-auto cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2D2D2D] hover:text-[#800020] bg-white hover:bg-[#FDF2F4]/30 border border-neutral-300/80 px-4 py-2 rounded-xl transition-all self-start sm:self-auto cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
             >
               <span>{dict.categories.viewAllBtn}</span>
               <ArrowUpRight className="w-4 h-4 text-[#800020]" />
@@ -223,7 +221,7 @@ export function CategoriesSection() {
                 <button
                   key={category.slug}
                   onClick={() => scrollToCategory(idx)}
-                  className={`relative isolate px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                  className={`relative isolate px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                     isActive
                       ? "text-white shadow-md shadow-rose-950/25"
                       : "text-neutral-600 hover:text-[#2D2D2D] bg-white hover:bg-neutral-100 border border-neutral-200/90 shadow-xs"
@@ -348,7 +346,7 @@ export function CategoriesSection() {
                     {/* Full-width Capsule Action Button */}
                     <Link
                       href={`/machines/${category.slug}`}
-                      className="w-full bg-[#800020] hover:bg-[#5A0017] text-white font-bold text-sm sm:text-base py-3.5 px-6 rounded-full shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn cursor-pointer"
+                      className="w-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm sm:text-base py-3.5 px-6 rounded-full shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                     >
                       <span>{locale === "bn" ? "মেশিন মডেল দেখুন" : "Explore Machinery"}</span>
                       <ArrowUpRight className="w-4 h-4 text-white transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />

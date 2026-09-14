@@ -39,10 +39,9 @@ export function QuoteCtaBanner() {
 
           {/* 3. Text & Call-to-Action Content */}
           <div className="relative z-10 w-full max-w-xl lg:max-w-2xl py-8 sm:py-14 lg:py-16 px-4 sm:px-10 lg:px-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-3 sm:mb-4 shadow-xs">
-              <Sliders className="w-3.5 h-3.5 text-[#800020]" />
-              <span>{locale === "bn" ? "কাস্টম মেশিনারি সোর্সিং" : "Custom Machinery Sourcing"}</span>
-            </div>
+            <span className="sr-only">
+              {locale === "bn" ? "কাস্টম মেশিনারি সোর্সিং" : "Custom Machinery Sourcing"}
+            </span>
 
             <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-[#2D2D2D] leading-[1.18] mb-3 sm:mb-4">
               {dict.quoteBanner.title}
@@ -55,7 +54,7 @@ export function QuoteCtaBanner() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5">
               <Link
                 href="/quote"
-                className="w-full sm:w-auto bg-[#800020] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-[#5A0017] hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-rose-950/20 cursor-pointer min-h-[44px]"
+                className="w-full sm:w-auto bg-[#800020] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-[#5A0017] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-rose-950/20 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <span>{dict.quoteBanner.ctaBtn}</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -67,7 +66,7 @@ export function QuoteCtaBanner() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-white/95 backdrop-blur-md border border-neutral-300/90 text-[#2D2D2D] px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-neutral-50 hover:border-neutral-400 transition-all duration-200 flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px]"
+                className="w-full sm:w-auto bg-white/95 backdrop-blur-md border border-neutral-300/90 text-[#2D2D2D] px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-neutral-50 hover:border-neutral-400 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span className="truncate">{dict.quoteBanner.whatsappBtn}</span>

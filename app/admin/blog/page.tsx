@@ -243,7 +243,7 @@ export default function BlogListPage() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={post.cover_image || "/images/machines/cat-double-jersey.jpg"}
-                              alt=""
+                              alt={post.title_en || "Blog post cover"}
                               onError={(e) => {
                                 e.currentTarget.src = "/images/machines/cat-double-jersey.jpg";
                               }}

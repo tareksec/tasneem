@@ -66,10 +66,7 @@ export default function FaqPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] text-xs font-semibold text-[#4B5563] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
-            <span>{t.faq.badge}</span>
-          </div>
+          <span className="sr-only">{t.faq.badge}</span>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {t.faq.title}
           </h1>
@@ -111,7 +108,7 @@ export default function FaqPage() {
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             <Link
               href="/quote"
-              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-colors text-center"
+              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               {t.common.requestQuote}
             </Link>
@@ -119,7 +116,7 @@ export default function FaqPage() {
               href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto bg-emerald-600 text-white px-4 py-2.5 rounded-lg text-xs font-bold hover:bg-emerald-700 transition-colors flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto bg-emerald-600 text-white px-4 py-2.5 rounded-lg text-xs font-bold hover:bg-emerald-700 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               <span>WhatsApp</span>

@@ -21,7 +21,9 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
             setMachines(data.machines.slice(0, 4));
           }
         })
-        .catch((err) => console.error("Failed to load featured machines:", err));
+        .catch(() => {
+          // Graceful fallback without noisy console logs in production
+        });
     }
   }, [initialMachines]);
 
@@ -33,7 +35,7 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
         {/* Section Header */}
         <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
-            <span className="text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2 block">
+            <span className="sr-only">
               {dict.featured.badge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
@@ -45,7 +47,7 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
           </div>
           <Link
             href="/machines"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
           >
             <span>{dict.common.viewAllMachines}</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -118,13 +120,13 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
                 <div className="mt-6 pt-4 border-t border-[#E5E5E5] flex items-center gap-2">
                   <Link
                     href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}`}
-                    className="flex-1 bg-[#800020] text-white text-center py-2 px-3 rounded-lg text-xs font-semibold hover:bg-[#5A0017] transition-colors duration-200 shadow-xs"
+                    className="flex-1 bg-[#800020] text-white text-center py-2 px-3 rounded-lg text-xs font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
                   >
                     {dict.featured.quoteBtn}
                   </Link>
                   <Link
                     href={`/machines/${machine.category}/${machine.id}`}
-                    className="w-8 h-8 rounded-lg border border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-center text-[#4A4A4A] hover:border-[#800020] hover:text-[#800020] transition-colors duration-200 shrink-0 group/arrow shadow-xs"
+                    className="w-8 h-8 rounded-lg border border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-center text-[#4A4A4A] hover:border-[#800020] hover:text-[#800020] transition-colors duration-200 shrink-0 group/arrow shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
                     aria-label={`View details of ${machine.name}`}
                   >
                     <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5" />

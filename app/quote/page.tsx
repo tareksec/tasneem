@@ -321,10 +321,7 @@ function QuoteFormContent() {
 
         {/* Page Header */}
         <div className="max-w-3xl mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-bold text-[#800020] mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse" />
-            <span>{isBn ? "বাণিজ্যিক আমদানি ও সিএফআর কোটেশন" : "B2B Commercial Procurement & Sourcing"}</span>
-          </div>
+          <span className="sr-only">{isBn ? "বাণিজ্যিক আমদানি ও সিএফআর কোটেশন" : "B2B Commercial Procurement & Sourcing"}</span>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#2D2D2D]">
             {isBn ? "শিল্পমানের মেশিনারি কোটেশন রিকোয়েস্ট" : "Request an Industrial Machinery Quotation"}
           </h1>
@@ -342,7 +339,7 @@ function QuoteFormContent() {
             <button
               type="button"
               onClick={() => goToStep(1)}
-              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer ${
+              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                 currentStep === 1
                   ? "bg-[#FDF2F4] border border-[#D8A4AF]"
                   : "hover:bg-slate-50 border border-transparent"
@@ -373,7 +370,7 @@ function QuoteFormContent() {
             <button
               type="button"
               onClick={() => goToStep(2)}
-              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer ${
+              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                 currentStep === 2
                   ? "bg-[#FDF2F4] border border-[#D8A4AF]"
                   : "hover:bg-slate-50 border border-transparent"
@@ -404,7 +401,7 @@ function QuoteFormContent() {
             <button
               type="button"
               onClick={() => goToStep(3)}
-              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer ${
+              className={`flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                 currentStep === 3
                   ? "bg-[#FDF2F4] border border-[#D8A4AF]"
                   : "hover:bg-slate-50 border border-transparent"
@@ -541,7 +538,7 @@ function QuoteFormContent() {
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] block mb-1">
+                        <span className="sr-only">
                           {isBn ? "ধাপ ১: মেশিন ক্যাটাগরি ও মডেল" : "Step 1: Machine Category & Selection"}
                         </span>
                         <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -568,7 +565,7 @@ function QuoteFormContent() {
                                 key={cat.id}
                                 type="button"
                                 onClick={() => handleCategorySelect(cat)}
-                                className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                                className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                                   isSelected
                                     ? "bg-[#FDF2F4] border-[#800020] text-[#800020] shadow-xs ring-1 ring-[#800020]"
                                     : "bg-[#F9FAFB] border-[#E5E7EB] text-slate-700 hover:border-slate-300 hover:bg-white"
@@ -681,7 +678,7 @@ function QuoteFormContent() {
                         <button
                           type="button"
                           onClick={() => goToStep(2)}
-                          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer"
+                          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 active:scale-98"
                         >
                           <span>{isBn ? "পরবর্তী ধাপ: টেকনিক্যাল স্পেসিফিকেশন" : "Next: Technical Specs"}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -696,7 +693,7 @@ function QuoteFormContent() {
                   {currentStep === 2 && (
                     <div className="space-y-6">
                       <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] block mb-1">
+                        <span className="sr-only">
                           {isBn ? "ধাপ ২: টেকনিক্যাল প্যারামিটার" : "Step 2: Technical Parameters"}
                         </span>
                         <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -917,7 +914,7 @@ function QuoteFormContent() {
                         <button
                           type="button"
                           onClick={() => goToStep(1)}
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] active:scale-98"
                         >
                           <ArrowLeft className="w-4 h-4" />
                           <span>{isBn ? "পূর্ববর্তী ধাপ" : "Back"}</span>
@@ -925,7 +922,7 @@ function QuoteFormContent() {
                         <button
                           type="button"
                           onClick={() => goToStep(3)}
-                          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer"
+                          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 active:scale-98"
                         >
                           <span>{isBn ? "পরবর্তী ধাপ: যোগাযোগ ও মিলের তথ্য" : "Next: Buyer Contact Details"}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -940,7 +937,7 @@ function QuoteFormContent() {
                   {currentStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] block mb-1">
+                        <span className="sr-only">
                           {isBn ? "ধাপ ৩: যোগাযোগ ও প্রফরমা ইনভয়েস" : "Step 3: Buyer & Factory Information"}
                         </span>
                         <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -1109,7 +1106,7 @@ function QuoteFormContent() {
                         <button
                           type="button"
                           onClick={() => goToStep(2)}
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] active:scale-98"
                         >
                           <ArrowLeft className="w-4 h-4" />
                           <span>{isBn ? "স্পেসিফিকেশনে ফিরুন" : "Back to Specs"}</span>
@@ -1118,7 +1115,7 @@ function QuoteFormContent() {
                         <button
                           type="submit"
                           disabled={submitting}
-                          className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                          className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                         >
                           {submitting ? (
                             <>

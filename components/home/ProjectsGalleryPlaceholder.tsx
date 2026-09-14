@@ -58,10 +58,9 @@ export function ProjectsGalleryPlaceholder() {
         {/* Section Header */}
         <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2">
-              <Camera className="w-4 h-4 text-[#800020]" />
-              <span>{locale === "bn" ? "বাস্তব কাজের প্রমাণ" : "Field Verification"}</span>
-            </div>
+            <span className="sr-only">
+              {locale === "bn" ? "বাস্তব কাজের প্রমাণ" : "Field Verification"}
+            </span>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
               {locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন ও প্রজেক্ট গ্যালারি" : "Projects & Installation Gallery"}
             </h2>
@@ -73,9 +72,9 @@ export function ProjectsGalleryPlaceholder() {
           </div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
           >
-            <span>{dict.common.readMore}</span>
+            <span>{locale === "bn" ? "সকল প্রজেক্ট দেখুন" : "View All Projects"}</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </MotionSection>
@@ -254,7 +253,8 @@ export function ProjectsGalleryPlaceholder() {
               <button
                 type="button"
                 onClick={() => setActiveMedia(null)}
-                className="w-8 h-8 rounded-full bg-white border border-neutral-300 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 flex items-center justify-center transition-colors shrink-0"
+                aria-label="Close modal"
+                className="w-8 h-8 rounded-full bg-white border border-neutral-300 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 flex items-center justify-center transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
               >
                 <X className="w-4 h-4" />
               </button>

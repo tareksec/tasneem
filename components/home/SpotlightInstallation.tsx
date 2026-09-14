@@ -46,7 +46,7 @@ export function SpotlightInstallation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <span className="text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2 block">
+          <span className="sr-only">
             {dict.installation.badge}
           </span>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
@@ -150,7 +150,7 @@ export function SpotlightInstallation() {
         <MotionSection delay={0.1} className="mt-12 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 bg-[#800020] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#5A0017] transition-colors duration-200 shadow-xs"
+            className="inline-flex items-center gap-2 bg-[#800020] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
           >
             <span>{dict.common.readMore}</span>
             <ArrowUpRight className="w-4 h-4" />

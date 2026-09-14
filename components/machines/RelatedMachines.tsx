@@ -21,7 +21,7 @@ export async function RelatedMachines({ currentMachineId, category }: RelatedMac
     <section className="mt-16 pt-12 border-t border-[#E5E5E5]">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#800020] block mb-1">
+          <span className="sr-only">
             Similar Specifications
           </span>
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2D2D2D]">
@@ -34,7 +34,7 @@ export async function RelatedMachines({ currentMachineId, category }: RelatedMac
 
         <Link
           href={`/machines/${category}`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#800020] hover:underline shrink-0"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#800020] hover:underline shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-sm"
         >
           <span>View all {categoryInfo?.name} models ({allInCategory.length})</span>
           <ArrowUpRight className="w-4 h-4" />

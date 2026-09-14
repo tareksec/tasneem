@@ -239,14 +239,10 @@ export function ProcessWaveSection() {
           06
         </div>
 
-        {/* Minimalist Top Overline with Flanking Red Dashes */}
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <span className="w-6 sm:w-10 h-[2px] bg-[#800020] rounded-full" />
-          <span className="text-[11px] sm:text-xs font-mono font-bold tracking-widest text-[#800020] uppercase">
-            {locale === "bn" ? "মেশিন আমদানির সহজ ধাপসমূহ" : "TASNEEM SOURCING JOURNEY"}
-          </span>
-          <span className="w-6 sm:w-10 h-[2px] bg-[#800020] rounded-full" />
-        </div>
+        {/* Minimalist Top Overline (Preserved in DOM for SEO/GEO) */}
+        <span className="sr-only">
+          {locale === "bn" ? "মেশিন আমদানির সহজ ধাপসমূহ" : "TASNEEM SOURCING JOURNEY"}
+        </span>
 
         {/* Crisp Main Headline: "Process section." / "Machinery Sourcing." */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight text-center mb-4">
@@ -273,7 +269,7 @@ export function ProcessWaveSection() {
                 <button
                   key={String(tab.key)}
                   onClick={() => setActivePhase(tab.key as any)}
-                  className={`relative isolate px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 select-none ${
+                  className={`relative isolate px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                     isActive
                       ? "text-white shadow-md shadow-red-500/30"
                       : "text-neutral-700 hover:text-black bg-white/80 hover:bg-white border border-transparent shadow-xs"

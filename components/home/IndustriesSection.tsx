@@ -130,7 +130,7 @@ export function IndustriesSection() {
                   </div>
                 </div>
 
-                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider opacity-60">
+                <span className="sr-only">
                   {locale === "bn" ? "শিল্প অ্যাপ্লিকেশন" : "Industrial Application"}
                 </span>
               </div>
@@ -189,7 +189,7 @@ export function IndustriesSection() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
                   <Link
                     href="/industries"
-                    className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] cursor-pointer min-h-[44px] text-center ${ind.btnClass}`}
+                    className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 ${ind.btnClass}`}
                   >
                     <span>
                       {locale === "bn" ? "এই খাতের বিস্তারিত ও ছবি দেখুন" : "Explore Industry Specs & Gallery"}
@@ -199,7 +199,7 @@ export function IndustriesSection() {
 
                   <Link
                     href="/quote"
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-semibold border border-current/20 hover:border-current/50 opacity-80 hover:opacity-100 transition-colors min-h-[44px] text-center"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-semibold border border-current/20 hover:border-current/50 opacity-80 hover:opacity-100 active:scale-[0.98] transition-all min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                   >
                     <span>{dict.common.requestQuote}</span>
                   </Link>

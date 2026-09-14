@@ -16,10 +16,7 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <MotionSection className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] text-xs font-semibold text-[#4B5563] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
-            <span>{locale === "bn" ? "আমাদের পরিচিতি" : "Corporate Profile & Positioning"}</span>
-          </div>
+          <span className="sr-only">{locale === "bn" ? "আমাদের পরিচিতি" : "Corporate Profile & Positioning"}</span>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {locale === "bn"
               ? "শিল্পমানের Circular Knitting, Dyeing, Shearing ও Finishing মেশিন আমদানিকারক"
@@ -37,10 +34,7 @@ export default function AboutPage() {
           {/* Header Bar Overlay with clean frosted backdrop */}
           <div className="relative z-10 px-6 sm:px-10 pt-6 sm:pt-8 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-b from-white via-white/80 to-transparent">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-1.5 shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
-                <span>{locale === "bn" ? "আমদানি থেকে ইনস্টলেশন পাইপলাইন" : "End-to-End Operational Pipeline"}</span>
-              </div>
+              <span className="sr-only">{locale === "bn" ? "আমদানি থেকে ইনস্টলেশন পাইপলাইন" : "End-to-End Operational Pipeline"}</span>
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#2D2D2D] tracking-tight">
                 {locale === "bn"
                   ? "কীভাবে তাসনীম সরাসরি বিদেশি ফ্যাক্টরি থেকে আপনার মিলে মেশিন পৌঁছে দেয়"
@@ -278,7 +272,7 @@ export default function AboutPage() {
               <div className="mt-6 pt-4 border-t border-[#2A2A2A]">
                 <Link
                   href="/quote"
-                  className="w-full bg-[#800020] hover:bg-[#5A0017] text-white py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#161616]"
                 >
                   <span>{t.common.requestQuote}</span>
                   <ArrowUpRight className="w-4 h-4" />

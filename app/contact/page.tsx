@@ -161,10 +161,7 @@ export default function ContactPage() {
         
         {/* Header */}
         <MotionSection className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#F9E6EA] bg-[#FDF2F4] text-xs font-bold text-[#800020] mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse" />
-            <span>{isBn ? "সরাসরি যোগাযোগ ও সেলস ডেস্ক" : "Commercial Inquiries & Helpdesk"}</span>
-          </div>
+          <span className="sr-only">{isBn ? "সরাসরি যোগাযোগ ও সেলস ডেস্ক" : "Commercial Inquiries & Helpdesk"}</span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#2D2D2D]">
             {isBn ? "আমাদের সাথে সরাসরি যোগাযোগ করুন" : "Contact Tasneem Knit Industry"}
           </h1>
@@ -442,7 +439,7 @@ export default function ContactPage() {
                                 key={sub.id}
                                 type="button"
                                 onClick={() => setFormData({ ...formData, subject: sub.title })}
-                                className={`p-2.5 rounded-2xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                                className={`p-2.5 rounded-2xl border text-left flex items-center gap-2 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                                   isSelected
                                     ? "bg-[#FDF2F4] border-[#800020] text-[#800020] font-bold shadow-xs ring-1 ring-[#800020]"
                                     : "bg-[#F9FAFB] border-[#E5E7EB] text-slate-700 hover:border-slate-300 hover:bg-white"
@@ -604,7 +601,7 @@ export default function ContactPage() {
                         <button
                           type="submit"
                           disabled={loading}
-                          className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                          className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                         >
                           {loading ? (
                             <>

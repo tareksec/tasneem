@@ -103,7 +103,7 @@ export function Header() {
         }`}
       >
         {/* Left: Brand Logo */}
-        <Link href="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0" aria-label="Tasneem Knit Industry Home">
+        <Link href="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg" aria-label="Tasneem Knit Industry Home">
           <div className="relative h-7 sm:h-9 w-28 sm:w-40 flex items-center">
             <Image
               src="/logo/nave-var.png"
@@ -127,7 +127,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMachinesDropdownOpen(!machinesDropdownOpen)}
-              className="flex items-center gap-1 hover:text-black transition-colors py-1 cursor-pointer"
+              className="flex items-center gap-1 hover:text-black transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
               aria-expanded={machinesDropdownOpen}
               aria-haspopup="true"
             >
@@ -194,19 +194,19 @@ export function Header() {
             </AnimatePresence>
           </div>
 
-          <Link href="/services" className="hover:text-black transition-colors py-1">
+          <Link href="/services" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.services}
           </Link>
-          <Link href="/how-it-works" className="hover:text-black transition-colors py-1">
+          <Link href="/how-it-works" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.howItWorks}
           </Link>
-          <Link href="/about" className="hover:text-black transition-colors py-1">
+          <Link href="/about" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.about}
           </Link>
-          <Link href="/blog" className="hover:text-black transition-colors py-1">
+          <Link href="/blog" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {locale === "bn" ? "ব্লগ" : "Blog"}
           </Link>
-          <Link href="/contact" className="hover:text-black transition-colors py-1">
+          <Link href="/contact" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.contact}
           </Link>
         </nav>
@@ -220,14 +220,14 @@ export function Header() {
           {customer ? (
             <Link
               href="/account/quotes"
-              className="hidden md:inline-flex text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-2.5 py-1 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF]"
+              className="hidden md:inline-flex text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-2.5 py-1 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
             >
               <span>{locale === "bn" ? "আমার কোটেশন" : "My Quotes"}</span>
             </Link>
           ) : (
             <Link
               href="/account/login"
-              className="hidden md:inline-flex text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2 py-1"
+              className="hidden md:inline-flex text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md"
             >
               {locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Portal"}
             </Link>
@@ -236,7 +236,7 @@ export function Header() {
           {/* Primary CTA: Solid Burgundy Capsule Button */}
           <Link
             href="/quote"
-            className="hidden min-[420px]:inline-flex bg-[#800020] hover:bg-[#5A0017] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 shrink-0"
+            className="hidden min-[420px]:inline-flex bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
           >
             <span>{dict.nav.requestQuote}</span>
             <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
@@ -245,7 +245,7 @@ export function Header() {
           {/* Mobile Hamburger Button with comfortable min 44x44px touch target */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden min-w-[44px] min-h-[44px] rounded-full bg-neutral-100 text-neutral-800 hover:bg-neutral-200 transition-colors flex items-center justify-center shrink-0 ml-0.5 cursor-pointer"
+            className="lg:hidden min-w-[44px] min-h-[44px] rounded-full bg-neutral-100 text-neutral-800 hover:bg-neutral-200 active:scale-[0.96] transition-all flex items-center justify-center shrink-0 ml-0.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}

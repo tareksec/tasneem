@@ -107,7 +107,7 @@ export default function PublicBlogDetailPage() {
         <div className="flex items-center justify-between pb-6 mb-8 border-b border-slate-200">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#800020] transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#800020] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-sm"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>{readingLocale === "bn" ? "সব আর্টিকেলে ফিরুন" : "All Articles"}</span>
@@ -118,7 +118,7 @@ export default function PublicBlogDetailPage() {
             <Languages className="h-3.5 w-3.5 text-slate-500 ml-1.5 hidden sm:inline" />
             <button
               onClick={() => setReadingLocale("en")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                 readingLocale === "en"
                   ? "bg-white text-slate-900 shadow-2xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
@@ -128,7 +128,7 @@ export default function PublicBlogDetailPage() {
             </button>
             <button
               onClick={() => setReadingLocale("bn")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                 readingLocale === "bn"
                   ? "bg-[#800020] text-white shadow-2xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
@@ -217,7 +217,7 @@ export default function PublicBlogDetailPage() {
         {/* Bottom Commercial CTA */}
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl">
           <div>
-            <span className="text-xs font-bold text-[#800020] uppercase tracking-wider">
+            <span className="sr-only">
               {readingLocale === "bn" ? "টেকনিক্যাল সোর্সিং সহায়তা প্রয়োজন?" : "Need Technical Sourcing Assistance?"}
             </span>
             <h3 className="text-xl font-bold text-white mt-1">
@@ -231,7 +231,7 @@ export default function PublicBlogDetailPage() {
           </div>
           <Link
             href="/quote"
-            className="shrink-0 px-5 py-2.5 rounded-xl bg-[#800020] text-white font-semibold text-sm hover:bg-[#5A0017] transition-colors shadow-sm"
+            className="shrink-0 px-5 py-2.5 rounded-xl bg-[#800020] text-white font-semibold text-sm hover:bg-[#5A0017] transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 active:scale-95 cursor-pointer"
           >
             {readingLocale === "bn" ? "মেশিনের কোটেশন নিন" : "Request Machine Quote"}
           </Link>

@@ -261,10 +261,7 @@ export default function ServicesPage() {
             1. PAGE HEADER (Styled with Accent Words matching reference image)
             ================================================================ */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-mono font-bold text-[#800020] mb-4 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse" />
-            <span>{locale === "bn" ? "মেশিনারি ও টেকনিক্যাল সলিউশন" : "END-TO-END INDUSTRIAL SOLUTIONS"}</span>
-          </div>
+          <span className="sr-only">{locale === "bn" ? "মেশিনারি ও টেকনিক্যাল সলিউশন" : "END-TO-END INDUSTRIAL SOLUTIONS"}</span>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 leading-tight mb-4">
             {locale === "bn" ? (
@@ -298,7 +295,7 @@ export default function ServicesPage() {
                   <button
                     key={tab.key}
                     onClick={() => setActiveCategory(tab.key as any)}
-                    className={`relative isolate px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 select-none ${
+                    className={`relative isolate px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                       isActive
                         ? "text-white shadow-md shadow-[#800020]/30"
                         : "text-neutral-700 hover:text-black bg-white/80 hover:bg-white border border-transparent shadow-xs"

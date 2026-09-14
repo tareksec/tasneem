@@ -81,7 +81,7 @@ export function MachineGallery({
         {/* Fullscreen Expansion Button - visible on touch devices, hover-revealed on desktop */}
         <button
           onClick={() => setFullscreenOpen(true)}
-          className="absolute bottom-3 right-3 p-2 rounded-lg bg-white/90 hover:bg-white text-slate-700 shadow-sm border border-slate-200 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
+          className="absolute bottom-3 right-3 p-2 rounded-lg bg-white/90 hover:bg-white text-slate-700 shadow-sm border border-slate-200 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:opacity-100"
           aria-label="Expand image"
         >
           <Maximize2 className="w-4 h-4" />
@@ -97,7 +97,7 @@ export function MachineGallery({
               <button
                 key={img.id}
                 onClick={() => setActiveIndex(idx)}
-                className={`relative w-14 h-12 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer min-w-[48px] ${
+                className={`relative w-14 h-12 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer min-w-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                   isSelected
                     ? "border-[#800020] ring-2 ring-[#800020]/20 shadow-xs scale-102"
                     : "border-[#E5E5E5] hover:border-[#800020]/40 opacity-70 hover:opacity-100"

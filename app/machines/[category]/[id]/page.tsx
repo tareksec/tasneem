@@ -107,11 +107,11 @@ export default async function MachineDetailPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#4B5563] mb-8">
-          <Link href="/machines" className="hover:text-[#2D2D2D] transition-colors">
+          <Link href="/machines" className="hover:text-[#2D2D2D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-sm">
             Machines
           </Link>
           <span>/</span>
-          <Link href={`/machines/${category}`} className="hover:text-[#2D2D2D] transition-colors capitalize">
+          <Link href={`/machines/${category}`} className="hover:text-[#2D2D2D] transition-colors capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-sm">
             {categoryInfo?.name || category.replace("-", " ")}
           </Link>
           <span>/</span>
@@ -149,13 +149,9 @@ export default async function MachineDetailPage({
           {/* Machine Header & Quick Quote Actions (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2.5 py-0.5 rounded border border-[#E5E7EB] bg-[#F9FAFB] text-[11px] font-bold uppercase tracking-wider text-[#800020]">
-                  {categoryInfo?.name || machine.category.replace("-", " ")}
-                </span>
-                <span className="text-xs text-[#4B5563]">
-                  {machine.origin ? `Country of Origin: ${machine.origin}` : "Imported Machinery"}
-                </span>
+              <div className="sr-only">
+                <span>{categoryInfo?.name || machine.category.replace("-", " ")}</span>
+                <span>{machine.origin ? `Country of Origin: ${machine.origin}` : "Imported Machinery"}</span>
               </div>
               <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D] leading-tight">
                 {machine.name}
@@ -192,7 +188,7 @@ export default async function MachineDetailPage({
             <div className="flex flex-col sm:flex-row items-center gap-3.5">
               <Link
                 href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}&category=${machine.category}`}
-                className="w-full sm:w-auto flex-1 bg-[#800020] hover:bg-[#5A0017] text-white py-3 px-6 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="w-full sm:w-auto flex-1 bg-[#800020] hover:bg-[#5A0017] text-white py-3 px-6 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-sm active:scale-98 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <span>Request a Quote (Pre-filled)</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -202,7 +198,7 @@ export default async function MachineDetailPage({
                 href={whatsappInquiryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-white border border-[#D1D5DB] text-[#2D2D2D] py-3 px-5 rounded-lg text-sm font-semibold hover:bg-[#F3F4F6] transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto bg-white border border-[#D1D5DB] text-[#2D2D2D] py-3 px-5 rounded-lg text-sm font-semibold hover:bg-[#F3F4F6] transition-all flex items-center justify-center gap-2 shadow-xs active:scale-98 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600" />
                 <span>Quick WhatsApp Inquiry</span>
@@ -303,7 +299,7 @@ export default async function MachineDetailPage({
           </div>
           <Link
             href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}&category=${machine.category}`}
-            className="bg-[#800020] text-white px-6 py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#5A0017] transition-colors shrink-0 flex items-center gap-1.5 duration-200"
+            className="bg-[#800020] text-white px-6 py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#5A0017] transition-all shrink-0 flex items-center gap-1.5 duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 cursor-pointer"
           >
             <span>Request Quotation</span>
             <ArrowUpRight className="w-4 h-4" />

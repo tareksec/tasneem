@@ -42,7 +42,9 @@ export default function MachinesIndexPage() {
           setMachines(data.machines);
         }
       })
-      .catch((err) => console.error("Failed to load machines:", err));
+      .catch(() => {
+        // Fallback or network error handling
+      });
   }, []);
 
   // Reset to page 1 whenever filters change
@@ -175,10 +177,7 @@ export default function MachinesIndexPage() {
       <div className="border-b border-[#E5E7EB] bg-[#FFFDFB] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <MotionSection className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#800020] mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{locale === "bn" ? "শিল্প যন্ত্রপাতি ক্যাটালগ" : "Industrial Machinery Catalog"}</span>
-            </div>
+            <span className="sr-only">{locale === "bn" ? "শিল্প যন্ত্রপাতি ক্যাটালগ" : "Industrial Machinery Catalog"}</span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
               {locale === "bn"
                 ? "সার্কুলার নিটিং, ডাইং ও টেক্সটাইল যন্ত্রপাতি"
@@ -204,7 +203,7 @@ export default function MachinesIndexPage() {
                 setSelectedCategory("all");
                 setSelectedSubCategory("all");
               }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] active:scale-95 ${
                 selectedCategory === "all"
                   ? "bg-[#800020] text-white shadow-xs"
                   : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#2D2D2D] hover:border-[#C0C0C0]"
@@ -229,7 +228,7 @@ export default function MachinesIndexPage() {
                     setSelectedCategory(cat.slug);
                     setSelectedSubCategory("all");
                   }}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] active:scale-95 ${
                     isSelected
                       ? "bg-[#800020] text-white shadow-xs font-bold"
                       : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#2D2D2D] hover:border-[#C0C0C0]"
@@ -252,7 +251,7 @@ export default function MachinesIndexPage() {
               </span>
               <button
                 onClick={() => setSelectedSubCategory("all")}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 cursor-pointer transition-colors ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                   selectedSubCategory === "all"
                     ? "bg-slate-900 text-white shadow-xs"
                     : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
@@ -267,7 +266,7 @@ export default function MachinesIndexPage() {
                     setSelectedCategory("circular-knitting");
                     setSelectedSubCategory(sub.slug);
                   }}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 cursor-pointer transition-colors ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                     selectedSubCategory === sub.slug
                       ? "bg-slate-900 text-white font-bold shadow-xs"
                       : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
@@ -495,7 +494,7 @@ export default function MachinesIndexPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-2 rounded-lg border border-[#E5E7EB] text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              className="p-2 rounded-lg border border-[#E5E7EB] text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
               aria-label="Previous page"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -505,7 +504,7 @@ export default function MachinesIndexPage() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
                   currentPage === page
                     ? "bg-[#800020] text-white shadow-xs"
                     : "border border-[#E5E7EB] text-slate-700 hover:bg-slate-50"
@@ -518,7 +517,7 @@ export default function MachinesIndexPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-2 rounded-lg border border-[#E5E7EB] text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              className="p-2 rounded-lg border border-[#E5E7EB] text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
               aria-label="Next page"
             >
               <ChevronRight className="w-4 h-4" />

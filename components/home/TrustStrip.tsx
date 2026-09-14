@@ -63,12 +63,10 @@ export function TrustStrip() {
             variants={itemVariants}
             className="md:col-span-4 border-b md:border-b-0 md:border-r border-[#E5E7EB] pb-4 md:pb-0 md:pr-6"
           >
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-1">
-              <FileCheck className="w-4 h-4 text-[#800020]" />
-              <span>{dict.common.complianceBadge}</span>
-            </div>
-            <p className="text-sm font-semibold text-[#2D2D2D]">
-              Tasneem Knit Industry
+            <span className="sr-only">{dict.common.complianceBadge}</span>
+            <p className="text-sm font-semibold text-[#2D2D2D] flex items-center gap-2">
+              <FileCheck className="w-4 h-4 text-[#800020] shrink-0" />
+              <span>Tasneem Knit Industry</span>
             </p>
             <p className="text-xs text-[#4B5563] mt-0.5 break-all sm:break-normal">
               {dict.footer.binLabel} & {dict.footer.ircLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span>
@@ -81,12 +79,10 @@ export function TrustStrip() {
             className="md:col-span-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           >
             <div>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-1">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>{dict.trustStrip.inspectionTitle}</span>
-              </div>
-              <p className="text-xs sm:text-sm text-[#4B5563]">
-                {dict.trustStrip.complianceSub}
+              <span className="sr-only">{dict.trustStrip.inspectionTitle}</span>
+              <p className="text-xs sm:text-sm text-[#4B5563] flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{dict.trustStrip.complianceSub}</span>
               </p>
             </div>
 

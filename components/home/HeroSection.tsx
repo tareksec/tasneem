@@ -85,16 +85,8 @@ export function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left">
           
-          {/* Top Status Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-xs font-semibold text-white mb-5 sm:mb-6 shadow-sm w-fit"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>{dict.hero.badge}</span>
-          </motion.div>
+          {/* Top Status Pill (Visually hidden for clean UI, preserved in DOM for SEO/GEO) */}
+          <span className="sr-only">{dict.hero.badge}</span>
 
           {/* H1 Heading */}
           <motion.h1
@@ -126,7 +118,7 @@ export function HeroSection() {
             {/* Primary CTA */}
             <Link
               href="/quote"
-              className="bg-[#800020] text-white px-6 sm:px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#5A0017] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-black/40 min-h-[44px]"
+              className="bg-[#800020] text-white px-6 sm:px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#5A0017] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-black/40 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <span>{dict.hero.primaryCta}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -139,7 +131,7 @@ export function HeroSection() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
+              className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
               <span className="truncate">{dict.hero.whatsappCta} ({COMPANY_INFO.whatsappFormatted})</span>
@@ -176,15 +168,12 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* 4. Natural Video Visibility Indicator (Bottom Right) */}
-      <div className="hidden lg:flex absolute bottom-6 right-6 z-10 bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-[11px] font-semibold text-white/90 shadow-md items-center gap-2 pointer-events-none">
-        <span className="w-2 h-2 rounded-full bg-[#800020] ring-2 ring-white/40 animate-pulse" />
-        <span>
-          {locale === "bn"
-            ? "কারখানা ফ্লোর • টেক্সটাইল নিটিং মেশিনারি"
-            : "Factory Floor • Circular Knitting Machinery"}
-        </span>
-      </div>
+      {/* 4. Natural Video Visibility Indicator (SEO keyword context preserved in DOM) */}
+      <span className="sr-only">
+        {locale === "bn"
+          ? "কারখানা ফ্লোর • টেক্সটাইল নিটিং মেশিনারি"
+          : "Factory Floor • Circular Knitting Machinery"}
+      </span>
     </section>
   );
 }

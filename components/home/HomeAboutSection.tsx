@@ -57,14 +57,11 @@ export function HomeAboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-3 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse" />
-            <span>
-              {isBn
-                ? "আমাদের পরিচিতি ও কারখানা পরিদর্শন"
-                : "Company Profile & Factory Video"}
-            </span>
-          </div>
+          <span className="sr-only">
+            {isBn
+              ? "আমাদের পরিচিতি ও কারখানা পরিদর্শন"
+              : "Company Profile & Factory Video"}
+          </span>
 
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
             {isBn
@@ -188,7 +185,7 @@ export function HomeAboutSection() {
               <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-[#E5E5E5]">
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
                   <span>{isBn ? "আমাদের সম্পর্কে বিস্তারিত" : "Full About Us Profile"}</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -196,7 +193,7 @@ export function HomeAboutSection() {
 
                 <a
                   href={`tel:${COMPANY_INFO.phone}`}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#E5E5E5] hover:border-neutral-300 text-[#2D2D2D] text-xs font-bold shadow-2xs transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#E5E5E5] hover:border-neutral-300 active:scale-[0.98] text-[#2D2D2D] text-xs font-bold shadow-2xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#800020]" />
                   <span>{COMPANY_INFO.phone}</span>

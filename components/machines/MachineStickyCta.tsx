@@ -80,7 +80,7 @@ export function MachineStickyCta({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 border border-[#E5E5E5] bg-[#F9F9F9] text-[#2D2D2D] hover:border-[#800020]/40 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors duration-200 shadow-xs"
+                className="hidden sm:inline-flex items-center gap-1.5 border border-[#E5E5E5] bg-[#F9F9F9] text-[#2D2D2D] hover:border-[#800020]/40 active:scale-[0.98] px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 aria-label="WhatsApp Inquiry"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
@@ -89,7 +89,7 @@ export function MachineStickyCta({
 
               <Link
                 href={`/quote?machine=${encodeURIComponent(machineName)}&id=${machineId}&category=${category}`}
-                className="bg-[#800020] hover:bg-[#5A0017] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-1.5 shadow-sm"
+                className="bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-1.5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
               >
                 <span>{dict.featured.quoteBtn}</span>
                 <ArrowUpRight className="w-4 h-4" />

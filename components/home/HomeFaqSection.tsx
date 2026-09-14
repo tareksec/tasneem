@@ -23,10 +23,7 @@ export function HomeFaqSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2">
-            <HelpCircle className="w-4 h-4 text-[#800020]" />
-            <span>{dict.faq.badge}</span>
-          </div>
+          <span className="sr-only">{dict.faq.badge}</span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
             {dict.faq.title}
           </h2>
@@ -53,7 +50,7 @@ export function HomeFaqSection() {
         <MotionSection delay={0.1} className="mt-10 text-center">
           <Link
             href="/faq"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
           >
             <span>{dict.common.readMore} ({dict.nav.faq})</span>
             <ArrowUpRight className="w-4 h-4" />

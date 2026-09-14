@@ -41,19 +41,10 @@ export function SpotlightSourcing() {
       {/* 2. Top Header Zone (Title, Badge, Narrative & Primary Actions) */}
       <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
         <MotionSection delay={0.05} className="flex flex-col items-center">
-          {/* Glowing Badge */}
-          <div className="inline-flex flex-wrap sm:flex-nowrap items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 border border-[#F9E6EA] backdrop-blur-md text-xs font-bold text-[#800020] shadow-md shadow-neutral-200/50 mb-3 text-center">
-            <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
-            <span className="text-[#800020] font-extrabold tracking-wider uppercase">
-              {dict.sourcing.badge}
-            </span>
-            <span className="text-neutral-400 font-normal hidden min-[400px]:inline">•</span>
-            <span className="text-neutral-700 font-medium text-[11px] sm:text-xs">
-              {locale === "bn"
-                ? "চীন ➔ বাংলাদেশ সরাসরি নিরাপদ শিপমেন্ট করিডোর"
-                : "China ➔ Bangladesh Direct Maritime Corridor"}
-            </span>
-          </div>
+          {/* Sourcing corridor keyword label preserved in DOM for SEO/GEO */}
+          <span className="sr-only">
+            {dict.sourcing.badge} • {locale === "bn" ? "চীন ➔ বাংলাদেশ সরাসরি নিরাপদ শিপমেন্ট করিডোর" : "China ➔ Bangladesh Direct Maritime Corridor"}
+          </span>
 
           {/* Section Heading */}
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#2D2D2D] leading-tight">
@@ -69,7 +60,7 @@ export function SpotlightSourcing() {
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             <Link
               href="/quote"
-              className="bg-[#800020] hover:bg-[#5A0017] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-rose-950/25 hover:scale-[1.03] cursor-pointer min-h-[40px]"
+              className="bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-rose-950/25 hover:scale-[1.03] cursor-pointer min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <span>{dict.common.requestQuote}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -77,7 +68,7 @@ export function SpotlightSourcing() {
 
             <Link
               href="/how-it-works"
-              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center gap-1.5 cursor-pointer shadow-xs hover:border-neutral-400 min-h-[40px]"
+              className="bg-white/90 hover:bg-white active:scale-[0.98] border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center gap-1.5 cursor-pointer shadow-xs hover:border-neutral-400 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <span>{dict.nav.howItWorks}</span>
               <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />
@@ -135,7 +126,7 @@ export function SpotlightSourcing() {
           <div className="hidden lg:flex items-center gap-2 pl-4 border-l border-neutral-300/80 text-[11px] text-neutral-600 shrink-0">
             <Phone className="w-3.5 h-3.5 text-[#800020]" />
             <span>
-              Hotline: <a href={`tel:${COMPANY_INFO.phone}`} className="text-[#2D2D2D] font-bold hover:text-[#800020] hover:underline">{COMPANY_INFO.phone}</a>
+              Hotline: <a href={`tel:${COMPANY_INFO.phone}`} className="text-[#2D2D2D] font-bold hover:text-[#800020] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-xs">{COMPANY_INFO.phone}</a>
             </span>
           </div>
         </div>

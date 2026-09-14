@@ -19,7 +19,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
         <button
           type="button"
           onClick={() => setLocale("en")}
-          className={`px-2.5 py-1 rounded font-medium transition-all ${
+          className={`px-2.5 py-1 rounded font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
             locale === "en"
               ? "bg-[#800020] text-white shadow-sm font-semibold"
               : "text-[#A0A0A0] hover:text-white"
@@ -32,7 +32,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
         <button
           type="button"
           onClick={() => setLocale("bn")}
-          className={`px-2.5 py-1 rounded font-medium transition-all ${
+          className={`px-2.5 py-1 rounded font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
             locale === "bn"
               ? "bg-[#800020] text-white shadow-sm font-semibold"
               : "text-[#A0A0A0] hover:text-white"
@@ -55,7 +55,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
         <button
           type="button"
           onClick={() => setLocale("en")}
-          className={`px-2.5 py-1 rounded-full transition-all duration-150 text-[11px] font-semibold ${
+          className={`px-2.5 py-1 rounded-full transition-all duration-150 text-[11px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
             locale === "en"
               ? "bg-[#800020] text-white shadow-xs"
               : "text-neutral-600 hover:text-neutral-950"
@@ -67,7 +67,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
         <button
           type="button"
           onClick={() => setLocale("bn")}
-          className={`px-2.5 py-1 rounded-full transition-all duration-150 text-[11px] font-semibold ${
+          className={`px-2.5 py-1 rounded-full transition-all duration-150 text-[11px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
             locale === "bn"
               ? "bg-[#800020] text-white shadow-xs"
               : "text-neutral-600 hover:text-neutral-950"
@@ -90,7 +90,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
       <button
         type="button"
         onClick={() => setLocale("en")}
-        className={`px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md transition-all duration-150 flex items-center gap-1 ${
+        className={`px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md transition-all duration-150 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
           locale === "en"
             ? "bg-[#800020] text-white font-semibold shadow-xs"
             : "text-[#A0A0A0] hover:text-white"
@@ -103,7 +103,7 @@ export function LanguageSwitcher({ variant = "header", className = "" }: Languag
       <button
         type="button"
         onClick={() => setLocale("bn")}
-        className={`px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md transition-all duration-150 flex items-center gap-1 ${
+        className={`px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md transition-all duration-150 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${
           locale === "bn"
             ? "bg-[#800020] text-white font-semibold shadow-xs"
             : "text-[#A0A0A0] hover:text-white"

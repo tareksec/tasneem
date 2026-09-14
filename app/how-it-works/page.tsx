@@ -57,10 +57,7 @@ export default function HowItWorksPage() {
       {/* 2. Core Sourcing Guarantees Strip */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-bold text-[#800020] mb-3 shadow-2xs">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#800020]" />
-            <span>{locale === "bn" ? "আমাদের কাজের অঙ্গীকার" : "Our Institutional Commitments"}</span>
-          </div>
+          <span className="sr-only">{locale === "bn" ? "আমাদের কাজের অঙ্গীকার" : "Our Institutional Commitments"}</span>
           <h2 className="text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
             {locale === "bn" ? "কেন তাসনীমের সাথে নিশ্চিন্তে মেশিনারি আমদানি করবেন?" : "Risk-Free Procurement Standards"}
             <span className="text-[#800020]">.</span>
@@ -145,7 +142,7 @@ export default function HowItWorksPage() {
           <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/quote"
-              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white font-bold text-sm sm:base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#800020]/25 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white font-bold text-sm sm:base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#800020]/25 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <span>{locale === "bn" ? "ফ্রি কোটেশন চেয়ে পাঠান" : "Request Technical Quotation"}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -153,7 +150,7 @@ export default function HowItWorksPage() {
 
             <Link
               href="/contact"
-              className="w-full sm:w-auto bg-white hover:bg-neutral-50 text-neutral-900 font-bold text-sm sm:text-base px-7 py-4 rounded-full border border-neutral-300 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:border-neutral-400"
+              className="w-full sm:w-auto bg-white hover:bg-neutral-50 active:scale-[0.98] text-neutral-900 font-bold text-sm sm:text-base px-7 py-4 rounded-full border border-neutral-300 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <HelpCircle className="w-4 h-4 text-neutral-500" />
               <span>{locale === "bn" ? "পরামর্শের জন্য কথা বলুন" : "Consult Specialist"}</span>

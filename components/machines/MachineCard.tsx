@@ -92,13 +92,13 @@ export function MachineCard({ machine }: MachineCardProps) {
       <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-[#E5E5E5] flex items-center gap-2">
         <Link
           href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}`}
-          className="flex-1 bg-[#800020] text-white text-center py-2.5 px-3 rounded-lg text-xs font-semibold hover:bg-[#5A0017] transition-colors duration-200 shadow-xs min-h-[40px] flex items-center justify-center"
+          className="flex-1 bg-[#800020] text-white text-center py-2.5 px-3 rounded-lg text-xs font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-xs min-h-[40px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
         >
           {dict.featured.quoteBtn}
         </Link>
         <Link
           href={`/machines/${machine.category}/${machine.id}`}
-          className="w-10 h-10 sm:w-8 sm:h-8 rounded-lg border border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-center text-[#4A4A4A] hover:border-[#800020] hover:text-[#800020] transition-colors duration-200 shrink-0 group/arrow shadow-xs min-w-[40px] min-h-[40px]"
+          className="w-10 h-10 sm:w-8 sm:h-8 rounded-lg border border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-center text-[#4A4A4A] hover:border-[#800020] hover:text-[#800020] active:scale-[0.98] transition-all duration-200 shrink-0 group/arrow shadow-xs min-w-[40px] min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
           aria-label={`View full specifications of ${machine.name}`}
         >
           <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5" />
