@@ -1,0 +1,12 @@
+# Hostinger Apache Reverse Proxy to Next.js (port 3000)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Pass requests to local Next.js node server on port 3000
+  RewriteCond %{REQUEST_URI} !^/\.well-known
+  RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
+  RewriteCond %{REQUEST_URI} !^/\.well-known
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
