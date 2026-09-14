@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, ShieldCheck, Ship, Wrench, HandCoins, Factory, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Ship, Wrench, HandCoins, Factory, Sparkles, ChevronRight, FileCheck, ExternalLink } from "lucide-react";
 import { MotionSection } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { COMPANY_INFO } from "@/lib/constants";
@@ -87,6 +87,20 @@ export function WhyTasneem() {
           <p className="mt-3 text-xs sm:text-sm lg:text-base text-neutral-700 font-normal max-w-2xl mx-auto leading-relaxed">
             {dict.whyTasneem.subtitle}
           </p>
+
+          {/* Government Registered • Verified Trade License Trust Badge */}
+          <div className="mt-4 flex items-center justify-center">
+            <a
+              href={COMPANY_INFO.tradeLicenseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 hover:bg-white border border-neutral-200 hover:border-[#800020]/40 text-xs font-semibold text-[#2D2D2D] hover:text-[#800020] shadow-xs backdrop-blur-md transition-all duration-200 group/badge focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+            >
+              <FileCheck className="w-4 h-4 text-[#800020]" />
+              <span>{dict.common.verifiedTradeLicense}</span>
+              <ExternalLink className="w-3 h-3 text-neutral-400 group-hover/badge:text-[#800020] transition-colors" />
+            </a>
+          </div>
         </MotionSection>
       </div>
 

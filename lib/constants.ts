@@ -96,6 +96,7 @@ export const COMPANY_INFO = {
     ownershipType: "Proprietorship",
     majorActivity: "Retail/Wholesale Trading, Imports",
     validity: "Through 30.06.2026 (FY 2025-2026)",
+    tradeLicenseUrl: "https://drive.google.com/file/d/1LuTn1TUxTY_Q9foSh4nHD6BsOZ6rePJx/view?usp=sharing",
     yearEstablished: "Contact for details", // Unconfirmed: left as contact for details per client decision
     status: "Direct Importer / Registered Commercial Entity",
   },
@@ -115,6 +116,9 @@ export const COMPANY_INFO = {
   },
   get tradeLicenseValidity() {
     return this.registration.validity;
+  },
+  get tradeLicenseUrl() {
+    return this.registration.tradeLicenseUrl;
   },
 };
 

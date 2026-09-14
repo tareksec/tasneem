@@ -27,6 +27,8 @@ export interface Dictionary {
     complianceBadge: string;
     readMore: string;
     allCategories: string;
+    viewTradeLicense: string;
+    verifiedTradeLicense: string;
   };
   header: {
     tagline: string;
@@ -226,6 +228,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       complianceBadge: "Commercial Import & Compliance",
       readMore: "Read More",
       allCategories: "All Categories",
+      viewTradeLicense: "View Trade License",
+      verifiedTradeLicense: "Government Registered • Verified Trade License",
     },
     header: {
       tagline: "Industrial Circular Knitting Machinery Sourcing Specialist",
@@ -450,6 +454,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       complianceBadge: "অনুমোদিত বাণিজ্যিক আমদানি ও কমপ্লায়েন্স",
       readMore: "বিস্তারিত পড়ুন",
       allCategories: "সব ক্যাটাগরি",
+      viewTradeLicense: "ট্রেড লাইসেন্স দেখুন",
+      verifiedTradeLicense: "সরকারি নিবন্ধিত • যাচাইকৃত ট্রেড লাইসেন্স",
     },
     header: {
       tagline: "টেক্সটাইল ও সার্কুলার নিটিং মেশিন সরাসরি আমদানি বিশেষজ্ঞ",

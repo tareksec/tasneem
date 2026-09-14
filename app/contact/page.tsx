@@ -21,6 +21,7 @@ import {
   Wrench,
   FileText,
   Loader2,
+  ExternalLink,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MotionSection, SlideIn } from "@/components/ui/MotionWrapper";
@@ -365,7 +366,15 @@ export default function ContactPage() {
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span className="font-bold text-slate-800">BIN: {COMPANY_INFO.registration.bin}</span>
                 </div>
-                <span className="text-[11px] font-semibold text-slate-400">Trade License: {COMPANY_INFO.registration.tradeLicense}</span>
+                <a
+                  href={COMPANY_INFO.tradeLicenseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-semibold text-slate-500 hover:text-[#800020] transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Trade License: {COMPANY_INFO.registration.tradeLicense}</span>
+                  <ExternalLink className="w-3 h-3 text-[#800020]" />
+                </a>
               </div>
             </SlideIn>
           </div>

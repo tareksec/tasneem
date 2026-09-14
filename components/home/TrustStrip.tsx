@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldCheck, CheckCircle2, FileCheck } from "lucide-react";
+import { ShieldCheck, CheckCircle2, FileCheck, ExternalLink } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -68,8 +68,18 @@ export function TrustStrip() {
               <FileCheck className="w-4 h-4 text-[#800020] shrink-0" />
               <span>Tasneem Knit Industry</span>
             </p>
-            <p className="text-xs text-[#4B5563] mt-0.5 break-all sm:break-normal">
-              {dict.footer.binLabel} & {dict.footer.ircLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span>
+            <p className="text-xs text-[#4B5563] mt-0.5 break-all sm:break-normal flex items-center gap-1.5 flex-wrap">
+              <span>{dict.footer.binLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span></span>
+              <span>•</span>
+              <a
+                href={COMPANY_INFO.tradeLicenseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#800020] hover:underline font-semibold inline-flex items-center gap-0.5"
+              >
+                <span>{dict.common.viewTradeLicense}</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </p>
           </motion.div>
 
@@ -86,11 +96,22 @@ export function TrustStrip() {
               </p>
             </div>
 
-            {/* Inspection Badges (SGS, Intertek, Bureau Veritas) */}
+            {/* Inspection Badges (SGS, Intertek, Bureau Veritas & Verified Trade License) */}
             <motion.div
               variants={badgeContainerVariants}
               className="flex items-center gap-2.5 sm:gap-3 flex-wrap"
             >
+              <motion.a
+                variants={badgeVariants}
+                href={COMPANY_INFO.tradeLicenseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#800020]/25 bg-[#FDF2F4] text-xs font-semibold text-[#800020] shadow-xs hover:bg-[#800020] hover:text-white transition-all duration-200"
+              >
+                <FileCheck className="w-3.5 h-3.5" />
+                <span>{dict.common.verifiedTradeLicense}</span>
+              </motion.a>
+
               {[
                 { name: "SGS Inspection" },
                 { name: "Intertek (ITS)" },
@@ -112,3 +133,4 @@ export function TrustStrip() {
     </section>
   );
 }
+

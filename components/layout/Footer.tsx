@@ -56,7 +56,18 @@ export function Footer() {
                 </div>
                 <div className="flex items-center justify-between text-[11px]">
                   <span className="text-neutral-500">Trade License:</span>
-                  <span className="font-semibold text-neutral-800">{COMPANY_INFO.registration.tradeLicense}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-neutral-800">{COMPANY_INFO.registration.tradeLicense}</span>
+                    <a
+                      href={COMPANY_INFO.tradeLicenseUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] text-[#800020] hover:underline font-semibold inline-flex items-center gap-0.5"
+                    >
+                      <span>({dict.common.viewTradeLicense})</span>
+                      <ArrowUpRight className="w-2.5 h-2.5" />
+                    </a>
+                  </div>
                 </div>
                 <p className="text-[10px] text-neutral-500 mt-0.5 border-t border-neutral-100 pt-1">
                   {dict.footer.complianceNote}
@@ -79,6 +90,17 @@ export function Footer() {
                   <Link href="/about" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">
                     {dict.nav.about}
                   </Link>
+                </li>
+                <li>
+                  <a
+                    href={COMPANY_INFO.tradeLicenseUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5 text-xs sm:text-sm"
+                  >
+                    <span>{dict.common.viewTradeLicense}</span>
+                    <ArrowUpRight className="w-3 h-3 text-[#800020]" />
+                  </a>
                 </li>
                 <li>
                   <Link href="/how-it-works" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">

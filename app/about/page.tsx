@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Ship, Wrench, ArrowUpRight, Factory } from "lucide-react";
+import { ShieldCheck, Ship, Wrench, ArrowUpRight, Factory, ExternalLink } from "lucide-react";
 import { MotionSection } from "@/components/ui/MotionWrapper";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -258,9 +258,20 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="pb-3 border-b border-[#2A2A2A]">
-                  <span className="text-[#A0A0A0] block">{locale === "bn" ? "ট্রেড লাইসেন্স নং" : "Trade License No"}</span>
-                  <span className="font-mono font-semibold text-white text-xs">{COMPANY_INFO.tradeLicense} (Valid: {COMPANY_INFO.tradeLicenseValidity})</span>
+                <div className="pb-3 border-b border-[#2A2A2A] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <span className="text-[#A0A0A0] block">{locale === "bn" ? "ট্রেড লাইসেন্স নং" : "Trade License No"}</span>
+                    <span className="font-mono font-semibold text-white text-xs">{COMPANY_INFO.tradeLicense} (Valid: {COMPANY_INFO.tradeLicenseValidity})</span>
+                  </div>
+                  <a
+                    href={COMPANY_INFO.tradeLicenseUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-semibold transition-colors shrink-0 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  >
+                    <span>{t.common.viewTradeLicense}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
                 </div>
 
                 <div className="pb-3 border-b border-[#2A2A2A]">
