@@ -304,20 +304,56 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Address & Operational Hours */}
+                {/* 1. Dhaka Head Office */}
+                <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-[#800020]/10 text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
+                    <Building className="w-4 h-4" />
+                  </div>
+                  <div className="text-xs">
+                    <span className="font-bold text-slate-900 block">
+                      {isBn ? "ঢাকা হেড অফিস" : "Dhaka Head Office"}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-medium block mt-0.5">
+                      {isBn ? COMPANY_INFO.headOffice.titleBn : COMPANY_INFO.headOffice.title}
+                    </span>
+                    <span className="text-slate-800 leading-snug block mt-0.5">
+                      {isBn ? COMPANY_INFO.headOffice.addressBn : COMPANY_INFO.headOffice.address}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Showroom & Machinery Hub */}
                 <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
                   <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 mt-0.5">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div className="text-xs">
-                    <span className="font-bold text-slate-500 block">
-                      {isBn ? "শো-রুম ও ওয়্যারহাউস" : "Showroom & Hub"}
+                    <span className="font-bold text-slate-900 block">
+                      {isBn ? "মেশিনারি শো-রুম ও ওয়্যারহাউস" : "Showroom & Machinery Hub"}
                     </span>
                     <span className="text-slate-800 leading-snug block mt-0.5">
                       {isBn ? COMPANY_INFO.addressBn : COMPANY_INFO.address}
                     </span>
                     <span className="text-[11px] text-slate-400 block mt-1">
                       🕒 {COMPANY_INFO.businessHours}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 3. China Sourcing & Logistics Office */}
+                <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4 text-[#800020]" />
+                  </div>
+                  <div className="text-xs">
+                    <span className="font-bold text-slate-900 block">
+                      {isBn ? "চীন অফিস (সোর্সিং ও লজিস্টিকস)" : "China Sourcing & Logistics Office"}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-medium block mt-0.5">
+                      {COMPANY_INFO.chinaOffice.company}
+                    </span>
+                    <span className="text-slate-800 leading-snug block mt-0.5">
+                      {isBn ? COMPANY_INFO.chinaOffice.addressBn : COMPANY_INFO.chinaOffice.address}
                     </span>
                   </div>
                 </div>

@@ -20,15 +20,41 @@ export function OrganizationSchema() {
       "@type": "Person",
       name: COMPANY_INFO.owner,
     },
-    // Operating Address (Office & Machinery Yard)
+    // Corporate Head Office Address
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Plot-594, Road No. 4, BSCIC Industrial Park, Chan Nagor, Shashongaon, Enayetnagar, Fatullah",
-      addressLocality: "Fatullah, Narayanganj",
+      streetAddress: "House # 38 (Flat-1A), Road # 5/A, Sector-5, Uttara",
+      addressLocality: "Uttara, Dhaka",
       addressRegion: "Dhaka Division",
-      postalCode: "1421",
+      postalCode: "1230",
       addressCountry: "BD",
     },
+    department: [
+      {
+        "@type": "LocalBusiness",
+        name: "Tasneem Knitting Industry - Machinery Showroom & Hub",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Plot-594, Road No. 4, BSCIC Industrial Park, Chan Nagor, Shashongaon, Enayetnagar, Fatullah",
+          addressLocality: "Fatullah, Narayanganj",
+          addressRegion: "Dhaka Division",
+          postalCode: "1421",
+          addressCountry: "BD",
+        },
+        telephone: COMPANY_INFO.phone,
+      },
+      {
+        "@type": "Organization",
+        name: "Shaoxing Nawar International Import and Export Co., Ltd. (China Office)",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Room 1213, Building 2, Shaoxing Textile Trade Center, 2998 Jinkeqiao Avenue, Anchang Street, Keqiao District",
+          addressLocality: "Shaoxing",
+          addressRegion: "Zhejiang Province",
+          addressCountry: "CN",
+        },
+      },
+    ],
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -71,10 +97,10 @@ export function LocalBusinessSchema() {
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Plot-594, Road No. 4, BSCIC Industrial Park, Chan Nagor, Shashongaon, Enayetnagar, Fatullah",
-      addressLocality: "Fatullah, Narayanganj",
+      streetAddress: "House # 38 (Flat-1A), Road # 5/A, Sector-5, Uttara",
+      addressLocality: "Uttara, Dhaka",
       addressRegion: "Dhaka Division",
-      postalCode: "1421",
+      postalCode: "1230",
       addressCountry: "BD",
     },
     priceRange: "$$$$",

@@ -169,15 +169,39 @@ export function Footer() {
               <div className="flex flex-col gap-2.5 text-xs text-neutral-600">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3.5 h-3.5 text-[#800020] shrink-0 mt-0.5" />
-                  <div className="flex flex-col leading-tight w-full">
-                    <span className="font-bold text-[#2D2D2D]">
-                      {locale === "bn" ? "শোরুম ও অফিস:" : "Showroom & Hub:"}
-                    </span>
-                    <span className="text-[11px] text-neutral-600 mt-0.5">{COMPANY_INFO.addressShort}</span>
+                  <div className="flex flex-col leading-tight w-full space-y-2">
+                    <div>
+                      <span className="font-bold text-[#2D2D2D] block">
+                        {locale === "bn" ? "ঢাকা হেড অফিস:" : "Dhaka Head Office:"}
+                      </span>
+                      <span className="text-[11px] text-neutral-600 mt-0.5 block">
+                        {locale === "bn" ? COMPANY_INFO.headOffice.addressBn : COMPANY_INFO.headOffice.address}
+                      </span>
+                    </div>
 
-                    {/* Small embedded compact Google map */}
-                    <div className="mt-2 w-full">
-                      <OfficeMap variant="compact" showAddressCard={false} />
+                    <div className="pt-1.5 border-t border-neutral-200/60">
+                      <span className="font-bold text-[#2D2D2D] block">
+                        {locale === "bn" ? "শোরুম ও ওয়্যারহাউস:" : "Showroom & Hub:"}
+                      </span>
+                      <span className="text-[11px] text-neutral-600 mt-0.5 block">
+                        {COMPANY_INFO.addressShort}
+                      </span>
+                      {/* Small embedded compact Google map */}
+                      <div className="mt-2 w-full">
+                        <OfficeMap variant="compact" showAddressCard={false} />
+                      </div>
+                    </div>
+
+                    <div className="pt-1.5 border-t border-neutral-200/60">
+                      <span className="font-bold text-[#2D2D2D] block">
+                        {locale === "bn" ? "চীন অফিস (সোর্সিং ও পার্টনার):" : "China Sourcing Office:"}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 font-semibold block">
+                        {COMPANY_INFO.chinaOffice.company}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 mt-0.5 block leading-tight">
+                        {locale === "bn" ? COMPANY_INFO.chinaOffice.addressBn : COMPANY_INFO.chinaOffice.address}
+                      </span>
                     </div>
                   </div>
                 </div>

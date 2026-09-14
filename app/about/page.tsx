@@ -215,8 +215,20 @@ export default function AboutPage() {
                 </div>
 
                 <div className="pb-3 border-b border-[#2A2A2A]">
-                  <span className="text-[#A0A0A0] block">{locale === "bn" ? "অপারেশনাল ঠিকানা (শো-রুম ও হাব)" : "Operating Office & Showroom"}</span>
-                  <span className="font-semibold text-white text-sm">{COMPANY_INFO.operatingAddress}</span>
+                  <span className="text-[#A0A0A0] block">{locale === "bn" ? "ঢাকা হেড অফিস" : "Corporate Head Office (Dhaka)"}</span>
+                  <span className="font-semibold text-white text-sm block">{locale === "bn" ? COMPANY_INFO.headOffice.addressBn : COMPANY_INFO.headOffice.address}</span>
+                  <span className="text-[11px] text-[#A0A0A0] block mt-0.5">{COMPANY_INFO.headOffice.title}</span>
+                </div>
+
+                <div className="pb-3 border-b border-[#2A2A2A]">
+                  <span className="text-[#A0A0A0] block">{locale === "bn" ? "মেশিনারি শো-রুম ও হাব (নারায়ণগঞ্জ)" : "Machinery Showroom & Operating Hub"}</span>
+                  <span className="font-semibold text-white text-sm block">{locale === "bn" ? COMPANY_INFO.showroomOffice.addressBn : COMPANY_INFO.showroomOffice.address}</span>
+                </div>
+
+                <div className="pb-3 border-b border-[#2A2A2A]">
+                  <span className="text-[#A0A0A0] block">{locale === "bn" ? "চীন অফিস (সোর্সিং ও পার্টনার)" : "China Sourcing & Procurement Office"}</span>
+                  <span className="font-semibold text-white text-xs block">{COMPANY_INFO.chinaOffice.company}</span>
+                  <span className="text-[11px] text-[#D1D5DB] block mt-0.5">{locale === "bn" ? COMPANY_INFO.chinaOffice.addressBn : COMPANY_INFO.chinaOffice.address}</span>
                 </div>
 
                 <div className="pb-3 border-b border-[#2A2A2A]">

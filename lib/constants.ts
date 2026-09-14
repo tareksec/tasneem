@@ -9,10 +9,51 @@ export const COMPANY_INFO = {
   description:
     "Direct importer and supplier of circular knitting machines, dyeing machines, shearing machines, finishing equipment, and textile/garment machinery across Bangladesh.",
 
+  // Confirmed Offices & Locations
+  headOffice: {
+    name: "Dhaka Head Office",
+    nameBn: "ঢাকা হেড অফিস",
+    title: "Head Office / Zamzam International / Noor Solar Energy",
+    titleBn: "হেড অফিস / জমজম ইন্টারন্যাশনাল / নূর সোলার এনার্জি",
+    address: "House # 38 (Flat-1A), Road # 5/A, Sector-5, Uttara, Dhaka-1230, Bangladesh",
+    addressBn: "বাড়ি # ৩৮ (ফ্ল্যাট-১এ), রোড # ৫/এ, সেক্টর-৫, উত্তরা, ঢাকা-১২৩০, বাংলাদেশ",
+    city: "Dhaka",
+    postalCode: "1230",
+  },
+  chinaOffice: {
+    name: "China Sourcing Office",
+    nameBn: "চীন সোর্সিং অফিস",
+    company: "Shaoxing Nawar International Import and Export Co., Ltd.",
+    companyBn: "শাওক্সিং নাওয়ার ইন্টারন্যাশনাল ইমপোর্ট অ্যান্ড এক্সপোর্ট কোং লিমিটেড",
+    address: "Room 1213, Building 2, Shaoxing Textile Trade Center, 2998 Jinkeqiao Avenue, Anchang Street, Keqiao District, Shaoxing City, Zhejiang Province, China",
+    addressBn: "রুম ১২১৩, বিল্ডিং ২, শাওক্সিং টেক্সটাইল ট্রেড সেন্টার, ২৯৯৮ জিংকেকিয়াও অ্যাভিনিউ, আনচাং স্ট্রিট, কেকিয়াও ডিস্ট্রিক্ট, শাওক্সিং সিটি, ঝেজিয়াং প্রদেশ, চীন",
+    city: "Shaoxing",
+    province: "Zhejiang",
+    country: "China",
+  },
+  showroomOffice: {
+    name: "Showroom & Machinery Hub",
+    nameBn: "শোরুম ও মেশিনারি হাব",
+    address: "Plot-594, Industrial Park, Chan Nagor, নতুন রাস্তার পশ্চিম পার্শ্বে, BSCIC, 4No New Road, Narayanganj-1421, Bangladesh",
+    addressBn: "প্লট-৫৯৪, ইন্ডাস্ট্রিয়াল পার্ক, চান নগর, নতুন রাস্তার পশ্চিম পার্শ্বে, বিসিক, ৪নং নিউ রোড, নারায়ণগঞ্জ-১৪২১, বাংলাদেশ",
+    addressShort: "BSCIC Industrial Park, Narayanganj, Bangladesh",
+    addressShortBn: "বিসিক ইন্ডাস্ট্রিয়াল পার্ক, নারায়ণগঞ্জ",
+  },
+
   // Primary Operating & Showroom Address (Client confirmed exact wording)
   address: "Plot-594, Industrial Park, Chan Nagor, নতুন রাস্তার পশ্চিম পার্শ্বে, BSCIC, 4No New Road, Narayanganj-1421, Bangladesh",
   addressShort: "BSCIC Industrial Park, Narayanganj, Bangladesh",
   addressBn: "প্লট-৫৯৪, ইন্ডাস্ট্রিয়াল পার্ক, চান নগর, নতুন রাস্তার পশ্চিম পার্শ্বে, বিসিক, ৪নং নিউ রোড, নারায়ণগঞ্জ-১৪২১, বাংলাদেশ",
+
+  // Corporate Head Office Address
+  headOfficeAddress: "House # 38 (Flat-1A), Road # 5/A, Sector-5, Uttara, Dhaka-1230, Bangladesh",
+  headOfficeAddressBn: "বাড়ি # ৩৮ (ফ্ল্যাট-১এ), রোড # ৫/এ, সেক্টর-৫, উত্তরা, ঢাকা-১২৩০, বাংলাদেশ",
+  headOfficeCompany: "Head Office / Zamzam International / Noor Solar Energy",
+
+  // China Sourcing Office Address
+  chinaAddress: "Room 1213, Building 2, Shaoxing Textile Trade Center, 2998 Jinkeqiao Avenue, Anchang Street, Keqiao District, Shaoxing City, Zhejiang Province, China",
+  chinaAddressBn: "রুম ১২১৩, বিল্ডিং ২, শাওক্সিং টেক্সটাইল ট্রেড সেন্টার, ২৯৯৮ জিংকেকিয়াও অ্যাভিনিউ, আনচাং স্ট্রিট, কেকিয়াও ডিস্ট্রিক্ট, শাওক্সিং সিটি, ঝেজিয়াং প্রদেশ, চীন",
+  chinaCompany: "Shaoxing Nawar International Import and Export Co., Ltd.",
 
   // Legal Registered Address (per Trade License / VAT registration — kept separate, not merged)
   registeredAddress: "24/3, Aukpara, Ashulia, Savar, Dhaka, Bangladesh",

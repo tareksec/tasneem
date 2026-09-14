@@ -102,10 +102,7 @@ export function OfficeMap({
         {/* Top Header Card */}
         <div className="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-b from-slate-50/60 to-white">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[11px] font-bold text-[#800020] mb-1">
-              <MapPin className="w-3 h-3 text-[#800020]" />
-              <span>{title || (isBn ? "আমাদের অফিস ও শোরুম অবস্থান" : "Office & Showroom Location")}</span>
-            </div>
+            <span className="sr-only">{title || (isBn ? "আমাদের অফিস ও শোরুম অবস্থান" : "Office & Showroom Location")}</span>
             <h3 className="text-base sm:text-lg font-extrabold text-[#2D2D2D] tracking-tight">
               {COMPANY_INFO.name} — {isBn ? "নারায়ণগঞ্জ হাব" : "Narayanganj Hub"}
             </h3>
@@ -119,7 +116,7 @@ export function OfficeMap({
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#800020] hover:bg-[#5A0017] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-98 self-start sm:self-auto cursor-pointer"
+              className="inline-flex items-center gap-2 bg-[#800020] hover:bg-[#5A0017] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-98 self-start sm:self-auto cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <Navigation className="w-3.5 h-3.5" />
               <span>{isBn ? "গুগল ম্যাপে দিকনির্দেশনা পান" : "Get Directions"}</span>
@@ -165,11 +162,7 @@ export function OfficeMap({
       {/* Header bar */}
       <div className="p-6 sm:p-8 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50 via-white to-[#FDF2F4]/40">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
-            <MapPin className="w-3.5 h-3.5 text-[#800020]" />
-            <span>{isBn ? "লাইভ লোকেশন ম্যাপ" : "Live Office & Showroom Map"}</span>
-          </div>
+          <span className="sr-only">{isBn ? "লাইভ লোকেশন ম্যাপ" : "Live Office & Showroom Map"}</span>
           <h2 className="text-xl sm:text-2xl font-black text-[#2D2D2D] tracking-tight">
             {title || (isBn ? "আমাদের শোরুম ও পরিদর্শন কেন্দ্র" : "Visit Our Narayanganj Showroom & Hub")}
           </h2>
@@ -187,7 +180,7 @@ export function OfficeMap({
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#800020] hover:bg-[#5A0017] text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 cursor-pointer"
+              className="inline-flex items-center gap-2 bg-[#800020] hover:bg-[#5A0017] text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-md active:scale-98 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
             >
               <Navigation className="w-4 h-4" />
               <span>{isBn ? "গুগল ম্যাপে দিকনির্দেশনা" : "Get Turn-by-Turn Directions"}</span>
