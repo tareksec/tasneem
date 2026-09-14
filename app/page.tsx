@@ -3,6 +3,7 @@ import { TrustStrip } from "@/components/home/TrustStrip";
 import { InfinityBandScroll } from "@/components/ui/InfinityBandScroll";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
 import { FeaturedMachines } from "@/components/home/FeaturedMachines";
+import { HomeAboutSection } from "@/components/home/HomeAboutSection";
 import { SourcingWhyTasneemStack } from "@/components/home/SourcingWhyTasneemStack";
 import { SpotlightInstallation } from "@/components/home/SpotlightInstallation";
 import { IndustriesSection } from "@/components/home/IndustriesSection";
@@ -30,6 +31,9 @@ export default async function HomePage() {
 
       {/* 4. Featured Machines */}
       <FeaturedMachines initialMachines={featuredMachines} />
+
+      {/* 4.1 Home About & Factory Video Section */}
+      <HomeAboutSection />
 
       {/* 5 & 6. Sticky Card Overlap: Sourcing & Why Tasneem */}
       <SourcingWhyTasneemStack />

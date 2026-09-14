@@ -98,7 +98,7 @@ export default function AdminRedirectsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF0000] bg-red-50 px-2.5 py-1 rounded-md inline-block">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] bg-[#FDF2F4] border border-[#F9E6EA] px-2.5 py-1 rounded-md inline-block">
               SEO & URL Routing
             </span>
             <span className="text-xs text-slate-400 font-medium">HTTP 301 Registry</span>
@@ -139,10 +139,10 @@ export default function AdminRedirectsPage() {
         <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center justify-between">
           <div>
             <span className="text-xs font-semibold text-slate-500">Auto Slug Changes</span>
-            <p className="text-2xl font-black text-[#FF0000] mt-1">{autoRules}</p>
+            <p className="text-2xl font-black text-[#800020] mt-1">{autoRules}</p>
             <span className="text-[10px] text-slate-400">Created on machine rename</span>
           </div>
-          <div className="h-10 w-10 rounded-xl bg-red-50 flex items-center justify-center text-[#FF0000]">
+          <div className="h-10 w-10 rounded-xl bg-[#FDF2F4] border border-[#F9E6EA] flex items-center justify-center text-[#800020]">
             <Sparkles className="h-5 w-5" />
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function AdminRedirectsPage() {
         >
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
-              <Plus className="h-4 w-4 text-[#FF0000]" />
+              <Plus className="h-4 w-4 text-[#800020]" />
               <h3 className="text-sm font-bold text-slate-900">Create New 301 Permanent Redirect</h3>
             </div>
             <span className="text-[11px] text-slate-400">HTTP 301 Moved Permanently</span>
@@ -183,7 +183,7 @@ export default function AdminRedirectsPage() {
                 value={source}
                 onChange={(e) => setSource(e.target.value)}
                 placeholder="/product/old-machine-name or /old-page"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#800020]"
                 required
               />
               <span className="text-[10px] text-slate-400 mt-1 block">
@@ -200,7 +200,7 @@ export default function AdminRedirectsPage() {
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 placeholder="/machines/double-jersey/new-slug or /about"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#800020]"
                 required
               />
               <span className="text-[10px] text-slate-400 mt-1 block">
@@ -218,7 +218,7 @@ export default function AdminRedirectsPage() {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="e.g., Marketing campaign shortlink or rebranded product model"
-              className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+              className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]"
             />
           </div>
 
@@ -248,7 +248,7 @@ export default function AdminRedirectsPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search source, destination, or reason..."
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF0000] transition-all"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#800020] transition-all"
           />
           {searchQuery && (
             <button
@@ -267,8 +267,12 @@ export default function AdminRedirectsPage() {
 
       {/* Redirects Table */}
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+        {/* Mobile Swipe Hint */}
+        <div className="md:hidden px-3.5 py-1.5 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between border-b border-slate-100">
+          <span>← Swipe horizontally to view redirects & actions →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse min-w-[680px]">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
                 <th className="p-4">Source URL</th>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -14,45 +14,43 @@ import {
   ExternalLink,
   LogOut,
   X,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminAuth } from "@/lib/admin/auth-context";
+import { AdminStore } from "@/lib/admin/admin-store";
 
 interface AdminSidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
 }
 
-// 3D Fluid Yarn Knot SVG (Pixel-perfect recreation of the colorful twisted 3D ribbon/knot in the reference design)
 export function Knot3DAccent({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn("w-14 h-14 select-none drop-shadow-[0_8px_16px_rgba(255,105,97,0.35)]", className)}
+      className={cn("w-14 h-14 select-none drop-shadow-[0_8px_16px_rgba(128,0,32,0.35)]", className)}
       aria-hidden="true"
     >
       <defs>
-        {/* Yellow to Coral Gradient */}
         <linearGradient id="knotGrad1" x1="15" y1="20" x2="85" y2="85" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFDE59" />
-          <stop offset="35%" stopColor="#FFA048" />
-          <stop offset="70%" stopColor="#FF4976" />
-          <stop offset="100%" stopColor="#D8307F" />
+          <stop offset="0%" stopColor="#D8A4AF" />
+          <stop offset="35%" stopColor="#A64D65" />
+          <stop offset="70%" stopColor="#800020" />
+          <stop offset="100%" stopColor="#5A0017" />
         </linearGradient>
 
-        {/* Coral to Purple Gradient */}
         <linearGradient id="knotGrad2" x1="80" y1="30" x2="30" y2="80" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FF5C8A" />
-          <stop offset="50%" stopColor="#D9387E" />
-          <stop offset="100%" stopColor="#9C27B0" />
+          <stop offset="0%" stopColor="#A64D65" />
+          <stop offset="50%" stopColor="#800020" />
+          <stop offset="100%" stopColor="#5A0017" />
         </linearGradient>
 
-        {/* Gloss highlight */}
         <linearGradient id="knotHighlight" x1="30" y1="20" x2="70" y2="60" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.8" />
         </linearGradient>
       </defs>
 
@@ -93,6 +91,22 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useAdminAuth();
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
+  const [pendingUsersCount, setPendingUsersCount] = useState(0);
+
+  // Sync pending approval requests count for live badge
+  useEffect(() => {
+    const updateCount = () => {
+      try {
+        const pending = AdminStore.getPendingCustomers();
+        setPendingUsersCount(pending.length);
+      } catch {
+        // ignore
+      }
+    };
+    updateCount();
+    window.addEventListener("tasneem-store-updated", updateCount);
+    return () => window.removeEventListener("tasneem-store-updated", updateCount);
+  }, []);
 
   const navItems = [
     {
@@ -111,6 +125,12 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       href: "/admin/quotes",
       icon: Inbox,
       badge: "New",
+    },
+    {
+      name: "Buyer Accounts",
+      href: "/admin/users",
+      icon: Users,
+      badge: pendingUsersCount > 0 ? `${pendingUsersCount}` : undefined,
     },
     {
       name: "Blog",
@@ -144,7 +164,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
           className="group relative flex items-center justify-center"
           title="Tasneem Admin Portal"
         >
-          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-[#FF6662] via-[#FF5579] to-[#FF4186] p-0.5 flex items-center justify-center shadow-lg shadow-rose-500/25 transition-transform duration-200 group-hover:scale-105 active:scale-95">
+          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-[#800020] via-[#6B001B] to-[#5A0017] p-0.5 flex items-center justify-center shadow-lg shadow-[#800020]/20 transition-transform duration-200 group-hover:scale-105 active:scale-95">
             {/* White Ribbon / T monogram */}
             <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
               <path
@@ -171,14 +191,14 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                   className={cn(
                     "relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 cursor-pointer",
                     isActive
-                      ? "bg-[#383A42] text-white shadow-inner"
+                      ? "bg-[#800020] text-white shadow-inner"
                       : "text-slate-400 hover:text-white hover:bg-white/5"
                   )}
                   aria-label={item.name}
                 >
                   <Icon className={cn("w-5 h-5 transition-transform", isActive ? "scale-105" : "")} />
 
-                  {/* Active Capsule Indicator Tab on Right Edge (Pixel-perfect match with reference) */}
+                  {/* Active Capsule Indicator Tab on Right Edge */}
                   {isActive && (
                     <span
                       className="absolute -right-2.5 w-1.5 h-3.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"
@@ -186,9 +206,9 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                     />
                   )}
 
-                  {/* Red dot badge if item has badge */}
+                  {/* Burgundy dot badge if item has badge */}
                   {item.badge && !isActive && (
-                    <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#FF4565]" />
+                    <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#800020]" />
                   )}
                 </Link>
 
@@ -206,12 +226,12 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
 
       {/* Bottom Section: 3D Fluid Knot, User Avatar & Controls */}
       <div className="flex flex-col items-center w-full space-y-4 pt-4">
-        {/* 3D Fluid Yarn Knot (Signature design accent from reference image) */}
+        {/* Signature brand accent */}
         <div className="relative cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95" title="Tasneem Knitting Technology">
           <Knot3DAccent />
         </div>
 
-        {/* User Avatar with Red Badge "6" */}
+        {/* User avatar with notification badge */}
         <div className="relative mt-1">
           <div
             className="w-10 h-10 rounded-[14px] bg-gradient-to-tr from-slate-700 to-slate-500 overflow-hidden ring-2 ring-white/15 p-0.5 flex items-center justify-center cursor-pointer shadow-md"
@@ -223,9 +243,9 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
             </div>
           </div>
 
-          {/* Red Notification Pill (Count 6 matching reference) */}
+          {/* Notification pill */}
           <span
-            className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-[#FF4565] text-white text-[9px] font-extrabold flex items-center justify-center ring-2 ring-[#111217]"
+            className="absolute -top-1.5 -right-1.5 min-w-4 h-4 px-1 rounded-full bg-[#800020] text-white text-[9px] font-extrabold flex items-center justify-center ring-2 ring-[#111217]"
             title="6 unread notifications"
           >
             6
@@ -261,7 +281,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   return (
     <>
       {/* Desktop Compact Dark Sidebar */}
-      <aside className="hidden lg:flex w-20 xl:w-[84px] flex-col shrink-0 bg-[#111217] z-30 select-none">
+      <aside className="hidden lg:flex w-20 xl:w-[84px] flex-col shrink-0 bg-[#2D2D2D] z-30 select-none">
         {sidebarContent}
       </aside>
 
@@ -273,12 +293,12 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed inset-y-0 left-0 w-24 bg-[#111217] shadow-2xl z-50 animate-in slide-in-from-left duration-200">
+          <div className="fixed inset-y-0 left-0 w-24 bg-[#2D2D2D] shadow-2xl z-50 animate-in slide-in-from-left duration-200 overflow-y-auto">
             <div className="absolute top-2 right-2">
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="p-1 text-slate-400 hover:text-white"
+                className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center text-slate-400 hover:text-white rounded-lg cursor-pointer"
                 aria-label="Close menu"
               >
                 <X className="w-4 h-4" />

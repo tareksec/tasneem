@@ -7,10 +7,13 @@ export function OrganizationSchema() {
     name: COMPANY_INFO.name,
     legalName: COMPANY_INFO.legalName,
     url: COMPANY_INFO.domain,
-    logo: `${COMPANY_INFO.domain}/images/logo.png`,
+    logo: `${COMPANY_INFO.domain}/logo/nave-var.png`,
     description: COMPANY_INFO.description,
     telephone: COMPANY_INFO.phone,
     email: COMPANY_INFO.email,
+    sameAs: [
+      COMPANY_INFO.facebook,
+    ],
     vatID: COMPANY_INFO.registration.bin,
     taxID: COMPANY_INFO.registration.etin,
     founder: {
@@ -59,10 +62,13 @@ export function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: COMPANY_INFO.name,
-    image: `${COMPANY_INFO.domain}/images/logo.png`,
+    image: `${COMPANY_INFO.domain}/logo/og-image.png`,
     telephone: COMPANY_INFO.phone,
     email: COMPANY_INFO.email,
     url: COMPANY_INFO.domain,
+    sameAs: [
+      COMPANY_INFO.facebook,
+    ],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Plot-594, Road No. 4, BSCIC Industrial Park, Chan Nagor, Shashongaon, Enayetnagar, Fatullah",

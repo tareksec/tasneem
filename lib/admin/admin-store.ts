@@ -40,7 +40,7 @@ const INITIAL_BLOG_POSTS: BlogPost[] = [
     title_bn: "নিটিং মিলের জন্য সার্কুলার নিটিং Gauge (G) ও Cylinder সিলেকশন গাইড",
     slug_en: "circular-knitting-gauge-cylinder-selection-guide",
     slug_bn: "circular-knitting-gauge-cylinder-selection-guide-bn",
-    cover_image: "/images/machines/double-jersey-01.png",
+    cover_image: "/images/machines/cat-double-jersey.jpg",
     excerpt_en:
       "A practical engineering guide for factory managers determining optimal gauge (18G to 36G) and cylinder diameter based on yarn count and finished fabric open width.",
     excerpt_bn:
@@ -98,7 +98,7 @@ Always account for 25% to 35% gray fabric relaxation shrinkage prior to stenter 
     title_bn: "মেশিন আমদানিতে থার্ড-পার্টি প্রি-শিপমেন্ট ইন্সপেকশন (SGS / Intertek / BV) গাইড",
     slug_en: "pre-shipment-inspection-protocol-overseas-machinery",
     slug_bn: "pre-shipment-inspection-protocol-overseas-machinery-bn",
-    cover_image: "/images/machines/single-jersey-01.png",
+    cover_image: "/images/machines/cat-single-jersey.jpg",
     excerpt_en:
       "Why independent 3rd-party inspection before ocean stuffing protects Bangladeshi buyers from defective cylinder concentricity and sub-par cam metallurgy.",
     excerpt_bn:
@@ -140,7 +140,7 @@ When importing high-value circular knitting machinery on CFR Chattogram terms, o
     title_bn: "২৪/৭ নিটিং মিল চালানোর জন্য প্রিভেন্টিভ মেইনটেন্যান্স রুটিন",
     slug_en: "preventive-maintenance-schedule-circular-knitting",
     slug_bn: "preventive-maintenance-schedule-circular-knitting-bn",
-    cover_image: "/images/machines/interlock-01.png",
+    cover_image: "/images/machines/cat-interlock.jpg",
     excerpt_en:
       "Standard operating procedures for shift-by-shift lint purging, positive feeder lubrication, and needle-breakage root cause tracking.",
     excerpt_bn:
@@ -277,6 +277,8 @@ const INITIAL_COMPANY_INFO: AdminCompanyInfo = {
   phoneAlt: COMPANY_INFO.phoneAlt,
   whatsapp: COMPANY_INFO.whatsapp,
   email: COMPANY_INFO.email,
+  businessEmail: COMPANY_INFO.businessEmail,
+  facebook: COMPANY_INFO.facebook,
   domain: COMPANY_INFO.domain,
   businessHours_en: COMPANY_INFO.businessHours,
   businessHours_bn: "শনিবার – বৃহস্পতিবার: সকাল ৯:০০ – সন্ধ্যা ৭:০০ (বাংলাদেশ সময়)",
@@ -465,7 +467,33 @@ const INITIAL_CUSTOMERS: CustomerUser[] = [
     phoneOrWhatsApp: "+880 1911-223344",
     deliveryAddress: "Kashimpur, Gazipur, Bangladesh",
     notes: "Verified Garments Mill Buyer",
+    status: "approved",
+    isApproved: true,
     createdAt: "2026-03-01T00:00:00Z",
+  },
+  {
+    id: "cust-pending-1",
+    name: "Engr. Kamal Uddin",
+    company: "Robin Knitwear Ltd.",
+    email: "procurement@robinknit.com",
+    phoneOrWhatsApp: "+880 1819-334455",
+    deliveryAddress: "Fatullah, Narayanganj, Bangladesh",
+    notes: "New buyer requesting quote access for 28G Circular line.",
+    status: "pending",
+    isApproved: false,
+    createdAt: "2026-03-14T09:30:00Z",
+  },
+  {
+    id: "cust-pending-2",
+    name: "Md. Jahangir Alam",
+    company: "Epyllion Composite Mills",
+    email: "jahangir@epyllion.com",
+    phoneOrWhatsApp: "+880 1712-889900",
+    deliveryAddress: "Mirzapur, Gazipur, Bangladesh",
+    notes: "Factory DGM requesting CFR pricing verification.",
+    status: "pending",
+    isApproved: false,
+    createdAt: "2026-03-14T11:45:00Z",
   },
 ];
 
@@ -618,7 +646,22 @@ function setStoredItem<T>(key: string, value: T): void {
 export const AdminStore = {
   // Blog Posts
   getBlogPosts(): BlogPost[] {
-    return getStoredItem<BlogPost[]>(STORAGE_KEY_BLOG, INITIAL_BLOG_POSTS);
+    const raw = getStoredItem<BlogPost[]>(STORAGE_KEY_BLOG, INITIAL_BLOG_POSTS);
+    return raw.map((p) => {
+      let img = p.cover_image;
+      if (!img || img.includes("double-jersey-01.png")) {
+        img = "/images/machines/cat-double-jersey.jpg";
+      } else if (img.includes("single-jersey-01.png")) {
+        img = "/images/machines/cat-single-jersey.jpg";
+      } else if (img.includes("interlock-01.png")) {
+        img = "/images/machines/cat-interlock.jpg";
+      } else if (img.includes("jacquard-01.png")) {
+        img = "/images/machines/cat-jacquard.jpg";
+      } else if (img.includes("installation-01.png")) {
+        img = "/images/machines/spotlight-installation.jpg";
+      }
+      return img !== p.cover_image ? { ...p, cover_image: img } : p;
+    });
   },
 
   getBlogPostById(id: string): BlogPost | undefined {
@@ -698,7 +741,17 @@ export const AdminStore = {
 
   // Company Info
   getCompanyInfo(): AdminCompanyInfo {
-    return getStoredItem<AdminCompanyInfo>(STORAGE_KEY_COMPANY, INITIAL_COMPANY_INFO);
+    const raw = getStoredItem<AdminCompanyInfo>(STORAGE_KEY_COMPANY, INITIAL_COMPANY_INFO);
+    return {
+      ...INITIAL_COMPANY_INFO,
+      ...raw,
+      email:
+        raw.email === "sales@tasneemknitindustry.com" || !raw.email
+          ? COMPANY_INFO.email
+          : raw.email,
+      businessEmail: raw.businessEmail || COMPANY_INFO.businessEmail,
+      facebook: raw.facebook || COMPANY_INFO.facebook,
+    };
   },
 
   saveCompanyInfo(info: AdminCompanyInfo): void {
@@ -928,7 +981,15 @@ export const AdminStore = {
   // Customer Portal & Buyer Account Management
   // ==========================================
   getCustomers(): CustomerUser[] {
-    return getStoredItem<CustomerUser[]>(STORAGE_KEY_CUSTOMERS, INITIAL_CUSTOMERS);
+    const raw = getStoredItem<CustomerUser[]>(STORAGE_KEY_CUSTOMERS, INITIAL_CUSTOMERS);
+    return raw.map((c) => ({
+      ...c,
+      status: c.status || (c.isApproved !== false ? "approved" : "pending"),
+    }));
+  },
+
+  getPendingCustomers(): CustomerUser[] {
+    return this.getCustomers().filter((c) => c.status === "pending");
   },
 
   getCustomerByEmail(email: string): CustomerUser | null {
@@ -938,14 +999,63 @@ export const AdminStore = {
 
   saveCustomer(customer: CustomerUser): CustomerUser {
     const customers = this.getCustomers();
-    const index = customers.findIndex((c) => c.id === customer.id || c.email.toLowerCase() === customer.email.toLowerCase());
+    const index = customers.findIndex(
+      (c) => c.id === customer.id || c.email.toLowerCase() === customer.email.toLowerCase()
+    );
+    const sanitizedCustomer: CustomerUser = {
+      ...customer,
+      status: customer.status || "pending",
+      isApproved: customer.status === "approved",
+    };
     if (index >= 0) {
-      customers[index] = customer;
+      customers[index] = sanitizedCustomer;
     } else {
-      customers.push(customer);
+      customers.unshift(sanitizedCustomer);
     }
     setStoredItem(STORAGE_KEY_CUSTOMERS, customers);
-    return customer;
+    this.logActivity("create", "customers", `New registration request: ${customer.company} (${customer.email})`);
+    return sanitizedCustomer;
+  },
+
+  approveCustomer(id: string): CustomerUser | null {
+    const customers = this.getCustomers();
+    const index = customers.findIndex((c) => c.id === id);
+    if (index < 0) return null;
+    const updated: CustomerUser = {
+      ...customers[index],
+      status: "approved",
+      isApproved: true,
+      updatedAt: new Date().toISOString(),
+    };
+    customers[index] = updated;
+    setStoredItem(STORAGE_KEY_CUSTOMERS, customers);
+    this.logActivity("update", "customers", `Approved buyer account: ${updated.company} (${updated.email})`);
+    return updated;
+  },
+
+  rejectCustomer(id: string, reason?: string): CustomerUser | null {
+    const customers = this.getCustomers();
+    const index = customers.findIndex((c) => c.id === id);
+    if (index < 0) return null;
+    const updated: CustomerUser = {
+      ...customers[index],
+      status: "rejected",
+      isApproved: false,
+      notes: reason || customers[index].notes,
+      updatedAt: new Date().toISOString(),
+    };
+    customers[index] = updated;
+    setStoredItem(STORAGE_KEY_CUSTOMERS, customers);
+    this.logActivity("update", "customers", `Rejected buyer account: ${updated.company} (${updated.email})`);
+    return updated;
+  },
+
+  deleteCustomer(id: string): boolean {
+    const customers = this.getCustomers();
+    const filtered = customers.filter((c) => c.id !== id);
+    setStoredItem(STORAGE_KEY_CUSTOMERS, filtered);
+    this.logActivity("delete", "customers", `Removed buyer account record: ${id}`);
+    return true;
   },
 
   updateCustomerProfile(id: string, updates: Partial<CustomerUser>): CustomerUser | null {

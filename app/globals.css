@@ -4,18 +4,37 @@
 
 :root {
   --primary-base: #FFFFFF;
-  --surface-muted: #F9FAFB;
+  --surface-muted: #F9F9F9;
   --surface-card: #FFFFFF;
-  --surface-dark: #0A0A0A;
-  --brand-red: #FF0000;
-  --brand-red-hover: #E00000;
+  --surface-dark: #2D2D2D;
+
+  /* Brand Palette: Burgundy, White, Dark Gray */
+  --burgundy: #800020;
+  --burgundy-dark: #5A0017;
+  --burgundy-hover: #600018;
+  --burgundy-light: #FDF2F4;
+  --burgundy-tint: #F9E6EA;
+  --burgundy-border: #D8A4AF;
+
+  --gray-dark: #2D2D2D;
+  --gray-dark-hover: #1F1F1F;
+  --gray-secondary: #4A4A4A;
+  --gray-muted: #717171;
+  --gray-border: #E5E5E5;
+
+  --brand-white: #FFFFFF;
+  --surface-offwhite: #F9F9F9;
+
+  /* Theme mappings for existing tokens */
+  --brand-red: #800020;
+  --brand-red-hover: #600018;
   --chrome-silver: #C0C0C0;
   --chrome-subtle: #D4D4D4;
-  --border-subtle: #E5E7EB;
-  --border-dark: #2A2A2A;
-  --text-primary: #0A0A0A;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
+  --border-subtle: #E5E5E5;
+  --border-dark: #2D2D2D;
+  --text-primary: #2D2D2D;
+  --text-secondary: #4A4A4A;
+  --text-muted: #717171;
 
   --font-scoutie: 'Scoutie Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-noto-bengali: 'Noto Serif Bengali', 'Scoutie Sans', serif;
@@ -24,21 +43,40 @@
 }
 
 @theme {
-  --color-primary: #0A0A0A;
+  --color-primary: #2D2D2D;
   --color-primary-foreground: #FFFFFF;
   --color-primary-base: #FFFFFF;
-  --color-surface-muted: #F9FAFB;
+  --color-surface-muted: #F9F9F9;
   --color-surface-card: #FFFFFF;
-  --color-surface-dark: #0A0A0A;
-  --color-brand-red: #FF0000;
-  --color-brand-red-hover: #E00000;
+  --color-surface-dark: #2D2D2D;
+
+  /* Registered Brand Palette */
+  --color-burgundy: #800020;
+  --color-burgundy-dark: #5A0017;
+  --color-burgundy-hover: #600018;
+  --color-burgundy-light: #FDF2F4;
+  --color-burgundy-tint: #F9E6EA;
+  --color-burgundy-border: #D8A4AF;
+
+  --color-gray-dark: #2D2D2D;
+  --color-gray-dark-hover: #1F1F1F;
+  --color-gray-secondary: #4A4A4A;
+  --color-gray-muted: #717171;
+  --color-gray-border: #E5E5E5;
+
+  --color-brand-white: #FFFFFF;
+  --color-surface-offwhite: #F9F9F9;
+
+  /* Legacy aliases mapping to Burgundy & Dark Gray */
+  --color-brand-red: #800020;
+  --color-brand-red-hover: #600018;
   --color-chrome-silver: #C0C0C0;
   --color-chrome-subtle: #D4D4D4;
-  --color-border-subtle: #E5E7EB;
-  --color-border-dark: #2A2A2A;
-  --color-text-primary: #0A0A0A;
-  --color-text-secondary: #4B5563;
-  --color-text-muted: #6B7280;
+  --color-border-subtle: #E5E5E5;
+  --color-border-dark: #2D2D2D;
+  --color-text-primary: #2D2D2D;
+  --color-text-secondary: #4A4A4A;
+  --color-text-muted: #717171;
 
   --font-sans: var(--font-scoutie);
   --font-bengali: var(--font-noto-bengali);
@@ -121,3 +159,22 @@ html[lang="en"] * {
   background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Glass Dock Component Styles */
+.glass-dock {
+  --tab-bar-home-scale: 0.7;
+  --tab-bar-home-opacity: 1;
+  --tab-bar-blog-scale: 0.7;
+  --tab-bar-blog-opacity: 1;
+  --tab-bar-marker-scale: 0.7;
+  --tab-bar-marker-opacity: 1;
+  --tab-bar-email-scale: 0.7;
+  --tab-bar-email-opacity: 1;
+  --tab-bar-linkedin-scale: 0.7;
+  --tab-bar-linkedin-opacity: 1;
+  --tab-bar-x-scale: 0.7;
+  --tab-bar-x-opacity: 1;
+  --tab-bar-github-scale: 0.7;
+  --tab-bar-github-opacity: 1;
+}
+

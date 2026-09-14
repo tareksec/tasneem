@@ -12,14 +12,14 @@ export function QuoteCtaBanner() {
   const { dict, locale } = useTranslation();
 
   return (
-    <section className="py-16 lg:py-24 bg-white border-t border-[#E5E7EB] overflow-hidden">
+    <section className="py-16 lg:py-24 bg-white border-t border-[#E5E5E5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="border border-[#E5E7EB] rounded-3xl bg-white shadow-2xl text-[#0A0A0A] relative overflow-hidden min-h-[380px] sm:min-h-[420px] flex items-center"
+          className="border border-[#E5E5E5] rounded-2xl sm:rounded-3xl bg-white shadow-2xl text-[#2D2D2D] relative overflow-hidden min-h-0 sm:min-h-[420px] flex items-center"
         >
           {/* 1. Full-Bleed Custom Machinery Sourcing Artwork Background */}
           <div className="absolute inset-0 z-0">
@@ -38,24 +38,24 @@ export function QuoteCtaBanner() {
           <div className="sm:hidden absolute inset-0 bg-gradient-to-b from-white via-white/90 via-60% to-transparent z-1 pointer-events-none" />
 
           {/* 3. Text & Call-to-Action Content */}
-          <div className="relative z-10 w-full max-w-xl lg:max-w-2xl py-10 sm:py-14 lg:py-16 px-6 sm:px-10 lg:px-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-red-200 text-xs font-bold text-red-600 mb-4 shadow-xs">
-              <Sliders className="w-3.5 h-3.5 text-[#FF0000]" />
+          <div className="relative z-10 w-full max-w-xl lg:max-w-2xl py-8 sm:py-14 lg:py-16 px-4 sm:px-10 lg:px-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-3 sm:mb-4 shadow-xs">
+              <Sliders className="w-3.5 h-3.5 text-[#800020]" />
               <span>{locale === "bn" ? "কাস্টম মেশিনারি সোর্সিং" : "Custom Machinery Sourcing"}</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-[#0A0A0A] leading-[1.18] mb-4">
+            <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-[#2D2D2D] leading-[1.18] mb-3 sm:mb-4">
               {dict.quoteBanner.title}
             </h2>
 
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal max-w-lg mb-8">
+            <p className="text-xs sm:text-base text-neutral-600 leading-relaxed font-normal max-w-lg mb-6 sm:mb-8">
               {dict.quoteBanner.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3.5">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5">
               <Link
                 href="/quote"
-                className="w-full sm:w-auto bg-[#FF0000] text-white px-7 py-3.5 rounded-full font-bold text-sm hover:bg-[#E00000] hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer"
+                className="w-full sm:w-auto bg-[#800020] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-[#5A0017] hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-rose-950/20 cursor-pointer min-h-[44px]"
               >
                 <span>{dict.quoteBanner.ctaBtn}</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -67,10 +67,10 @@ export function QuoteCtaBanner() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-white/95 backdrop-blur-md border border-neutral-300/90 text-[#0A0A0A] px-6 py-3.5 rounded-full font-bold text-sm hover:bg-neutral-50 hover:border-neutral-400 transition-all duration-200 flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+                className="w-full sm:w-auto bg-white/95 backdrop-blur-md border border-neutral-300/90 text-[#2D2D2D] px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-neutral-50 hover:border-neutral-400 transition-all duration-200 flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px]"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-600" />
-                <span>{dict.quoteBanner.whatsappBtn}</span>
+                <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="truncate">{dict.quoteBanner.whatsappBtn}</span>
               </a>
             </div>
           </div>

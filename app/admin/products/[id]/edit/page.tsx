@@ -30,7 +30,7 @@ export default function EditMachinePage() {
   if (loading) {
     return (
       <div className="py-20 flex flex-col items-center justify-center text-slate-400 gap-3">
-        <Loader2 className="h-6 w-6 animate-spin text-[#FF0000]" />
+        <Loader2 className="h-6 w-6 animate-spin text-[#800020]" />
         <p className="text-xs font-semibold">Loading machine specifications...</p>
       </div>
     );

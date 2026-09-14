@@ -51,9 +51,9 @@ export function MachineGallery({
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
 
   return (
-    <div className="border border-[#E5E7EB] rounded-2xl bg-white p-4 sm:p-5 shadow-sm flex flex-col gap-3">
+    <div className="border border-[#E5E5E5] rounded-2xl bg-white p-4 sm:p-5 shadow-sm flex flex-col gap-3">
       {/* Main High-Resolution Showcase */}
-      <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] overflow-hidden group">
+      <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9F9F9] border border-[#E5E5E5] overflow-hidden group">
         <Image
           src={activeImage.url}
           alt={activeImage.alt}
@@ -65,23 +65,23 @@ export function MachineGallery({
 
         {/* Brand Tag */}
         {brand && (
-          <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs border border-[#E5E7EB] px-2.5 py-1 rounded-md text-xs font-bold text-[#0A0A0A] shadow-xs">
+          <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs border border-[#E5E5E5] px-2.5 py-1 rounded-md text-xs font-bold text-[#2D2D2D] shadow-xs">
             {brand}
           </div>
         )}
 
         {/* Primary / Cover Tag */}
         {activeImage.isPrimary && (
-          <div className="absolute top-3 right-3 bg-[#FF0000] text-white px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide uppercase shadow-xs flex items-center gap-1">
+          <div className="absolute top-3 right-3 bg-[#800020] text-white px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide uppercase shadow-xs flex items-center gap-1">
             <Sparkles className="w-3 h-3" />
             <span>Primary View</span>
           </div>
         )}
 
-        {/* Fullscreen Expansion Button */}
+        {/* Fullscreen Expansion Button - visible on touch devices, hover-revealed on desktop */}
         <button
           onClick={() => setFullscreenOpen(true)}
-          className="absolute bottom-3 right-3 p-2 rounded-lg bg-white/90 hover:bg-white text-slate-700 shadow-sm border border-slate-200 transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+          className="absolute bottom-3 right-3 p-2 rounded-lg bg-white/90 hover:bg-white text-slate-700 shadow-sm border border-slate-200 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
           aria-label="Expand image"
         >
           <Maximize2 className="w-4 h-4" />
@@ -90,17 +90,17 @@ export function MachineGallery({
 
       {/* Thumbnails Navigation Strip */}
       {fallbackItems.length > 1 && (
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none no-scrollbar touch-pan-x">
           {fallbackItems.map((img, idx) => {
             const isSelected = idx === activeIndex;
             return (
               <button
                 key={img.id}
                 onClick={() => setActiveIndex(idx)}
-                className={`relative w-16 h-14 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                className={`relative w-14 h-12 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer min-w-[48px] ${
                   isSelected
-                    ? "border-[#FF0000] ring-2 ring-red-100 shadow-xs scale-102"
-                    : "border-[#E5E7EB] hover:border-slate-400 opacity-70 hover:opacity-100"
+                    ? "border-[#800020] ring-2 ring-[#800020]/20 shadow-xs scale-102"
+                    : "border-[#E5E5E5] hover:border-[#800020]/40 opacity-70 hover:opacity-100"
                 }`}
                 aria-label={`View photo ${idx + 1}`}
               >

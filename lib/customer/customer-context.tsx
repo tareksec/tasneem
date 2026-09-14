@@ -8,8 +8,14 @@ interface CustomerAuthContextType {
   customer: CustomerUser | null;
   quotes: QuoteRecord[];
   isLoading: boolean;
-  login: (email: string, password?: string) => boolean;
-  register: (name: string, company: string, email: string, phoneOrWhatsApp: string) => boolean;
+  login: (email: string, password?: string) => { success: boolean; error?: string };
+  register: (
+    name: string,
+    company: string,
+    email: string,
+    phoneOrWhatsApp: string,
+    password?: string
+  ) => { success: boolean; error?: string; customer?: CustomerUser };
   logout: () => void;
   updateProfile: (updates: Partial<CustomerUser>) => boolean;
   refreshQuotes: () => void;
@@ -38,9 +44,12 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       const storedEmail = window.localStorage.getItem(STORAGE_KEY_AUTH_EMAIL);
       if (storedEmail) {
         const found = AdminStore.getCustomerByEmail(storedEmail);
-        if (found) {
+        if (found && found.status === "approved") {
           setCustomer(found);
           syncQuotes(found.email);
+        } else {
+          window.localStorage.removeItem(STORAGE_KEY_AUTH_EMAIL);
+          setCustomer(null);
         }
       }
     } catch {
@@ -53,9 +62,12 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       const storedEmail = window.localStorage.getItem(STORAGE_KEY_AUTH_EMAIL);
       if (storedEmail) {
         const found = AdminStore.getCustomerByEmail(storedEmail);
-        if (found) {
+        if (found && found.status === "approved") {
           setCustomer(found);
           syncQuotes(found.email);
+        } else {
+          window.localStorage.removeItem(STORAGE_KEY_AUTH_EMAIL);
+          setCustomer(null);
         }
       }
     };
@@ -64,46 +76,74 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     return () => window.removeEventListener("tasneem-store-updated", handleUpdate);
   }, []);
 
-  const login = (email: string): boolean => {
-    const trimmed = email.trim();
-    let found = AdminStore.getCustomerByEmail(trimmed);
-    const user: CustomerUser = found || {
-      id: `cust-${Date.now()}`,
-      name: "Mill Procurement Officer",
-      company: "Industrial Garments Mill Ltd.",
-      email: trimmed,
-      phoneOrWhatsApp: "+880 1711-000000",
-      deliveryAddress: "BSCIC Industrial Area, Narayanganj",
-      createdAt: new Date().toISOString(),
-    };
+  const login = (email: string, password?: string): { success: boolean; error?: string } => {
+    const trimmed = email.trim().toLowerCase();
+    const found = AdminStore.getCustomerByEmail(trimmed);
+
     if (!found) {
-      AdminStore.saveCustomer(user);
+      return {
+        success: false,
+        error: "এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি। অনুগ্রহ করে সঠিক ইমেইল দিন বা নতুন অ্যাকাউন্ট তৈরি করুন। (No account found with this email.)",
+      };
     }
-    setCustomer(user);
-    window.localStorage.setItem(STORAGE_KEY_AUTH_EMAIL, user.email);
-    syncQuotes(user.email);
-    return true;
+
+    if (found.status === "pending") {
+      return {
+        success: false,
+        error: "PENDING_APPROVAL: আপনার অ্যাকাউন্টটি এখনো অ্যাডমিন অনুমোদনের অপেক্ষায় রয়েছে (Pending Approval)। অ্যাডমিন টিম তথ্য যাচাই করে অনুমোদন দেওয়ার পর লগইন করতে পারবেন।",
+      };
+    }
+
+    if (found.status === "rejected") {
+      return {
+        success: false,
+        error: "ACCOUNT_REJECTED: আপনার অ্যাকাউন্ট রেজিস্ট্রেশন রিকোয়েস্টটি অনুমোদিত হয়নি। বিস্তারিত জানতে সাপোর্টে যোগাযোগ করুন।",
+      };
+    }
+
+    setCustomer(found);
+    window.localStorage.setItem(STORAGE_KEY_AUTH_EMAIL, found.email);
+    syncQuotes(found.email);
+    return { success: true };
   };
 
   const register = (
     name: string,
     company: string,
     email: string,
-    phoneOrWhatsApp: string
-  ): boolean => {
+    phoneOrWhatsApp: string,
+    password?: string
+  ): { success: boolean; error?: string; customer?: CustomerUser } => {
+    const trimmedEmail = email.trim().toLowerCase();
+    const existing = AdminStore.getCustomerByEmail(trimmedEmail);
+
+    if (existing) {
+      if (existing.status === "pending") {
+        return {
+          success: false,
+          error: "PENDING_APPROVAL: এই ইমেইল দিয়ে ইতোমধ্যে একটি রেজিস্ট্রেশন রিকোয়েস্ট জমা রয়েছে এবং তা অ্যাডমিন অনুমোদনের অপেক্ষায় রয়েছে।",
+        };
+      }
+      return {
+        success: false,
+        error: "এই ইমেইল দিয়ে ইতোমধ্যে একটি সক্রিয় অ্যাকাউন্ট রয়েছে। অনুগ্রহ করে সাইন-ইন করুন।",
+      };
+    }
+
     const newCustomer: CustomerUser = {
       id: `cust-${Date.now()}`,
       name: name.trim(),
       company: company.trim(),
-      email: email.trim(),
+      email: trimmedEmail,
       phoneOrWhatsApp: phoneOrWhatsApp.trim(),
+      password: password || "",
+      status: "pending",
+      isApproved: false,
       createdAt: new Date().toISOString(),
     };
+
     AdminStore.saveCustomer(newCustomer);
-    setCustomer(newCustomer);
-    window.localStorage.setItem(STORAGE_KEY_AUTH_EMAIL, newCustomer.email);
-    syncQuotes(newCustomer.email);
-    return true;
+    return { success: true, customer: newCustomer };
   };
 
   const logout = () => {

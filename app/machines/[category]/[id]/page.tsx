@@ -61,7 +61,7 @@ export default async function MachineDetailPage({
         </span>
       );
     }
-    return <span className="font-semibold text-[#0A0A0A] text-xs sm:text-sm">{value}</span>;
+    return <span className="font-semibold text-[#2D2D2D] text-xs sm:text-sm">{value}</span>;
   };
 
   const whatsappInquiryUrl = `https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
@@ -98,7 +98,7 @@ export default async function MachineDetailPage({
   };
 
   return (
-    <div className="py-10 sm:py-16 bg-white text-[#0A0A0A]">
+    <div className="py-10 sm:py-16 bg-white text-[#2D2D2D]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
@@ -107,15 +107,15 @@ export default async function MachineDetailPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#4B5563] mb-8">
-          <Link href="/machines" className="hover:text-[#0A0A0A] transition-colors">
+          <Link href="/machines" className="hover:text-[#2D2D2D] transition-colors">
             Machines
           </Link>
           <span>/</span>
-          <Link href={`/machines/${category}`} className="hover:text-[#0A0A0A] transition-colors capitalize">
+          <Link href={`/machines/${category}`} className="hover:text-[#2D2D2D] transition-colors capitalize">
             {categoryInfo?.name || category.replace("-", " ")}
           </Link>
           <span>/</span>
-          <span className="text-[#0A0A0A] font-semibold truncate max-w-xs">{machine.name}</span>
+          <span className="text-[#2D2D2D] font-semibold truncate max-w-xs">{machine.name}</span>
         </nav>
 
         {/* Top Product Overview Grid */}
@@ -150,18 +150,18 @@ export default async function MachineDetailPage({
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="px-2.5 py-0.5 rounded border border-[#E5E7EB] bg-[#F9FAFB] text-[11px] font-bold uppercase tracking-wider text-[#FF0000]">
+                <span className="px-2.5 py-0.5 rounded border border-[#E5E7EB] bg-[#F9FAFB] text-[11px] font-bold uppercase tracking-wider text-[#800020]">
                   {categoryInfo?.name || machine.category.replace("-", " ")}
                 </span>
                 <span className="text-xs text-[#4B5563]">
                   {machine.origin ? `Country of Origin: ${machine.origin}` : "Imported Machinery"}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#0A0A0A] leading-tight">
+              <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D] leading-tight">
                 {machine.name}
               </h1>
               <p className="mt-2 text-xs sm:text-sm text-[#4B5563] font-medium">
-                Manufacturer: {renderSpec(machine.manufacturer)} • Brand: <span className="font-semibold text-[#0A0A0A]">{machine.brand}</span>
+                Manufacturer: {renderSpec(machine.manufacturer)} • Brand: <span className="font-semibold text-[#2D2D2D]">{machine.brand}</span>
               </p>
             </div>
 
@@ -169,7 +169,7 @@ export default async function MachineDetailPage({
             <div className="p-4 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <span className="text-xs text-[#6B7280] uppercase tracking-wider font-semibold block">Commercial Pricing</span>
-                <span className="text-lg sm:text-xl font-bold text-[#FF0000]">
+                <span className="text-lg sm:text-xl font-bold text-[#800020]">
                   {machine.price ? `$${machine.price.toLocaleString()} (CFR)` : "Quote Upon Request (CFR Chattogram)"}
                 </span>
                 <span className="text-[11px] text-[#6B7280] block mt-0.5">
@@ -192,7 +192,7 @@ export default async function MachineDetailPage({
             <div className="flex flex-col sm:flex-row items-center gap-3.5">
               <Link
                 href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}&category=${machine.category}`}
-                className="w-full sm:w-auto flex-1 bg-[#FF0000] hover:bg-[#E00000] text-white py-3 px-6 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="w-full sm:w-auto flex-1 bg-[#800020] hover:bg-[#5A0017] text-white py-3 px-6 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm"
               >
                 <span>Request a Quote (Pre-filled)</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -202,7 +202,7 @@ export default async function MachineDetailPage({
                 href={whatsappInquiryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-white border border-[#D1D5DB] text-[#0A0A0A] py-3 px-5 rounded-lg text-sm font-semibold hover:bg-[#F3F4F6] transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto bg-white border border-[#D1D5DB] text-[#2D2D2D] py-3 px-5 rounded-lg text-sm font-semibold hover:bg-[#F3F4F6] transition-colors flex items-center justify-center gap-2 shadow-xs"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600" />
                 <span>Quick WhatsApp Inquiry</span>
@@ -228,7 +228,7 @@ export default async function MachineDetailPage({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {machine.features.map((feat, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs text-[#4B5563]">
-                      <CheckCircle2 className="w-4 h-4 text-[#FF0000] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#800020] shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -241,7 +241,7 @@ export default async function MachineDetailPage({
         {/* Structured Specification Table */}
         {(() => {
           const specs: SpecRow[] = [
-            { label: "Machine Name", value: <span className="font-bold text-[#0A0A0A]">{machine.name}</span> },
+            { label: "Machine Name", value: <span className="font-bold text-[#2D2D2D]">{machine.name}</span> },
             { label: "Brand", value: renderSpec(machine.brand) },
             { label: "Manufacturer", value: renderSpec(machine.manufacturer) },
             { label: "Machine Type", value: renderSpec(machine.machineType) },
@@ -257,7 +257,7 @@ export default async function MachineDetailPage({
               label: "Target Applications",
               value:
                 machine.application && machine.application.length > 0 ? (
-                  <span className="font-semibold text-[#0A0A0A] text-xs sm:text-sm">
+                  <span className="font-semibold text-[#2D2D2D] text-xs sm:text-sm">
                     {machine.application.join(", ")}
                   </span>
                 ) : (
@@ -280,7 +280,7 @@ export default async function MachineDetailPage({
             {
               label: "Commercial Price",
               value: machine.price ? (
-                <span className="text-[#FF0000] font-bold">${machine.price.toLocaleString()} (CFR)</span>
+                <span className="text-[#800020] font-bold">${machine.price.toLocaleString()} (CFR)</span>
               ) : (
                 renderSpec(undefined)
               ),
@@ -294,16 +294,16 @@ export default async function MachineDetailPage({
         <RelatedMachines currentMachineId={machine.id} category={machine.category} />
 
         {/* Bottom CTA Card */}
-        <div className="mt-12 bg-[#F9FAFB] border border-[#E5E7EB] text-[#0A0A0A] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="mt-12 bg-[#F9FAFB] border border-[#E5E7EB] text-[#2D2D2D] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div>
-            <h2 className="text-xl font-bold text-[#0A0A0A]">Interested in {machine.name}?</h2>
+            <h2 className="text-xl font-bold text-[#2D2D2D]">Interested in {machine.name}?</h2>
             <p className="text-xs sm:text-sm text-[#4B5563] mt-1 max-w-xl">
               We provide formal Proforma Invoices (PI) for Bangladesh Bank L/C opening and complete CFR Chattogram delivery schedule.
             </p>
           </div>
           <Link
             href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}&category=${machine.category}`}
-            className="bg-[#FF0000] text-white px-6 py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#E00000] transition-colors shrink-0 flex items-center gap-1.5 duration-200"
+            className="bg-[#800020] text-white px-6 py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#5A0017] transition-colors shrink-0 flex items-center gap-1.5 duration-200"
           >
             <span>Request Quotation</span>
             <ArrowUpRight className="w-4 h-4" />

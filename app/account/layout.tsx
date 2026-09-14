@@ -68,7 +68,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           className="group relative flex items-center justify-center"
           title="Customer Portal"
         >
-          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-[#FF6662] via-[#FF5579] to-[#FF4186] p-0.5 flex items-center justify-center shadow-lg shadow-rose-500/25 transition-transform duration-200 group-hover:scale-105 active:scale-95">
+          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-[#D8A4AF] via-[#800020] to-[#5A0017] p-0.5 flex items-center justify-center shadow-lg shadow-[#800020]/25 transition-transform duration-200 group-hover:scale-105 active:scale-95">
             <span className="text-white font-black text-lg">T</span>
           </div>
         </Link>
@@ -141,7 +141,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   );
 
   return (
-    <div className="min-h-screen bg-[#ECE9E4] text-slate-900 flex items-center justify-center p-2 sm:p-5 lg:p-7 xl:p-9 font-sans selection:bg-[#FF4186] selection:text-white">
+    <div className="min-h-screen bg-[#F9F9F9] text-[#2D2D2D] flex items-center justify-center p-2 sm:p-5 lg:p-7 xl:p-9 font-sans selection:bg-[#800020] selection:text-white">
       {/* Floating App Container */}
       <div className="w-full max-w-[1440px] bg-[#111217] rounded-[32px] sm:rounded-[38px] shadow-[0_30px_90px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col lg:flex-row min-h-[860px] border border-black/5">
         {/* Sleek Dark Left Sidebar */}

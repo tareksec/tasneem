@@ -101,7 +101,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm"
+            className="text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
           >
             {dict.hero.title}
           </motion.h1>
@@ -111,7 +111,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
-            className="mt-4 sm:mt-5 text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
+            className="mt-3.5 sm:mt-5 text-sm min-[360px]:text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
           >
             {dict.hero.subtitle}
           </motion.p>
@@ -121,12 +121,12 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.24 }}
-            className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+            className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
           >
             {/* Primary CTA */}
             <Link
               href="/quote"
-              className="bg-[#FF0000] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#E00000] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-red-950/30"
+              className="bg-[#800020] text-white px-6 sm:px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#5A0017] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-black/40 min-h-[44px]"
             >
               <span>{dict.hero.primaryCta}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -139,10 +139,10 @@ export function HeroSection() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+              className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
-              <span>{dict.hero.whatsappCta} ({COMPANY_INFO.whatsappFormatted})</span>
+              <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span className="truncate">{dict.hero.whatsappCta} ({COMPANY_INFO.whatsappFormatted})</span>
             </a>
           </motion.div>
 
@@ -151,11 +151,11 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.3 }}
-            className="mt-8 sm:mt-10 pt-6 sm:pt-7 border-t border-white/15 flex flex-wrap items-center gap-5 sm:gap-7 text-xs text-neutral-200 font-medium"
+            className="mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-wrap items-center gap-3 sm:gap-7 text-xs text-neutral-200 font-medium"
           >
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                <Ship className="w-3.5 h-3.5 text-[#FF4D4D]" />
+                <Ship className="w-3.5 h-3.5 text-rose-200" />
               </div>
               <span>{dict.hero.cfrBadge}</span>
             </div>
@@ -167,7 +167,7 @@ export function HeroSection() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                <Wrench className="w-3.5 h-3.5 text-[#FF4D4D]" />
+                <Wrench className="w-3.5 h-3.5 text-rose-200" />
               </div>
               <span>{dict.hero.installBadge}</span>
             </div>
@@ -178,7 +178,7 @@ export function HeroSection() {
 
       {/* 4. Natural Video Visibility Indicator (Bottom Right) */}
       <div className="hidden lg:flex absolute bottom-6 right-6 z-10 bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-[11px] font-semibold text-white/90 shadow-md items-center gap-2 pointer-events-none">
-        <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-pulse" />
+        <span className="w-2 h-2 rounded-full bg-[#800020] ring-2 ring-white/40 animate-pulse" />
         <span>
           {locale === "bn"
             ? "কারখানা ফ্লোর • টেক্সটাইল নিটিং মেশিনারি"

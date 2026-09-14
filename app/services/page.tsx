@@ -255,25 +255,25 @@ export default function ServicesPage() {
   });
 
   return (
-    <div className="py-12 sm:py-20 bg-engineering-grid min-h-screen text-[#0A0A0A]">
+    <div className="py-12 sm:py-20 bg-engineering-grid min-h-screen text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ================================================================
             1. PAGE HEADER (Styled with Accent Words matching reference image)
             ================================================================ */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-red-200 bg-red-50/90 text-xs font-mono font-bold text-red-600 mb-4 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-mono font-bold text-[#800020] mb-4 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse" />
             <span>{locale === "bn" ? "মেশিনারি ও টেকনিক্যাল সলিউশন" : "END-TO-END INDUSTRIAL SOLUTIONS"}</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 leading-tight mb-4">
             {locale === "bn" ? (
               <>
-                আমাদের <span className="text-[#FF0000]">সকল সেবা</span>
+                আমাদের <span className="text-[#800020]">সকল সেবা</span>
               </>
             ) : (
               <>
-                Our <span className="text-[#FF0000]">Comprehensive Services</span>
+                Our <span className="text-[#800020]">Comprehensive Services</span>
               </>
             )}
           </h1>
@@ -300,14 +300,14 @@ export default function ServicesPage() {
                     onClick={() => setActiveCategory(tab.key as any)}
                     className={`relative isolate px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 select-none ${
                       isActive
-                        ? "text-white shadow-md shadow-red-500/30"
+                        ? "text-white shadow-md shadow-[#800020]/30"
                         : "text-neutral-700 hover:text-black bg-white/80 hover:bg-white border border-transparent shadow-xs"
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeServiceCategoryPill"
-                        className="absolute inset-0 rounded-full bg-[#FF0000] z-0 shadow-sm"
+                        className="absolute inset-0 rounded-full bg-[#800020] z-0 shadow-sm"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -331,7 +331,7 @@ export default function ServicesPage() {
             return (
               <div
                 key={service.id}
-                className="group relative bg-white border border-[#E5E7EB] rounded-[28px] sm:rounded-[36px] shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_-12px_rgba(255,0,0,0.1)] hover:border-red-200 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden"
+                className="group relative bg-white border border-[#E5E7EB] rounded-[28px] sm:rounded-[36px] shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_-12px_rgba(128,0,32,0.1)] hover:border-red-200 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden"
               >
                 <div
                   className={`flex flex-col ${
@@ -383,7 +383,7 @@ export default function ServicesPage() {
                   <div className="w-full lg:w-[52%] flex flex-col justify-center">
                     {/* Top Service Number & Category Pill */}
                     <div className="flex items-center gap-2.5 mb-3">
-                      <span className="text-xs font-mono font-bold text-[#FF0000] tracking-wider">
+                      <span className="text-xs font-mono font-bold text-[#800020] tracking-wider">
                         0{index + 1} / 06
                       </span>
                       <span className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
@@ -393,7 +393,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight leading-snug group-hover:text-[#FF0000] transition-colors mb-3">
+                    <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight leading-snug group-hover:text-[#800020] transition-colors mb-3">
                       {locale === "bn" ? service.titleBn : service.titleEn}
                     </h2>
 
@@ -408,7 +408,7 @@ export default function ServicesPage() {
                     <div className="space-y-3 mb-6">
                       {/* Metric 1: Location / Scope */}
                       <div className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-700">
-                        <div className="w-6 h-6 rounded-full bg-red-50 border border-red-200 text-[#FF0000] flex items-center justify-center shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0">
                           <MapPin className="w-3.5 h-3.5" />
                         </div>
                         <div className="truncate">
@@ -423,7 +423,7 @@ export default function ServicesPage() {
 
                       {/* Metric 2: Timeline / Turnaround */}
                       <div className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-700">
-                        <div className="w-6 h-6 rounded-full bg-red-50 border border-red-200 text-[#FF0000] flex items-center justify-center shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0">
                           <Clock className="w-3.5 h-3.5" />
                         </div>
                         <div className="truncate">
@@ -438,7 +438,7 @@ export default function ServicesPage() {
 
                       {/* Metric 3: Standard / Compliance */}
                       <div className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-700">
-                        <div className="w-6 h-6 rounded-full bg-red-50 border border-red-200 text-[#FF0000] flex items-center justify-center shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0">
                           <ShieldCheck className="w-3.5 h-3.5" />
                         </div>
                         <div className="truncate">
@@ -458,7 +458,7 @@ export default function ServicesPage() {
                     <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-4">
                       <button
                         onClick={() => setSelectedService(service)}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 hover:bg-[#FF0000] text-[#FF0000] hover:text-white border border-red-200 text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer shadow-2xs group/btn"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FDF2F4] hover:bg-[#800020] text-[#800020] hover:text-white border border-[#D8A4AF] text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer shadow-2xs group/btn"
                       >
                         <span>{locale === "bn" ? "বিস্তারিত দেখুন" : "Learn more"}</span>
                         <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
@@ -469,7 +469,7 @@ export default function ServicesPage() {
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-100 hover:bg-neutral-900 text-neutral-700 hover:text-white border border-neutral-200 text-xs font-mono font-bold transition-all duration-200 shadow-2xs group/inquire"
                       >
                         <span>{locale === "bn" ? "কোটেশন চান" : "Inquire"}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-[#FF0000] group-hover/inquire:text-white transition-colors" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#800020] group-hover/inquire:text-white transition-colors" />
                       </Link>
                     </div>
                   </div>
@@ -503,13 +503,13 @@ export default function ServicesPage() {
 
                 {/* Modal Header */}
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-14 h-14 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-center text-[#FF0000] shrink-0">
+                  <div className="w-14 h-14 bg-[#FDF2F4] border border-[#F9E6EA] rounded-2xl flex items-center justify-center text-[#800020] shrink-0">
                     <selectedService.icon className="w-7 h-7" />
                   </div>
 
                   <div className="pr-8">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="bg-red-50 border border-red-200 text-red-600 font-mono text-xs font-bold px-2.5 py-0.5 rounded-full">
+                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] font-mono text-xs font-bold px-2.5 py-0.5 rounded-full">
                         {locale === "bn" ? selectedService.tagBn : selectedService.tagEn}
                       </span>
                       <span className="bg-neutral-100 text-neutral-700 font-mono text-xs font-bold px-2.5 py-0.5 rounded-full">
@@ -530,13 +530,13 @@ export default function ServicesPage() {
                 {/* Key Deliverables */}
                 <div className="mb-6">
                   <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#FF0000]" />
+                    <CheckCircle2 className="w-4 h-4 text-[#800020]" />
                     <span>{locale === "bn" ? "যা যা পাচ্ছেন" : "Key Deliverables & Specifications"}</span>
                   </h4>
                   <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-700">
                     {(locale === "bn" ? selectedService.deliverablesBn : selectedService.deliverablesEn).map((d, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000] mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#800020] mt-1.5 shrink-0" />
                         <span>{d}</span>
                       </li>
                     ))}
@@ -573,7 +573,7 @@ export default function ServicesPage() {
                   </button>
                   <Link
                     href="/quote"
-                    className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0A0A0A] hover:bg-[#FF0000] transition-colors flex items-center gap-1.5 shadow-md"
+                    className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#2D2D2D] hover:bg-[#800020] transition-colors flex items-center gap-1.5 shadow-md"
                   >
                     <span>{locale === "bn" ? "এই সেবার কোটেশন নিন" : "Request This Service"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -587,15 +587,15 @@ export default function ServicesPage() {
         {/* ================================================================
             4. BOTTOM CALL-TO-ACTION BANNER WITH RECONCILED CONTACT FACTS
             ================================================================ */}
-        <div className="relative border border-[#E5E7EB] bg-gradient-to-br from-white via-white to-red-50/40 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="relative border border-[#E5E7EB] bg-gradient-to-br from-white via-white to-[#FDF2F4]/40 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
           {/* Faint Background Watermark */}
           <div className="absolute right-0 bottom-0 text-[180px] font-mono font-black text-neutral-900/[0.02] select-none pointer-events-none leading-none -mr-8 -mb-10">
             TASNEEM
           </div>
 
           <div className="relative z-10 max-w-2xl text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100/80 text-red-700 text-xs font-mono font-bold mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-ping" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#D8A4AF] text-[#800020] text-xs font-mono font-bold mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
               <span>{locale === "bn" ? "আপনার বিশ্বস্ত পার্টনার" : "CONSULTATION & PROCUREMENT"}</span>
             </div>
 
@@ -615,9 +615,9 @@ export default function ServicesPage() {
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono text-neutral-700">
               <a
                 href="tel:01887683333"
-                className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-neutral-200 hover:border-red-300 transition-colors shadow-2xs"
+                className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-neutral-200 hover:border-[#D8A4AF] transition-colors shadow-2xs"
               >
-                <Phone className="w-3.5 h-3.5 text-[#FF0000]" />
+                <Phone className="w-3.5 h-3.5 text-[#800020]" />
                 <span>Hotline: 01887683333</span>
               </a>
 
@@ -636,7 +636,7 @@ export default function ServicesPage() {
           <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/quote"
-              className="w-full sm:w-auto bg-[#FF0000] hover:bg-[#E00000] text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
             >
               <span>{t.common.requestQuote}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

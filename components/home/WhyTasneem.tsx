@@ -16,8 +16,8 @@ export function WhyTasneem() {
       badge: "Pillar 01",
       icon: HandCoins,
       description: dict.whyTasneem.pillar1Desc,
-      iconColor: "text-red-600 bg-red-50 group-hover:bg-[#FF0000] group-hover:text-white",
-      borderColor: "hover:border-red-400/80",
+      iconColor: "text-[#800020] bg-[#FDF2F4] group-hover:bg-[#800020] group-hover:text-white",
+      borderColor: "hover:border-[#800020]/40",
     },
     {
       title: dict.whyTasneem.pillar2Title,
@@ -46,7 +46,7 @@ export function WhyTasneem() {
   ];
 
   return (
-    <section id="why-tasneem" className="relative w-full min-h-[700px] sm:min-h-[760px] lg:min-h-[820px] flex flex-col justify-between pt-4 sm:pt-6 pb-14 sm:pb-20 px-4 sm:px-8 lg:px-12 overflow-hidden border-b border-[#E5E7EB] bg-white text-neutral-900">
+    <section id="why-tasneem" className="relative w-full min-h-0 sm:min-h-[760px] lg:min-h-[820px] flex flex-col justify-between pt-4 sm:pt-6 pb-12 sm:pb-20 px-4 sm:px-8 lg:px-12 overflow-hidden border-b border-[#E5E5E5] bg-white text-[#2D2D2D]">
       {/* 1. Full-Bleed Background Photo — 100% Native Color & Brightness */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <Image
@@ -74,9 +74,9 @@ export function WhyTasneem() {
       <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
         <MotionSection delay={0.05} className="flex flex-col items-center">
           {/* Glowing Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-red-200 backdrop-blur-md text-xs font-bold text-red-600 shadow-md mb-3.5">
-            <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-ping" />
-            <span className="text-[#FF0000] font-extrabold tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-[#F9E6EA] backdrop-blur-md text-xs font-bold text-[#800020] shadow-md mb-3.5">
+            <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
+            <span className="text-[#800020] font-extrabold tracking-wider uppercase">
               {dict.whyTasneem.badge}
             </span>
             <span className="text-neutral-400 font-normal">•</span>
@@ -86,7 +86,7 @@ export function WhyTasneem() {
           </div>
 
           {/* Section Heading */}
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#2D2D2D] leading-tight">
             {dict.whyTasneem.title}
           </h2>
 
@@ -119,7 +119,7 @@ export function WhyTasneem() {
                   </span>
                 </div>
 
-                <h3 className="font-bold text-sm sm:text-base text-neutral-900 mb-1.5 leading-snug group-hover:text-[#FF0000] transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-[#2D2D2D] mb-1.5 leading-snug group-hover:text-[#800020] transition-colors">
                   {pillar.title}
                 </h3>
 
@@ -132,11 +132,11 @@ export function WhyTasneem() {
         </div>
 
         {/* Footer Actions Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-          <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             <Link
               href="/about"
-              className="bg-[#FF0000] hover:bg-[#E00000] text-white px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center gap-2 shadow-md shadow-red-500/25 hover:scale-[1.03]"
+              className="bg-[#800020] hover:bg-[#5A0017] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-md shadow-rose-950/25 hover:scale-[1.03] min-h-[40px]"
             >
               <span>{dict.common.readMore}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -144,7 +144,7 @@ export function WhyTasneem() {
 
             <Link
               href="/machines"
-              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center gap-1.5 shadow-xs hover:border-neutral-400"
+              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center justify-center gap-1.5 shadow-xs hover:border-neutral-400 min-h-[40px]"
             >
               <span>{dict.common.viewAllMachines}</span>
               <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />
@@ -153,9 +153,9 @@ export function WhyTasneem() {
 
           <div className="text-center sm:text-right text-xs text-neutral-600">
             <span className="block text-neutral-900 font-bold">
-              {locale === "bn" ? "ফ্যাক্টরি শোরুম:" : "Factory Showroom:"} <span className="text-[#FF0000]">{locale === "bn" ? "প্লট-৫৯৪, বিসিক শিল্পনগরী, নারায়ণগঞ্জ" : "Plot-594, BSCIC Industrial Park, Narayanganj"}</span>
+              {locale === "bn" ? "ফ্যাক্টরি শোরুম:" : "Factory Showroom:"} <span className="text-[#800020]">{locale === "bn" ? "প্লট-৫৯৪, বিসিক শিল্পনগরী, নারায়ণগঞ্জ" : "Plot-594, BSCIC Industrial Park, Narayanganj"}</span>
             </span>
-            <span className="text-[11px] text-neutral-500">
+            <span className="text-[11px] text-neutral-500 break-all sm:break-normal">
               {locale === "bn" ? "হটলাইন:" : "Hotline:"} {COMPANY_INFO.phone} • {locale === "bn" ? "সরাসরি সেলস:" : "Direct Sales:"} {COMPANY_INFO.phoneAlt}
             </span>
           </div>

@@ -29,6 +29,20 @@ export async function POST(request: Request) {
       );
     }
 
+    // Bangladeshi phone number validation: 01[3-9]XXXXXXXX or +8801[3-9]XXXXXXXX
+    const cleanedPhone = data.phoneOrWhatsApp.replace(/[\s\-\(\)\.]/g, "");
+    const isBdPhone = /^(?:\+?880|880|0)?1[3-9]\d{8}$/.test(cleanedPhone);
+    if (!isBdPhone) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "A valid Bangladeshi mobile number is required (e.g., 017XXXXXXXX or +88017XXXXXXXX).",
+        },
+        { status: 400 }
+      );
+    }
+
     if (!data.machineType || !data.machineType.trim()) {
       return NextResponse.json(
         { success: false, error: "Machine type or model selection is required." },
@@ -105,8 +119,8 @@ Notes: ${data.message || "None"}`;
       console.warn("Could not save quote to database:", dbError);
     }
 
-    // Quote notification email routed to confirmed company domain email (sales@tasneemknitindustry.com)
-    console.log(`[B2B Quote Request Received] Ref: ${quoteId} -> Routing notification to: ${COMPANY_INFO.email}`, data);
+    // Quote notification email routed to main & business inboxes (tasneemknit@gmail.com / hello@tasneemknitindustry.com)
+    console.log(`[B2B Quote Request Received] Ref: ${quoteId} -> Routing notification to: ${COMPANY_INFO.email} / ${COMPANY_INFO.businessEmail}`, data);
 
     return NextResponse.json({
       success: true,

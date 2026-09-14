@@ -100,15 +100,15 @@ export default function ResourcesPage() {
   ];
 
   return (
-    <div className="py-12 sm:py-20 bg-white text-[#0A0A0A]">
+    <div className="py-12 sm:py-20 bg-white text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="max-w-3xl mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] text-xs font-semibold text-[#4B5563] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
             <span>{locale === "bn" ? "টেকনিক্যাল রিসোর্স ও গাইড" : "Technical Resources & Knowledge"}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#0A0A0A]">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {locale === "bn"
               ? "মিল মালিক ও প্রোডাকশন টিমের জন্য প্র্যাকটিক্যাল গাইড"
               : "Technical Guides for Mill Owners & Sourcing Teams"}
@@ -130,18 +130,18 @@ export default function ResourcesPage() {
               <div className="h-full border border-[#E5E7EB] rounded-2xl bg-white p-6 sm:p-8 flex flex-col justify-between shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-[#C0C0C0] transition-all duration-200">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-center text-[#FF0000]">
+                    <div className="w-10 h-10 rounded-lg bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-center text-[#800020]">
                       <guide.icon className="w-5 h-5" />
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2.5 py-0.5 rounded bg-[#F9FAFB] border border-[#E5E7EB] font-semibold text-[#0A0A0A]">
+                      <span className="px-2.5 py-0.5 rounded bg-[#F9FAFB] border border-[#E5E7EB] font-semibold text-[#2D2D2D]">
                         {guide.category}
                       </span>
                       <span className="text-[#6B7280]">{guide.readTime}</span>
                     </div>
                   </div>
 
-                  <h2 className="font-bold text-xl text-[#0A0A0A] mb-3 leading-snug">
+                  <h2 className="font-bold text-xl text-[#2D2D2D] mb-3 leading-snug">
                     {guide.title}
                   </h2>
 
@@ -155,7 +155,7 @@ export default function ResourcesPage() {
                     </span>
                     {guide.points.map((pt, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-xs text-[#4B5563]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#FF0000] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#800020] shrink-0 mt-0.5" />
                         <span>{pt}</span>
                       </div>
                     ))}
@@ -165,7 +165,7 @@ export default function ResourcesPage() {
                 <div className="mt-8 pt-4 border-t border-[#E5E7EB]">
                   <Link
                     href="/quote"
-                    className="text-xs font-bold text-[#FF0000] hover:underline inline-flex items-center gap-1.5"
+                    className="text-xs font-bold text-[#800020] hover:underline inline-flex items-center gap-1.5"
                   >
                     <span>{locale === "bn" ? "মেশিন স্পেসিফিকেশন নিয়ে কথা বলুন" : "Request Technical Specification Support"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

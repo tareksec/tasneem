@@ -55,7 +55,7 @@ export default function PublicBlogPage() {
         {/* Header */}
         <div className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800 mb-4 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#FF0000]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#800020]" />
             <span>{locale === "bn" ? "টেকনিক্যাল তথ্য ও মার্কেট গাইড" : "Technical Knowledge & Sourcing Insights"}</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-950">
@@ -81,7 +81,7 @@ export default function PublicBlogPage() {
                 onClick={() => setSelectedCategory(cat.key)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === cat.key
-                    ? "bg-[#0A0A0A] text-white shadow-xs"
+                    ? "bg-[#2D2D2D] text-white shadow-xs"
                     : "bg-neutral-100 text-neutral-600 hover:text-neutral-950 hover:bg-neutral-200"
                 }`}
               >
@@ -130,12 +130,13 @@ export default function PublicBlogPage() {
                     {/* Cover Image */}
                     <div className="relative w-full h-48 bg-neutral-100 overflow-hidden">
                       <Image
-                        src={post.cover_image}
+                        src={post.cover_image || "/images/machines/cat-double-jersey.jpg"}
                         alt={title}
                         fill
+                        unoptimized={Boolean(post.cover_image?.startsWith("http"))}
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-3 left-3 bg-[#0A0A0A]/85 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                      <div className="absolute top-3 left-3 bg-[#2D2D2D]/85 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
                         {post.category}
                       </div>
                     </div>
@@ -153,7 +154,7 @@ export default function PublicBlogPage() {
                         </div>
                       </div>
 
-                      <h2 className="text-lg font-bold text-neutral-950 group-hover:text-[#FF0000] transition-colors line-clamp-2 leading-snug">
+                      <h2 className="text-lg font-bold text-neutral-950 group-hover:text-[#800020] transition-colors line-clamp-2 leading-snug">
                         <Link href={`/blog/${slug}`}>{title}</Link>
                       </h2>
 
@@ -170,7 +171,7 @@ export default function PublicBlogPage() {
                     </span>
                     <Link
                       href={`/blog/${slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-neutral-950 group-hover:text-[#FF0000] transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-neutral-950 group-hover:text-[#800020] transition-colors"
                     >
                       <span>{locale === "bn" ? "পুরো আর্টিকেল পড়ুন" : "Read Article"}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />

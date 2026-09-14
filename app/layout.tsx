@@ -65,11 +65,20 @@ export const metadata: Metadata = {
     description:
       "Direct overseas importer of industrial circular knitting machines for Bangladesh textile mills. CFR Chattogram delivery, pre-shipment inspection, and on-site factory commissioning.",
     siteName: COMPANY_INFO.name,
+    images: [
+      {
+        url: `${COMPANY_INFO.domain}/logo/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Tasneem Knitting Industry - Industrial Circular Knitting Machine Sourcing",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Tasneem Knitting Industry | Circular Knitting Machine Sourcing",
     description: "Industrial circular knitting machinery direct import & factory commissioning in Bangladesh.",
+    images: [`${COMPANY_INFO.domain}/logo/og-image.png`],
   },
   robots: {
     index: true,
@@ -84,12 +93,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logo/logo-mark.png", type: "image/png" },
-      { url: "/favicon.ico" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/logo/icon.png", type: "image/png" },
     ],
-    shortcut: "/logo/logo-mark.png",
+    shortcut: "/favicon.ico",
     apple: [
-      { url: "/logo/logo-mark.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   verification: {
@@ -105,9 +115,11 @@ export default function RootLayout({
   return (
     <html lang="bn" className={`${notoSerifBengali.variable} h-full antialiased`}>
       <head>
-        <link rel="icon" href="/logo/logo-mark.png" type="image/png" />
-        <link rel="shortcut icon" href="/logo/logo-mark.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo/logo-mark.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
+        <link rel="icon" href="/logo/icon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -117,7 +129,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
       </head>
-      <body className="min-h-full flex flex-col bg-white text-[#0A0A0A] font-sans antialiased selection:bg-[#FF0000] selection:text-white">
+      <body className="min-h-full flex flex-col bg-white text-[#2D2D2D] font-sans antialiased selection:bg-[#800020] selection:text-white">
         <GoogleAnalytics />
         <LanguageProvider initialLocale="bn">
           <PublicLayoutWrapper>{children}</PublicLayoutWrapper>

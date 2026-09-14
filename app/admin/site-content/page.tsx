@@ -199,7 +199,7 @@ export default function SiteContentPage() {
         <CardHeader className="bg-slate-50/70 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#FF0000]" />
+              <Sparkles className="h-4 w-4 text-[#800020]" />
               <CardTitle className="text-base">1. Why Tasneem (4 Core Value Pillars)</CardTitle>
             </div>
             <CardDescription className="text-xs">
@@ -548,22 +548,48 @@ export default function SiteContentPage() {
             {/* Email & Digital Presence */}
             <div className="pt-4 border-t border-slate-100">
               <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">
-                Digital & Quote Notification Inbox
+                Digital Contact & Official Properties
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-slate-700 block">
-                    Quote Notification & Sales Email *
+                    Main Email *
                   </label>
                   <Input
                     type="email"
                     value={companyInfo.email}
                     onChange={(e) => setCompanyInfo({ ...companyInfo, email: e.target.value })}
-                    placeholder="sales@tasneemknitindustry.com"
+                    placeholder="tasneemknit@gmail.com"
                   />
                   <span className="text-[11px] text-slate-400">
-                    Client quotes are routed directly to this domain inbox.
+                    Primary inbox for company inquiries and notifications.
                   </span>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700 block">
+                    Business Email
+                  </label>
+                  <Input
+                    type="email"
+                    value={companyInfo.businessEmail || ""}
+                    onChange={(e) => setCompanyInfo({ ...companyInfo, businessEmail: e.target.value })}
+                    placeholder="hello@tasneemknitindustry.com"
+                  />
+                  <span className="text-[11px] text-slate-400">
+                    Official domain email address for business correspondence.
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700 block">
+                    Official Facebook Page URL
+                  </label>
+                  <Input
+                    value={companyInfo.facebook || ""}
+                    onChange={(e) => setCompanyInfo({ ...companyInfo, facebook: e.target.value })}
+                    placeholder="https://www.facebook.com/tasneemknitind"
+                  />
                 </div>
 
                 <div className="space-y-1">

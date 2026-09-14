@@ -42,9 +42,9 @@ export function IndustriesSection() {
       targetFabrics: ["Heavy Rib Knits", "Drop-Needle Jersey", "Structured Thermal Knitwear", "Collar Trims"],
       bgClass: "bg-[#F7F7F8] text-neutral-900 border-t border-neutral-300 shadow-[0_-30px_70px_rgba(0,0,0,0.14)]",
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
-      badgeBorder: "border-red-200 bg-red-50 text-red-600",
+      badgeBorder: "border-[#F9E6EA] bg-[#FDF2F4] text-[#800020]",
       pillClass: "bg-white border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#FF0000] hover:bg-[#E00000] text-white",
+      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Building2,
     },
@@ -84,7 +84,7 @@ export function IndustriesSection() {
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
       badgeBorder: "border-purple-200 bg-purple-50 text-purple-700",
       pillClass: "bg-neutral-100 border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#FF0000] hover:bg-[#E00000] text-white",
+      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Sparkles,
     },
@@ -99,9 +99,9 @@ export function IndustriesSection() {
         return (
           <section
             key={ind.num}
-            className={`sticky top-0 h-screen w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-12 relative overflow-hidden ${
+            className={`relative md:sticky md:top-0 min-h-screen md:h-screen w-full flex flex-col justify-center items-center py-14 sm:py-20 md:py-0 px-4 sm:px-8 lg:px-12 relative overflow-visible md:overflow-hidden ${
               ind.bgClass
-            } ${!isFirst ? "rounded-t-[32px] sm:rounded-t-[48px] lg:rounded-t-[56px]" : ""}`}
+            } ${!isFirst ? "rounded-t-[28px] sm:rounded-t-[48px] lg:rounded-t-[56px]" : ""}`}
           >
             {/* Architectural Technical Grid with Radial Mask Accent */}
             <div
@@ -123,7 +123,7 @@ export function IndustriesSection() {
                   <div
                     className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full border text-xs font-mono font-bold shadow-xs ${ind.badgeBorder}`}
                   >
-                    <IconComponent className="w-3.5 h-3.5 text-[#FF0000]" />
+                    <IconComponent className="w-3.5 h-3.5 text-[#800020]" />
                     <span>{ind.num} / 04</span>
                     <span>•</span>
                     <span className="font-sans font-medium">{ind.tag}</span>
@@ -136,31 +136,31 @@ export function IndustriesSection() {
               </div>
 
               {/* Title & Headline */}
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-3 sm:mb-4">
+              <h2 className="text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-2.5 sm:mb-4">
                 {ind.title}
               </h2>
-              <p className="text-sm sm:text-lg font-medium opacity-80 max-w-3xl mb-4 sm:mb-6 leading-relaxed">
+              <p className="text-xs sm:text-lg font-medium opacity-80 max-w-3xl mb-3 sm:mb-6 leading-relaxed">
                 {ind.headline}
               </p>
 
               {/* Description Paragraph */}
-              <p className="text-xs sm:text-base opacity-70 max-w-2xl leading-relaxed mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-none">
+              <p className="text-xs sm:text-base opacity-70 max-w-2xl leading-relaxed mb-5 sm:mb-8 line-clamp-3 sm:line-clamp-none">
                 {ind.description}
               </p>
 
               {/* Recommended Machinery & Target Fabrics Chips */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10 pt-4 border-t border-current/10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 mb-6 sm:mb-10 pt-4 border-t border-current/10">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
                     {locale === "bn" ? "প্রস্তাবিত মেশিনারি:" : "Recommended Machinery:"}
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {ind.recommendedMachines.map((m) => (
                       <span
                         key={m}
-                        className={`text-xs sm:text-sm font-medium px-3 py-1 rounded-lg border flex items-center gap-1.5 ${ind.pillClass}`}
+                        className={`text-xs sm:text-sm font-medium px-2.5 sm:px-3 py-1 rounded-lg border flex items-center gap-1.5 ${ind.pillClass}`}
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#FF0000] shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#800020] shrink-0" />
                         <span>{m}</span>
                       </span>
                     ))}
@@ -168,14 +168,14 @@ export function IndustriesSection() {
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
                     {locale === "bn" ? "টার্গেট ফ্যাব্রিক আউটপুট:" : "Target Fabric Output:"}
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {ind.targetFabrics.map((f) => (
                       <span
                         key={f}
-                        className={`text-xs sm:text-sm font-medium px-3 py-1 rounded-lg border ${ind.pillClass}`}
+                        className={`text-xs sm:text-sm font-medium px-2.5 sm:px-3 py-1 rounded-lg border ${ind.pillClass}`}
                       >
                         {f}
                       </span>
@@ -185,21 +185,21 @@ export function IndustriesSection() {
               </div>
 
               {/* Action Buttons & Scroll Indicator Row */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 w-full">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
                   <Link
                     href="/industries"
-                    className={`inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] cursor-pointer ${ind.btnClass}`}
+                    className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] cursor-pointer min-h-[44px] text-center ${ind.btnClass}`}
                   >
                     <span>
                       {locale === "bn" ? "এই খাতের বিস্তারিত ও ছবি দেখুন" : "Explore Industry Specs & Gallery"}
                     </span>
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4 shrink-0" />
                   </Link>
 
                   <Link
                     href="/quote"
-                    className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-semibold border border-current/20 hover:border-current/50 opacity-80 hover:opacity-100 transition-colors"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-semibold border border-current/20 hover:border-current/50 opacity-80 hover:opacity-100 transition-colors min-h-[44px] text-center"
                   >
                     <span>{dict.common.requestQuote}</span>
                   </Link>

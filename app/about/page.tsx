@@ -6,20 +6,21 @@ import { ShieldCheck, Ship, Wrench, ArrowUpRight, Factory } from "lucide-react";
 import { MotionSection } from "@/components/ui/MotionWrapper";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { OfficeMap } from "@/components/ui/OfficeMap";
 
 export default function AboutPage() {
   const { t, locale } = useTranslation();
 
   return (
-    <div className="py-12 sm:py-20 bg-white text-[#0A0A0A]">
+    <div className="py-12 sm:py-20 bg-white text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <MotionSection className="max-w-3xl mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] text-xs font-semibold text-[#4B5563] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
             <span>{locale === "bn" ? "আমাদের পরিচিতি" : "Corporate Profile & Positioning"}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#0A0A0A]">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {locale === "bn"
               ? "শিল্পমানের Circular Knitting, Dyeing, Shearing ও Finishing মেশিন আমদানিকারক"
               : "Industrial Knitting, Dyeing, Shearing & Finishing Machinery Importer"}
@@ -36,11 +37,11 @@ export default function AboutPage() {
           {/* Header Bar Overlay with clean frosted backdrop */}
           <div className="relative z-10 px-6 sm:px-10 pt-6 sm:pt-8 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-b from-white via-white/80 to-transparent">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-600 mb-1.5 shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000] animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-1.5 shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
                 <span>{locale === "bn" ? "আমদানি থেকে ইনস্টলেশন পাইপলাইন" : "End-to-End Operational Pipeline"}</span>
               </div>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0A0A0A] tracking-tight">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#2D2D2D] tracking-tight">
                 {locale === "bn"
                   ? "কীভাবে তাসনীম সরাসরি বিদেশি ফ্যাক্টরি থেকে আপনার মিলে মেশিন পৌঁছে দেয়"
                   : "How Tasneem Delivers Factory Machinery Across Bangladesh"}
@@ -83,19 +84,19 @@ export default function AboutPage() {
 
               {/* Owner Info & Leadership Statement Column (5 cols) */}
               <div className="lg:col-span-5 flex flex-col justify-center">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-600 mb-3 w-fit shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]"></span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-xs font-bold text-[#800020] mb-3 w-fit shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
                   <span>{locale === "bn" ? "প্রতিষ্ঠাতার কথা" : "Founder & Owner Introduction"}</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A0A0A] leading-tight mb-1.5">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2D2D] leading-tight mb-1.5">
                   {locale === "bn" ? "মোঃ মামুনুর রশীদ" : COMPANY_INFO.owner}
                 </h2>
-                <p className="text-xs font-bold text-[#FF0000] uppercase tracking-wider mb-4">
+                <p className="text-xs font-bold text-[#800020] uppercase tracking-wider mb-4">
                   {locale === "bn" ? "স্বত্বাধিকারী, তাসনীম নিট ইন্ডাস্ট্রি" : "Proprietor & Managing Director, Tasneem Knit Industry"}
                 </p>
 
-                <blockquote className="text-xs sm:text-sm text-[#4B5563] leading-relaxed mb-6 italic border-l-2 border-[#FF0000] pl-3.5 bg-neutral-50/60 py-2 rounded-r-lg">
+                <blockquote className="text-xs sm:text-sm text-[#4B5563] leading-relaxed mb-6 italic border-l-2 border-[#800020] pl-3.5 bg-neutral-50/60 py-2 rounded-r-lg">
                   {locale === "bn"
                     ? "“আমাদের একটাই লক্ষ্য — দেশের নিট ও টেক্সটাইল মিলগুলোতে কোনো দালাল বা বাড়তি খরচ ছাড়া সরাসরি আন্তর্জাতিক মানের Circular Knitting, Dyeing ও Finishing মেশিন পৌঁছে দেওয়া এবং সার্বক্ষণিক পার্টস ও টেকনিক্যাল সাপোর্ট নিশ্চিত করা।”"
                     : '"Our vision is direct and focused: empower Bangladesh\'s composite knit and apparel mills with verified circular knitting, dyeing, and finishing machinery delivered straight to your factory floor with zero intermediary markups and full technical support."'}
@@ -104,11 +105,11 @@ export default function AboutPage() {
                 <div className="grid grid-cols-2 gap-3 pt-4 border-t border-[#E5E7EB] text-xs">
                   <div>
                     <span className="text-neutral-500 block font-medium">{locale === "bn" ? "প্রধান হাব" : "Operational Hub"}</span>
-                    <span className="font-bold text-[#0A0A0A]">{locale === "bn" ? "বিসিক, নারায়ণগঞ্জ" : "BSCIC, Narayanganj"}</span>
+                    <span className="font-bold text-[#2D2D2D]">{locale === "bn" ? "বিসিক, নারায়ণগঞ্জ" : "BSCIC, Narayanganj"}</span>
                   </div>
                   <div>
                     <span className="text-neutral-500 block font-medium">{locale === "bn" ? "সরাসরি হটলাইন" : "Direct Helpline"}</span>
-                    <a href={`tel:${COMPANY_INFO.phone}`} className="font-bold text-[#FF0000] hover:underline">
+                    <a href={`tel:${COMPANY_INFO.phone}`} className="font-bold text-[#800020] hover:underline">
                       {COMPANY_INFO.phone}
                     </a>
                   </div>
@@ -122,7 +123,7 @@ export default function AboutPage() {
         <MotionSection delay={0.12} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-20">
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div className="border border-[#E5E7EB] rounded-2xl bg-white p-6 sm:p-8 shadow-sm">
-              <h2 className="text-2xl font-bold text-[#0A0A0A] mb-4">
+              <h2 className="text-2xl font-bold text-[#2D2D2D] mb-4">
                 {locale === "bn"
                   ? "আমাদের লক্ষ্য: বিদেশি মেশিন প্রস্তুতকারকদের সাথে দেশি মিলগুলোর সরাসরি সংযোগ"
                   : "Our Mission: Bridging Bangladesh Mills With Overseas Machine Builders"}
@@ -140,7 +141,7 @@ export default function AboutPage() {
 
               {/* Notice */}
               <div className="mt-6 p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] text-xs text-[#4B5563]">
-                <span className="font-bold text-[#0A0A0A] block mb-1">
+                <span className="font-bold text-[#2D2D2D] block mb-1">
                   {locale === "bn" ? "আইনি ও ব্যবসায়িক নিবন্ধন:" : "Corporate Registration Status:"}
                 </span>
                 {locale === "bn"
@@ -155,7 +156,7 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-lg bg-white border border-[#E5E7EB] flex items-center justify-center mb-3">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 </div>
-                <h3 className="font-bold text-sm text-[#0A0A0A]">{locale === "bn" ? "নিখুঁত স্পেসিফিকেশন চেক" : "Spec Verification"}</h3>
+                <h3 className="font-bold text-sm text-[#2D2D2D]">{locale === "bn" ? "নিখুঁত স্পেসিফিকেশন চেক" : "Spec Verification"}</h3>
                 <p className="text-xs text-[#4B5563] mt-1 leading-relaxed">
                   {locale === "bn"
                     ? "শিপমেন্টের আগে Cam ট্র্যাকের নিখুঁত ফিনিশিং, Cylinder কনসেন্ট্রিসিটি এবং পজিটিভ ফিডার সিনক্রোনাইজেশন যাচাই করা হয়।"
@@ -167,7 +168,7 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-lg bg-white border border-[#E5E7EB] flex items-center justify-center mb-3">
                   <Ship className="w-4 h-4 text-[#4B5563]" />
                 </div>
-                <h3 className="font-bold text-sm text-[#0A0A0A]">{locale === "bn" ? "CFR Chattogram সমুদ্র লজিস্টিকস" : "CFR Chattogram Sea Logistics"}</h3>
+                <h3 className="font-bold text-sm text-[#2D2D2D]">{locale === "bn" ? "CFR Chattogram সমুদ্র লজিস্টিকস" : "CFR Chattogram Sea Logistics"}</h3>
                 <p className="text-xs text-[#4B5563] mt-1 leading-relaxed">
                   {locale === "bn"
                     ? "স্বচ্ছ CFR রেট এবং কাস্টমস ও ব্যাংকের প্রয়োজনীয় শতভাগ নিখুঁত বাণিজ্যিক কাগজপত্র সরবরাহ করা হয়।"
@@ -177,9 +178,9 @@ export default function AboutPage() {
 
               <div className="border border-[#E5E7EB] rounded-xl p-5 bg-[#F9FAFB] shadow-sm hover:border-[#C0C0C0] transition-colors">
                 <div className="w-8 h-8 rounded-lg bg-white border border-[#E5E7EB] flex items-center justify-center mb-3">
-                  <Wrench className="w-4 h-4 text-[#FF0000]" />
+                  <Wrench className="w-4 h-4 text-[#800020]" />
                 </div>
-                <h3 className="font-bold text-sm text-[#0A0A0A]">{locale === "bn" ? "আপনার মিলে ইনস্টলেশন ও কমিশনিং" : "On-Site Commissioning"}</h3>
+                <h3 className="font-bold text-sm text-[#2D2D2D]">{locale === "bn" ? "আপনার মিলে ইনস্টলেশন ও কমিশনিং" : "On-Site Commissioning"}</h3>
                 <p className="text-xs text-[#4B5563] mt-1 leading-relaxed">
                   {locale === "bn"
                     ? "নারায়ণগঞ্জ, গাজীপুরসহ সারা দেশের যেকোনো মিলে আমাদের অভিজ্ঞ টেক্সটাইল ইঞ্জিনিয়াররা সরাসরি গিয়ে মেশিন চালু করে দেন।"
@@ -189,9 +190,9 @@ export default function AboutPage() {
 
               <div className="border border-[#E5E7EB] rounded-xl p-5 bg-[#F9FAFB] shadow-sm hover:border-[#C0C0C0] transition-colors">
                 <div className="w-8 h-8 rounded-lg bg-white border border-[#E5E7EB] flex items-center justify-center mb-3">
-                  <Factory className="w-4 h-4 text-[#FF0000]" />
+                  <Factory className="w-4 h-4 text-[#800020]" />
                 </div>
-                <h3 className="font-bold text-sm text-[#0A0A0A]">{locale === "bn" ? "আসল স্পেয়ার পার্টস ব্যাকআপ" : "Genuine Spare Parts"}</h3>
+                <h3 className="font-bold text-sm text-[#2D2D2D]">{locale === "bn" ? "আসল স্পেয়ার পার্টস ব্যাকআপ" : "Genuine Spare Parts"}</h3>
                 <p className="text-xs text-[#4B5563] mt-1 leading-relaxed">
                   {locale === "bn"
                     ? "প্রয়োজনীয় অরিজিনাল Needle, Sinker, টাইমিং বেল্ট এবং Inverter সার্কিট কার্ড সবসময় আমাদের স্টকে থাকে।"
@@ -203,7 +204,7 @@ export default function AboutPage() {
 
           {/* Right Column: Key Facts & Contact Card (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="border border-[#111111] rounded-2xl bg-[#0A0A0A] text-white p-6 sm:p-8 shadow-md">
+            <div className="border border-[#111111] rounded-2xl bg-[#2D2D2D] text-white p-6 sm:p-8 shadow-md">
               <span className="text-xs uppercase tracking-wider text-[#A0A0A0] font-bold block mb-2">
                 {locale === "bn" ? "এক নজরে তথ্য" : "Fast Facts"}
               </span>
@@ -277,7 +278,7 @@ export default function AboutPage() {
               <div className="mt-6 pt-4 border-t border-[#2A2A2A]">
                 <Link
                   href="/quote"
-                  className="w-full bg-[#FF0000] hover:bg-[#E00000] text-white py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full bg-[#800020] hover:bg-[#5A0017] text-white py-2.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
                 >
                   <span>{t.common.requestQuote}</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -285,6 +286,11 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+        </MotionSection>
+
+        {/* Office & Showroom Interactive Location Map */}
+        <MotionSection delay={0.16} className="mt-16 sm:mt-20">
+          <OfficeMap variant="standard" />
         </MotionSection>
       </div>
     </div>

@@ -241,17 +241,17 @@ export function ProcessWaveSection() {
 
         {/* Minimalist Top Overline with Flanking Red Dashes */}
         <div className="flex items-center justify-center gap-3 mb-3">
-          <span className="w-6 sm:w-10 h-[2px] bg-[#FF0000] rounded-full" />
-          <span className="text-[11px] sm:text-xs font-mono font-bold tracking-widest text-[#FF0000] uppercase">
+          <span className="w-6 sm:w-10 h-[2px] bg-[#800020] rounded-full" />
+          <span className="text-[11px] sm:text-xs font-mono font-bold tracking-widest text-[#800020] uppercase">
             {locale === "bn" ? "মেশিন আমদানির সহজ ধাপসমূহ" : "TASNEEM SOURCING JOURNEY"}
           </span>
-          <span className="w-6 sm:w-10 h-[2px] bg-[#FF0000] rounded-full" />
+          <span className="w-6 sm:w-10 h-[2px] bg-[#800020] rounded-full" />
         </div>
 
         {/* Crisp Main Headline: "Process section." / "Machinery Sourcing." */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight text-center mb-4">
           {locale === "bn" ? "মেশিনারি আমদানি প্রক্রিয়া" : "Machinery Sourcing"}
-          <span className="text-[#FF0000]">.</span>
+          <span className="text-[#800020]">.</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-center text-xs sm:text-base text-neutral-600 font-normal leading-relaxed mb-8">
@@ -282,7 +282,7 @@ export function ProcessWaveSection() {
                   {isActive && (
                     <motion.div
                       layoutId="activePhasePill"
-                      className="absolute inset-0 rounded-full bg-[#FF0000] z-0 shadow-sm"
+                      className="absolute inset-0 rounded-full bg-[#800020] z-0 shadow-sm"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -295,7 +295,7 @@ export function ProcessWaveSection() {
 
         {/* Sub-hint: Click node to see deliverables */}
         <div className="flex items-center justify-center gap-2 mt-4 text-[11px] font-mono text-neutral-400">
-          <Sparkles className="w-3.5 h-3.5 text-[#FF0000]" />
+          <Sparkles className="w-3.5 h-3.5 text-[#800020]" />
           <span>
             {locale === "bn"
               ? "প্রতিটি ধাপের বিস্তারিত কাজের বিবরণ ও প্রয়োজনীয় কাগজপত্র দেখতে ক্লিক করুন"
@@ -321,11 +321,11 @@ export function ProcessWaveSection() {
         {/* Visual Continuity Ribbon between Phase 1 and Phase 2 when viewing 'All' */}
         {activePhase === "all" && (
           <div className="hidden lg:flex flex-col items-center justify-center my-[-20px] relative z-20">
-            <div className="w-[2px] h-14 bg-gradient-to-b from-[#FF0000] to-[#FF0000]/30 relative">
-              <span className="absolute -left-[3px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#FF0000] animate-ping" />
+            <div className="w-[2px] h-14 bg-gradient-to-b from-[#800020] to-[#800020]/30 relative">
+              <span className="absolute -left-[3px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#800020] animate-ping" />
             </div>
             <div className="bg-white border border-[#E5E7EB] text-neutral-600 text-[10px] font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs flex items-center gap-1.5 mt-1">
-              <ChevronRight className="w-3 h-3 text-[#FF0000] rotate-90" />
+              <ChevronRight className="w-3 h-3 text-[#800020] rotate-90" />
               <span>{locale === "bn" ? "পরবর্তী ধাপ: শিপমেন্ট ও ফ্যাক্টরি ইনস্টলেশন" : "Flow Transition to Ocean Freight"}</span>
             </div>
           </div>
@@ -357,15 +357,15 @@ export function ProcessWaveSection() {
       {/* 4. Bottom Editorial Footer Row Matching Reference Image */}
       <div className="mt-12 pt-6 border-t border-[#E5E7EB] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-mono">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF0000]" />
+          <span className="w-2 h-2 rounded-full bg-[#800020]" />
           <span>{locale === "bn" ? "২০২৬ তাসনীম নিটিং ইন্ডাস্ট্রি • বাংলাদেশ" : "2026 TASNEEM KNIT INDUSTRY • BANGLADESH"}</span>
         </div>
         <Link
           href="/quote"
-          className="inline-flex items-center gap-1.5 text-neutral-800 hover:text-[#FF0000] font-bold transition-colors"
+          className="inline-flex items-center gap-1.5 text-neutral-800 hover:text-[#800020] font-bold transition-colors"
         >
           <span>{locale === "bn" ? "সরাসরি অফিসিয়াল কোটেশন চান" : "REQUEST TECHNICAL CFR QUOTATION"}</span>
-          <ArrowUpRight className="w-4 h-4 text-[#FF0000]" />
+          <ArrowUpRight className="w-4 h-4 text-[#800020]" />
         </Link>
       </div>
     </section>
@@ -399,7 +399,7 @@ function ThreeNodeWaveCard({
       {/* Top Banner Tag */}
       <div className="px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between gap-4 border-b border-neutral-100 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#FF0000]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#800020]" />
           <h2 className="text-sm sm:text-base font-bold text-neutral-900 tracking-tight">
             {locale === "bn" ? phaseTitleBn : phaseTitleEn}
           </h2>
@@ -421,15 +421,15 @@ function ThreeNodeWaveCard({
         >
           <defs>
             <linearGradient id={`waveGrad-${phaseNumber}`} x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#FF0000" stopOpacity="0.4" />
-              <stop offset="25%" stopColor="#FF0000" stopOpacity="0.9" />
-              <stop offset="55%" stopColor="#FF0000" stopOpacity="1" />
+              <stop offset="0%" stopColor="#800020" stopOpacity="0.4" />
+              <stop offset="25%" stopColor="#800020" stopOpacity="0.9" />
+              <stop offset="55%" stopColor="#800020" stopOpacity="1" />
               <stop offset="85%" stopColor="#E60000" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#FF0000" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#800020" stopOpacity="0.3" />
             </linearGradient>
 
             <filter id={`auraGlow-${phaseNumber}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FF0000" floodOpacity="0.4" />
+              <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#800020" floodOpacity="0.4" />
             </filter>
           </defs>
 
@@ -457,7 +457,7 @@ function ThreeNodeWaveCard({
           <motion.path
             d="M 20 240 C 90 250, 130 260, 180 260 C 300 260, 410 90, 510 90 C 610 90, 710 220, 810 200 C 870 190, 930 150, 980 140"
             fill="none"
-            stroke="#FF0000"
+            stroke="#800020"
             strokeWidth="1"
             strokeDasharray="4 8"
             strokeOpacity="0.3"
@@ -488,7 +488,7 @@ function ThreeNodeWaveCard({
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 font-mono text-[10px] font-bold mb-2">
                     {locale === "bn" ? step1.durationBn : step1.durationEn}
                   </div>
-                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#FF0000] transition-colors mb-2">
+                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#800020] transition-colors mb-2">
                     {locale === "bn" ? step1.titleBn : step1.titleEn}
                   </h3>
                   <p className="text-xs lg:text-[13px] text-neutral-500 font-normal leading-relaxed line-clamp-3">
@@ -504,14 +504,14 @@ function ThreeNodeWaveCard({
               className="absolute left-[18%] top-[72%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group"
             >
               {/* Soft Red Glowing Radial Aura (Matches glowing shadow in user image) */}
-              <div className="absolute -inset-3 bg-[#FF0000]/25 rounded-full blur-xl group-hover:bg-[#FF0000]/40 transition-all duration-300 pointer-events-none" />
+              <div className="absolute -inset-3 bg-[#800020]/25 rounded-full blur-xl group-hover:bg-[#800020]/40 transition-all duration-300 pointer-events-none" />
 
               <motion.div
                 whileHover={{ scale: 1.15, y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="relative w-14 h-14 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_12px_30px_-6px_rgba(0,0,0,0.14)] flex items-center justify-center group-hover:border-[#FF0000] group-hover:shadow-[0_15px_35px_-8px_rgba(255,0,0,0.3)] transition-all"
+                className="relative w-14 h-14 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_12px_30px_-6px_rgba(0,0,0,0.14)] flex items-center justify-center group-hover:border-[#800020] group-hover:shadow-[0_15px_35px_-8px_rgba(128,0,32,0.3)] transition-all"
               >
-                <step1.icon className="w-6 h-6 text-[#FF0000] transition-transform duration-300 group-hover:scale-110" />
+                <step1.icon className="w-6 h-6 text-[#800020] transition-transform duration-300 group-hover:scale-110" />
               </motion.div>
             </div>
           </>
@@ -529,14 +529,14 @@ function ThreeNodeWaveCard({
               className="absolute left-[51%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group"
             >
               {/* Soft Red Glowing Radial Aura (Matches glowing shadow in user image) */}
-              <div className="absolute -inset-4 bg-[#FF0000]/30 rounded-full blur-xl group-hover:bg-[#FF0000]/50 transition-all duration-300 pointer-events-none" />
+              <div className="absolute -inset-4 bg-[#800020]/30 rounded-full blur-xl group-hover:bg-[#800020]/50 transition-all duration-300 pointer-events-none" />
 
               <motion.div
                 whileHover={{ scale: 1.15, y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="relative w-15 h-15 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_14px_32px_-6px_rgba(0,0,0,0.16)] flex items-center justify-center group-hover:border-[#FF0000] group-hover:shadow-[0_15px_35px_-8px_rgba(255,0,0,0.35)] transition-all"
+                className="relative w-15 h-15 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_14px_32px_-6px_rgba(0,0,0,0.16)] flex items-center justify-center group-hover:border-[#800020] group-hover:shadow-[0_15px_35px_-8px_rgba(128,0,32,0.35)] transition-all"
               >
-                <step2.icon className="w-6 h-6 text-[#FF0000] transition-transform duration-300 group-hover:scale-110" />
+                <step2.icon className="w-6 h-6 text-[#800020] transition-transform duration-300 group-hover:scale-110" />
               </motion.div>
             </div>
 
@@ -555,7 +555,7 @@ function ThreeNodeWaveCard({
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 font-mono text-[10px] font-bold mb-2">
                     {locale === "bn" ? step2.durationBn : step2.durationEn}
                   </div>
-                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#FF0000] transition-colors mb-2">
+                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#800020] transition-colors mb-2">
                     {locale === "bn" ? step2.titleBn : step2.titleEn}
                   </h3>
                   <p className="text-xs lg:text-[13px] text-neutral-500 font-normal leading-relaxed line-clamp-3">
@@ -579,14 +579,14 @@ function ThreeNodeWaveCard({
               className="absolute left-[81%] top-[56%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group"
             >
               {/* Soft Red Glowing Radial Aura (Matches glowing shadow in user image) */}
-              <div className="absolute -inset-3 bg-[#FF0000]/25 rounded-full blur-xl group-hover:bg-[#FF0000]/40 transition-all duration-300 pointer-events-none" />
+              <div className="absolute -inset-3 bg-[#800020]/25 rounded-full blur-xl group-hover:bg-[#800020]/40 transition-all duration-300 pointer-events-none" />
 
               <motion.div
                 whileHover={{ scale: 1.15, y: -4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="relative w-14 h-14 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_12px_30px_-6px_rgba(0,0,0,0.14)] flex items-center justify-center group-hover:border-[#FF0000] group-hover:shadow-[0_15px_35px_-8px_rgba(255,0,0,0.3)] transition-all"
+                className="relative w-14 h-14 bg-white rounded-2xl border border-neutral-200/90 shadow-[0_12px_30px_-6px_rgba(0,0,0,0.14)] flex items-center justify-center group-hover:border-[#800020] group-hover:shadow-[0_15px_35px_-8px_rgba(128,0,32,0.3)] transition-all"
               >
-                <step3.icon className="w-6 h-6 text-[#FF0000] transition-transform duration-300 group-hover:scale-110" />
+                <step3.icon className="w-6 h-6 text-[#800020] transition-transform duration-300 group-hover:scale-110" />
               </motion.div>
             </div>
 
@@ -605,7 +605,7 @@ function ThreeNodeWaveCard({
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 font-mono text-[10px] font-bold mb-2">
                     {locale === "bn" ? step3.durationBn : step3.durationEn}
                   </div>
-                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#FF0000] transition-colors mb-2">
+                  <h3 className="text-lg lg:text-xl font-extrabold text-neutral-900 leading-snug group-hover:text-[#800020] transition-colors mb-2">
                     {locale === "bn" ? step3.titleBn : step3.titleEn}
                   </h3>
                   <p className="text-xs lg:text-[13px] text-neutral-500 font-normal leading-relaxed line-clamp-3">
@@ -623,7 +623,7 @@ function ThreeNodeWaveCard({
           ================================================================== */}
       <div className="md:hidden px-5 py-8 space-y-8 relative">
         {/* Subtle Vertical Track Line */}
-        <div className="absolute left-[39px] top-12 bottom-12 w-[2px] bg-gradient-to-b from-[#FF0000] via-[#FF0000]/60 to-[#FF0000]/20 z-0" />
+        <div className="absolute left-[39px] top-12 bottom-12 w-[2px] bg-gradient-to-b from-[#800020] via-[#800020]/60 to-[#800020]/20 z-0" />
 
         {steps.map((step) => (
           <div
@@ -633,9 +633,9 @@ function ThreeNodeWaveCard({
           >
             {/* Floating Node Badge with Red Glow */}
             <div className="relative shrink-0 z-10">
-              <div className="absolute -inset-2 bg-[#FF0000]/25 rounded-full blur-md" />
-              <div className="relative w-12 h-12 bg-white rounded-2xl border border-neutral-200/90 shadow-md flex items-center justify-center group-hover:border-[#FF0000] transition-all">
-                <step.icon className="w-5 h-5 text-[#FF0000]" />
+              <div className="absolute -inset-2 bg-[#800020]/25 rounded-full blur-md" />
+              <div className="relative w-12 h-12 bg-white rounded-2xl border border-neutral-200/90 shadow-md flex items-center justify-center group-hover:border-[#800020] transition-all">
+                <step.icon className="w-5 h-5 text-[#800020]" />
               </div>
             </div>
 
@@ -649,7 +649,7 @@ function ThreeNodeWaveCard({
                 {locale === "bn" ? step.durationBn : step.durationEn}
               </div>
 
-              <h3 className="text-base font-bold text-neutral-900 group-hover:text-[#FF0000] transition-colors leading-snug mb-1">
+              <h3 className="text-base font-bold text-neutral-900 group-hover:text-[#800020] transition-colors leading-snug mb-1">
                 {locale === "bn" ? step.titleBn : step.titleEn}
               </h3>
 
@@ -697,9 +697,9 @@ function StepDetailModal({ step, locale, onClose }: StepDetailModalProps) {
         {/* Modal Header */}
         <div className="flex items-start gap-4 mb-6">
           <div className="relative shrink-0">
-            <div className="absolute -inset-2 bg-[#FF0000]/25 rounded-full blur-md" />
+            <div className="absolute -inset-2 bg-[#800020]/25 rounded-full blur-md" />
             <div className="relative w-14 h-14 bg-white rounded-2xl border border-neutral-200 shadow-sm flex items-center justify-center">
-              <Icon className="w-7 h-7 text-[#FF0000]" />
+              <Icon className="w-7 h-7 text-[#800020]" />
             </div>
           </div>
 
@@ -726,13 +726,13 @@ function StepDetailModal({ step, locale, onClose }: StepDetailModalProps) {
         {/* Deliverables Checklist */}
         <div className="mb-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#FF0000]" />
+            <CheckCircle2 className="w-4 h-4 text-[#800020]" />
             <span>{locale === "bn" ? "এই ধাপে আপনি যা যা পাচ্ছেন" : "Key Deliverables & Verification"}</span>
           </h4>
           <ul className="space-y-2 text-xs sm:text-sm text-neutral-700">
             {(locale === "bn" ? step.deliverablesBn : step.deliverablesEn).map((d, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000] mt-1.5 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#800020] mt-1.5 shrink-0" />
                 <span>{d}</span>
               </li>
             ))}
@@ -742,7 +742,7 @@ function StepDetailModal({ step, locale, onClose }: StepDetailModalProps) {
         {/* Official Documentation */}
         <div className="mb-6">
           <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5">
-            <FileText className="w-4 h-4 text-[#FF0000]" />
+            <FileText className="w-4 h-4 text-[#800020]" />
             <span>{locale === "bn" ? "প্রয়োজনীয় কাগজপত্র ও ডকুমেন্টস" : "Required Commercial Documents"}</span>
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -759,7 +759,7 @@ function StepDetailModal({ step, locale, onClose }: StepDetailModalProps) {
 
         {/* Key Detail Box */}
         <div className="bg-red-50/70 border border-red-200/80 rounded-2xl p-4 mb-6 text-xs text-neutral-800 flex items-start gap-3">
-          <Info className="w-4 h-4 text-[#FF0000] shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-[#800020] shrink-0 mt-0.5" />
           <span>{locale === "bn" ? step.keyDetailBn : step.keyDetailEn}</span>
         </div>
 
@@ -773,7 +773,7 @@ function StepDetailModal({ step, locale, onClose }: StepDetailModalProps) {
           </button>
           <Link
             href="/quote"
-            className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#0A0A0A] hover:bg-[#FF0000] transition-colors flex items-center gap-1.5 shadow-md"
+            className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-[#2D2D2D] hover:bg-[#800020] transition-colors flex items-center gap-1.5 shadow-md"
           >
             <span>{locale === "bn" ? "কোটেশনের জন্য কথা বলুন" : "Begin Sourcing"}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

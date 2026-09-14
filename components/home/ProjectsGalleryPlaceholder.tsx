@@ -53,19 +53,19 @@ export function ProjectsGalleryPlaceholder() {
   ];
 
   return (
-    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E7EB]">
+    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E5E5] text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-2">
-              <Camera className="w-4 h-4 text-[#FF0000]" />
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2">
+              <Camera className="w-4 h-4 text-[#800020]" />
               <span>{locale === "bn" ? "বাস্তব কাজের প্রমাণ" : "Field Verification"}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0A0A0A]">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
               {locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন ও প্রজেক্ট গ্যালারি" : "Projects & Installation Gallery"}
             </h2>
-            <p className="mt-2 text-sm text-[#4B5563] max-w-xl">
+            <p className="mt-2 text-sm text-[#4A4A4A] max-w-xl">
               {locale === "bn"
                 ? "দেশের বিভিন্ন টেক্সটাইল ও গার্মেন্টস কারখানায় আমাদের সরবরাহ করা মেশিনের বাস্তব চিত্র। (ক্লায়েন্টের অনুমতি নিয়েই আমরা ছবি বা ভিডিও শেয়ার করি)।"
                 : "Real factory installations across Bangladesh textile hubs. (Strict policy: only verified photographs and client-authorized data are published)."}
@@ -73,7 +73,7 @@ export function ProjectsGalleryPlaceholder() {
           </div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A0A0A] hover:text-[#FF0000] transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors shrink-0"
           >
             <span>{dict.common.readMore}</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -93,7 +93,7 @@ export function ProjectsGalleryPlaceholder() {
                     <div className="w-10 h-10 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#4B5563] mb-2 shadow-xs">
                       <ImageIcon className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-semibold text-[#0A0A0A]">
+                    <span className="text-xs font-semibold text-[#2D2D2D]">
                       {locale === "bn" ? "ফ্যাক্টরি ইনস্টলেশন রেকর্ড" : "Client Installation Photo"}
                     </span>
                     <span className="text-[11px] text-[#6B7280] mt-1">
@@ -104,7 +104,7 @@ export function ProjectsGalleryPlaceholder() {
                   <span className="text-[11px] uppercase tracking-wider text-[#6B7280] font-semibold block mb-1">
                     {item.region}
                   </span>
-                  <h3 className="font-bold text-sm sm:text-base text-[#0A0A0A]">
+                  <h3 className="font-bold text-sm sm:text-base text-[#2D2D2D]">
                     {item.type}
                   </h3>
                 </div>
@@ -151,7 +151,7 @@ export function ProjectsGalleryPlaceholder() {
                       {/* Video Play Affordance */}
                       {isVideo && (
                         <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-[#FF0000] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                          <div className="w-12 h-12 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                             <Play className="w-5 h-5 ml-0.5 fill-current" />
                           </div>
                         </div>
@@ -180,12 +180,12 @@ export function ProjectsGalleryPlaceholder() {
                     <div className="p-5">
                       {item.location && (
                         <div className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500 mb-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
+                          <MapPin className="w-3.5 h-3.5 text-[#800020]" />
                           <span>{item.location}</span>
                         </div>
                       )}
 
-                      <h3 className="font-bold text-base text-[#0A0A0A] line-clamp-1 group-hover:text-[#FF0000] transition-colors">
+                      <h3 className="font-bold text-base text-[#2D2D2D] line-clamp-1 group-hover:text-[#800020] transition-colors">
                         {title}
                       </h3>
 
@@ -238,7 +238,7 @@ export function ProjectsGalleryPlaceholder() {
                 <div className="flex items-center gap-3 text-xs text-neutral-500 mt-0.5">
                   {activeMedia.location && (
                     <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#800020]" />
                       <span>{activeMedia.location}</span>
                     </span>
                   )}

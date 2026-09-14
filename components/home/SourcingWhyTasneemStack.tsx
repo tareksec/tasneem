@@ -28,16 +28,16 @@ export function SourcingWhyTasneemStack() {
 
   return (
     <div ref={containerRef} className="relative w-full bg-[#F8F9FA]">
-      {/* Section 1: Transparent Sourcing (Sticky top-0) */}
+      {/* Section 1: Transparent Sourcing (Natural on mobile, Sticky top-0 on md+) */}
       <motion.section
         style={{ scale: sourcingScale, opacity: sourcingOpacity }}
-        className="sticky top-0 h-screen w-full z-10 overflow-hidden origin-top"
+        className="relative md:sticky md:top-0 h-auto md:h-screen w-full z-10 overflow-visible md:overflow-hidden origin-top"
       >
         <SpotlightSourcing />
       </motion.section>
 
-      {/* Section 2: Why Tasneem (Sticky top-0 with rounded top corners & elevated shadow sliding up over Section 1) */}
-      <section className="sticky top-0 min-h-screen w-full z-20 rounded-t-[32px] sm:rounded-t-[48px] lg:rounded-t-[56px] border-t-2 border-white/80 shadow-[0_-25px_60px_rgba(0,0,0,0.12)] overflow-hidden bg-white">
+      {/* Section 2: Why Tasneem (Natural on mobile, Sticky top-0 on md+ with elevated shadow sliding up) */}
+      <section className="relative md:sticky md:top-0 min-h-0 md:min-h-screen w-full z-20 rounded-t-[28px] sm:rounded-t-[48px] lg:rounded-t-[56px] border-t-2 border-white/80 shadow-[0_-25px_60px_rgba(0,0,0,0.12)] overflow-visible md:overflow-hidden bg-white">
         <WhyTasneem />
       </section>
     </div>

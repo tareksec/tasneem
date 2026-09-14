@@ -41,9 +41,9 @@ const STATUS_CONFIG: Record<
 > = {
   new: {
     label: "New Inquiry",
-    bg: "bg-red-50",
-    text: "text-[#FF0000]",
-    border: "border-red-200",
+    bg: "bg-[#FDF2F4]",
+    text: "text-[#800020]",
+    border: "border-[#D8A4AF]",
     desc: "Unreviewed quote submission",
     badgeVariant: "destructive",
   },
@@ -215,7 +215,7 @@ export default function AdminQuotesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF0000] bg-red-50 px-2.5 py-1 rounded-md inline-block">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] bg-[#FDF2F4] border border-[#F9E6EA] px-2.5 py-1 rounded-md inline-block">
               Lead Generation & Sales
             </span>
             <span className="text-xs text-slate-400 font-medium">B2B Quote Inbox</span>
@@ -268,18 +268,18 @@ export default function AdminQuotesPage() {
           onClick={() => setStatusFilter("new")}
           className={`p-4 rounded-2xl border transition-all cursor-pointer ${
             statusFilter === "new"
-              ? "bg-[#FF0000] text-white border-[#FF0000] shadow-md"
-              : "bg-white text-slate-900 border-slate-200/80 hover:border-red-200"
+              ? "bg-[#800020] text-white border-[#800020] shadow-md"
+              : "bg-white text-slate-900 border-slate-200/80 hover:border-[#D8A4AF]"
           }`}
         >
           <div className="flex items-center justify-between">
             <span className={`text-xs font-semibold ${statusFilter === "new" ? "text-white/90" : "text-slate-500"}`}>
               New Unreviewed
             </span>
-            <span className={`h-2.5 w-2.5 rounded-full ${statusFilter === "new" ? "bg-white" : "bg-red-500 animate-pulse"}`} />
+            <span className={`h-2.5 w-2.5 rounded-full ${statusFilter === "new" ? "bg-white" : "bg-[#800020] animate-pulse"}`} />
           </div>
           <p className="text-2xl sm:text-3xl font-black mt-2">{newCount}</p>
-          <span className={`text-[11px] mt-1 block ${statusFilter === "new" ? "text-white/80" : "text-red-500 font-medium"}`}>
+          <span className={`text-[11px] mt-1 block ${statusFilter === "new" ? "text-white/80" : "text-[#800020] font-medium"}`}>
             Requires attention
           </span>
         </div>
@@ -334,7 +334,7 @@ export default function AdminQuotesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by ID, mill name, person, email..."
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent transition-all"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent transition-all"
           />
           {searchQuery && (
             <button
@@ -367,8 +367,12 @@ export default function AdminQuotesPage() {
 
       {/* Quotes Table */}
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+        {/* Mobile Swipe Hint */}
+        <div className="md:hidden px-3.5 py-1.5 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between border-b border-slate-100">
+          <span>← Swipe horizontally to view all inquiry fields →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse min-w-[760px]">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
                 <th className="p-4">Reference ID</th>
@@ -539,13 +543,13 @@ export default function AdminQuotesPage() {
 
       {/* Inquiry Detail Modal */}
       {selectedQuote && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
             {/* Modal Header */}
-            <div className="sticky top-0 bg-white p-6 border-b border-slate-100 flex items-center justify-between rounded-t-3xl z-10">
+            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-slate-100 flex items-center justify-between rounded-t-2xl sm:rounded-t-3xl z-10">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-black text-sm text-[#FF0000]">
+                  <span className="font-mono font-black text-sm text-[#800020]">
                     {selectedQuote.id}
                   </span>
                   <Badge
@@ -555,20 +559,20 @@ export default function AdminQuotesPage() {
                     {STATUS_CONFIG[selectedQuote.status]?.label || selectedQuote.status}
                   </Badge>
                 </div>
-                <h3 className="text-lg font-black text-slate-900 mt-1">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 mt-1">
                   {selectedQuote.company}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedQuote(null)}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer"
+                className="p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 space-y-6 text-xs">
+            <div className="p-4 sm:p-6 space-y-6 text-xs">
               {/* Buyer Contact Card */}
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
                 <p className="font-bold text-slate-800 text-xs uppercase tracking-wider">
@@ -680,7 +684,7 @@ export default function AdminQuotesPage() {
               <div className="space-y-2 pt-2 border-t border-slate-100">
                 <div className="flex items-center justify-between">
                   <p className="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                    <Sparkles className="h-3.5 w-3.5 text-[#FF0000]" />
+                    <Sparkles className="h-3.5 w-3.5 text-[#800020]" />
                     <span>Internal Staff / Commercial Follow-up Notes</span>
                   </p>
                   <span className="text-[10px] text-slate-400">Visible only to sales team</span>
@@ -690,7 +694,7 @@ export default function AdminQuotesPage() {
                   onChange={(e) => setEditNotes(e.target.value)}
                   placeholder="e.g. Quoted $44,500 CFR Chattogram port with 1-year warranty on cam box and inverter. Follow up on Tuesday."
                   rows={3}
-                  className="w-full p-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+                  className="w-full p-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]"
                 />
                 <div className="flex items-center justify-end">
                   <Button

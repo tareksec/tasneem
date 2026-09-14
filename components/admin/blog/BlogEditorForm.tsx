@@ -14,6 +14,13 @@ import {
   Calendar,
   Sparkles,
   Layers,
+  UploadCloud,
+  Trash2,
+  RefreshCw,
+  Eye,
+  Check,
+  FileImage,
+  AlertTriangle,
 } from "lucide-react";
 import { AdminStore } from "@/lib/admin/admin-store";
 import { BlogPost, ContentLocale } from "@/lib/admin/types";
@@ -34,11 +41,56 @@ interface BlogEditorFormProps {
 }
 
 const PRESET_IMAGES = [
-  { label: "Double Jersey Machine", url: "/images/machines/double-jersey-01.png" },
-  { label: "Single Jersey Machine", url: "/images/machines/single-jersey-01.png" },
-  { label: "Interlock Machine", url: "/images/machines/interlock-01.png" },
-  { label: "Jacquard Circular", url: "/images/machines/jacquard-01.png" },
-  { label: "Factory Commissioning", url: "/images/machines/installation-01.png" },
+  {
+    label: "Double Jersey Machine",
+    url: "/images/machines/cat-double-jersey.jpg",
+    category: "Double Jersey",
+  },
+  {
+    label: "Single Jersey Machine",
+    url: "/images/machines/cat-single-jersey.jpg",
+    category: "Single Jersey",
+  },
+  {
+    label: "Interlock Machine",
+    url: "/images/machines/cat-interlock.jpg",
+    category: "Interlock",
+  },
+  {
+    label: "Jacquard Circular",
+    url: "/images/machines/cat-jacquard.jpg",
+    category: "Jacquard",
+  },
+  {
+    label: "Factory Commissioning & Leveling",
+    url: "/images/machines/spotlight-installation.jpg",
+    category: "Commissioning",
+  },
+  {
+    label: "Circular Knitting Floor",
+    url: "/images/machines/cat-circular-knitting.jpg",
+    category: "Knitting",
+  },
+  {
+    label: "High-Temp Eco-Dyeing Line",
+    url: "/images/machines/cat-dyeing.jpg",
+    category: "Dyeing",
+  },
+  {
+    label: "Fabric Finishing & Inspection",
+    url: "/images/machines/cat-finishing.jpg",
+    category: "Finishing",
+  },
+  {
+    label: "Precision Fabric Shearing",
+    url: "/images/machines/cat-shearing.jpg",
+    category: "Shearing",
+  },
+  {
+    label: "Industrial Machinery Spotlight",
+    url: "/product-image/product-1.jpg",
+    category: "Showcase",
+  },
 ];
 
 const CATEGORIES = [
@@ -72,7 +124,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       title_bn: "",
       slug_en: "",
       slug_bn: "",
-      cover_image: "/images/machines/double-jersey-01.png",
+      cover_image: "/images/machines/cat-double-jersey.jpg",
       excerpt_en: "",
       excerpt_bn: "",
       body_en: "",
@@ -93,12 +145,38 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
   const [tagInput, setTagInput] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [previewBlobUrl, setPreviewBlobUrl] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
+  const [showPresetGallery, setShowPresetGallery] = useState(false);
+
+  // Clean up blob object URL on unmount or URL change
+  useEffect(() => {
+    return () => {
+      if (previewBlobUrl) {
+        URL.revokeObjectURL(previewBlobUrl);
+      }
+    };
+  }, [previewBlobUrl]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > 15 * 1024 * 1024) {
+      toast({
+        type: "error",
+        message: "File too large",
+        description: "Please select an image smaller than 15MB.",
+      });
+      return;
+    }
+
+    // Instant local preview for immediate visual feedback
+    const localUrl = URL.createObjectURL(file);
+    setPreviewBlobUrl(localUrl);
+    setImageError(false);
     setUploading(true);
+
     const formData = new FormData();
     formData.append("file", file);
 
@@ -110,10 +188,12 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       const data = await res.json();
       if (data.success && data.url) {
         setPost((prev) => ({ ...prev, cover_image: data.url }));
+        setPreviewBlobUrl(null);
+        setImageError(false);
         toast({
           type: "success",
           message: "Image uploaded successfully",
-          description: `Saved to filesystem: ${data.url}`,
+          description: `Saved to server: ${data.url}`,
         });
       } else {
         toast({
@@ -311,7 +391,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
         {/* Left Column: Language Tabs and Fields */}
         <div className="lg:col-span-2 space-y-6">
           {/* Bilingual EN / BN Tab Switcher (Section 4 requirement) */}
-          <div className="bg-white p-2 sm:p-3 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
+          <div className="bg-white p-2 sm:p-3 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 overflow-hidden">
             <Tabs
               items={tabItems}
               activeKey={activeTab}
@@ -328,7 +408,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
 
           {/* Tab 1: English Content */}
           {activeTab === "en" && (
-            <Card className="rounded-2xl p-5 sm:p-6 space-y-5">
+            <Card className="rounded-2xl p-4 sm:p-6 space-y-5">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 className="text-base font-bold text-slate-900">
                   English Fields (EN)
@@ -451,7 +531,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
 
           {/* Tab 2: Bengali Content */}
           {activeTab === "bn" && (
-            <Card className="rounded-2xl p-5 sm:p-6 space-y-5">
+            <Card className="rounded-2xl p-4 sm:p-6 space-y-5">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 className="text-base font-bold text-slate-900">
                   বাংলা ফিল্ড সমূহ (Bengali - BN)
@@ -655,75 +735,219 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
             </div>
           </Card>
 
-          {/* Cover Image Selector */}
+          {/* Cover Image Selector & Instant Live Preview */}
           <Card className="rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-              <ImageIcon className="h-4 w-4 text-slate-400" />
-              <span>Cover Image</span>
-            </h3>
-
-            {/* Preview Box */}
-            <div className="relative h-36 w-full rounded-xl overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center">
-              {post.cover_image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={post.cover_image}
-                  alt="Post cover preview"
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="text-xs text-slate-400">No image chosen</span>
-              )}
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <ImageIcon className="h-4 w-4 text-slate-400" />
+                <span>Cover Image</span>
+              </h3>
+              {/* Source badge */}
+              <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                {previewBlobUrl
+                  ? "Local Preview"
+                  : post.cover_image?.startsWith("/uploads")
+                  ? "Uploaded File"
+                  : "Preset / URL"}
+              </span>
             </div>
 
-            {/* Preset Image Picker */}
+            {/* Interactive High-Def Preview Box */}
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden border-2 border-slate-200/90 bg-slate-900/5 group shadow-inner flex items-center justify-center">
+              {/* The Image */}
+              <img
+                src={previewBlobUrl || post.cover_image || "/images/machines/cat-double-jersey.jpg"}
+                alt="Post cover preview"
+                onError={(e) => {
+                  setImageError(true);
+                  e.currentTarget.src = "/images/machines/cat-double-jersey.jpg";
+                }}
+                onLoad={() => setImageError(false)}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+
+              {/* Uploading progress overlay */}
+              {uploading && (
+                <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs flex flex-col items-center justify-center gap-2 text-white z-10">
+                  <RefreshCw className="h-6 w-6 animate-spin text-[#800020]" />
+                  <span className="text-xs font-semibold">Uploading to server...</span>
+                  <span className="text-[10px] text-slate-300">Instant live preview active</span>
+                </div>
+              )}
+
+              {/* Top Right Quick Controls */}
+              <div className="absolute top-2 right-2 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                {/* Open full image */}
+                <a
+                  href={previewBlobUrl || post.cover_image || "/images/machines/cat-double-jersey.jpg"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1.5 rounded-lg bg-black/70 hover:bg-black text-white text-xs backdrop-blur-xs transition-colors shadow-sm"
+                  title="Open Full Image in New Tab"
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                </a>
+                {/* Clear/Reset button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPost((prev) => ({ ...prev, cover_image: "/images/machines/cat-double-jersey.jpg" }));
+                    setPreviewBlobUrl(null);
+                    setImageError(false);
+                  }}
+                  className="p-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs transition-colors shadow-sm cursor-pointer"
+                  title="Reset to Default Machinery Image"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+
+              {/* Bottom Overlay Info */}
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 pt-6 flex items-end justify-between text-white text-[11px]">
+                <span className="font-mono truncate max-w-[200px] text-[10px]">
+                  {previewBlobUrl ? "local_file_preview" : post.cover_image}
+                </span>
+                <span className="text-[10px] bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded font-medium shrink-0">
+                  16:9 Aspect
+                </span>
+              </div>
+            </div>
+
+            {/* Image Error Alert if URL fails */}
+            {imageError && (
+              <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <p className="font-semibold">Image path not found or invalid</p>
+                  <p className="text-[11px] text-amber-700">
+                    Displaying factory fallback photo. Please select a machinery preset or upload a new photo from your device.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Upload from Device Dropzone */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700 block">
-                Quick Select Machinery Preset
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-slate-700 block">
+                  Upload from Device
+                </label>
+                <span className="text-[10px] text-slate-400">JPG, PNG, WebP (Max 15MB)</span>
+              </div>
+
+              <label className="relative flex flex-col items-center justify-center p-3.5 border-2 border-dashed border-slate-200 hover:border-[#800020] rounded-xl bg-slate-50/70 hover:bg-[#FDF2F4] cursor-pointer transition-colors group">
+                <UploadCloud className="h-5 w-5 text-slate-400 group-hover:text-[#800020] transition-colors mb-1" />
+                <span className="text-xs font-semibold text-slate-700 group-hover:text-slate-900">
+                  Click to choose file or drag photo here
+                </span>
+                <span className="text-[10px] text-slate-400 mt-0.5">
+                  Instant visual preview + saved to /public/uploads
+                </span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+                  onChange={handleFileUpload}
+                  disabled={uploading}
+                  className="hidden"
+                />
               </label>
+            </div>
+
+            {/* Visual Preset Selector Grid & Dropdown */}
+            <div className="space-y-2 pt-2 border-t border-slate-100">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-slate-700 block">
+                  Quick Select Machinery Preset
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setShowPresetGallery(!showPresetGallery)}
+                  className="text-[11px] text-[#800020] hover:underline font-semibold cursor-pointer"
+                >
+                  {showPresetGallery ? "Hide Thumbnails" : "Show Visual Gallery"}
+                </button>
+              </div>
+
+              {/* Dropdown for keyboard and compact select */}
               <select
                 value={post.cover_image}
-                onChange={(e) => setPost((prev) => ({ ...prev, cover_image: e.target.value }))}
+                onChange={(e) => {
+                  setPost((prev) => ({ ...prev, cover_image: e.target.value }));
+                  setPreviewBlobUrl(null);
+                  setImageError(false);
+                }}
                 className="w-full h-9 rounded-xl border border-slate-200 bg-white px-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
               >
                 {PRESET_IMAGES.map((img) => (
                   <option key={img.url} value={img.url}>
-                    {img.label}
+                    {img.label} ({img.category})
                   </option>
                 ))}
               </select>
-            </div>
 
-            {/* Direct Filesystem Upload */}
-            <div className="space-y-1.5 pt-2 border-t border-slate-100">
-              <label className="text-xs font-semibold text-slate-700 block">
-                Upload Image (Saved to Filesystem)
-              </label>
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
-                onChange={handleFileUpload}
-                disabled={uploading}
-                className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 cursor-pointer"
-              />
-              {uploading && (
-                <p className="text-[11px] text-blue-600 font-medium animate-pulse">
-                  Uploading image to server filesystem...
-                </p>
+              {/* Visual Thumbnail Grid */}
+              {showPresetGallery && (
+                <div className="grid grid-cols-2 gap-2 pt-1 max-h-56 overflow-y-auto pr-1">
+                  {PRESET_IMAGES.map((img) => {
+                    const isSelected = post.cover_image === img.url && !previewBlobUrl;
+                    return (
+                      <button
+                        key={img.url}
+                        type="button"
+                        onClick={() => {
+                          setPost((prev) => ({ ...prev, cover_image: img.url }));
+                          setPreviewBlobUrl(null);
+                          setImageError(false);
+                        }}
+                        className={`relative flex items-center gap-2 p-1.5 rounded-xl border text-left transition-all cursor-pointer ${
+                          isSelected
+                            ? "border-[#800020] bg-[#FDF2F4] ring-2 ring-[#800020]/20 shadow-2xs"
+                            : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                        }`}
+                      >
+                        <img
+                          src={img.url}
+                          alt={img.label}
+                          className="w-12 h-10 object-cover rounded-lg shrink-0 bg-slate-100"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[11px] font-bold text-slate-800 truncate leading-tight">
+                            {img.label}
+                          </p>
+                          <p className="text-[10px] text-slate-400 truncate">
+                            {img.category}
+                          </p>
+                        </div>
+                        {isSelected && (
+                          <div className="w-4 h-4 rounded-full bg-[#800020] text-white flex items-center justify-center shrink-0">
+                            <Check className="h-2.5 w-2.5" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
               )}
             </div>
 
             {/* Custom Image URL */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700 block">
-                Or Custom Image URL
+            <div className="space-y-1.5 pt-2 border-t border-slate-100">
+              <label className="text-xs font-bold text-slate-700 block">
+                Or Direct Custom Image URL / Path
               </label>
               <Input
                 value={post.cover_image}
-                onChange={(e) => setPost((prev) => ({ ...prev, cover_image: e.target.value }))}
-                placeholder="/images/machines/custom.jpg"
+                onChange={(e) => {
+                  setPost((prev) => ({ ...prev, cover_image: e.target.value }));
+                  setPreviewBlobUrl(null);
+                  setImageError(false);
+                }}
+                placeholder="/images/machines/cat-double-jersey.jpg"
                 className="text-xs font-mono"
               />
+              <p className="text-[10px] text-slate-400">
+                Supports local assets (/images/..., /uploads/...) and external web URLs.
+              </p>
             </div>
           </Card>
 

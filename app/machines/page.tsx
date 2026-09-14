@@ -175,11 +175,11 @@ export default function MachinesIndexPage() {
       <div className="border-b border-[#E5E7EB] bg-[#FFFDFB] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <MotionSection className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FF0000] mb-3">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#800020] mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{locale === "bn" ? "শিল্প যন্ত্রপাতি ক্যাটালগ" : "Industrial Machinery Catalog"}</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0A0A0A] leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
               {locale === "bn"
                 ? "সার্কুলার নিটিং, ডাইং ও টেক্সটাইল যন্ত্রপাতি"
                 : "Circular Knitting, Dyeing & Textile Machinery"}
@@ -206,8 +206,8 @@ export default function MachinesIndexPage() {
               }}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                 selectedCategory === "all"
-                  ? "bg-[#FF0000] text-white shadow-xs"
-                  : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#0A0A0A] hover:border-[#C0C0C0]"
+                  ? "bg-[#800020] text-white shadow-xs"
+                  : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#2D2D2D] hover:border-[#C0C0C0]"
               }`}
             >
               {t.common.allCategories} ({machines.length})
@@ -231,8 +231,8 @@ export default function MachinesIndexPage() {
                   }}
                   className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
                     isSelected
-                      ? "bg-[#FF0000] text-white shadow-xs font-bold"
-                      : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#0A0A0A] hover:border-[#C0C0C0]"
+                      ? "bg-[#800020] text-white shadow-xs font-bold"
+                      : "bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#2D2D2D] hover:border-[#C0C0C0]"
                   }`}
                 >
                   <span>{locale === "bn" && cat.name_bn ? cat.name_bn : cat.name}</span>
@@ -293,7 +293,7 @@ export default function MachinesIndexPage() {
                 }
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#FF0000] focus:ring-1 focus:ring-[#FF0000]"
+                className="w-full pl-9 pr-8 py-2 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
               />
               {searchQuery && (
                 <button
@@ -312,7 +312,7 @@ export default function MachinesIndexPage() {
                 <select
                   value={selectedGauge}
                   onChange={(e) => setSelectedGauge(e.target.value)}
-                  className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] focus:outline-none focus:border-[#FF0000]"
+                  className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] focus:outline-none focus:border-[#800020]"
                   aria-label="Filter by gauge"
                 >
                   <option value="all">All Gauges ({availableGauges.length})</option>
@@ -331,7 +331,7 @@ export default function MachinesIndexPage() {
                 <select
                   value={selectedDiameter}
                   onChange={(e) => setSelectedDiameter(e.target.value)}
-                  className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] focus:outline-none focus:border-[#FF0000]"
+                  className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] focus:outline-none focus:border-[#800020]"
                   aria-label="Filter by cylinder diameter"
                 >
                   <option value="all">All Diameters ({availableDiameters.length})</option>
@@ -349,7 +349,7 @@ export default function MachinesIndexPage() {
               <select
                 value={selectedAvailability}
                 onChange={(e) => setSelectedAvailability(e.target.value)}
-                className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] focus:outline-none focus:border-[#FF0000]"
+                className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] focus:outline-none focus:border-[#800020]"
                 aria-label="Filter by availability"
               >
                 <option value="all">All Availability</option>
@@ -364,7 +364,7 @@ export default function MachinesIndexPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] focus:outline-none focus:border-[#FF0000]"
+                className="w-full py-2 px-3 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] focus:outline-none focus:border-[#800020]"
                 aria-label="Sort machinery"
               >
                 <option value="newest">Sort: Newest Added</option>
@@ -382,7 +382,7 @@ export default function MachinesIndexPage() {
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="text-slate-500 font-medium">Active filters:</span>
                 {selectedCategory !== "all" && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-red-50 text-[#FF0000] border border-red-200 font-semibold text-[11px]">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#FDF2F4] text-[#800020] border border-[#D8A4AF] font-semibold text-[11px]">
                     Category: {CATEGORIES.find((c) => c.slug === selectedCategory)?.name}
                     <button onClick={() => setSelectedCategory("all")}><X className="w-3 h-3" /></button>
                   </span>
@@ -415,7 +415,7 @@ export default function MachinesIndexPage() {
 
               <button
                 onClick={clearAllFilters}
-                className="text-[#FF0000] font-semibold hover:underline cursor-pointer text-xs"
+                className="text-[#800020] font-semibold hover:underline cursor-pointer text-xs"
               >
                 Clear all filters
               </button>
@@ -427,14 +427,14 @@ export default function MachinesIndexPage() {
         {selectedCategory !== "all" && (
           <div className="mb-8 p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#4B5563]">
             <div>
-              <span className="font-bold text-[#0A0A0A]">
+              <span className="font-bold text-[#2D2D2D]">
                 {CATEGORIES.find((c) => c.slug === selectedCategory)?.name} {locale === "bn" ? "বিভাগ:" : "Category:"}
               </span>{" "}
               {CATEGORIES.find((c) => c.slug === selectedCategory)?.description}
             </div>
             <Link
               href={`/machines/${selectedCategory}`}
-              className="text-[#FF0000] font-semibold underline shrink-0 hover:opacity-80"
+              className="text-[#800020] font-semibold underline shrink-0 hover:opacity-80"
             >
               {locale === "bn" ? "এই ক্যাটাগরির বিস্তারিত পেজ →" : "View Dedicated Category Page →"}
             </Link>
@@ -472,7 +472,7 @@ export default function MachinesIndexPage() {
         ) : (
           <div className="border border-dashed border-[#E5E7EB] rounded-2xl p-12 text-center bg-[#F9FAFB]">
             <SlidersHorizontal className="w-10 h-10 text-[#6B7280] mx-auto mb-3" />
-            <h3 className="font-bold text-base text-[#0A0A0A]">
+            <h3 className="font-bold text-base text-[#2D2D2D]">
               {locale === "bn" ? "আপনার খোঁজার সাথে মেলে এমন কোনো মেশিন পাওয়া যায়নি" : "No machinery matches your filter criteria"}
             </h3>
             <p className="text-xs text-[#4B5563] mt-1 max-w-md mx-auto">
@@ -482,7 +482,7 @@ export default function MachinesIndexPage() {
             </p>
             <button
               onClick={clearAllFilters}
-              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF0000] text-white text-xs font-semibold hover:bg-[#E00000] transition-colors"
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#800020] text-white text-xs font-semibold hover:bg-[#5A0017] transition-colors"
             >
               {locale === "bn" ? "সব ফিল্টার রিসেট করুন" : "Reset All Filters"}
             </button>
@@ -507,7 +507,7 @@ export default function MachinesIndexPage() {
                 onClick={() => setCurrentPage(page)}
                 className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   currentPage === page
-                    ? "bg-[#FF0000] text-white shadow-xs"
+                    ? "bg-[#800020] text-white shadow-xs"
                     : "border border-[#E5E7EB] text-slate-700 hover:bg-slate-50"
                 }`}
               >

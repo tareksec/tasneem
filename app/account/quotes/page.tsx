@@ -73,7 +73,7 @@ export default function CustomerQuotesPage() {
       {/* Top Action Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-[#0A0A0A] tracking-tight">
+          <h2 className="text-xl font-bold text-[#2D2D2D] tracking-tight">
             Quotation Requests ({quotes.length})
           </h2>
           <p className="text-xs text-[#4B5563] mt-0.5">
@@ -83,7 +83,7 @@ export default function CustomerQuotesPage() {
 
         <Link
           href="/quote"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold transition-colors shadow-xs shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-colors shadow-xs shrink-0 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Request New Quote</span>
@@ -189,7 +189,7 @@ export default function CustomerQuotesPage() {
           </p>
           <Link
             href="/machines"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold shadow-xs transition-colors"
           >
             <span>Browse Machine Catalog</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -209,7 +209,7 @@ export default function CustomerQuotesPage() {
           >
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <span className="font-mono text-xs font-bold text-[#FF0000]">
+                <span className="font-mono text-xs font-bold text-[#800020]">
                   {selectedQuote.id}
                 </span>
                 <h3 className="text-lg font-bold text-slate-900">

@@ -3,7 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, Building2 } from "lucide-react";
+import {
+  Lock,
+  Mail,
+  ArrowRight,
+  ShieldCheck,
+  Sparkles,
+  Building2,
+  Clock,
+  MessageCircle,
+} from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer/customer-context";
 
 export default function CustomerLoginPage() {
@@ -22,15 +31,22 @@ export default function CustomerLoginPage() {
       return;
     }
 
-    login(email, password);
+    const res = login(email, password);
+    if (!res.success) {
+      setError(res.error || "Login failed. Please check credentials.");
+      return;
+    }
+
     router.push("/account/quotes");
   };
 
   const handleDemoLogin = () => {
     setEmail("buyer@demo.com");
     setPassword("password123");
-    login("buyer@demo.com", "password123");
-    router.push("/account/quotes");
+    const res = login("buyer@demo.com", "password123");
+    if (res.success) {
+      router.push("/account/quotes");
+    }
   };
 
   return (
@@ -38,13 +54,13 @@ export default function CustomerLoginPage() {
       <div className="bg-white border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-sm">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-200 text-[#FF0000] flex items-center justify-center mx-auto mb-3">
+          <div className="w-12 h-12 rounded-xl bg-[#FDF2F4] border border-[#D8A4AF] text-[#800020] flex items-center justify-center mx-auto mb-3">
             <Building2 className="w-6 h-6" />
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF0000] bg-red-50 px-2 py-0.5 rounded-md inline-block mb-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#800020] bg-[#FDF2F4] border border-[#F9E6EA] px-2.5 py-0.5 rounded-md inline-block mb-1">
             Buyer Account Portal
           </span>
-          <h1 className="text-2xl font-bold text-[#0A0A0A] tracking-tight">
+          <h1 className="text-2xl font-bold text-[#2D2D2D] tracking-tight">
             Sign In to My Quotes
           </h1>
           <p className="text-xs text-[#6B7280] mt-1.5 leading-relaxed">
@@ -53,8 +69,34 @@ export default function CustomerLoginPage() {
         </div>
 
         {error && (
-          <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600">
-            {error}
+          <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 space-y-2">
+            {error.includes("PENDING_APPROVAL") ? (
+              <div className="space-y-2 text-amber-900 bg-amber-50/80 -m-1.5 p-3.5 rounded-lg border border-amber-300">
+                <div className="flex items-center gap-2 font-bold text-amber-800 text-xs">
+                  <Clock className="w-4 h-4 shrink-0 text-amber-600 animate-pulse" />
+                  <span>অ্যাকাউন্টটি অনুমোদনের অপেক্ষায় (Pending Approval)</span>
+                </div>
+                <p className="text-[11px] text-amber-800/90 leading-relaxed">
+                  আপনার রেজিস্ট্রেশনটি অ্যাডমিন পর্যালোচনায় রয়েছে। অ্যাডমিন অনুমোদন সম্পন্ন করলে এই অ্যাকাউন্ট দিয়ে সমস্ত তথ্য দেখা যাবে।
+                </p>
+                <a
+                  href={`https://wa.me/8801715024479?text=${encodeURIComponent(
+                    `Hello Tasneem Knit Industry, I have registered a buyer account with email: ${email}. Please approve my account.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 underline mt-1"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>দ্রুত অনুমোদনের জন্য অ্যাডমিনকে হোয়াটসঅ্যাপে জানান ↗</span>
+                </a>
+              </div>
+            ) : (
+              <div className="flex items-start gap-2">
+                <span className="shrink-0 font-bold">•</span>
+                <span>{error}</span>
+              </div>
+            )}
           </div>
         )}
 
@@ -72,7 +114,7 @@ export default function CustomerLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="buyer@textilemill.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#FF0000] focus:ring-1 focus:ring-[#FF0000]"
+                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
               />
             </div>
           </div>
@@ -89,14 +131,14 @@ export default function CustomerLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#0A0A0A] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#FF0000] focus:ring-1 focus:ring-[#FF0000]"
+                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#D1D5DB] rounded-xl text-xs text-[#2D2D2D] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 px-4 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer mt-2"
+            className="w-full py-3 px-4 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer mt-2"
           >
             <span>Sign In to Portal</span>
             <ArrowRight className="w-4 h-4" />
@@ -118,7 +160,7 @@ export default function CustomerLoginPage() {
         {/* Bottom Switcher */}
         <div className="mt-6 text-center text-xs text-slate-500">
           New buyer?{" "}
-          <Link href="/account/register" className="text-[#FF0000] font-bold hover:underline">
+          <Link href="/account/register" className="text-[#800020] font-bold hover:underline">
             Create an Account →
           </Link>
         </div>

@@ -64,14 +64,14 @@ export function TrustStrip() {
             className="md:col-span-4 border-b md:border-b-0 md:border-r border-[#E5E7EB] pb-4 md:pb-0 md:pr-6"
           >
             <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-1">
-              <FileCheck className="w-4 h-4 text-[#FF0000]" />
+              <FileCheck className="w-4 h-4 text-[#800020]" />
               <span>{dict.common.complianceBadge}</span>
             </div>
-            <p className="text-sm font-semibold text-[#0A0A0A]">
+            <p className="text-sm font-semibold text-[#2D2D2D]">
               Tasneem Knit Industry
             </p>
-            <p className="text-xs text-[#4B5563] mt-0.5">
-              {dict.footer.binLabel} & {dict.footer.ircLabel}: <span className="font-medium text-[#0A0A0A]">{COMPANY_INFO.registration.bin}</span>
+            <p className="text-xs text-[#4B5563] mt-0.5 break-all sm:break-normal">
+              {dict.footer.binLabel} & {dict.footer.ircLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span>
             </p>
           </motion.div>
 
@@ -103,7 +103,7 @@ export function TrustStrip() {
                 <motion.span
                   key={badge.name}
                   variants={badgeVariants}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#0A0A0A] shadow-xs hover:border-[#C0C0C0] transition-colors duration-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#2D2D2D] shadow-xs hover:border-[#C0C0C0] transition-colors duration-200"
                 >
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   {badge.name}

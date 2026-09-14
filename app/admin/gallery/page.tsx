@@ -387,7 +387,7 @@ export default function AdminGalleryPage() {
             <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
           </Link>
 
-          <Button onClick={handleOpenCreate} className="gap-2 shadow-sm bg-[#FF0000] hover:bg-[#CC0000] text-white">
+          <Button onClick={handleOpenCreate} className="gap-2 shadow-sm bg-[#800020] hover:bg-[#5A0017] text-white">
             <Plus className="w-4 h-4" />
             <span>Add Gallery Item</span>
           </Button>
@@ -489,7 +489,7 @@ export default function AdminGalleryPage() {
               : "Try adjusting your search query or clear your active filters."}
           </p>
           {items.length === 0 ? (
-            <Button onClick={handleOpenCreate} className="bg-[#FF0000] hover:bg-[#CC0000] text-white gap-2">
+            <Button onClick={handleOpenCreate} className="bg-[#800020] hover:bg-[#5A0017] text-white gap-2">
               <Plus className="w-4 h-4" />
               <span>Upload First Installation</span>
             </Button>
@@ -560,7 +560,7 @@ export default function AdminGalleryPage() {
                     {/* Play Affordance for Video */}
                     {isVideo && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/40 transition-colors">
-                        <div className="w-11 h-11 rounded-full bg-[#FF0000] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div className="w-11 h-11 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                           <Play className="w-5 h-5 ml-0.5 fill-current" />
                         </div>
                       </div>
@@ -616,7 +616,7 @@ export default function AdminGalleryPage() {
                     <div className="mt-3.5 pt-3 border-t border-neutral-100 flex flex-wrap items-center gap-3 text-[11px] text-neutral-500">
                       {item.location && (
                         <div className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#FF0000]" />
+                          <MapPin className="w-3 h-3 text-[#800020]" />
                           <span>{item.location}</span>
                         </div>
                       )}
@@ -1058,7 +1058,7 @@ export default function AdminGalleryPage() {
             <Button
               type="submit"
               disabled={isProcessingMedia}
-              className="bg-[#FF0000] hover:bg-[#CC0000] text-white"
+              className="bg-[#800020] hover:bg-[#5A0017] text-white"
             >
               {isProcessingMedia ? "Processing..." : editingItem ? "Update Installation" : "Save Installation"}
             </Button>

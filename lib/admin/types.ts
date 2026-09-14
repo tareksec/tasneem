@@ -56,6 +56,8 @@ export interface AdminCompanyInfo {
   phoneAlt: string;
   whatsapp: string;
   email: string;
+  businessEmail?: string;
+  facebook?: string;
   domain: string;
   businessHours_en: string;
   businessHours_bn: string;
@@ -84,7 +86,7 @@ export type { GalleryItem } from "@/lib/types";
 export interface ActivityLog {
   id: string;
   action: "create" | "update" | "delete" | "publish" | "draft" | "reorder";
-  entity: "blog" | "why_tasneem" | "faq" | "company_info" | "industries" | "machines" | "quotes" | "redirects" | "gallery";
+  entity: "blog" | "why_tasneem" | "faq" | "company_info" | "industries" | "machines" | "quotes" | "redirects" | "gallery" | "customers";
   title: string;
   timestamp: string;
   author: string;

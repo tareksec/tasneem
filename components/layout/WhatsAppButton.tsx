@@ -17,9 +17,9 @@ export function WhatsAppButton() {
         rel="noopener noreferrer"
         onClick={() => trackWhatsAppClick("floating_button")}
         aria-label="Chat directly on WhatsApp"
-        className="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center gap-2.5 transition-all duration-300 hover:scale-105 border-2 border-[#161616] ring-1 ring-[#2A2A2A] group"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white p-3 sm:p-4 rounded-full shadow-2xl hidden md:flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-105 border-2 border-[#161616] ring-1 ring-[#2A2A2A] group min-w-[48px] min-h-[48px]"
       >
-        <MessageCircle className="w-6 h-6 animate-pulse" />
+        <MessageCircle className="w-6 h-6 shrink-0 animate-pulse" />
         <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-sm font-semibold pr-1">
           Chat on WhatsApp
         </span>

@@ -42,17 +42,17 @@ export function SpotlightInstallation() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-[#E5E7EB] overflow-hidden">
+    <section className="py-12 sm:py-20 lg:py-28 bg-white border-b border-[#E5E5E5] overflow-hidden text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <MotionSection className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-2 block">
+        <MotionSection className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+          <span className="text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2 block">
             {dict.installation.badge}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0A0A0A]">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
             {dict.installation.title}
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#4B5563] leading-relaxed">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-base text-[#4A4A4A] leading-relaxed">
             {dict.installation.subtitle}
           </p>
         </MotionSection>
@@ -62,21 +62,21 @@ export function SpotlightInstallation() {
           {/* Left Checklist (3 cols) */}
           <div className="lg:col-span-3 order-2 lg:order-1">
             <SlideIn direction="left" distance={20} duration={0.45}>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#0A0A0A] font-bold pb-2 border-b border-[#E5E7EB] mb-6">
-                <Wrench className="w-4 h-4 text-[#FF0000]" />
+              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
+                <Wrench className="w-4 h-4 text-[#800020]" />
                 <span>Assembly & Setup</span>
               </div>
               <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-5">
                 {leftChecklist.map((item) => (
                   <StaggerItem key={item.title}>
-                    <div className="border border-[#E5E7EB] rounded-xl p-4 bg-[#F9FAFB] shadow-xs hover:border-[#C0C0C0] transition-colors duration-200">
+                    <div className="border border-[#E5E5E5] rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E7EB] text-emerald-600 flex items-center justify-center shrink-0">
+                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E5E5] text-emerald-600 flex items-center justify-center shrink-0">
                           <Check className="w-3 h-3 text-emerald-600" />
                         </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#0A0A0A]">{item.title}</h3>
+                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D]">{item.title}</h3>
                       </div>
-                      <p className="text-xs text-[#4B5563] leading-relaxed pl-7">{item.description}</p>
+                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7">{item.description}</p>
                     </div>
                   </StaggerItem>
                 ))}
@@ -91,9 +91,9 @@ export function SpotlightInstallation() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="border border-[#E5E7EB] rounded-2xl p-6 bg-white shadow-xl text-center group"
+              className="border border-[#E5E5E5] rounded-2xl p-4 sm:p-6 bg-white shadow-xl text-center group"
             >
-              <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9F9F9] border border-[#E5E5E5] overflow-hidden flex items-center justify-center">
                 <Image
                   src="/images/machines/spotlight-installation.webp"
                   alt="Factory machinery commissioning technician inspecting and calibrating industrial equipment"
@@ -101,19 +101,19 @@ export function SpotlightInstallation() {
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <div className="mt-4 flex items-center justify-around text-xs font-semibold text-[#0A0A0A] pt-2">
+              <div className="mt-4 flex flex-wrap sm:flex-nowrap items-center justify-around gap-2 text-xs font-semibold text-[#2D2D2D] pt-2">
                 <span className="flex items-center gap-1">
                   <PackageCheck className="w-4 h-4 text-emerald-600" />
                   {dict.hero.cfrBadge}
                 </span>
-                <span className="text-[#D4D4D4]">•</span>
+                <span className="text-neutral-300 hidden sm:inline">•</span>
                 <span className="flex items-center gap-1">
-                  <Wrench className="w-4 h-4 text-[#FF0000]" />
+                  <Wrench className="w-4 h-4 text-[#800020]" />
                   {dict.hero.installBadge}
                 </span>
-                <span className="text-[#D4D4D4]">•</span>
+                <span className="text-neutral-300 hidden sm:inline">•</span>
                 <span className="flex items-center gap-1">
-                  <GraduationCap className="w-4 h-4 text-[#4B5563]" />
+                  <GraduationCap className="w-4 h-4 text-[#4A4A4A]" />
                   Staff Training
                 </span>
               </div>
@@ -123,21 +123,21 @@ export function SpotlightInstallation() {
           {/* Right Checklist (3 cols) */}
           <div className="lg:col-span-3 order-3">
             <SlideIn direction="right" distance={20} duration={0.45}>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#0A0A0A] font-bold pb-2 border-b border-[#E5E7EB] mb-6">
-                <GraduationCap className="w-4 h-4 text-[#FF0000]" />
+              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
+                <GraduationCap className="w-4 h-4 text-[#800020]" />
                 <span>Training & Support</span>
               </div>
               <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-5">
                 {rightChecklist.map((item) => (
                   <StaggerItem key={item.title}>
-                    <div className="border border-[#E5E7EB] rounded-xl p-4 bg-[#F9FAFB] shadow-xs hover:border-[#C0C0C0] transition-colors duration-200">
+                    <div className="border border-[#E5E5E5] rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E7EB] text-[#FF0000] flex items-center justify-center shrink-0">
-                          <Check className="w-3 h-3 text-[#FF0000]" />
+                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E5E5] text-[#800020] flex items-center justify-center shrink-0">
+                          <Check className="w-3 h-3 text-[#800020]" />
                         </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#0A0A0A]">{item.title}</h3>
+                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D]">{item.title}</h3>
                       </div>
-                      <p className="text-xs text-[#4B5563] leading-relaxed pl-7">{item.description}</p>
+                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7">{item.description}</p>
                     </div>
                   </StaggerItem>
                 ))}
@@ -150,7 +150,7 @@ export function SpotlightInstallation() {
         <MotionSection delay={0.1} className="mt-12 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 bg-[#FF0000] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#E00000] transition-colors duration-200 shadow-xs"
+            className="inline-flex items-center gap-2 bg-[#800020] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#5A0017] transition-colors duration-200 shadow-xs"
           >
             <span>{dict.common.readMore}</span>
             <ArrowUpRight className="w-4 h-4" />

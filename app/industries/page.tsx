@@ -60,9 +60,9 @@ export default function IndustriesPage() {
       imageSpecBadge: "Heavy-Duty 24/7",
       bgClass: "bg-[#F7F7F8] text-neutral-900 border-t border-neutral-300 shadow-[0_-30px_70px_rgba(0,0,0,0.14)]",
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
-      badgeBorder: "border-red-200 bg-red-50 text-red-600",
+      badgeBorder: "border-[#D8A4AF] bg-[#FDF2F4] text-[#800020]",
       pillClass: "bg-white border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#FF0000] hover:bg-[#E00000] text-white",
+      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Building2,
     },
@@ -108,22 +108,22 @@ export default function IndustriesPage() {
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
       badgeBorder: "border-purple-200 bg-purple-50 text-purple-700",
       pillClass: "bg-neutral-100 border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#FF0000] hover:bg-[#E00000] text-white",
+      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Sparkles,
     },
   ];
 
   return (
-    <div className="bg-[#F8F9FA] text-[#0A0A0A]">
+    <div className="bg-[#F8F9FA] text-[#2D2D2D]">
       {/* 1. Page Header Section */}
       <div className="pt-16 pb-12 sm:pt-20 sm:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-white text-xs font-semibold text-[#4B5563] mb-4 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
             <span>{locale === "bn" ? "কোন খাতে কোন মেশিন লাগবে" : "Sectors & Production Applications"}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#0A0A0A] leading-tight mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#2D2D2D] leading-tight mb-4">
             {locale === "bn"
               ? "বাংলাদেশের নিটিং ও টেক্সটাইল খাতের উপযোগী আধুনিক মেশিনারি"
               : "Machinery Solutions Tailored to Bangladesh Textile Sectors"}
@@ -171,7 +171,7 @@ export default function IndustriesPage() {
                       <div
                         className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-bold shadow-xs ${sector.badgeBorder}`}
                       >
-                        <IconComponent className="w-3.5 h-3.5 text-[#FF0000]" />
+                        <IconComponent className="w-3.5 h-3.5 text-[#800020]" />
                         <span>{sector.num} / 04</span>
                         <span>•</span>
                         <span className="font-sans font-medium">{sector.tag}</span>
@@ -203,7 +203,7 @@ export default function IndustriesPage() {
                               key={m}
                               className={`text-[11px] sm:text-xs font-medium px-2.5 py-1 rounded-md border flex items-center gap-1 ${sector.pillClass}`}
                             >
-                              <CheckCircle2 className="w-3 h-3 text-[#FF0000] shrink-0" />
+                              <CheckCircle2 className="w-3 h-3 text-[#800020] shrink-0" />
                               <span>{m}</span>
                             </span>
                           ))}
@@ -294,7 +294,7 @@ export default function IndustriesPage() {
       <div className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5E7EB] bg-white">
         <div className="rounded-3xl bg-gradient-to-br from-neutral-900 to-black text-white p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
           <div className="relative z-10 max-w-2xl">
-            <span className="text-xs uppercase tracking-wider text-red-500 font-bold block mb-2 font-mono">
+            <span className="text-xs uppercase tracking-wider text-[#D8A4AF] font-bold block mb-2 font-mono">
               {locale === "bn" ? "ফ্রি টেকনিক্যাল পরামর্শ" : "Technical Consultancy"}
             </span>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight mb-3">
@@ -312,7 +312,7 @@ export default function IndustriesPage() {
           <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
             <Link
               href="/quote"
-              className="bg-[#FF0000] hover:bg-[#E00000] text-white px-8 py-4 rounded-full font-bold text-sm text-center shadow-lg transition-all duration-200 hover:scale-[1.02]"
+              className="bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-4 rounded-full font-bold text-sm text-center shadow-lg transition-all duration-200 hover:scale-[1.02]"
             >
               {t.common.requestQuote}
             </Link>

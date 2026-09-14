@@ -88,14 +88,13 @@ details" or omit from public copy until provided — do not guess a year.
 | 3 | Blog feature | **Required at launch**, not deferred to v1.1 |
 | 4 | Payment gateway | **Skipped for v1** — quote-request only, no online payment |
 | 5 | Staff roles | **Single Admin role only** — no multi-role system (Editor/Sales roles from `admin-panel.md` Section 2.1 are dropped for now) |
-| 6 | Quote notification email | Company **domain email** (exact address TBD — e.g. `sales@tasneemknitindustry.com`; confirm exact inbox with client) |
+| 6 | Contact & Quote notification emails | Main Email: **`tasneemknit@gmail.com`**; Business Email: **`hello@tasneemknitindustry.com`**; Facebook: **`https://www.facebook.com/tasneemknitind`** |
 | 7 | Hosting | **Existing Hostinger plan** — no VPS/separate hosting change; Medusa backend and Next.js frontend both run within the current plan's resources (per `TRD.md` Section 2, monitor RAM/CPU as noted there) |
 | 8 | DNS | No change — stays on current Cloudflare nameservers |
 | 9 | Privacy Policy / Terms content | No specific data-retention or third-party-sharing points provided — **start from a standard B2B template**, scoped to what this site actually collects (quote-request form data, customer account data) rather than generic boilerplate unrelated to the actual data flows |
 
 ## 6. Still Genuinely Open (not answered, not guessed)
 
-- Exact quote-notification inbox address (domain confirmed, exact address not given)
 - Year established
 - Confirmation on the registered-address vs. operating-address display question (Section 4)
 

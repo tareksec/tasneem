@@ -50,20 +50,20 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-engineering-grid text-[#0A0A0A] selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen bg-engineering-grid text-[#2D2D2D] selection:bg-[#800020] selection:text-white">
       {/* 1. Main Process Section with User Reference Wave Design & Animations */}
       <ProcessWaveSection />
 
       {/* 2. Core Sourcing Guarantees Strip */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-200 bg-red-50/90 text-xs font-bold text-red-600 mb-3 shadow-2xs">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#FF0000]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-bold text-[#800020] mb-3 shadow-2xs">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#800020]" />
             <span>{locale === "bn" ? "আমাদের কাজের অঙ্গীকার" : "Our Institutional Commitments"}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
             {locale === "bn" ? "কেন তাসনীমের সাথে নিশ্চিন্তে মেশিনারি আমদানি করবেন?" : "Risk-Free Procurement Standards"}
-            <span className="text-[#FF0000]">.</span>
+            <span className="text-[#800020]">.</span>
           </h2>
         </div>
 
@@ -71,13 +71,13 @@ export default function HowItWorksPage() {
           {guarantees.map((g, i) => (
             <div
               key={i}
-              className="bg-white border border-[#E2E4E9] rounded-3xl p-6 sm:p-7 shadow-[0_12px_35px_-10px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-red-200 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white border border-[#E2E4E9] rounded-3xl p-6 sm:p-7 shadow-[0_12px_35px_-10px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#D8A4AF] transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-neutral-50 border border-neutral-200/80 flex items-center justify-center text-[#FF0000] mb-5 group-hover:scale-110 group-hover:border-red-200 group-hover:bg-red-50/50 transition-all">
+                <div className="w-12 h-12 rounded-2xl bg-neutral-50 border border-neutral-200/80 flex items-center justify-center text-[#800020] mb-5 group-hover:scale-110 group-hover:border-[#D8A4AF] group-hover:bg-[#FDF2F4] transition-all">
                   <g.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-extrabold text-neutral-900 mb-2 group-hover:text-[#FF0000] transition-colors leading-snug">
+                <h3 className="text-base font-extrabold text-neutral-900 mb-2 group-hover:text-[#800020] transition-colors leading-snug">
                   {locale === "bn" ? g.titleBn : g.titleEn}
                 </h3>
                 <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
@@ -87,7 +87,7 @@ export default function HowItWorksPage() {
 
               <div className="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between text-[11px] font-mono text-neutral-400">
                 <span>0{i + 1} / 04</span>
-                <span className="text-red-500 font-bold">VERIFIED</span>
+                <span className="text-[#800020] font-bold">VERIFIED</span>
               </div>
             </div>
           ))}
@@ -96,7 +96,7 @@ export default function HowItWorksPage() {
 
       {/* 3. Ready to Begin Step 01? — Direct Action Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
-        <div className="relative border border-[#E2E4E9] bg-gradient-to-br from-white via-[#FCFCFD] to-red-50/40 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="relative border border-[#E2E4E9] bg-gradient-to-br from-white via-[#FCFCFD] to-[#FDF2F4]/40 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
           {/* Subtle Ambient Background Watermark */}
           <div className="absolute right-0 bottom-0 text-[180px] font-mono font-black text-neutral-900/[0.02] select-none pointer-events-none leading-none -mr-8 -mb-10">
             CFR
@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
 
           <div className="relative z-10 max-w-2xl text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100/80 text-red-700 text-xs font-mono font-bold mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
               <span>{locale === "bn" ? "শুরু হোক আপনার প্রথম ধাপ" : "START WITH STEP 01"}</span>
             </div>
 
@@ -126,7 +126,7 @@ export default function HowItWorksPage() {
                 href="tel:01887683333"
                 className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-neutral-200 hover:border-red-300 transition-colors shadow-2xs"
               >
-                <Phone className="w-3.5 h-3.5 text-[#FF0000]" />
+                <Phone className="w-3.5 h-3.5 text-[#800020]" />
                 <span>Hotline: 01887683333</span>
               </a>
 
@@ -145,7 +145,7 @@ export default function HowItWorksPage() {
           <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/quote"
-              className="w-full sm:w-auto bg-[#FF0000] hover:bg-[#E00000] text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:shadow-red-500/25 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full sm:w-auto bg-[#800020] hover:bg-[#5A0017] text-white font-bold text-sm sm:base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#800020]/25 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
             >
               <span>{locale === "bn" ? "ফ্রি কোটেশন চেয়ে পাঠান" : "Request Technical Quotation"}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

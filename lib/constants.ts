@@ -25,9 +25,26 @@ export const COMPANY_INFO = {
   phoneAlt: "+880 1884-611888", // Secondary phone alias
   whatsapp: "+8801711110516", // WhatsApp specifically
   whatsappFormatted: "+880 1711-110516",
-  email: "sales@tasneemknitindustry.com", // Company domain quote notification inbox
+  email: "tasneemknit@gmail.com", // Main Email
+  mainEmail: "tasneemknit@gmail.com",
+  businessEmail: "hello@tasneemknitindustry.com", // Business Email
+  facebook: "https://www.facebook.com/tasneemknitind", // Official Facebook Page
+  facebookUrl: "https://www.facebook.com/tasneemknitind",
+  facebookHandle: "facebook.com/tasneemknitind",
   domain: "https://tasneemknitindustry.com",
   businessHours: "Saturday – Thursday: 9:00 AM – 7:00 PM (BST)",
+
+  // Confirmed Google Maps Location (Resolved from https://maps.app.goo.gl/KY8BHYqAkDfE7aM18)
+  maps: {
+    placeName: "Tasneem Knitting Industry",
+    fullAddress: "Plot-594, Tasneem Knitting Industry, Industrial Park, Chan Nagor, নতুন রাস্তার পশ্চিম পার্শ্বে, 4No New Road, Narayanganj 1421",
+    shortUrl: "https://maps.app.goo.gl/KY8BHYqAkDfE7aM18",
+    placeUrl: "https://www.google.com/maps/place/Tasneem+Knitting+Industry/@23.6290744,90.4781418,18z/data=!4m6!3m5!1s0x3755b11a3e88d6b7:0x64889262efdd6879!8m2!3d23.6290744!4d90.4781418!16s%2Fg%2F11ywy6lysx",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1827.6548926914247!2d90.4781418!3d23.6290744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b11a3e88d6b7%3A0x64889262efdd6879!2sTasneem%20Knitting%20Industry!5e0!3m2!1sen!2sbd",
+    lat: 23.6290744,
+    lng: 90.4781418,
+    cid: "7244200954254157945",
+  },
 
   // Confirmed Legal & Compliance Credentials
   registration: {

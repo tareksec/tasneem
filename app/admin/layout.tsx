@@ -23,9 +23,9 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#ECE9E4] text-slate-900 flex items-center justify-center p-2 sm:p-5 lg:p-7 xl:p-9 font-sans selection:bg-[#FF4186] selection:text-white">
+    <div className="min-h-screen bg-[#F9F9F9] text-[#2D2D2D] flex items-center justify-center p-1 sm:p-5 lg:p-7 xl:p-9 font-sans selection:bg-[#800020] selection:text-white">
       {/* Floating App Container (Pixel-perfect matching reference design image window) */}
-      <div className="w-full max-w-[1440px] bg-[#111217] rounded-[32px] sm:rounded-[38px] shadow-[0_30px_90px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col lg:flex-row min-h-[860px] border border-black/5">
+      <div className="w-full max-w-[1440px] bg-[#111217] rounded-2xl sm:rounded-[38px] shadow-[0_30px_90px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col lg:flex-row min-h-screen lg:min-h-[860px] border border-black/5">
         {/* Sleek Dark Left Sidebar */}
         <AdminSidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
 
@@ -35,7 +35,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           <AdminTopBar onToggleMobileSidebar={() => setMobileOpen(true)} />
 
           {/* Page Body Viewport */}
-          <main className="flex-1 px-6 sm:px-8 lg:px-10 pb-8 sm:pb-10 max-w-7xl w-full mx-auto">
+          <main className="flex-1 px-3.5 sm:px-8 lg:px-10 pb-8 sm:pb-10 max-w-7xl w-full mx-auto">
             {children}
           </main>
         </div>

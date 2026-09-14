@@ -382,12 +382,12 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
           <button
             type="button"
             onClick={() => router.push("/admin/products")}
-            className="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-slate-900 cursor-pointer"
+            className="p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-slate-900 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF0000]">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#800020]">
               {isEditing ? "Modify Machinery" : "Add New Machinery"}
             </span>
             <h1 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
@@ -396,7 +396,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
           </div>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
           {/* Status Switcher */}
           <div className="flex items-center rounded-xl bg-slate-200/80 p-1 text-xs font-bold">
             <button
@@ -425,7 +425,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
 
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 min-h-[40px] rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
           >
             <Save className="w-4 h-4" />
             <span>{isEditing ? "Save & Publish Changes" : "Create Machine"}</span>
@@ -434,14 +434,14 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       </div>
 
       {/* Bilingual Tab Switcher Bar */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-xs flex items-center justify-between">
+      <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Globe className="w-4 h-4 text-slate-400 ml-2" />
+          <Globe className="w-4 h-4 text-slate-400 shrink-0 ml-1 sm:ml-2" />
           <span className="text-xs font-bold text-slate-700">Content Language Mode:</span>
-          <span className="text-xs text-slate-400">Switch tabs to configure English & Bengali texts</span>
+          <span className="text-xs text-slate-400 hidden min-[480px]:inline">Switch tabs to configure English & Bengali texts</span>
         </div>
 
-        <div className="flex items-center rounded-xl bg-slate-100 p-1 text-xs font-bold">
+        <div className="flex items-center rounded-xl bg-slate-100 p-1 text-xs font-bold self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setActiveLang("en")}
@@ -455,7 +455,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
             type="button"
             onClick={() => setActiveLang("bn")}
             className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-              activeLang === "bn" ? "bg-white text-[#FF0000] shadow-xs" : "text-slate-500"
+              activeLang === "bn" ? "bg-white text-[#800020] shadow-xs" : "text-slate-500"
             }`}
           >
             বাংলা (Bengali)
@@ -466,7 +466,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       {/* 1. Identity & Classification */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
-          <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
             1
           </div>
           <div>
@@ -487,7 +487,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Jiunn Long Double Jersey High-Speed Circular Knitting Machine"
-                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white font-semibold"
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white font-semibold"
               />
             ) : (
               <input
@@ -495,7 +495,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={name_bn}
                 onChange={(e) => setNameBn(e.target.value)}
                 placeholder="যেমন: জিউন লং ডাবল জার্সি হাই-স্পিড সার্কুলার নিটিং মেশিন"
-                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white font-semibold"
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white font-semibold"
               />
             )}
           </div>
@@ -510,7 +510,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               placeholder="e.g. Jiunn Long, Rongxiang, Shanli"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white"
             />
           </div>
 
@@ -523,7 +523,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={manufacturer}
               onChange={(e) => setManufacturer(e.target.value)}
               placeholder="e.g. Jiunn Long Precision Machinery Co., Ltd."
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white"
             />
           </div>
 
@@ -535,7 +535,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
             <select
               value={mainCategory}
               onChange={(e) => setMainCategory(e.target.value as MainCategory)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white font-medium"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white font-medium"
             >
               {MAIN_CATEGORIES.map((c) => (
                 <option key={c.slug} value={c.slug}>
@@ -557,7 +557,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               <select
                 value={subCategory}
                 onChange={(e) => setSubCategory(e.target.value as CircularKnittingSubCategory)}
-                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white font-medium"
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white font-medium"
               >
                 {CIRCULAR_SUB_CATEGORIES.map((c) => (
                   <option key={c.slug} value={c.slug}>
@@ -590,7 +590,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={machineType}
               onChange={(e) => setMachineType(e.target.value)}
               placeholder="e.g. 4-Track High Speed, Rib Interlock Dual System"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white"
             />
           </div>
         </div>
@@ -600,7 +600,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
               2
             </div>
             <div>
@@ -622,7 +622,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={cylinderDiameter}
               onChange={(e) => setCylinderDiameter(e.target.value)}
               placeholder='e.g. 34" (or 30" – 38")'
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -635,7 +635,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={gauge}
               onChange={(e) => setGauge(e.target.value)}
               placeholder="e.g. 24G – 28G"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -648,7 +648,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={feeders}
               onChange={(e) => setFeeders(e.target.value)}
               placeholder="e.g. 96 or 102"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -661,7 +661,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={numberOfSystems}
               onChange={(e) => setNumberOfSystems(e.target.value)}
               placeholder="e.g. 4"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -674,7 +674,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={machineSpeed}
               onChange={(e) => setMachineSpeed(e.target.value)}
               placeholder="e.g. 24 – 32 RPM"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -688,7 +688,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={fabricType}
                 onChange={(e) => setFabricType(e.target.value)}
                 placeholder="e.g. Plain Single Jersey, Pique, Lycra"
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             ) : (
               <input
@@ -696,7 +696,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={fabricType_bn}
                 onChange={(e) => setFabricTypeBn(e.target.value)}
                 placeholder="যেমন: সিঙ্গেল জার্সি, পোলো পিক, লাইক্রা"
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             )}
           </div>
@@ -710,7 +710,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={productionCapacity}
               onChange={(e) => setProductionCapacity(e.target.value)}
               placeholder="e.g. 400 – 480 kg / 24 hrs"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -723,7 +723,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={powerRequirement}
               onChange={(e) => setPowerRequirement(e.target.value)}
               placeholder="e.g. 5.5 kW Inverter Motor, 380V"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -736,7 +736,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={dimensions}
               onChange={(e) => setDimensions(e.target.value)}
               placeholder="e.g. 2400 × 2200 × 2600 mm, 2800 kg"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -749,7 +749,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={origin}
               onChange={(e) => setOrigin(e.target.value)}
               placeholder="e.g. Taiwan / China Import (Direct Overseas Manufacturer)"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
         </div>
@@ -758,7 +758,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       {/* 3. Commercial Pricing & Inventory Availability */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
-          <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
             3
           </div>
           <div>
@@ -777,7 +777,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder="Leave blank for 'Quote upon request'"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
             <span className="text-[11px] text-slate-400 mt-1 block">
               If left blank, shows &quot;Quote Upon Request (CFR Chattogram)&quot;
@@ -791,7 +791,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
             <select
               value={availability}
               onChange={(e) => setAvailability(e.target.value as MachineAvailability)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             >
               <option value="in-stock">In Stock (Prompt Shipment)</option>
               <option value="made-to-order">Made to Order (30–45 days)</option>
@@ -808,7 +808,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={warranty}
               onChange={(e) => setWarranty(e.target.value)}
               placeholder="e.g. 1 Year Manufacturer + Local Technician Support"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
         </div>
@@ -818,7 +818,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
               4
             </div>
             <div>
@@ -849,7 +849,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
             <div
               key={img.id}
               className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
-                img.isPrimary ? "bg-red-50/20 border-red-200 shadow-2xs" : "bg-slate-50/60 border-slate-200"
+                img.isPrimary ? "bg-[#FDF2F4] border-[#D8A4AF] shadow-2xs" : "bg-slate-50/60 border-slate-200"
               }`}
             >
               <div className="flex items-center gap-3.5 w-full sm:w-auto">
@@ -861,7 +861,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-slate-800">Photo #{idx + 1}</span>
                     {img.isPrimary ? (
-                      <span className="text-[10px] font-bold bg-[#FF0000] text-white px-2 py-0.5 rounded flex items-center gap-1">
+                      <span className="text-[10px] font-bold bg-[#800020] text-white px-2 py-0.5 rounded flex items-center gap-1">
                         <Star className="w-2.5 h-2.5 fill-white" />
                         <span>Primary Cover Image</span>
                       </span>
@@ -869,7 +869,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                       <button
                         type="button"
                         onClick={() => handleSetPrimary(idx)}
-                        className="text-[10px] font-semibold text-slate-500 hover:text-[#FF0000] underline cursor-pointer"
+                        className="text-[10px] font-semibold text-slate-500 hover:text-[#800020] underline cursor-pointer"
                       >
                         Set as Cover
                       </button>
@@ -885,7 +885,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                       value={activeLang === "en" ? img.alt_en : img.alt_bn || ""}
                       onChange={(e) => handleUpdateAltText(idx, activeLang, e.target.value)}
                       placeholder={`Required ${activeLang.toUpperCase()} image description for SEO`}
-                      className="text-xs p-1 px-2 rounded-lg bg-white border border-slate-200 w-full sm:w-72 focus:outline-none focus:border-[#FF0000]"
+                      className="text-xs p-1 px-2 rounded-lg bg-white border border-slate-200 w-full sm:w-72 focus:outline-none focus:border-[#800020]"
                     />
                   </div>
                 </div>
@@ -928,7 +928,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       {/* 5. Bilingual Content (Description & Features) */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
-          <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
             5
           </div>
           <div>
@@ -951,7 +951,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe machine performance, cam metallurgy, and factory reliability..."
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white leading-relaxed"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white leading-relaxed"
             />
           ) : (
             <textarea
@@ -959,7 +959,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={description_bn}
               onChange={(e) => setDescriptionBn(e.target.value)}
               placeholder="মেশিনের কার্যক্ষমতা, ক্যাম বক্সের নির্ভুলতা এবং কারখানা ব্যবহারের উপযোগী বিবরণ লিখুন..."
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000] focus:bg-white leading-relaxed"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020] focus:bg-white leading-relaxed"
             />
           )}
         </div>
@@ -973,7 +973,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
             <button
               type="button"
               onClick={() => handleAddFeature(activeLang)}
-              className="text-xs font-bold text-[#FF0000] hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-xs font-bold text-[#800020] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Feature</span>
@@ -988,7 +988,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                   value={feat}
                   onChange={(e) => handleUpdateFeature(idx, activeLang, e.target.value)}
                   placeholder={`Feature bullet #${idx + 1}`}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
                 />
                 <button
                   type="button"
@@ -1013,7 +1013,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={applicationTags}
               onChange={(e) => setApplicationTags(e.target.value)}
               placeholder="e.g. Export T-Shirts, Polo Shirts, Thermal Underwear, Sportswear"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           ) : (
             <input
@@ -1021,7 +1021,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
               value={applicationTagsBn}
               onChange={(e) => setApplicationTagsBn(e.target.value)}
               placeholder="যেমন: টি-শার্ট, পোলো শার্ট, ইনারওয়্যার, স্পোর্টসওয়্যার"
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           )}
         </div>
@@ -1030,7 +1030,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       {/* 6. URL Slug & Automatic 301 Redirect Protection */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
-          <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
             6
           </div>
           <div>
@@ -1045,8 +1045,8 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
           <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
             Machine URL Slug <span className="text-red-500">*</span>
           </label>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400 font-mono bg-slate-100 px-3 py-2.5 rounded-xl border border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <span className="text-xs text-slate-400 font-mono bg-slate-100 px-3 py-2.5 rounded-xl border border-slate-200 shrink-0">
               /machines/{currentCategory}/
             </span>
             <input
@@ -1057,7 +1057,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 setId(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "-"));
                 setSlugOverridden(true);
               }}
-              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-900 focus:outline-none focus:border-[#FF0000]"
+              className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-900 focus:outline-none focus:border-[#800020]"
             />
           </div>
 
@@ -1079,7 +1079,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       {/* 7. Per-Product SEO Settings */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
-          <div className="w-8 h-8 rounded-lg bg-red-50 text-[#FF0000] flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] flex items-center justify-center font-bold">
             7
           </div>
           <div>
@@ -1101,7 +1101,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={seoTitle_en}
                 onChange={(e) => setSeoTitleEn(e.target.value)}
                 placeholder={`${name} | Tasneem Knit Industry`}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             ) : (
               <input
@@ -1109,7 +1109,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={seoTitle_bn}
                 onChange={(e) => setSeoTitleBn(e.target.value)}
                 placeholder={`${name_bn || name} | তাসনীম নিট ইন্ডাস্ট্রি`}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             )}
           </div>
@@ -1124,7 +1124,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={seoDesc_en}
                 onChange={(e) => setSeoDescEn(e.target.value)}
                 placeholder="Direct overseas import of circular knitting machines in Bangladesh. CFR Chattogram delivery..."
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             ) : (
               <textarea
@@ -1132,7 +1132,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 value={seoDesc_bn}
                 onChange={(e) => setSeoDescBn(e.target.value)}
                 placeholder="বাংলাদেশে সার্কুলার নিটিং মেশিন সরাসরি আমদানি ও সিএফআর চট্টগ্রাম ডেলিভারি..."
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF0000]"
+                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#800020]"
               />
             )}
           </div>
@@ -1140,18 +1140,18 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       </div>
 
       {/* Bottom Save Bar */}
-      <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+      <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-200">
         <button
           type="button"
           onClick={() => router.push("/admin/products")}
-          className="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer"
+          className="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer text-center"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
         >
           <Save className="w-4 h-4" />
           <span>{isEditing ? "Save & Publish Changes" : "Create & Publish Machine"}</span>

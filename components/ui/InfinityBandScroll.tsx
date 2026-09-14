@@ -91,8 +91,8 @@ export function InfinityBandScroll() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF0000] animate-pulse" />
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#FF0000]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#800020] animate-pulse" />
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#800020]">
               {locale === "bn"
                 ? "আন্তর্জাতিক শীর্ষ প্রস্তুতকারক ও OEM পার্টনার্স"
                 : "VERIFIED OVERSEAS MACHINERY BUILDERS & OEM PARTNERS"}

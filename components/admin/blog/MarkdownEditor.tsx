@@ -13,6 +13,7 @@ import {
   Link as LinkIcon,
   Eye,
   Edit3,
+  Columns,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +30,7 @@ export function MarkdownEditor({
   placeholder = "Write post content in Markdown...",
   minHeight = "320px",
 }: MarkdownEditorProps) {
-  const [activeView, setActiveView] = useState<"write" | "preview">("write");
+  const [activeView, setActiveView] = useState<"write" | "preview" | "split">("write");
 
   const insertFormatting = (prefix: string, suffix = "") => {
     const textarea = document.getElementById("markdown-textarea") as HTMLTextAreaElement | null;
@@ -75,7 +76,7 @@ export function MarkdownEditor({
       .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
       .replace(/\*(.*?)\*/gim, '<em class="italic">$1</em>')
       // Links
-      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#FF0000] underline font-medium hover:text-[#E00000]">$1</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#800020] underline font-medium hover:text-[#5A0017]">$1</a>')
       // Unordered lists
       .replace(/^\- (.*$)/gim, '<li class="ml-4 list-disc text-slate-700 leading-relaxed">$1</li>')
       // Ordered lists
@@ -89,12 +90,12 @@ export function MarkdownEditor({
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white overflow-hidden shadow-2xs">
       {/* Formatting Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-1 p-2 bg-slate-50 border-b border-slate-200/80">
+      <div className="flex flex-wrap items-center justify-between gap-1.5 p-2 bg-slate-50 border-b border-slate-200/80">
         <div className="flex items-center gap-1 flex-wrap">
           <button
             type="button"
             onClick={() => insertFormatting("**", "**")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Bold (**text**)"
           >
             <Bold className="h-4 w-4" />
@@ -102,18 +103,18 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("*", "*")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Italic (*text*)"
           >
             <Italic className="h-4 w-4" />
           </button>
 
-          <div className="h-4 w-px bg-slate-200 mx-1" />
+          <div className="h-4 w-px bg-slate-200 mx-0.5" />
 
           <button
             type="button"
             onClick={() => insertFormatting("## ")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Heading 2 (## Title)"
           >
             <Heading2 className="h-4 w-4" />
@@ -121,18 +122,18 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("### ")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Heading 3 (### Subtitle)"
           >
             <Heading3 className="h-4 w-4" />
           </button>
 
-          <div className="h-4 w-px bg-slate-200 mx-1" />
+          <div className="h-4 w-px bg-slate-200 mx-0.5" />
 
           <button
             type="button"
             onClick={() => insertFormatting("- ")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Bullet List (- item)"
           >
             <List className="h-4 w-4" />
@@ -140,7 +141,7 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("1. ")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Numbered List (1. item)"
           >
             <ListOrdered className="h-4 w-4" />
@@ -148,7 +149,7 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("> ")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Blockquote (> quote)"
           >
             <Quote className="h-4 w-4" />
@@ -156,7 +157,7 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("```\n", "\n```")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Code Block (```code```)"
           >
             <Code className="h-4 w-4" />
@@ -164,20 +165,20 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("[", "](https://)")}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
+            className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer"
             title="Hyperlink [text](url)"
           >
             <LinkIcon className="h-4 w-4" />
           </button>
         </div>
 
-        {/* Write / Preview Tab Switch */}
+        {/* Write / Preview / Split Tab Switch */}
         <div className="flex items-center gap-1 bg-slate-200/70 p-0.5 rounded-xl text-xs font-semibold">
           <button
             type="button"
             onClick={() => setActiveView("write")}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer",
+              "flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg transition-all cursor-pointer",
               activeView === "write"
                 ? "bg-white text-slate-900 shadow-2xs font-bold"
                 : "text-slate-600 hover:text-slate-900"
@@ -190,7 +191,7 @@ export function MarkdownEditor({
             type="button"
             onClick={() => setActiveView("preview")}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer",
+              "flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg transition-all cursor-pointer",
               activeView === "preview"
                 ? "bg-white text-slate-900 shadow-2xs font-bold"
                 : "text-slate-600 hover:text-slate-900"
@@ -198,6 +199,20 @@ export function MarkdownEditor({
           >
             <Eye className="h-3.5 w-3.5" />
             <span>Preview</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveView("split")}
+            className={cn(
+              "flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg transition-all cursor-pointer",
+              activeView === "split"
+                ? "bg-white text-slate-900 shadow-2xs font-bold"
+                : "text-slate-600 hover:text-slate-900"
+            )}
+            title="Split (stacked on mobile, side-by-side on desktop)"
+          >
+            <Columns className="h-3.5 w-3.5" />
+            <span>Split</span>
           </button>
         </div>
       </div>
@@ -212,12 +227,28 @@ export function MarkdownEditor({
           style={{ minHeight }}
           className="w-full p-4 text-sm font-mono text-slate-800 bg-white focus:outline-none placeholder:text-slate-400 resize-y leading-relaxed"
         />
-      ) : (
+      ) : activeView === "preview" ? (
         <div
           style={{ minHeight }}
           className="w-full p-5 text-sm text-slate-800 bg-white overflow-y-auto prose prose-slate max-w-none leading-relaxed"
           dangerouslySetInnerHTML={{ __html: renderMarkdownPreview(value) }}
         />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+          <textarea
+            id="markdown-textarea"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder={placeholder}
+            style={{ minHeight }}
+            className="w-full p-4 text-sm font-mono text-slate-800 bg-white focus:outline-none placeholder:text-slate-400 resize-y leading-relaxed"
+          />
+          <div
+            style={{ minHeight }}
+            className="w-full p-5 text-sm text-slate-800 bg-slate-50/50 overflow-y-auto prose prose-slate max-w-none leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: renderMarkdownPreview(value) }}
+          />
+        </div>
       )}
     </div>
   );

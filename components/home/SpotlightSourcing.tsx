@@ -19,7 +19,7 @@ export function SpotlightSourcing() {
   const { dict, locale } = useTranslation();
 
   return (
-    <section className="relative w-full h-full min-h-[640px] flex flex-col justify-between pt-16 sm:pt-20 pb-6 sm:pb-8 px-4 sm:px-8 lg:px-12 overflow-hidden border-t border-[#E5E7EB] bg-[#F8F9FA] text-neutral-900">
+    <section className="relative w-full h-full min-h-0 sm:min-h-[640px] flex flex-col justify-between pt-12 sm:pt-20 pb-6 sm:pb-8 px-4 sm:px-8 lg:px-12 overflow-hidden border-t border-[#E5E5E5] bg-[#F9F9F9] text-[#2D2D2D]">
       {/* 1. Full-Bleed Background Photo — 100% Native Color & Brightness */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <Image
@@ -42,13 +42,13 @@ export function SpotlightSourcing() {
       <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
         <MotionSection delay={0.05} className="flex flex-col items-center">
           {/* Glowing Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-red-200 backdrop-blur-md text-xs font-bold text-red-600 shadow-md shadow-neutral-200/50 mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-ping" />
-            <span className="text-[#FF0000] font-extrabold tracking-wider uppercase">
+          <div className="inline-flex flex-wrap sm:flex-nowrap items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 border border-[#F9E6EA] backdrop-blur-md text-xs font-bold text-[#800020] shadow-md shadow-neutral-200/50 mb-3 text-center">
+            <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
+            <span className="text-[#800020] font-extrabold tracking-wider uppercase">
               {dict.sourcing.badge}
             </span>
-            <span className="text-neutral-400 font-normal">•</span>
-            <span className="text-neutral-700 font-medium">
+            <span className="text-neutral-400 font-normal hidden min-[400px]:inline">•</span>
+            <span className="text-neutral-700 font-medium text-[11px] sm:text-xs">
               {locale === "bn"
                 ? "চীন ➔ বাংলাদেশ সরাসরি নিরাপদ শিপমেন্ট করিডোর"
                 : "China ➔ Bangladesh Direct Maritime Corridor"}
@@ -56,7 +56,7 @@ export function SpotlightSourcing() {
           </div>
 
           {/* Section Heading */}
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#2D2D2D] leading-tight">
             {dict.sourcing.title}
           </h2>
 
@@ -66,10 +66,10 @@ export function SpotlightSourcing() {
           </p>
 
           {/* Top Quick Action Buttons — Placed in the upper sky area to keep the bottom map open */}
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             <Link
               href="/quote"
-              className="bg-[#FF0000] hover:bg-[#E00000] text-white px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-red-500/25 hover:scale-[1.03] cursor-pointer"
+              className="bg-[#800020] hover:bg-[#5A0017] text-white px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-rose-950/25 hover:scale-[1.03] cursor-pointer min-h-[40px]"
             >
               <span>{dict.common.requestQuote}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -77,7 +77,7 @@ export function SpotlightSourcing() {
 
             <Link
               href="/how-it-works"
-              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center gap-1.5 cursor-pointer shadow-xs hover:border-neutral-400"
+              className="bg-white/90 hover:bg-white border border-neutral-300/90 text-neutral-800 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 backdrop-blur-md inline-flex items-center gap-1.5 cursor-pointer shadow-xs hover:border-neutral-400 min-h-[40px]"
             >
               <span>{dict.nav.howItWorks}</span>
               <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />
@@ -87,15 +87,15 @@ export function SpotlightSourcing() {
       </div>
 
       {/* 3. Middle Area: 100% Clean & Open! No objects blocking the cargo ship, China container, Bangladesh container, or glowing trade route */}
-      <div className="my-auto py-12 pointer-events-none" />
+      <div className="my-auto py-8 sm:py-12 pointer-events-none" />
 
       {/* 4. Bottom Dock: Ultra-Sleek Glassmorphic Ribbon (Minimal height, highly informative) */}
       <div className="relative z-10 w-full max-w-6xl mx-auto">
-        <div className="backdrop-blur-xl bg-white/90 border border-white/90 rounded-2xl p-3.5 sm:p-4 shadow-xl shadow-neutral-900/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+        <div className="backdrop-blur-xl bg-white/90 border border-white/90 rounded-2xl p-3 sm:p-4 shadow-xl shadow-neutral-900/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
           {/* 4 Compact Verified Badges */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 w-full md:w-auto flex-1">
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 w-full md:w-auto flex-1">
             <div className="flex items-center gap-2 text-left">
-              <div className="w-6 h-6 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-200/80">
+              <div className="w-6 h-6 rounded-lg bg-[#FDF2F4] text-[#800020] flex items-center justify-center shrink-0 border border-[#F9E6EA]">
                 <Factory className="w-3.5 h-3.5" />
               </div>
               <span className="text-[11px] font-bold text-neutral-800 leading-tight">
@@ -133,9 +133,9 @@ export function SpotlightSourcing() {
 
           {/* Hotline Contact Note */}
           <div className="hidden lg:flex items-center gap-2 pl-4 border-l border-neutral-300/80 text-[11px] text-neutral-600 shrink-0">
-            <Phone className="w-3.5 h-3.5 text-[#FF0000]" />
+            <Phone className="w-3.5 h-3.5 text-[#800020]" />
             <span>
-              Hotline: <a href={`tel:${COMPANY_INFO.phone}`} className="text-neutral-900 font-bold hover:text-[#FF0000] hover:underline">{COMPANY_INFO.phone}</a>
+              Hotline: <a href={`tel:${COMPANY_INFO.phone}`} className="text-[#2D2D2D] font-bold hover:text-[#800020] hover:underline">{COMPANY_INFO.phone}</a>
             </span>
           </div>
         </div>

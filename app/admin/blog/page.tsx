@@ -193,8 +193,12 @@ export default function BlogListPage() {
 
       {/* Standard Admin Table */}
       <Card className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs">
+        {/* Mobile Swipe Hint */}
+        <div className="md:hidden px-3.5 py-1.5 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between border-b border-slate-100">
+          <span>← Swipe horizontally to view article statuses & actions →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm min-w-[700px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200/80 text-slate-500 text-[11px] font-bold uppercase tracking-wider">
                 <th className="py-3 px-4 sm:px-6">Title & Category</th>
@@ -216,7 +220,7 @@ export default function BlogListPage() {
                         setStatusFilter("all");
                         setCategoryFilter("all");
                       }}
-                      className="mt-2 text-xs font-semibold text-[#FF0000] hover:underline cursor-pointer"
+                      className="mt-2 text-xs font-semibold text-[#800020] hover:underline cursor-pointer"
                     >
                       Clear all filters
                     </button>
@@ -232,27 +236,40 @@ export default function BlogListPage() {
                       key={post.id}
                       className="hover:bg-slate-50/70 transition-colors group"
                     >
-                      {/* Title & Category */}
-                      <td className="py-3.5 px-4 sm:px-6 max-w-sm">
-                        <div className="flex flex-col">
-                          <Link
-                            href={`/admin/blog/${post.id}`}
-                            className="font-bold text-slate-900 group-hover:text-[#FF0000] transition-colors leading-snug"
-                          >
-                            {post.title_en || "Untitled English Post"}
-                          </Link>
-                          {post.title_bn && (
-                            <span className="text-xs text-slate-400 truncate mt-0.5">
-                              বাংলা: {post.title_bn}
-                            </span>
-                          )}
-                          <div className="flex items-center gap-2 mt-1.5">
-                            <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
-                              {post.category || "General"}
-                            </span>
-                            <span className="text-[11px] text-slate-400 font-mono">
-                              /{post.slug_en}
-                            </span>
+                      {/* Title & Category with Thumbnail Preview */}
+                      <td className="py-3.5 px-4 sm:px-6 max-w-md">
+                        <div className="flex items-start gap-3">
+                          <div className="relative w-12 h-10 rounded-lg overflow-hidden shrink-0 border border-slate-200 bg-slate-100 hidden sm:block">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={post.cover_image || "/images/machines/cat-double-jersey.jpg"}
+                              alt=""
+                              onError={(e) => {
+                                e.currentTarget.src = "/images/machines/cat-double-jersey.jpg";
+                              }}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <Link
+                              href={`/admin/blog/${post.id}`}
+                              className="font-bold text-slate-900 group-hover:text-[#800020] transition-colors leading-snug line-clamp-2"
+                            >
+                              {post.title_en || "Untitled English Post"}
+                            </Link>
+                            {post.title_bn && (
+                              <span className="text-xs text-slate-400 truncate mt-0.5">
+                                বাংলা: {post.title_bn}
+                              </span>
+                            )}
+                            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                              <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                                {post.category || "General"}
+                              </span>
+                              <span className="text-[11px] text-slate-400 font-mono">
+                                /{post.slug_en}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </td>

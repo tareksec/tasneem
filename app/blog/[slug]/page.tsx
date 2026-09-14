@@ -70,7 +70,7 @@ export default function PublicBlogDetailPage() {
         </p>
         <Link
           href="/resources"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF0000] hover:underline"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[#800020] hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Resources</span>
@@ -89,12 +89,12 @@ export default function PublicBlogDetailPage() {
       .replace(/^### (.*$)/gim, '<h3 class="text-lg font-bold text-slate-900 mt-6 mb-2">$1</h3>')
       .replace(/^## (.*$)/gim, '<h2 class="text-xl font-bold text-slate-900 mt-8 mb-4 border-b border-slate-200 pb-2">$1</h2>')
       .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-slate-900 mt-8 mb-4">$1</h1>')
-      .replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-[#FF0000] pl-4 italic text-slate-700 my-4 bg-slate-50 py-2 rounded-r-lg">$1</blockquote>')
-      .replace(/```([\s\S]*?)```/gim, '<pre class="bg-[#0A0A0A] text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto my-4">$1</pre>')
+      .replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-[#800020] pl-4 italic text-slate-700 my-4 bg-slate-50 py-2 rounded-r-lg">$1</blockquote>')
+      .replace(/```([\s\S]*?)```/gim, '<pre class="bg-[#2D2D2D] text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto my-4">$1</pre>')
       .replace(/`([^`]+)`/gim, '<code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono">$1</code>')
       .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
       .replace(/\*(.*?)\*/gim, '<em class="italic">$1</em>')
-      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#FF0000] underline hover:text-[#E00000] font-medium">$1</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#800020] underline hover:text-[#5A0017] font-medium">$1</a>')
       .replace(/^\- (.*$)/gim, '<li class="ml-5 list-disc text-slate-700 my-1 leading-relaxed">$1</li>')
       .replace(/^\d+\. (.*$)/gim, '<li class="ml-5 list-decimal text-slate-700 my-1 leading-relaxed">$1</li>')
       .replace(/\n\n/gim, '<p class="my-4 text-slate-700 leading-relaxed"></p>');
@@ -107,7 +107,7 @@ export default function PublicBlogDetailPage() {
         <div className="flex items-center justify-between pb-6 mb-8 border-b border-slate-200">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#FF0000] transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#800020] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>{readingLocale === "bn" ? "সব আর্টিকেলে ফিরুন" : "All Articles"}</span>
@@ -130,7 +130,7 @@ export default function PublicBlogDetailPage() {
               onClick={() => setReadingLocale("bn")}
               className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                 readingLocale === "bn"
-                  ? "bg-[#FF0000] text-white shadow-2xs font-bold"
+                  ? "bg-[#800020] text-white shadow-2xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
@@ -142,7 +142,7 @@ export default function PublicBlogDetailPage() {
         {/* Article Header */}
         <header className="space-y-4 mb-8">
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-bold text-[#FF0000] bg-red-50 border border-red-200/80 px-2.5 py-1 rounded-md">
+            <span className="font-bold text-[#800020] bg-[#FDF2F4] border border-[#D8A4AF] px-2.5 py-1 rounded-md">
               {post.category}
             </span>
             <span className="text-slate-400">•</span>
@@ -180,6 +180,9 @@ export default function PublicBlogDetailPage() {
             <img
               src={post.cover_image}
               alt={title}
+              onError={(e) => {
+                e.currentTarget.src = "/images/machines/cat-double-jersey.jpg";
+              }}
               className="w-full h-full object-cover"
             />
           </div>
@@ -214,7 +217,7 @@ export default function PublicBlogDetailPage() {
         {/* Bottom Commercial CTA */}
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl">
           <div>
-            <span className="text-xs font-bold text-[#FF0000] uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#800020] uppercase tracking-wider">
               {readingLocale === "bn" ? "টেকনিক্যাল সোর্সিং সহায়তা প্রয়োজন?" : "Need Technical Sourcing Assistance?"}
             </span>
             <h3 className="text-xl font-bold text-white mt-1">
@@ -228,7 +231,7 @@ export default function PublicBlogDetailPage() {
           </div>
           <Link
             href="/quote"
-            className="shrink-0 px-5 py-2.5 rounded-xl bg-[#FF0000] text-white font-semibold text-sm hover:bg-[#E00000] transition-colors shadow-sm"
+            className="shrink-0 px-5 py-2.5 rounded-xl bg-[#800020] text-white font-semibold text-sm hover:bg-[#5A0017] transition-colors shadow-sm"
           >
             {readingLocale === "bn" ? "মেশিনের কোটেশন নিন" : "Request Machine Quote"}
           </Link>

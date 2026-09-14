@@ -26,7 +26,7 @@ export function Tabs({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 p-1 bg-slate-100/90 rounded-xl border border-slate-200/60 shadow-2xs select-none",
+        "inline-flex items-center gap-1 p-1 bg-slate-100/90 rounded-xl border border-slate-200/60 shadow-2xs select-none max-w-full overflow-x-auto scrollbar-none",
         className
       )}
       role="tablist"
@@ -41,7 +41,7 @@ export function Tabs({
             aria-selected={isActive}
             onClick={() => onChange(tab.key)}
             className={cn(
-              "inline-flex items-center gap-2 font-medium rounded-lg transition-all duration-150 cursor-pointer",
+              "inline-flex items-center gap-2 font-medium rounded-lg transition-all duration-150 cursor-pointer shrink-0 whitespace-nowrap",
               size === "sm" ? "px-2.5 py-1 text-xs" : "px-3.5 py-1.5 text-xs sm:text-sm",
               isActive
                 ? "bg-white text-slate-900 shadow-xs font-semibold"

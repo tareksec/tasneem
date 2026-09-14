@@ -64,23 +64,25 @@
 
 ---
 
-## 2. Color Palette (Updated Logo-Based Dark Theme — Brand Color Addendum)
+## 2. Color Palette (Finalized Brand Theme — Burgundy, White, Dark Gray)
 
-*Supersedes previous light palette. All layout, typography, component shapes, spacing, and animations remain as specified.*
+*The client has finalized the brand color palette. Base values are fixed:*
+- **Burgundy — `#800020`**: Primary brand color (main accents, CTAs, key highlights).
+- **White — `#FFFFFF`**: Base / background.
+- **Dark Gray — `#2D2D2D`**: Secondary / text / supporting color.
 
-| Token | Hex | Tailwind | Use |
+| Token | Hex | Tailwind Class / Variable | Use |
 |---|---|---|---|
-| Primary Base | `#0A0A0A` | `bg-[#0A0A0A]` | Main page background site-wide |
-| Surface (Cards/Panels) | `#161616` | `bg-[#161616]` | Cards, nav bar, form inputs, spec tables |
-| Surface Lifted | `#1A1A1A` | `bg-[#1A1A1A]` | Inner inputs, table headers, elevated hover states |
-| Border Structural | `#2A2A2A` | `border-[#2A2A2A]` | Subtle hairline borders on cards, table rows, dividers |
-| Border Chrome | `#C0C0C0` | `border-[#C0C0C0]` | Chrome/silver emphasis borders, hover states |
-| Primary Text | `#FFFFFF` / `#F5F5F5` | `text-white` / `text-[#F5F5F5]` | Headings, primary body text, table values |
-| Secondary Text | `#A0A0A0`–`#9CA3AF` | `text-[#A0A0A0]` | Subtitles, secondary copy, spec labels, metadata |
-| Brand Red (Primary Accent) | `#FF0000` | `bg-[#FF0000]` / `text-[#FF0000]` | Extracted directly from client logo. Primary CTAs, active states, price highlights |
-| Chrome / Silver (Secondary Accent) | `#C0C0C0`–`#D4D4D4` | `text-[#C0C0C0]` / `border-[#C0C0C0]` | Secondary accent mirroring logo chrome ring (dividers, icon strokes, badge outlines) |
-| ~~Accent Sky~~ | `#85B0F7` | **REMOVED** | Replaced by Brand Red |
-| ~~Accent Gold~~ | `#F6C343` | **REMOVED** | Removed entirely |
+| **White (Base)** | `#FFFFFF` | `bg-white` / `bg-brand-white` | Primary background, clean industrial canvas |
+| **Off-White (Surface)** | `#F9F9F9` | `bg-[#F9F9F9]` / `bg-surface-offwhite` | Muted section backgrounds, subtle alternate cards |
+| **Dark Gray (Primary Text)** | `#2D2D2D` | `text-gray-dark` / `text-[#2D2D2D]` | Primary headings, body copy, structural framing |
+| **Secondary Gray (Supporting)** | `#4A4A4A` | `text-gray-secondary` / `text-[#4A4A4A]` | Subtitles, secondary copy, spec labels |
+| **Muted Gray (Subtle)** | `#717171` | `text-gray-muted` / `text-[#717171]` | Captions, metadata, inactive states |
+| **Border Gray** | `#E5E5E5` | `border-gray-border` / `border-[#E5E5E5]` | Card borders, table dividers |
+| **Burgundy (Primary Accent)** | `#800020` | `bg-burgundy` / `text-burgundy` | Primary CTAs, active states, key highlights, badges |
+| **Burgundy Dark (Hover/Active)** | `#5A0017` | `bg-burgundy-dark` / `hover:bg-burgundy-dark` | CTA hover states, pressed buttons |
+| **Burgundy Light (Tint/Badge)** | `#FDF2F4` | `bg-burgundy-light` | Subtle tag backgrounds, alert backgrounds |
+| **Burgundy Border Tint** | `#F9E6EA` | `border-burgundy-tint` | Pill badge borders, subtle accent outlines |
 
 ---
 

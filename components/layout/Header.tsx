@@ -21,7 +21,7 @@ export function Header() {
   const shouldReduceMotion = useReducedMotion();
   const { dict, locale } = useTranslation();
 
-  // Handle scroll state for adaptive glass transparency
+    // Handle scroll state for adaptive glass transparency
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -30,6 +30,18 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when mobile drawer is open to prevent background scrolling
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -84,17 +96,17 @@ export function Header() {
     >
       {/* Floating Capsule Bar */}
       <div
-        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between ${
+        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-2.5 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between ${
           scrolled
             ? "bg-white/65 border border-white/80 shadow-[0_12px_40px_rgba(0,0,0,0.09)]"
             : "bg-white/40 border border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
         }`}
       >
         {/* Left: Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0" aria-label="Tasneem Knit Industry Home">
-          <div className="relative h-7 sm:h-8 w-32 sm:w-40 flex items-center">
+        <Link href="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0" aria-label="Tasneem Knit Industry Home">
+          <div className="relative h-7 sm:h-9 w-28 sm:w-40 flex items-center">
             <Image
-              src="/images/logo-dark.png"
+              src="/logo/nave-var.png"
               alt="Tasneem Knitting Industry Logo"
               fill
               className="object-contain object-left group-hover:opacity-90 transition-opacity"
@@ -151,7 +163,7 @@ export function Header() {
                           onClick={() => setMachinesDropdownOpen(false)}
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
                         >
-                          <div className="w-7 h-7 rounded-lg bg-neutral-100 group-hover:bg-[#0A0A0A] group-hover:text-white text-neutral-700 flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <div className="w-7 h-7 rounded-lg bg-neutral-100 group-hover:bg-[#800020] group-hover:text-white text-neutral-700 flex items-center justify-center shrink-0 transition-colors mt-0.5">
                             <Icon className="w-3.5 h-3.5" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -200,7 +212,7 @@ export function Header() {
         </nav>
 
         {/* Right: Actions (Language, Log In, Black Capsule Button) */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           {/* Subtle Language Pill */}
           <LanguageSwitcher variant="capsule" />
 
@@ -208,32 +220,32 @@ export function Header() {
           {customer ? (
             <Link
               href="/account/quotes"
-              className="hidden sm:inline-flex text-xs font-bold text-[#FF0000] hover:text-[#E00000] transition-colors px-2.5 py-1 rounded-lg bg-red-50/80 border border-red-200/60"
+              className="hidden md:inline-flex text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-2.5 py-1 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF]"
             >
               <span>{locale === "bn" ? "আমার কোটেশন" : "My Quotes"}</span>
             </Link>
           ) : (
             <Link
               href="/account/login"
-              className="hidden sm:inline-flex text-xs font-semibold text-neutral-700 hover:text-black transition-colors px-2 py-1"
+              className="hidden md:inline-flex text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2 py-1"
             >
               {locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Portal"}
             </Link>
           )}
 
-          {/* Primary CTA: Solid Black Capsule Button */}
+          {/* Primary CTA: Solid Burgundy Capsule Button */}
           <Link
             href="/quote"
-            className="bg-[#0A0A0A] hover:bg-neutral-800 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs flex items-center gap-1.5 shrink-0"
+            className="hidden min-[420px]:inline-flex bg-[#800020] hover:bg-[#5A0017] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 shrink-0"
           >
             <span>{dict.nav.requestQuote}</span>
             <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
           </Link>
 
-          {/* Mobile Hamburger Button */}
+          {/* Mobile Hamburger Button with comfortable min 44x44px touch target */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-full bg-neutral-100 text-neutral-800 hover:bg-neutral-200 transition-colors ml-0.5"
+            className="lg:hidden min-w-[44px] min-h-[44px] rounded-full bg-neutral-100 text-neutral-800 hover:bg-neutral-200 transition-colors flex items-center justify-center shrink-0 ml-0.5 cursor-pointer"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -264,14 +276,14 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: shouldReduceMotion ? 0 : "100%" }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-xs bg-white/90 backdrop-blur-2xl shadow-2xl flex flex-col justify-between p-6 lg:hidden border-l border-white/60"
+              className="fixed top-0 right-0 bottom-0 z-50 w-[85vw] max-w-xs bg-white/95 backdrop-blur-2xl shadow-2xl flex flex-col justify-between p-4 sm:p-6 lg:hidden border-l border-white/60"
             >
-              <div className="overflow-y-auto">
+              <div className="overflow-y-auto flex-1 min-h-0 pr-1">
                 {/* Drawer Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-                  <div className="relative h-7 w-32 flex items-center">
+                <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
+                  <div className="relative h-6 sm:h-7 w-28 sm:w-32 flex items-center">
                     <Image
-                      src="/images/logo-dark.png"
+                      src="/logo/nave-var.png"
                       alt="Tasneem Logo"
                       fill
                       className="object-contain object-left"
@@ -279,21 +291,21 @@ export function Header() {
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-1.5 rounded-full bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-colors"
+                    className="min-w-[44px] min-h-[44px] rounded-full bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-colors flex items-center justify-center cursor-pointer"
                     aria-label="Close navigation menu"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
 
                 {/* Mobile Navigation Links */}
-                <nav className="flex flex-col gap-1 pt-4 text-sm font-medium text-neutral-800">
+                <nav className="flex flex-col gap-1 pt-3 text-sm font-medium text-neutral-800">
                   {/* Machines Accordion in Mobile */}
                   <div>
                     <button
                       type="button"
                       onClick={() => setMobileMachinesOpen(!mobileMachinesOpen)}
-                      className="w-full py-2.5 px-3 rounded-xl hover:bg-neutral-50 flex items-center justify-between text-left font-semibold"
+                      className="w-full min-h-[44px] py-2.5 px-3 rounded-xl hover:bg-neutral-50 flex items-center justify-between text-left font-semibold cursor-pointer"
                     >
                       <span>{dict.nav.machines}</span>
                       <ChevronDown
@@ -310,7 +322,7 @@ export function Header() {
                             key={cat.slug}
                             href={`/machines/${cat.slug}`}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="py-1.5 px-2 text-xs text-neutral-600 hover:text-black rounded-lg"
+                            className="min-h-[38px] flex items-center py-1.5 px-2 text-xs text-neutral-600 hover:text-black rounded-lg"
                           >
                             {cat.name}
                           </Link>
@@ -318,7 +330,7 @@ export function Header() {
                         <Link
                           href="/machines"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="py-1.5 px-2 text-xs font-semibold text-neutral-900 border-t border-neutral-200/60 mt-1"
+                          className="min-h-[38px] flex items-center py-1.5 px-2 text-xs font-semibold text-neutral-900 border-t border-neutral-200/60 mt-1"
                         >
                           {locale === "bn" ? "সব মেশিন দেখুন →" : "View All Machines →"}
                         </Link>
@@ -329,42 +341,42 @@ export function Header() {
                   <Link
                     href="/services"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
                   >
                     {dict.nav.services}
                   </Link>
                   <Link
                     href="/how-it-works"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
                   >
                     {dict.nav.howItWorks}
                   </Link>
                   <Link
                     href="/about"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
                   >
                     {dict.nav.about}
                   </Link>
                   <Link
                     href="/blog"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
                   >
                     {locale === "bn" ? "ব্লগ ও গাইড" : "Blog & Guides"}
                   </Link>
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
                   >
                     {dict.nav.contact}
                   </Link>
                   <Link
                     href={customer ? "/account/quotes" : "/account/login"}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl font-bold text-[#FF0000] hover:bg-red-50 flex items-center justify-between"
+                    className="min-h-[44px] py-2.5 px-3 rounded-xl font-bold text-[#800020] hover:bg-[#FDF2F4] flex items-center justify-between"
                   >
                     <span>{customer ? (locale === "bn" ? "আমার কোটেশন (My Quotes)" : "My Quotes & Inquiries") : (locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Account Portal")}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -372,7 +384,7 @@ export function Header() {
                   <Link
                     href="/admin/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl text-neutral-400 hover:text-neutral-700 text-xs"
+                    className="min-h-[40px] flex items-center py-2 px-3 rounded-xl text-neutral-400 hover:text-neutral-700 text-xs"
                   >
                     {locale === "bn" ? "স্টাফ পোর্টাল লগইন" : "Staff Administration"}
                   </Link>
@@ -380,11 +392,11 @@ export function Header() {
               </div>
 
               {/* Drawer Bottom Actions */}
-              <div className="pt-4 border-t border-neutral-100 flex flex-col gap-2.5">
+              <div className="pt-3 border-t border-neutral-100 flex flex-col gap-2 shrink-0">
                 <Link
                   href="/quote"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full bg-[#0A0A0A] hover:bg-neutral-800 text-white text-center py-2.5 rounded-full font-semibold text-sm transition-colors shadow-xs flex items-center justify-center gap-1.5"
+                  className="w-full min-h-[44px] bg-[#800020] hover:bg-[#5A0017] text-white text-center py-2.5 rounded-full font-semibold text-sm transition-colors shadow-xs flex items-center justify-center gap-1.5"
                 >
                   <span>{dict.nav.requestQuote}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -394,7 +406,7 @@ export function Header() {
                   href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full border border-neutral-200 bg-white text-neutral-800 text-center py-2 rounded-full font-medium text-xs flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors"
+                  className="w-full min-h-[44px] border border-neutral-200 bg-white text-neutral-800 text-center py-2 rounded-full font-medium text-xs flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
                   <span>{dict.common.chatWhatsApp}</span>

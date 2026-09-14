@@ -18,23 +18,23 @@ export async function RelatedMachines({ currentMachineId, category }: RelatedMac
   if (related.length === 0) return null;
 
   return (
-    <section className="mt-16 pt-12 border-t border-[#E5E7EB]">
+    <section className="mt-16 pt-12 border-t border-[#E5E5E5]">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#FF0000] block mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#800020] block mb-1">
             Similar Specifications
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0A0A0A]">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2D2D2D]">
             Related {categoryInfo?.name || "Machinery"} Models
           </h2>
-          <p className="text-xs text-[#4B5563] mt-0.5">
+          <p className="text-xs text-[#4A4A4A] mt-0.5">
             Compare alternative cylinder diameters and feeder configurations in the same category.
           </p>
         </div>
 
         <Link
           href={`/machines/${category}`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#FF0000] hover:underline shrink-0"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#800020] hover:underline shrink-0"
         >
           <span>View all {categoryInfo?.name} models ({allInCategory.length})</span>
           <ArrowUpRight className="w-4 h-4" />

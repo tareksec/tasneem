@@ -18,13 +18,13 @@ import {
 } from "lucide-react";
 import { AdminStore } from "@/lib/admin/admin-store";
 import { BlogPost } from "@/lib/admin/types";
-import { Machine, QuoteRecord } from "@/lib/types";
+import { Machine, QuoteRecord, CustomerUser } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 // 3D Clay-style Plus/Cross SVG badge in center of Donut Ring
 function Clay3DCross() {
   return (
-    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF5177] to-[#FF758F] flex items-center justify-center shadow-[0_4px_12px_rgba(255,81,119,0.45)] ring-2 ring-white select-none">
+    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#800020] to-[#9B1138] flex items-center justify-center shadow-[0_4px_12px_rgba(128,0,32,0.45)] ring-2 ring-white select-none">
       <svg viewBox="0 0 24 24" className="w-4 h-4 text-white drop-shadow-xs" fill="currentColor">
         <path
           d="M12 4C12.8284 4 13.5 4.67157 13.5 5.5V10.5H18.5C19.3284 10.5 20 11.1716 20 12C20 12.8284 19.3284 13.5 18.5 13.5H13.5V18.5C13.5 19.3284 12.8284 20 12 20C11.1716 20 10.5 19.3284 10.5 18.5V13.5H5.5C4.67157 13.5 4 12.8284 4 12C4 11.1716 4.67157 10.5 5.5 10.5H10.5V5.5C10.5 4.67157 11.1716 4 12 4Z"
@@ -40,12 +40,16 @@ export default function AdminDashboardPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [machines, setMachines] = useState<Machine[]>([]);
   const [quotes, setQuotes] = useState<QuoteRecord[]>([]);
+  const [customers, setCustomers] = useState<CustomerUser[]>([]);
+  const [pendingCustomers, setPendingCustomers] = useState<CustomerUser[]>([]);
 
   useEffect(() => {
     const load = () => {
       setPosts(AdminStore.getBlogPosts());
       setMachines(AdminStore.getMachines(true));
       setQuotes(AdminStore.getQuotes());
+      setCustomers(AdminStore.getCustomers());
+      setPendingCustomers(AdminStore.getPendingCustomers());
     };
     load();
     window.addEventListener("tasneem-store-updated", load);
@@ -104,7 +108,24 @@ export default function AdminDashboardPage() {
     },
   ];
 
-  // User / Quote inquiries matching user tab
+  // Real Customer / Buyer registration items
+  const userActivityItems = customers.slice(0, 6).map((c) => ({
+    id: c.id,
+    title: c.company || c.companyName || c.name,
+    subtitle: `${c.name} • ${c.email}`,
+    category: c.status === "pending" ? "Pending Approval" : "Verified Buyer",
+    views: c.status === "pending" ? "NEW" : "VERIFIED",
+    change: c.status === "pending" ? "Review" : "Active",
+    isPositive: c.status === "approved",
+    thumbBg:
+      c.status === "pending"
+        ? "bg-amber-100 text-amber-800"
+        : "bg-emerald-100 text-emerald-800",
+    avatarLetter: (c.company || c.name || "B").charAt(0).toUpperCase(),
+    link: "/admin/users",
+  }));
+
+  // Fallback quote inquiries matching user tab
   const quoteActivityItems = [
     {
       id: "q1",
@@ -130,21 +151,20 @@ export default function AdminDashboardPage() {
       avatarLetter: "📦",
       link: "/admin/quotes",
     },
-    {
-      id: "q3",
-      title: "Beximco Apparels - Rib Knit 36G",
-      subtitle: "Quote #1039 • Narayanganj",
-      category: "Proforma",
-      views: "4.k",
-      change: "+7%",
-      isPositive: true,
-      thumbBg: "bg-emerald-100 text-emerald-800",
-      avatarLetter: "🚢",
-      link: "/admin/quotes",
-    },
   ];
 
-  const currentActivityList = activeTab === "post" ? postActivityItems : quoteActivityItems;
+  const currentActivityList =
+    activeTab === "post"
+      ? postActivityItems
+      : userActivityItems.length > 0
+      ? userActivityItems
+      : quoteActivityItems;
+
+  const pendingCount = pendingCustomers.length;
+  const totalUsers = customers.length || 1;
+  const approvedCount = customers.filter((c) => c.status === "approved").length;
+  const pendingPct = Math.round((pendingCount / totalUsers) * 100);
+  const approvedPct = 100 - pendingPct;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-7 select-none">
@@ -155,7 +175,7 @@ export default function AdminDashboardPage() {
         {/* Row 1: Two Hero Stat Cards Side-by-Side */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {/* Card 1: Coral-to-Pink Hero Card ("Total Likes" / "23.0000K") */}
-          <div className="relative rounded-[30px] bg-gradient-to-br from-[#FF6961] via-[#FF5478] to-[#FF3B8A] p-6 sm:p-7 text-white shadow-xl shadow-rose-500/20 overflow-hidden flex flex-col justify-between min-h-[260px]">
+          <div className="relative rounded-[30px] bg-gradient-to-br from-[#800020] via-[#6B001B] to-[#5A0017] p-6 sm:p-7 text-white shadow-xl shadow-[#800020]/20 overflow-hidden flex flex-col justify-between min-h-[260px]">
             {/* Top Header */}
             <div>
               <div className="flex items-center justify-between">
@@ -190,7 +210,7 @@ export default function AdminDashboardPage() {
                 {/* Yellow / Golden Wave Curve */}
                 <path
                   d="M0 38 C 50 18, 100 52, 160 32 C 220 12, 270 42, 320 22"
-                  stroke="#FFDF79"
+                  stroke="#D8A4AF"
                   strokeWidth="2.2"
                   strokeLinecap="round"
                   strokeOpacity="0.85"
@@ -198,7 +218,7 @@ export default function AdminDashboardPage() {
                 {/* Magenta / Pink Wave Curve */}
                 <path
                   d="M0 24 C 60 48, 120 14, 180 40 C 240 55, 280 20, 320 36"
-                  stroke="#FFA3C0"
+                  stroke="#FDF2F4"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeOpacity="0.9"
@@ -237,28 +257,39 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Card 2: White "Pending Messages" / "20.k" Card with Donut Chart */}
-          <div className="rounded-[30px] bg-white p-6 sm:p-7 shadow-xs border border-slate-200/60 flex flex-col justify-between min-h-[260px]">
+          {/* Card 2: Buyer Registrations & Pending Approvals Donut Card */}
+          <div className="rounded-[30px] bg-white p-6 sm:p-7 shadow-xs border border-slate-200/60 flex flex-col justify-between min-h-[260px] relative">
             {/* Top Header */}
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-800 tracking-wide">
-                  Pending Messages
-                </span>
-                <button
-                  type="button"
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-slate-800 tracking-wide">
+                    Buyer Approvals
+                  </span>
+                  {pendingCount > 0 && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                      {pendingCount} Pending
+                    </span>
+                  )}
+                </div>
+                <Link
+                  href="/admin/users"
                   className="text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
-                  aria-label="Options"
+                  aria-label="Manage Users"
                 >
-                  <MoreHorizontal className="w-5 h-5" />
-                </button>
+                  <ExternalLink className="w-4 h-4" />
+                </Link>
               </div>
 
               {/* Big Metric */}
-              <div className="mt-2.5">
+              <div className="mt-2.5 flex items-baseline gap-2">
                 <h3 className="text-3xl sm:text-[38px] font-black text-slate-900 tracking-tight leading-none">
-                  20.k
+                  {pendingCount > 0 ? `${pendingCount}` : `${totalUsers}`}
                 </h3>
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  {pendingCount > 0 ? "Requests Waiting" : "Total Buyers"}
+                </span>
               </div>
             </div>
 
@@ -268,27 +299,31 @@ export default function AdminDashboardPage() {
               <div className="space-y-3 text-left">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF587B]" />
-                    <span className="text-xs font-medium text-slate-400">Female</span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#800020]" />
+                    <span className="text-xs font-medium text-slate-400">Pending</span>
                   </div>
                   <span className="text-base font-black text-slate-900 pl-4 block mt-0.5">
-                    %80
+                    %{pendingPct}
                   </span>
                 </div>
 
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FFC53D]" />
-                    <span className="text-xs font-medium text-slate-400">Male</span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
+                    <span className="text-xs font-medium text-slate-400">Approved</span>
                   </div>
                   <span className="text-base font-black text-slate-900 pl-4 block mt-0.5">
-                    %20
+                    %{approvedPct}
                   </span>
                 </div>
               </div>
 
               {/* Right Donut Segment Ring with Center 3D Clay Cross Badge */}
-              <div className="relative w-28 h-28 flex items-center justify-center select-none">
+              <Link
+                href="/admin/users"
+                className="relative w-28 h-28 flex items-center justify-center select-none cursor-pointer group"
+                title="Open Buyer Accounts & Approval Requests"
+              >
                 <svg
                   className="w-full h-full transform -rotate-90"
                   viewBox="0 0 100 100"
@@ -298,44 +333,45 @@ export default function AdminDashboardPage() {
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#101217"
+                    stroke="#F1F5F9"
                     strokeWidth="10"
                     fill="transparent"
-                    strokeDasharray="238.7"
-                    strokeDashoffset="190"
-                    strokeLinecap="round"
                   />
-                  {/* Coral 80% Segment */}
+                  {/* Approved Segment (Emerald) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#FF587B"
+                    stroke="#10B981"
                     strokeWidth="10"
                     fill="transparent"
                     strokeDasharray="238.7"
-                    strokeDashoffset="60"
+                    strokeDashoffset={238.7 * (1 - approvedPct / 100)}
                     strokeLinecap="round"
+                    className="transition-all duration-500"
                   />
-                  {/* Yellow 20% Segment */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    stroke="#FFC53D"
-                    strokeWidth="10"
-                    fill="transparent"
-                    strokeDasharray="238.7"
-                    strokeDashoffset="200"
-                    strokeLinecap="round"
-                  />
+                  {/* Pending Segment (Coral/Amber) */}
+                  {pendingPct > 0 && (
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="38"
+                      stroke="#800020"
+                      strokeWidth="10"
+                      fill="transparent"
+                      strokeDasharray={238.7}
+                      strokeDashoffset={238.7 * (1 - pendingPct / 100)}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  )}
                 </svg>
 
                 {/* Center 3D Clay Plus Badge (Signature element in reference) */}
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center transition-transform group-hover:scale-110">
                   <Clay3DCross />
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -394,10 +430,10 @@ export default function AdminDashboardPage() {
                   <div className="min-w-0">
                     <Link
                       href={item.link}
-                      className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#FF587B] transition-colors truncate"
+                      className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#800020] transition-colors truncate"
                     >
                       <span className="truncate">{item.title}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#FF587B] shrink-0" />
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#800020] shrink-0" />
                     </Link>
                     <p className="text-[11px] text-slate-400 font-medium mt-0.5 truncate">
                       {item.subtitle}
@@ -467,7 +503,7 @@ export default function AdminDashboardPage() {
           <div className="space-y-2 text-right">
             <span className="text-xs font-bold text-slate-900 block">Comments</span>
             <div className="w-28 sm:w-36 h-3 rounded-full bg-slate-100 overflow-hidden p-0.5">
-              <div className="h-full rounded-full bg-gradient-to-r from-[#FF6662] to-[#FF4186] w-2/5" />
+              <div className="h-full rounded-full bg-gradient-to-r from-[#800020] to-[#5A0017] w-2/5" />
             </div>
           </div>
         </div>
@@ -507,7 +543,7 @@ export default function AdminDashboardPage() {
               {/* Magenta Smooth Line */}
               <path
                 d="M 10 60 C 50 62, 90 40, 140 50 C 180 58, 220 35, 270 55"
-                stroke="#FF587B"
+                stroke="#800020"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeOpacity="0.85"
@@ -543,11 +579,11 @@ export default function AdminDashboardPage() {
               {/* Friday (Special Highlighted Bar with Star on top) */}
               <div className="flex flex-col items-center gap-2 relative">
                 {/* Glowing Star on Top of Friday */}
-                <div className="w-4 h-4 rounded-full bg-[#FF587B] text-white flex items-center justify-center text-[9px] shadow-sm mb-0.5">
+                <div className="w-4 h-4 rounded-full bg-[#800020] text-white flex items-center justify-center text-[9px] shadow-sm mb-0.5">
                   ★
                 </div>
-                <div className="w-3.5 bg-[#FF587B] rounded-full h-32 shadow-sm" />
-                <span className="text-[11px] font-black text-[#FF587B]">F</span>
+                <div className="w-3.5 bg-[#800020] rounded-full h-32 shadow-sm" />
+                <span className="text-[11px] font-black text-[#800020]">F</span>
               </div>
 
               {/* Saturday */}
@@ -567,7 +603,7 @@ export default function AdminDashboardPage() {
           {/* Bottom Sub-card: "Completed Posts / 874" */}
           <div className="p-3.5 rounded-2xl bg-[#FBF9F6] border border-slate-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-rose-50 text-[#FF587B] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-[#FDF2F4] text-[#800020] flex items-center justify-center">
                 <FileText className="w-4 h-4" />
               </div>
               <div>
@@ -580,7 +616,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 3: Blush Pink "10.k Links Shared" Card */}
-        <div className="rounded-[28px] bg-[#FFE9E6] p-5 sm:p-6 shadow-xs border border-rose-100/60 flex items-center justify-between">
+        <div className="rounded-[28px] bg-[#F9E6EA] p-5 sm:p-6 shadow-xs border border-[#D8A4AF]/60 flex items-center justify-between">
           {/* Left: 10.k and Thumbs Up Icon */}
           <div className="space-y-1">
             <h4 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">

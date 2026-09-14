@@ -87,15 +87,15 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <div className="py-12 sm:py-20 bg-white text-[#0A0A0A]">
+    <div className="py-12 sm:py-20 bg-white text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <MotionSection className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] text-xs font-semibold text-[#4B5563] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>
             <span>{locale === "bn" ? "ফ্যাক্টরি ইনস্টলেশন ও প্রজেক্ট রেকর্ড" : "Field Installations"}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#0A0A0A]">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {locale === "bn" ? "আমাদের ফিল্ড ইনস্টলেশন ও রিয়েল প্রজেক্ট রেকর্ড" : "Factory Installations & Project Records"}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#4B5563] leading-relaxed">
@@ -110,7 +110,7 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-2.5">
             <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
             <span>
-              <strong className="text-[#0A0A0A]">
+              <strong className="text-[#2D2D2D]">
                 {locale === "bn" ? "১০০% স্বচ্ছতার নিশ্চয়তা:" : "Authenticity Guarantee:"}
               </strong>{" "}
               {locale === "bn"
@@ -141,7 +141,7 @@ export default function ProjectsPage() {
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                     selectedCategory === cat.id
-                      ? "bg-[#0A0A0A] text-white shadow-xs"
+                      ? "bg-[#2D2D2D] text-white shadow-xs"
                       : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                   }`}
                 >
@@ -194,7 +194,7 @@ export default function ProjectsPage() {
                       <div className="w-12 h-12 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#6B7280] mb-2 shadow-xs">
                         <ImageIcon className="w-6 h-6" />
                       </div>
-                      <span className="text-xs font-semibold text-[#0A0A0A]">
+                      <span className="text-xs font-semibold text-[#2D2D2D]">
                         {locale === "bn" ? "ফ্যাক্টরি ফ্লোর রেকর্ড" : "Factory Floor Asset"}
                       </span>
                       <span className="text-[11px] text-[#6B7280] mt-1">
@@ -203,11 +203,11 @@ export default function ProjectsPage() {
                     </div>
 
                     <div className="flex items-center gap-1.5 text-xs text-[#6B7280] mb-2">
-                      <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#800020]" />
                       <span>{rec.location}</span>
                     </div>
 
-                    <h2 className="font-bold text-lg text-[#0A0A0A] mb-2">{rec.title}</h2>
+                    <h2 className="font-bold text-lg text-[#2D2D2D] mb-2">{rec.title}</h2>
                     <p className="text-xs text-[#4B5563] leading-relaxed mb-4">{rec.summary}</p>
                   </div>
 
@@ -254,7 +254,7 @@ export default function ProjectsPage() {
                       {/* Video Play Affordance */}
                       {isVideo && (
                         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors flex items-center justify-center">
-                          <div className="w-13 h-13 rounded-full bg-[#FF0000] text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                          <div className="w-13 h-13 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                             <Play className="w-6 h-6 ml-0.5 fill-current" />
                           </div>
                         </div>
@@ -283,12 +283,12 @@ export default function ProjectsPage() {
                     <div className="p-6">
                       {item.location && (
                         <div className="flex items-center gap-1.5 text-xs text-[#6B7280] mb-2 font-medium">
-                          <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
+                          <MapPin className="w-3.5 h-3.5 text-[#800020]" />
                           <span>{item.location}</span>
                         </div>
                       )}
 
-                      <h2 className="font-bold text-lg text-[#0A0A0A] mb-2 group-hover:text-[#FF0000] transition-colors line-clamp-2">
+                      <h2 className="font-bold text-lg text-[#2D2D2D] mb-2 group-hover:text-[#800020] transition-colors line-clamp-2">
                         {title}
                       </h2>
 
@@ -325,7 +325,7 @@ export default function ProjectsPage() {
           className="border border-[#E5E7EB] rounded-2xl bg-[#F9FAFB] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm"
         >
           <div>
-            <h2 className="text-2xl font-bold text-[#0A0A0A]">
+            <h2 className="text-2xl font-bold text-[#2D2D2D]">
               {locale === "bn" ? "নতুন মেশিন বসানোর কথা ভাবছেন?" : "Plan Your Next Machinery Installation"}
             </h2>
             <p className="text-xs sm:text-sm text-[#4B5563] mt-1 max-w-xl">
@@ -336,7 +336,7 @@ export default function ProjectsPage() {
           </div>
           <Link
             href="/quote"
-            className="bg-[#FF0000] hover:bg-[#E00000] text-white px-8 py-3 rounded-lg text-sm font-bold transition-colors shrink-0 flex items-center gap-2"
+            className="bg-[#800020] hover:bg-[#5A0017] text-white px-8 py-3 rounded-lg text-sm font-bold transition-colors shrink-0 flex items-center gap-2"
           >
             <span>{t.common.requestQuote}</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -363,7 +363,7 @@ export default function ProjectsPage() {
                 <div className="flex items-center gap-3 text-xs text-neutral-500 mt-0.5">
                   {activeMedia.location && (
                     <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#FF0000]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#800020]" />
                       <span>{activeMedia.location}</span>
                     </span>
                   )}

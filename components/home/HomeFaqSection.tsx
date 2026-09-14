@@ -19,18 +19,18 @@ export function HomeFaqSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E7EB]">
+    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#4B5563] font-bold mb-2">
-            <HelpCircle className="w-4 h-4 text-[#FF0000]" />
+          <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#4A4A4A] font-bold mb-2">
+            <HelpCircle className="w-4 h-4 text-[#800020]" />
             <span>{dict.faq.badge}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0A0A0A]">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
             {dict.faq.title}
           </h2>
-          <p className="mt-3 text-sm text-[#4B5563]">
+          <p className="mt-3 text-sm text-[#4A4A4A]">
             {dict.faq.subtitle}
           </p>
         </MotionSection>
@@ -53,7 +53,7 @@ export function HomeFaqSection() {
         <MotionSection delay={0.1} className="mt-10 text-center">
           <Link
             href="/faq"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A0A0A] hover:text-[#FF0000] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors"
           >
             <span>{dict.common.readMore} ({dict.nav.faq})</span>
             <ArrowUpRight className="w-4 h-4" />

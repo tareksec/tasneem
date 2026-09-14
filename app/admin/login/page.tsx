@@ -110,7 +110,7 @@ function LoginForm() {
                   <button
                     type="button"
                     onClick={() => setForgotPasswordOpen(true)}
-                    className="text-xs font-medium text-[#FF0000] hover:underline cursor-pointer"
+                    className="text-xs font-medium text-[#800020] hover:underline cursor-pointer"
                   >
                     Forgot password?
                   </button>
@@ -134,7 +134,7 @@ function LoginForm() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-slate-300 text-[#FF0000] focus:ring-[#FF0000]"
+                    className="rounded border-slate-300 text-[#800020] focus:ring-[#800020]"
                   />
                   <span>Stay signed in</span>
                 </label>

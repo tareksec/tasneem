@@ -106,6 +106,8 @@ export interface QuoteRecord extends QuoteRequestData {
   timeline?: string;
 }
 
+export type CustomerApprovalStatus = "pending" | "approved" | "rejected";
+
 export interface CustomerUser {
   id: string;
   name: string;
@@ -118,6 +120,9 @@ export interface CustomerUser {
   address?: string;
   district?: string;
   notes?: string;
+  password?: string;
+  status: CustomerApprovalStatus;
+  isApproved?: boolean;
   createdAt: string;
   updatedAt?: string;
 }

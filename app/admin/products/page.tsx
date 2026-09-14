@@ -130,7 +130,7 @@ export default function AdminProductsListPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-xs">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF0000] bg-red-50 px-2.5 py-1 rounded-md inline-block mb-1.5">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#800020] bg-[#FDF2F4] border border-[#F9E6EA] px-2.5 py-1 rounded-md inline-block mb-1.5">
             Machine Catalog CRUD
           </span>
           <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -142,7 +142,7 @@ export default function AdminProductsListPage() {
         </div>
 
         <Link href="/admin/products/new">
-          <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF0000] hover:bg-[#E00000] text-white text-xs font-bold transition-all shadow-sm cursor-pointer shrink-0">
+          <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-all shadow-sm cursor-pointer shrink-0">
             <Plus className="w-4 h-4" />
             <span>Add New Machine</span>
           </button>
@@ -194,7 +194,7 @@ export default function AdminProductsListPage() {
             placeholder="Search by model, brand, spec..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#FF0000] focus:bg-white"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#800020] focus:bg-white"
           />
         </div>
 
@@ -203,7 +203,7 @@ export default function AdminProductsListPage() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#FF0000]"
+            className="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#800020]"
           >
             <option value="all">All Categories ({CATEGORIES.length})</option>
             {CATEGORIES.map((c) => (
@@ -216,7 +216,7 @@ export default function AdminProductsListPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#FF0000]"
+            className="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#800020]"
           >
             <option value="all">All Statuses</option>
             <option value="published">Published Only</option>
@@ -278,8 +278,12 @@ export default function AdminProductsListPage() {
 
       {/* Machinery Table */}
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+        {/* Mobile Swipe Hint */}
+        <div className="md:hidden px-3.5 py-1.5 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between border-b border-slate-100">
+          <span>← Swipe horizontally to view machinery specifications & actions →</span>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse min-w-[760px]">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
                 <th className="p-4 w-10">
@@ -289,7 +293,7 @@ export default function AdminProductsListPage() {
                     aria-label="Select all"
                   >
                     {selectedIds.length > 0 && selectedIds.length === filteredMachines.length ? (
-                      <CheckSquare className="w-4 h-4 text-[#FF0000]" />
+                      <CheckSquare className="w-4 h-4 text-[#800020]" />
                     ) : (
                       <Square className="w-4 h-4" />
                     )}
@@ -317,7 +321,7 @@ export default function AdminProductsListPage() {
                     <tr
                       key={m.id}
                       className={`hover:bg-slate-50/80 transition-colors ${
-                        isSelected ? "bg-red-50/30" : ""
+                        isSelected ? "bg-[#FDF2F4]/40" : ""
                       }`}
                     >
                       {/* Checkbox */}
@@ -328,7 +332,7 @@ export default function AdminProductsListPage() {
                           aria-label={`Select ${m.name}`}
                         >
                           {isSelected ? (
-                            <CheckSquare className="w-4 h-4 text-[#FF0000]" />
+                            <CheckSquare className="w-4 h-4 text-[#800020]" />
                           ) : (
                             <Square className="w-4 h-4" />
                           )}
@@ -349,14 +353,14 @@ export default function AdminProductsListPage() {
                           <div>
                             <Link
                               href={`/admin/products/${m.id}/edit`}
-                              className="font-bold text-slate-900 hover:text-[#FF0000] line-clamp-1"
+                              className="font-bold text-slate-900 hover:text-[#800020] line-clamp-1"
                             >
                               {m.name}
                             </Link>
                             <div className="flex items-center gap-2 mt-0.5 text-[11px] text-slate-400">
                               <span>Brand: <strong className="text-slate-600">{m.brand}</strong></span>
                               {m.name_bn && (
-                                <span className="text-[10px] bg-red-50 text-[#FF0000] px-1.5 py-0.2 rounded">
+                                <span className="text-[10px] bg-[#FDF2F4] text-[#800020] border border-[#F9E6EA] px-1.5 py-0.2 rounded">
                                   BN
                                 </span>
                               )}
@@ -428,7 +432,7 @@ export default function AdminProductsListPage() {
 
                           <Link
                             href={`/admin/products/${m.id}/edit`}
-                            className="p-1.5 rounded-lg border border-slate-200 text-slate-700 hover:text-[#FF0000] hover:bg-red-50 hover:border-red-200"
+                            className="p-1.5 rounded-lg border border-slate-200 text-slate-700 hover:text-[#800020] hover:bg-[#FDF2F4] hover:border-[#D8A4AF]"
                             title="Edit Technical Specifications"
                           >
                             <Edit className="w-3.5 h-3.5" />

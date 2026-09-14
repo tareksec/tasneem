@@ -6,6 +6,7 @@ import { ReactLenis } from "lenis/react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { MobileGlassDock } from "@/components/layout/MobileGlassDock";
 import { CustomerAuthProvider } from "@/lib/customer/customer-context";
 
 import { ScrollRestorationManager } from "@/components/layout/ScrollRestorationManager";
@@ -32,9 +33,10 @@ export function PublicLayoutWrapper({ children }: { children: React.ReactNode })
       <ScrollRestorationManager />
       <CustomerAuthProvider>
         <Header />
-        <main className="flex-1 bg-white">{children}</main>
+        <main className="flex-1 bg-white pb-20 md:pb-0">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <MobileGlassDock />
       </CustomerAuthProvider>
     </ReactLenis>
   );
