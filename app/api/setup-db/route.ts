@@ -58,23 +58,26 @@ async function handleSetup(request: Request) {
     };
 
     // 2. Seed Admin if none exists
-    const adminEmail = (process.env.ADMIN_EMAIL || "admin@tasneem.com").trim().toLowerCase();
+    const primaryAdminEmail = (process.env.ADMIN_EMAIL || "admin@admin.com").trim().toLowerCase();
     const rawPassword = process.env.ADMIN_PASSWORD || "TasneemAdmin2026!Secure";
     const hashedPassword = await bcrypt.hash(rawPassword, 10);
     const adminName = process.env.ADMIN_NAME || "Tasneem Admin Staff";
 
-    await prisma.admin.upsert({
-      where: { email: adminEmail },
-      update: {},
-      create: {
-        email: adminEmail,
-        password: hashedPassword,
-        name: adminName,
-        role: "Super Admin",
-      },
-    });
+    const emailsToSeed = Array.from(new Set([primaryAdminEmail, "admin@admin.com", "admin@tasneem.com"]));
+    for (const email of emailsToSeed) {
+      await prisma.admin.upsert({
+        where: { email },
+        update: { password: hashedPassword },
+        create: {
+          email,
+          password: hashedPassword,
+          name: adminName,
+          role: "Super Admin",
+        },
+      });
+    }
     seededStats.adminCreated = true;
-    seededStats.adminEmail = adminEmail;
+    seededStats.adminEmail = primaryAdminEmail;
 
     // 3. Seed Machines from lib/machines-data.ts
     for (const m of MACHINES) {

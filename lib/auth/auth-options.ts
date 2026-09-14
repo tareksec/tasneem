@@ -21,6 +21,12 @@ export const authOptions: NextAuthOptions = {
         }
 
         const email = credentials.email.trim().toLowerCase();
+        const fallbackEmails = [
+          (process.env.ADMIN_EMAIL || "").toLowerCase(),
+          "admin@admin.com",
+          "admin@tasneem.com",
+        ].filter(Boolean);
+        const fallbackPassword = process.env.ADMIN_PASSWORD || "TasneemAdmin2026!Secure";
 
         // 1. Try querying the Admin table in MySQL
         try {
@@ -44,19 +50,17 @@ export const authOptions: NextAuthOptions = {
           }
         } catch (dbError: any) {
           console.error("NextAuth authorize DB error:", dbError);
-          // If DB is temporarily unreachable or admin isn't seeded yet, fall back to initial env credentials
-          const fallbackEmail = (process.env.ADMIN_EMAIL || "admin@tasneem.com").toLowerCase();
-          const fallbackPassword = process.env.ADMIN_PASSWORD || "TasneemAdmin2026!Secure";
+        }
 
-          if (email === fallbackEmail && credentials.password === fallbackPassword) {
-            return {
-              id: "admin-fallback-1",
-              email: fallbackEmail,
-              name: process.env.ADMIN_NAME || "Tasneem Super Admin",
-              role: "Super Admin",
-              image: "/images/staff-avatar.jpg",
-            };
-          }
+        // 2. Fallback check for initial setup or default admin credentials
+        if (fallbackEmails.includes(email) && credentials.password === fallbackPassword) {
+          return {
+            id: "admin-fallback-1",
+            email: email,
+            name: process.env.ADMIN_NAME || "Tasneem Super Admin",
+            role: "Super Admin",
+            image: "/images/staff-avatar.jpg",
+          };
         }
 
         throw new Error("Invalid staff email or password.");
