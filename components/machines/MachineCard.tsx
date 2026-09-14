@@ -14,7 +14,10 @@ export function MachineCard({ machine }: MachineCardProps) {
   const { dict } = useTranslation();
 
   return (
-    <div className="h-full border border-[#E5E5E5] rounded-xl p-4 sm:p-5 bg-white flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-lg hover:border-[#800020]/40 transition-all duration-200 group">
+    <Link
+      href={`/machines/${machine.category}/${machine.id}`}
+      className="h-full border border-[#E5E5E5] rounded-xl p-4 sm:p-5 bg-white flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:border-[#800020]/40 transition-all duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 block"
+    >
       <div>
         {/* Product Photo Preview */}
         <div className="relative w-full aspect-[4/3] rounded-lg bg-[#F9F9F9] border border-[#E5E5E5] overflow-hidden mb-4 flex items-center justify-center">
@@ -88,22 +91,16 @@ export function MachineCard({ machine }: MachineCardProps) {
         </div>
       </div>
 
-      {/* Card Actions */}
-      <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-[#E5E5E5] flex items-center gap-2">
-        <Link
-          href={`/quote?machine=${encodeURIComponent(machine.name)}&id=${machine.id}`}
-          className="flex-1 bg-[#800020] text-white text-center py-2.5 px-3 rounded-lg text-xs font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-xs min-h-[40px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
-        >
-          {dict.featured.quoteBtn}
-        </Link>
-        <Link
-          href={`/machines/${machine.category}/${machine.id}`}
-          className="w-10 h-10 sm:w-8 sm:h-8 rounded-lg border border-[#E5E5E5] bg-[#F9F9F9] flex items-center justify-center text-[#4A4A4A] hover:border-[#800020] hover:text-[#800020] active:scale-[0.98] transition-all duration-200 shrink-0 group/arrow shadow-xs min-w-[40px] min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-1"
-          aria-label={`View full specifications of ${machine.name}`}
-        >
-          <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5" />
-        </Link>
+      {/* Card Footer Info */}
+      <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-[#E5E5E5] flex items-center justify-between">
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#800020] group-hover:text-[#5A0017] transition-colors">
+          <span>{dict.featured.specsBtn}</span>
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </span>
+        <span className="text-[11px] font-semibold text-[#717171] bg-[#F9F9F9] border border-[#E5E5E5] px-2.5 py-1 rounded-md">
+          {machine.price ? `$${machine.price.toLocaleString()} CFR` : "CFR Quote"}
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }

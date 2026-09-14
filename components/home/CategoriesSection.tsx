@@ -87,9 +87,10 @@ export function CategoriesSection() {
               const catTagline = locale === "bn" && category.tagline_bn ? category.tagline_bn : category.tagline;
 
               return (
-                <div
+                <Link
                   key={category.slug}
-                  className="relative w-full h-[470px] sm:h-[500px] rounded-[28px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_10px_30px_rgba(0,0,0,0.06)] flex flex-col justify-between p-5 sm:p-6 group select-none"
+                  href={`/machines/${category.slug}`}
+                  className="relative w-full h-[470px] sm:h-[500px] rounded-[28px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#800020]/40 transition-all duration-300 flex flex-col justify-between p-5 sm:p-6 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 >
                   {/* Full-bleed background image */}
                   <Image
@@ -131,7 +132,7 @@ export function CategoriesSection() {
                   {/* Bottom Content */}
                   <div className="relative z-10 mt-auto flex flex-col">
                     <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#2D2D2D] tracking-tight leading-snug">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#2D2D2D] group-hover:text-[#800020] transition-colors tracking-tight leading-snug">
                         {catName}
                       </h3>
                       <span className="shrink-0 bg-neutral-100/90 border border-neutral-200 text-[#2D2D2D] font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-2xs">
@@ -159,15 +160,14 @@ export function CategoriesSection() {
                       ))}
                     </div>
 
-                    <Link
-                      href={`/machines/${category.slug}`}
-                      className="w-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm py-3 px-5 rounded-full shadow-md transition-all flex items-center justify-center gap-1.5 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                    <div
+                      className="w-full bg-[#800020] group-hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm py-3 px-5 rounded-full shadow-md transition-all flex items-center justify-center gap-1.5 min-h-[44px]"
                     >
                       <span>{locale === "bn" ? "মেশিন মডেল দেখুন" : "Explore Machinery"}</span>
-                      <ArrowUpRight className="w-4 h-4 text-white" />
-                    </Link>
+                      <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -256,9 +256,10 @@ export function CategoriesSection() {
               const catTagline = locale === "bn" && category.tagline_bn ? category.tagline_bn : category.tagline;
 
               return (
-                <div
+                <Link
                   key={category.slug}
-                  className="relative w-[85vw] sm:w-[370px] lg:w-[410px] h-[530px] sm:h-[570px] shrink-0 rounded-[32px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_-12px_rgba(128,0,32,0.12)] hover:border-[#800020]/30 transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 group select-none"
+                  href={`/machines/${category.slug}`}
+                  className="relative w-[85vw] sm:w-[370px] lg:w-[410px] h-[530px] sm:h-[570px] shrink-0 rounded-[32px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_-12px_rgba(128,0,32,0.16)] hover:border-[#800020]/40 transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 >
                   {/* 1. Full-bleed background image */}
                   <Image
@@ -344,15 +345,14 @@ export function CategoriesSection() {
                     </div>
 
                     {/* Full-width Capsule Action Button */}
-                    <Link
-                      href={`/machines/${category.slug}`}
-                      className="w-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm sm:text-base py-3.5 px-6 rounded-full shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                    <div
+                      className="w-full bg-[#800020] group-hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm sm:text-base py-3.5 px-6 rounded-full shadow-md group-hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
                     >
                       <span>{locale === "bn" ? "মেশিন মডেল দেখুন" : "Explore Machinery"}</span>
-                      <ArrowUpRight className="w-4 h-4 text-white transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                    </Link>
+                      <ArrowUpRight className="w-4 h-4 text-white transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </motion.div>
