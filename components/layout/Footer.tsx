@@ -292,12 +292,37 @@ export function Footer() {
 
           {/* Floating White Pill Bar (Signature Design Element from Screenshot) */}
           <div className="relative z-20 pb-4 sm:pb-6 lg:pb-8 px-2.5 sm:px-8">
-            <div className="max-w-5xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full px-3.5 sm:px-8 py-3.5 shadow-[0_12px_36px_rgba(0,0,0,0.1)] border border-neutral-200/90 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-              <p className="text-xs sm:text-sm font-medium text-neutral-600 text-center sm:text-left">
-                © {new Date().getFullYear()} {COMPANY_INFO.legalName}. {dict.footer.rightsReserved}
-              </p>
+            <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full px-4 sm:px-8 py-3.5 shadow-[0_12px_36px_rgba(0,0,0,0.1)] border border-neutral-200/90 flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-4">
+              <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 text-xs sm:text-sm font-medium text-neutral-600 text-center sm:text-left">
+                <p>
+                  © {new Date().getFullYear()} {COMPANY_INFO.legalName}. {dict.footer.rightsReserved}
+                </p>
+                <span className="hidden sm:inline text-neutral-300">•</span>
+                <p className="text-[11px] sm:text-xs text-neutral-500">
+                  Developed by{" "}
+                  <a
+                    href={COMPANY_INFO.developer.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors"
+                    title="Md Tarek | LinkedIn"
+                  >
+                    Md Tarek
+                  </a>{" "}
+                  •{" "}
+                  <a
+                    href={COMPANY_INFO.developer.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#800020] hover:underline"
+                    title="artx.techvrs.com"
+                  >
+                    artx.techvrs.com
+                  </a>
+                </p>
+              </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
                 {/* Facebook */}
                 <a
                   href={COMPANY_INFO.facebook || "https://www.facebook.com/tasneemknitind"}
@@ -336,6 +361,20 @@ export function Footer() {
                 >
                   <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </a>
+
+                {/* LinkedIn - Md Tarek */}
+                <a
+                  href={COMPANY_INFO.developer.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Md Tarek | LinkedIn"
+                  title="Md Tarek | LinkedIn"
+                  className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-neutral-100 hover:bg-[#0077B5] hover:text-white text-neutral-700 flex items-center justify-center transition-colors shadow-2xs shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z" />
                   </svg>
                 </a>
 

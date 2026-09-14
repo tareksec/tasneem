@@ -46,8 +46,13 @@ export const metadata: Metadata = {
     "নিটিং মেশিনের দাম বাংলাদেশ",
     "সিএফআর চট্টগ্রাম ডেলিভারি",
   ],
-  authors: [{ name: COMPANY_INFO.name }],
-  creator: COMPANY_INFO.name,
+  authors: [
+    { name: COMPANY_INFO.name, url: COMPANY_INFO.domain },
+    { name: "Md Tarek", url: "https://www.linkedin.com/in/mdtarek404/" },
+    { name: "artx.techvrs.com", url: "https://artx.techvrs.com" },
+  ],
+  creator: "Md Tarek (artx.techvrs.com)",
+  publisher: COMPANY_INFO.name,
   alternates: {
     canonical: COMPANY_INFO.domain,
     languages: {

@@ -120,6 +120,13 @@ export const COMPANY_INFO = {
   get tradeLicenseUrl() {
     return this.registration.tradeLicenseUrl;
   },
+
+  // Developer Credits
+  developer: {
+    name: "Md Tarek",
+    website: "https://artx.techvrs.com",
+    linkedin: "https://www.linkedin.com/in/mdtarek404/",
+  },
 };
 
 export const NAV_LINKS = [
