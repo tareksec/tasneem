@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { COMPANY_INFO } from "@/lib/constants";
 
 interface MachineStickyCtaProps {
   machineName: string;
@@ -23,18 +24,14 @@ export function MachineStickyCta({
   price,
   whatsappUrl,
 }: MachineStickyCtaProps) {
-  const [visible, setVisible] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
   const { dict } = useTranslation();
+  const shouldReduceMotion = useReducedMotion();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show when scrolled past 480px (past the hero machine overview card)
-      if (window.scrollY > 480) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
+      // Show when scrolled past 500px (hero image and main specs seen)
+      setVisible(window.scrollY > 500);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -45,23 +42,18 @@ export function MachineStickyCta({
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
+          initial={{ y: shouldReduceMotion ? 0 : 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
+          exit={{ y: shouldReduceMotion ? 0 : 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed bottom-[74px] md:bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] shadow-[0_-4px_25px_rgba(0,0,0,0.08)] py-3 px-4 sm:px-8"
+          className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-3 px-4 sm:px-6"
         >
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-[#800020] text-white px-2 py-0.5 rounded shadow-xs">
-                  {brand}
-                </span>
-                <span className="text-xs text-[#717171] truncate hidden sm:inline">
-                  {category.replace("-", " ")}
-                </span>
-              </div>
-              <h3 className="text-sm font-bold text-[#2D2D2D] truncate mt-0.5">
+              <span className="text-[11px] uppercase tracking-wider text-[#717171] font-semibold block truncate">
+                {brand}
+              </span>
+              <h3 className="font-bold text-sm sm:text-base text-[#2D2D2D] truncate">
                 {machineName}
               </h3>
             </div>
@@ -81,10 +73,10 @@ export function MachineStickyCta({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden sm:inline-flex items-center gap-1.5 border border-[#E5E5E5] bg-[#F9F9F9] text-[#2D2D2D] hover:border-[#800020]/40 active:scale-[0.98] px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
-                aria-label="WhatsApp Inquiry"
+                aria-label={`WhatsApp Inquiry at ${COMPANY_INFO.whatsappFormatted}`}
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>WhatsApp</span>
+                <span>WhatsApp: <strong className="font-mono text-emerald-700 font-bold">{COMPANY_INFO.whatsappFormatted}</strong></span>
               </a>
 
               <Link

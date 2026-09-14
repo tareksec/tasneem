@@ -409,7 +409,7 @@ export function Header() {
                   className="w-full min-h-[44px] border border-neutral-200 bg-white text-neutral-800 text-center py-2 rounded-full font-medium text-xs flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>{dict.common.chatWhatsApp}</span>
+                  <span>{dict.common.chatWhatsApp}: <strong className="font-mono font-bold text-emerald-700">{COMPANY_INFO.whatsappFormatted}</strong></span>
                 </a>
               </div>
             </motion.div>

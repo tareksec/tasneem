@@ -205,7 +205,9 @@ export default function ContactPage() {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-transform active:scale-98 shadow-sm cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>{isBn ? "WhatsApp চ্যাট শুরু করুন" : "Start WhatsApp Chat"} ({COMPANY_INFO.whatsappFormatted})</span>
+                  <span>
+                    {isBn ? "WhatsApp চ্যাট শুরু করুন" : "Start WhatsApp Chat"}: <strong className="font-mono tracking-wide underline decoration-emerald-300 underline-offset-2">{COMPANY_INFO.whatsappFormatted}</strong>
+                  </span>
                 </a>
               </div>
 

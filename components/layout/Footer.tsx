@@ -265,7 +265,9 @@ export function Footer() {
                 >
                   <div className="flex items-center gap-1.5 min-w-0">
                     <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate">{dict.footer.whatsappText}: {COMPANY_INFO.whatsappFormatted}</span>
+                    <span className="truncate">
+                      {dict.footer.whatsappText}: <strong className="font-mono font-bold text-white tracking-wide">{COMPANY_INFO.whatsappFormatted}</strong>
+                    </span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5 shrink-0 ml-1" />
                 </a>

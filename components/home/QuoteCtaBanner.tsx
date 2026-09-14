@@ -69,7 +69,9 @@ export function QuoteCtaBanner() {
                 className="w-full sm:w-auto bg-white/95 backdrop-blur-md border border-neutral-300/90 text-[#2D2D2D] px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-neutral-50 hover:border-neutral-400 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span className="truncate">{dict.quoteBanner.whatsappBtn}</span>
+                <span className="truncate">
+                  {dict.quoteBanner.whatsappBtn}: <strong className="font-mono text-emerald-700 font-bold">{COMPANY_INFO.whatsappFormatted}</strong>
+                </span>
               </a>
             </div>
           </div>

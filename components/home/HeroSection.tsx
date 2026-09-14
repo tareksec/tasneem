@@ -134,7 +134,9 @@ export function HeroSection() {
               className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="truncate">{dict.hero.whatsappCta} ({COMPANY_INFO.whatsappFormatted})</span>
+              <span className="truncate">
+                {dict.hero.whatsappCta}: <strong className="text-emerald-300 font-mono font-bold tracking-wide">{COMPANY_INFO.whatsappFormatted}</strong>
+              </span>
             </a>
           </motion.div>
 

@@ -64,8 +64,8 @@ export const COMPANY_INFO = {
   phone: "01887683333", // Primary Phone alias
   directContact: "+880 1884-611888", // Direct Sales Contact (Mr Hasan)
   phoneAlt: "+880 1884-611888", // Secondary phone alias
-  whatsapp: "+8801711110516", // WhatsApp specifically
-  whatsappFormatted: "+880 1711-110516",
+  whatsapp: "+8801884611888", // Main WhatsApp Button Number (Mr Hasan)
+  whatsappFormatted: "+880 1884-611888",
   email: "tasneemknit@gmail.com", // Main Email
   mainEmail: "tasneemknit@gmail.com",
   businessEmail: "hello@tasneemknitindustry.com", // Business Email
