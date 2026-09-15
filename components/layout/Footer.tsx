@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MapPin, Mail, ShieldCheck, ArrowUpRight, MessageCircle } from "lucide-react";
+import { Phone, MapPin, Mail, ShieldCheck, ArrowUpRight, ArrowUp, MessageCircle } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -104,7 +104,7 @@ export function Footer() {
 
             {/* Col 2: Company Navigation (LG: 2 cols) */}
             <div className="lg:col-span-2 flex flex-col gap-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+              <h3 className="text-sm font-bold text-neutral-900">
                 {dict.footer.companyNavTitle}
               </h3>
               <ul className="flex flex-col gap-2.5 text-xs sm:text-sm text-neutral-600 font-medium">
@@ -164,7 +164,7 @@ export function Footer() {
 
             {/* Col 3: Machine Categories (LG: 3 cols) */}
             <div className="lg:col-span-3 flex flex-col gap-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+              <h3 className="text-sm font-bold text-neutral-900">
                 {dict.footer.machineCategoriesTitle}
               </h3>
               <ul className="flex flex-col gap-2.5 text-xs sm:text-sm text-neutral-600 font-medium">
@@ -194,7 +194,7 @@ export function Footer() {
 
             {/* Col 4: Connect & Direct Channels (LG: 3 cols) */}
             <div className="lg:col-span-3 flex flex-col gap-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#2D2D2D]">
+              <h3 className="text-sm font-bold text-neutral-900">
                 {dict.footer.contactTitle}
               </h3>
               <div className="flex flex-col gap-2.5 text-xs text-neutral-600">
@@ -381,6 +381,19 @@ export function Footer() {
 
                 {/* Capsule Language Switcher */}
                 <LanguageSwitcher variant="capsule" />
+
+                <div className="h-4 w-px bg-neutral-200 hidden sm:block" />
+
+                {/* Dedicated Back to Top Button (Issue 32) */}
+                <button
+                  type="button"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-xs font-semibold text-neutral-700 hover:text-[#800020] transition-all shadow-2xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                  aria-label={locale === "bn" ? "পৃষ্ঠার উপরে যান" : "Scroll back to top"}
+                >
+                  <ArrowUp className="w-3.5 h-3.5 text-[#800020]" />
+                  <span>{locale === "bn" ? "উপরে যান" : "Back to top"}</span>
+                </button>
               </div>
             </div>
           </div>

@@ -142,18 +142,18 @@ export function Header() {
         </Link>
 
         {/* Center: Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-neutral-800">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-semibold text-neutral-800">
           {/* Machines Dropdown (Features ∨ style) */}
           <div
             ref={dropdownRef}
-            className="relative"
+            className="relative shrink-0"
             onMouseEnter={() => setMachinesDropdownOpen(true)}
             onMouseLeave={() => setMachinesDropdownOpen(false)}
           >
             <button
               type="button"
               onClick={() => setMachinesDropdownOpen(!machinesDropdownOpen)}
-              className="flex items-center gap-1 hover:text-black transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+              className="flex items-center gap-1 whitespace-nowrap hover:text-black transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
               aria-expanded={machinesDropdownOpen}
               aria-haspopup="true"
             >
@@ -226,56 +226,61 @@ export function Header() {
             </AnimatePresence>
           </div>
 
-          <Link href="/projects" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/projects" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.projects}
           </Link>
-          <Link href="/services" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/services" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.services}
           </Link>
-          <Link href="/how-it-works" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/how-it-works" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.howItWorks}
           </Link>
-          <Link href="/about" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/about" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.about}
           </Link>
-          <Link href="/blog" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/blog" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {locale === "bn" ? "ব্লগ" : "Blog"}
           </Link>
-          <Link href="/contact" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+          <Link href="/contact" className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.contact}
           </Link>
         </nav>
 
-        {/* Right: Actions (Language, Log In, Black Capsule Button) */}
-        <div className="flex items-center gap-1.5 sm:gap-3">
+        {/* Right: Actions (Language, Log In, Primary CTA) */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Subtle Language Pill */}
           <LanguageSwitcher variant="capsule" />
 
-          {/* Buyer Account / My Quotes Link */}
-          {customer ? (
-            <Link
-              href="/account/quotes"
-              className="hidden md:inline-flex text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-2.5 py-1 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
-            >
-              <span>{locale === "bn" ? "আমার কোটেশন" : "My Quotes"}</span>
-            </Link>
-          ) : (
-            <Link
-              href="/account/login"
-              className="hidden md:inline-flex text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md"
-            >
-              {locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Portal"}
-            </Link>
-          )}
+          {/* Vertical Divider separating language toggle from user actions (Issue 25) */}
+          <span className="hidden md:block h-4 w-px bg-neutral-200 shrink-0" aria-hidden="true" />
 
-          {/* Primary CTA: Solid Burgundy Capsule Button */}
-          <Link
-            href="/quote"
-            className="hidden min-[420px]:inline-flex bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
-          >
-            <span>{dict.nav.requestQuote}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
-          </Link>
+          {/* Grouped User & Conversion CTAs */}
+          <div className="flex items-center gap-2">
+            {customer ? (
+              <Link
+                href="/account/quotes"
+                className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-3 py-1.5 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+              >
+                <span>{locale === "bn" ? "আমার কোটেশন" : "My Quotes"}</span>
+              </Link>
+            ) : (
+              <Link
+                href="/account/login"
+                className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2.5 py-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md"
+              >
+                {locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Portal"}
+              </Link>
+            )}
+
+            {/* Primary CTA: Solid Burgundy Capsule Button */}
+            <Link
+              href="/quote"
+              className="hidden min-[420px]:inline-flex whitespace-nowrap shrink-0 bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+            >
+              <span>{dict.nav.requestQuote}</span>
+              <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
+            </Link>
+          </div>
 
           {/* Mobile Hamburger Button with comfortable min 44x44px touch target */}
           <button

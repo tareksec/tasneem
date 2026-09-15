@@ -111,7 +111,7 @@ export function InfinityBandScroll() {
       </div>
 
       {/* Infinite Horizontal Scrolling Track with Soft Fade Edges */}
-      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)] mask-[linear-gradient(to_right,transparent_0,black_64px,black_calc(100%-64px),transparent_100%)] group/track">
+      <div className="w-full inline-flex flex-nowrap overflow-hidden py-2 [-webkit-mask-image:linear-gradient(to_right,transparent_0,black_64px,black_calc(100%-64px),transparent_100%)] [mask-image:linear-gradient(to_right,transparent_0,black_64px,black_calc(100%-64px),transparent_100%)] group/track">
         {/* Track 1 */}
         <ul className="flex items-center justify-center md:justify-start gap-4 sm:gap-6 shrink-0 animate-infinite-scroll group-hover/track:[animation-play-state:paused] pr-4 sm:pr-6">
           {marqueeItems.map((brand, index) => {

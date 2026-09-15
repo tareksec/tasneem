@@ -44,7 +44,7 @@ export function IndustriesSection() {
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
       badgeBorder: "border-[#F9E6EA] bg-[#FDF2F4] text-[#800020]",
       pillClass: "bg-white border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
+      btnClass: "bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 shadow-xs",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Building2,
     },
@@ -84,7 +84,7 @@ export function IndustriesSection() {
       gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
       badgeBorder: "border-purple-200 bg-purple-50 text-purple-700",
       pillClass: "bg-neutral-100 border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-[#800020] hover:bg-[#5A0017] text-white",
+      btnClass: "bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 shadow-xs",
       watermarkColor: "text-neutral-900/[0.04]",
       icon: Sparkles,
     },
@@ -99,7 +99,7 @@ export function IndustriesSection() {
         return (
           <section
             key={ind.num}
-            className={`relative md:sticky md:top-0 min-h-screen md:h-screen w-full flex flex-col justify-center items-center py-14 sm:py-20 md:py-0 px-4 sm:px-8 lg:px-12 relative overflow-visible md:overflow-hidden ${
+            className={`relative md:sticky md:top-0 min-h-screen md:h-screen w-full flex flex-col justify-center items-center py-14 sm:py-20 md:py-0 px-4 sm:px-8 lg:px-12 overflow-visible md:overflow-hidden ${
               ind.bgClass
             } ${!isFirst ? "rounded-t-[28px] sm:rounded-t-[48px] lg:rounded-t-[56px]" : ""}`}
           >
@@ -206,14 +206,14 @@ export function IndustriesSection() {
                   </Link>
                 </div>
 
-                {/* Subtle Scroll Hint */}
+                {/* Subtle Scroll Hint with high contrast and next preview */}
                 {idx < industries.length - 1 && (
-                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono opacity-50">
+                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono opacity-90 font-semibold text-current">
                     <ChevronDown className="w-4 h-4 animate-bounce" />
                     <span>
                       {locale === "bn"
-                        ? `পরবর্তী খাত স্ক্রোল করুন (০${idx + 2})`
-                        : `Scroll for Sector 0${idx + 2}`}
+                        ? `পরবর্তী: খাত ০${idx + 2} • ${industries[idx + 1].title}`
+                        : `Next: Sector 0${idx + 2} • ${industries[idx + 1].title}`}
                     </span>
                   </div>
                 )}

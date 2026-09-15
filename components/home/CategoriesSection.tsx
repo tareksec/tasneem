@@ -288,8 +288,8 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                       )}
                     </div>
 
-                    <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full">
-                      {category.slug}
+                    <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                      {catName}
                     </span>
                   </div>
 
@@ -355,7 +355,7 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
           <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between gap-4 text-xs text-neutral-500 pt-2 border-t border-[#E5E5E5]">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#800020] animate-ping" />
-              <span className="text-[11px] font-mono font-medium text-neutral-600">
+              <span className="text-xs font-medium text-neutral-700">
                 {locale === "bn" ? "স্ক্রোল করে ক্যাটাগরিগুলো এক্সপ্লোর করুন" : "Scroll vertically to navigate horizontally"}
               </span>
             </div>

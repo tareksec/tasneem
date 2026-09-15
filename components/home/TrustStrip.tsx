@@ -68,18 +68,8 @@ export function TrustStrip() {
               <FileCheck className="w-4 h-4 text-[#800020] shrink-0" />
               <span>Tasneem Knit Industry</span>
             </p>
-            <p className="text-xs text-[#4B5563] mt-0.5 break-all sm:break-normal flex items-center gap-1.5 flex-wrap">
+            <p className="text-xs text-[#4B5563] mt-0.5">
               <span>{dict.footer.binLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span></span>
-              <span>•</span>
-              <a
-                href={COMPANY_INFO.tradeLicenseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#800020] hover:underline font-semibold inline-flex items-center gap-0.5"
-              >
-                <span>{dict.common.viewTradeLicense}</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
             </p>
           </motion.div>
 

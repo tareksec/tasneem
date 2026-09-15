@@ -18,7 +18,6 @@ import prisma from "@/lib/prisma";
 import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCategory } from "@/lib/types";
 import { MachineSpecTable, SpecRow } from "@/components/machines/MachineSpecTable";
-import { MachineStickyCta } from "@/components/machines/MachineStickyCta";
 import { MachineGallery } from "@/components/machines/MachineGallery";
 import { RelatedMachines } from "@/components/machines/RelatedMachines";
 
@@ -371,16 +370,6 @@ export default async function MachineDetailPage({
           </Link>
         </div>
       </div>
-
-      {/* Sticky Bottom Quote CTA on Scroll */}
-      <MachineStickyCta
-        machineName={machine.name}
-        machineId={machine.id}
-        category={machine.category}
-        brand={machine.brand}
-        price={machine.price}
-        whatsappUrl={whatsappInquiryUrl}
-      />
     </div>
   );
 }

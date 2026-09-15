@@ -57,43 +57,71 @@ export function SpotlightInstallation() {
           </p>
         </MotionSection>
 
-        {/* Central Illustration Flanked by Checklist */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Checklist (3 cols) */}
-          <div className="lg:col-span-3 order-2 lg:order-1">
+        {/* Grouped Service Checklist Cluster Beside High-Impact Photo (Issues 17, 20, 29) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Services Checklist Grid (7 cols) */}
+          <div className="lg:col-span-7 order-2 lg:order-1">
             <SlideIn direction="left" distance={20} duration={0.45}>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
-                <Wrench className="w-4 h-4 text-[#800020]" />
-                <span>Assembly & Setup</span>
-              </div>
-              <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-5">
-                {leftChecklist.map((item) => (
-                  <StaggerItem key={item.title}>
-                    <div className="border border-[#E5E5E5] rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200">
-                      <div className="flex items-center gap-2 mb-1">
-                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E5E5] text-emerald-600 flex items-center justify-center shrink-0">
-                          <Check className="w-3 h-3 text-emerald-600" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* 1. Assembly & Setup Column */}
+                <div>
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-800 font-bold pb-2 border-b border-neutral-200 mb-5">
+                    <Wrench className="w-4 h-4 text-[#800020]" />
+                    <span>Assembly & Setup</span>
+                  </div>
+                  <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-4">
+                    {leftChecklist.map((item) => (
+                      <StaggerItem key={item.title}>
+                        <div className="border border-neutral-200/90 rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200 h-full">
+                          <div className="flex items-start gap-2.5 mb-1.5">
+                            <div className="w-5 h-5 rounded-full bg-white border border-neutral-200 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                              <Check className="w-3 h-3 text-emerald-600" />
+                            </div>
+                            <h3 className="text-xs sm:text-sm font-bold text-neutral-900 leading-snug">{item.title}</h3>
+                          </div>
+                          <p className="text-xs text-neutral-600 leading-relaxed pl-7.5">{item.description}</p>
                         </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D]">{item.title}</h3>
-                      </div>
-                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7">{item.description}</p>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                </div>
+
+                {/* 2. Training & Support Column (Left-Anchored Icon & Headings - Issues 17, 29) */}
+                <div>
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-800 font-bold pb-2 border-b border-neutral-200 mb-5">
+                    <GraduationCap className="w-4 h-4 text-[#800020]" />
+                    <span>Training & Support</span>
+                  </div>
+                  <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-4">
+                    {rightChecklist.map((item) => (
+                      <StaggerItem key={item.title}>
+                        <div className="border border-neutral-200/90 rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200 h-full">
+                          <div className="flex items-start gap-2.5 mb-1.5">
+                            <div className="w-5 h-5 rounded-full bg-white border border-neutral-200 text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
+                              <Check className="w-3 h-3 text-[#800020]" />
+                            </div>
+                            <h3 className="text-xs sm:text-sm font-bold text-neutral-900 leading-snug">{item.title}</h3>
+                          </div>
+                          <p className="text-xs text-neutral-600 leading-relaxed pl-7.5">{item.description}</p>
+                        </div>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                </div>
+              </div>
             </SlideIn>
           </div>
 
-          {/* Central Illustration (6 cols) */}
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          {/* Central Supporting Illustration (5 cols) */}
+          <div className="lg:col-span-5 order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98, y: shouldReduceMotion ? 0 : 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="border border-[#E5E5E5] rounded-2xl p-4 sm:p-6 bg-white shadow-xl text-center group"
+              className="border border-neutral-200/90 rounded-2xl p-4 sm:p-5 bg-white shadow-xl text-center group sticky top-24"
             >
-              <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9F9F9] border border-[#E5E5E5] overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] rounded-xl bg-[#F9F9F9] border border-neutral-200 overflow-hidden flex items-center justify-center">
                 <Image
                   src="/images/machines/spotlight-installation.webp"
                   alt="Factory machinery commissioning technician inspecting and calibrating industrial equipment"
@@ -101,7 +129,7 @@ export function SpotlightInstallation() {
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <div className="mt-4 flex flex-wrap sm:flex-nowrap items-center justify-around gap-2 text-xs font-semibold text-[#2D2D2D] pt-2">
+              <div className="mt-4 flex flex-wrap sm:flex-nowrap items-center justify-around gap-2 text-xs font-semibold text-neutral-800 pt-2 border-t border-neutral-100">
                 <span className="flex items-center gap-1">
                   <PackageCheck className="w-4 h-4 text-emerald-600" />
                   {dict.hero.cfrBadge}
@@ -113,36 +141,11 @@ export function SpotlightInstallation() {
                 </span>
                 <span className="text-neutral-300 hidden sm:inline">•</span>
                 <span className="flex items-center gap-1">
-                  <GraduationCap className="w-4 h-4 text-[#4A4A4A]" />
+                  <GraduationCap className="w-4 h-4 text-neutral-600" />
                   Staff Training
                 </span>
               </div>
             </motion.div>
-          </div>
-
-          {/* Right Checklist (3 cols) */}
-          <div className="lg:col-span-3 order-3">
-            <SlideIn direction="right" distance={20} duration={0.45}>
-              <div className="flex items-center lg:flex-row-reverse gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
-                <GraduationCap className="w-4 h-4 text-[#800020]" />
-                <span>Training & Support</span>
-              </div>
-              <StaggerContainer staggerDelay={0.08} className="flex flex-col gap-5">
-                {rightChecklist.map((item) => (
-                  <StaggerItem key={item.title}>
-                    <div className="border border-[#E5E5E5] rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200">
-                      <div className="flex items-center lg:flex-row-reverse gap-2 mb-1">
-                        <div className="w-5 h-5 rounded-full bg-white border border-[#E5E5E5] text-[#800020] flex items-center justify-center shrink-0">
-                          <Check className="w-3 h-3 text-[#800020]" />
-                        </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D] lg:text-right">{item.title}</h3>
-                      </div>
-                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7 lg:pl-0 lg:pr-7 lg:text-right">{item.description}</p>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </SlideIn>
           </div>
         </div>
 

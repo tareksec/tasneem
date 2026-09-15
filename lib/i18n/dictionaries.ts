@@ -281,7 +281,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     featured: {
       badge: "Featured Equipment",
-      title: "High-Demand Circular Knitting Models",
+      title: "High-Demand Industrial Textile Machinery",
       subtitle: "Reliable overseas machinery ready for factory specification and commercial procurement.",
       quoteBtn: "Request Quote",
       specsBtn: "View Full Specs",

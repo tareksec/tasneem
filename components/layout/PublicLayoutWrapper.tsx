@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { MobileGlassDock } from "@/components/layout/MobileGlassDock";
+import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { CustomerAuthProvider } from "@/lib/customer/customer-context";
 
 import { ScrollRestorationManager } from "@/components/layout/ScrollRestorationManager";
@@ -36,6 +37,7 @@ export function PublicLayoutWrapper({ children }: { children: React.ReactNode })
         <main className="flex-1 bg-white pb-20 md:pb-0">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <ScrollToTopButton />
         <MobileGlassDock />
       </CustomerAuthProvider>
     </ReactLenis>
