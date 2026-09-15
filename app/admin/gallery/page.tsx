@@ -37,7 +37,7 @@ import { Badge } from "@/components/admin/ui/badge";
 import { Switch } from "@/components/admin/ui/switch";
 import { Modal } from "@/components/admin/ui/modal";
 import { useToast } from "@/components/admin/ui/toast";
-import { optimizeImageToWebP, generateVideoThumbnail, parseYouTubeVideo } from "@/lib/admin/media-upload";
+import { optimizeImageToWebP, generateVideoThumbnail, parseYouTubeVideo, ensureYouTubeAutoplayUrl } from "@/lib/admin/media-upload";
 
 const CATEGORY_OPTIONS = [
   { value: "", label: "General / Uncategorized" },
@@ -1373,14 +1373,14 @@ export default function AdminGalleryPage() {
             {previewMedia?.type === "video" ? (
               previewMedia.file.includes("youtube") || previewMedia.file.includes("embed") ? (
                 <iframe
-                  src={previewMedia.file}
+                  src={ensureYouTubeAutoplayUrl(previewMedia.file)}
                   title={previewMedia.title_en}
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
               ) : (
-                <video src={previewMedia.file} controls autoPlay className="w-full h-full object-contain" />
+                <video src={previewMedia.file} controls autoPlay muted playsInline className="w-full h-full object-contain" />
               )
             ) : previewMedia?.file ? (
               <Image

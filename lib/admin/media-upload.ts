@@ -108,9 +108,38 @@ export function parseYouTubeVideo(url: string): {
     return {
       isYouTube: true,
       videoId,
-      embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0`,
       thumbnailUrl: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
     };
   }
   return { isYouTube: false, videoId: "", embedUrl: url, thumbnailUrl: "" };
 }
+
+/**
+ * Ensures any YouTube URL or embed URL has autoplay=1, mute=1, and playsinline=1
+ * so modern browsers do not block autoplay due to audio/interaction policies.
+ */
+export function ensureYouTubeAutoplayUrl(url: string): string {
+  if (!url) return "";
+  const parsed = parseYouTubeVideo(url);
+  if (parsed.isYouTube && parsed.videoId) {
+    return `https://www.youtube-nocookie.com/embed/${parsed.videoId}?autoplay=1&mute=1&playsinline=1&rel=0`;
+  }
+  if (url.includes("embed/")) {
+    try {
+      const parsedUrl = new URL(url);
+      parsedUrl.searchParams.set("autoplay", "1");
+      parsedUrl.searchParams.set("mute", "1");
+      parsedUrl.searchParams.set("playsinline", "1");
+      if (!parsedUrl.searchParams.has("rel")) {
+        parsedUrl.searchParams.set("rel", "0");
+      }
+      return parsedUrl.toString();
+    } catch {
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}autoplay=1&mute=1&playsinline=1`;
+    }
+  }
+  return url;
+}
+

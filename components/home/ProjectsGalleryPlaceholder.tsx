@@ -17,6 +17,7 @@ import { MotionSection } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { AdminStore } from "@/lib/admin/admin-store";
 import { GalleryItem } from "@/lib/types";
+import { ensureYouTubeAutoplayUrl } from "@/lib/admin/media-upload";
 
 export function ProjectsGalleryPlaceholder() {
   const { dict, locale } = useTranslation();
@@ -219,10 +220,10 @@ export function ProjectsGalleryPlaceholder() {
               {activeMedia.type === "video" ? (
                 activeMedia.file.includes("youtube") || activeMedia.file.includes("embed") ? (
                   <iframe
-                    src={activeMedia.file}
+                    src={ensureYouTubeAutoplayUrl(activeMedia.file)}
                     title={activeMedia.title_en}
                     className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   />
                 ) : (
@@ -230,6 +231,8 @@ export function ProjectsGalleryPlaceholder() {
                     src={activeMedia.file}
                     controls
                     autoPlay
+                    muted
+                    playsInline
                     className="w-full h-full object-contain"
                   />
                 )

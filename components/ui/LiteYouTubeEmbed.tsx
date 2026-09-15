@@ -9,6 +9,7 @@ interface LiteYouTubeEmbedProps {
   title: string;
   poster?: string;
   className?: string;
+  autoPlay?: boolean;
 }
 
 export function LiteYouTubeEmbed({
@@ -16,15 +17,16 @@ export function LiteYouTubeEmbed({
   title,
   poster,
   className = "",
+  autoPlay = true,
 }: LiteYouTubeEmbedProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const thumbnailUrl = poster || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
   if (isPlaying) {
     return (
       <div className={`relative w-full aspect-video rounded-2xl overflow-hidden bg-neutral-900 ${className}`}>
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1`}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

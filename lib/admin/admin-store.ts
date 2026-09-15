@@ -524,7 +524,7 @@ const INITIAL_GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "gallery-2",
     type: "video",
-    file: "https://www.youtube-nocookie.com/embed/ONTd4X4M-Vo?autoplay=1&rel=0",
+    file: "https://www.youtube-nocookie.com/embed/ONTd4X4M-Vo?autoplay=1&mute=1&playsinline=1&rel=0",
     thumbnail: "https://img.youtube.com/vi/ONTd4X4M-Vo/hqdefault.jpg",
     title_en: "Executive Introduction & Narayanganj Operational Hub Tour",
     title_bn: "প্রতিষ্ঠাতা পরিচিতি ও নারায়ণগঞ্জ হাব পরিদর্শন",
