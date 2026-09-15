@@ -256,7 +256,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       badge: "Direct Industrial Machinery Importer • Bangladesh Textile Sector",
       title: "Direct Overseas Sourcing for Industrial Circular Knitting Machines",
       subtitle:
-        "Connecting Bangladeshi garment and textile mill owners directly with overseas manufacturers. Factory-direct pricing, pre-shipment inspection, CFR Chattogram delivery, and local on-site commissioning.",
+        "Factory-direct pricing, certified pre-shipment inspection, CFR Chattogram delivery, and local commissioning.",
       primaryCta: "Request a Custom Machine Quote",
       whatsappCta: "Chat via WhatsApp",
       cfrBadge: "CFR Chattogram Sea Freight",
@@ -314,36 +314,36 @@ export const dictionaries: Record<Locale, Dictionary> = {
       badge: "Why Tasneem",
       title: "Built for High-Yield Bangladesh Knitwear Production",
       subtitle:
-        "We eliminate the middlemen and de-risk overseas machinery procurement with comprehensive commercial and engineering support.",
+        "Zero intermediary markups and end-to-end commercial and engineering support.",
       pillar1Title: "Direct Overseas Importer",
       pillar1Desc:
-        "Sourced straight from specialized Asian machinery manufacturers with no intermediaries, offering transparent factory pricing.",
+        "Direct manufacturer sourcing with transparent factory pricing and zero intermediary markups.",
       pillar2Title: "3rd-Party Pre-Shipment Inspection",
       pillar2Desc:
-        "Every machine is inspected for cylinder alignment, feeder accuracy, and mechanical tolerances by recognized international agencies.",
+        "Independent SGS or Intertek inspection ensures mechanical alignment before container loading.",
       pillar3Title: "CFR Chattogram Sea Delivery",
       pillar3Desc:
-        "Turnkey sea logistics directly to Chattogram port with full L/C coordination, bill of lading documentation, and customs clearance advice.",
+        "Containerized sea shipment to Chattogram Port with complete L/C and customs clearance support.",
       pillar4Title: "Local Installation & After-Sales",
       pillar4Desc:
-        "Experienced local technicians handle mechanical assembly, electrical setup, test knitting, operator training, and spare parts supply.",
+        "On-site mill assembly, test knitting, operator training, and local spare parts inventory.",
     },
     sourcing: {
       badge: "Transparent Sourcing",
       title: "3-Step Overseas Machinery Sourcing Workflow",
-      subtitle: "From factory specification to Chattogram port customs and on-site delivery.",
+      subtitle: "From technical specification to CFR Chattogram customs and on-site delivery.",
       step1Num: "01",
       step1Title: "Specification & Commercial Quotation",
       step1Desc:
-        "Define cylinder size, gauge, feeder ratio, and yarn parameters. Receive a formal CFR Chattogram proforma invoice with L/C terms.",
+        "Specify cylinder, gauge, and feeder parameters to receive a formal CFR Chattogram proforma invoice.",
       step2Num: "02",
       step2Title: "Factory Build & Pre-Shipment Audit",
       step2Desc:
-        "Machinery is built to order and undergoes pre-shipment quality audit and test knitting verification before sea packing.",
+        "Built-to-order machinery undergoes rigorous mechanical inspection and test knitting before sea packing.",
       step3Num: "03",
       step3Title: "CFR Chattogram Port Delivery & Setup",
       step3Desc:
-        "Delivered by sea to Chattogram. Our technical team assists with port clearing guidance and conducts on-site factory commissioning.",
+        "Containerized sea arrival at Chattogram Port with complete on-site mill commissioning.",
     },
     installation: {
       badge: "Engineering Support",
@@ -482,7 +482,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       badge: "সরাসরি ফ্যাক্টরি আমদানি • বাংলাদেশ টেক্সটাইল খাত",
       title: "বিশ্বসেরা প্রস্তুতকারক থেকে সরাসরি সার্কুলার নিটিং ও টেক্সটাইল মেশিনারি",
       subtitle:
-        "মাঝখানে কোনো মধ্যস্বত্বভোগী বা দালাল ছাড়া সরাসরি ফ্যাক্টরি মূল্যে আমদানি করুন। আমরা দিচ্ছি প্রি-শিপমেন্ট কোয়ালিটি ইন্সপেকশন, চট্টগ্রাম বন্দর পর্যন্ত নিরাপদ CFR শিপমেন্ট এবং আপনার কারখানায় এসে টেস্ট নিটিং সহ সরাসরি ইনস্টলেশন।",
+        "সরাসরি ফ্যাক্টরি মূল্যে আমদানি, প্রি-শিপমেন্ট কোয়ালিটি অডিট এবং কারখানায় ইনস্টলেশন সাপোর্ট।",
       primaryCta: "মেশিনের কোটেশন নিন",
       whatsappCta: "WhatsApp-এ আলোচনা করুন",
       cfrBadge: "CFR চট্টগ্রাম সমুদ্র শিপমেন্ট",
@@ -540,36 +540,36 @@ export const dictionaries: Record<Locale, Dictionary> = {
       badge: "কেন তাসনীম নিটিং ইন্ডাস্ট্রি?",
       title: "আপনার নিট কারখানার উৎপাদন ও মুনাফা বাড়াতে আমরা প্রতিজ্ঞাবদ্ধ",
       subtitle:
-        "কোনো মধ্যস্বত্বভোগী নেই, কোনো লুকানো খরচ নেই। সরাসরি ফ্যাক্টরি থেকে আমদানি, আন্তর্জাতিক কোয়ালিটি চেক এবং অভিজ্ঞ টেকনিশিয়ান দিয়ে কারখানায় মেশিন চালু করে দেওয়া পর্যন্ত সব দায়িত্ব আমাদের।",
+        "কোনো মধ্যস্বত্বভোগী নেই—সরাসরি ফ্যাক্টরি আমদানি, কোয়ালিটি অডিট এবং কারখানা পর্যন্ত সম্পূর্ণ সাপোর্ট।",
       pillar1Title: "সরাসরি ফ্যাক্টরি আমদানি",
       pillar1Desc:
-        "মাঝখানে কোনো থার্ড পার্টি বা কমিশন এজেন্ট নেই। সরাসরি বিশ্বের শীর্ষস্থানীয় মেশিন প্রস্তুতকারকদের কাছ থেকে জেনুইন ফ্যাক্টরি প্রাইসে আমদানি করুন।",
+        "কোনো মধ্যস্বত্বভোগী ছাড়া সরাসরি ফ্যাক্টরি মূল্যে আমদানি সুবিধা।",
       pillar2Title: "আন্তর্জাতিক Pre-shipment Inspection",
       pillar2Desc:
-        "মেশিন জাহাজে তোলার আগে SGS, Intertek বা Bureau Veritas দিয়ে Cylinder ব্যালেন্স, Feeder ও পার্টসের মান শতভাগ নিশ্চিত করা হয়।",
+        "জাহাজে তোলার আগে আন্তর্জাতিক SGS বা Intertek সংস্থার মাধ্যমে নিখুঁত কোয়ালিটি অডিট।",
       pillar3Title: "CFR চট্টগ্রাম নিরাপদ সমুদ্র শিপমেন্ট",
       pillar3Desc:
-        "সরাসরি আপনার নামে L/C ওপেনিং সাপোর্ট, দ্রুততম সময়ে বিল অফ লেডিং (B/L) এবং চট্টগ্রাম বন্দর খালাসের জন্য পূর্ণাঙ্গ কাস্টমস ডকুমেন্টেশন।",
+        "সরাসরি আপনার নামে L/C এবং চট্টগ্রাম বন্দর খালাসের পূর্ণাঙ্গ ডকুমেন্টেশন সাপোর্ট।",
       pillar4Title: "কারখানায় ইনস্টলেশন ও দক্ষ সাপোর্ট",
       pillar4Desc:
-        "আমাদের অভিজ্ঞ টেকনিক্যাল টিম আপনার ফ্যাক্টরিতে গিয়ে মেশিন অ্যাসেম্বলি, টেস্ট নিটিং, অপারেটরদের ট্রেনিং এবং আসল স্পেয়ার পার্টসের নিশ্চয়তা প্রদান করে।",
+        "কারখানায় সরাসরি মেশিন অ্যাসেম্বলি, টেস্ট নিটিং এবং দ্রুত স্পেয়ার পার্টস সাপোর্ট।",
     },
     sourcing: {
       badge: "সহজ ও স্বচ্ছ আমদানি প্রক্রিয়া",
       title: "৩টি সহজ ধাপে আপনার কারখানার মেশিন আমদানি",
-      subtitle: "মেশিনের স্পেসিফিকেশন চূড়ান্ত করা থেকে শুরু করে চট্টগ্রাম বন্দরে খালাস এবং আপনার কারখানায় প্রোডাকশন চালু করা পর্যন্ত সম্পূর্ণ সাপোর্ট।",
+      subtitle: "স্পেসিফিকেশন চূড়ান্ত করা থেকে চট্টগ্রাম বন্দর খালাস ও কারখানায় উৎপাদন চালু পর্যন্ত সম্পূর্ণ সাপোর্ট।",
       step1Num: "০১",
       step1Title: "মেশিনের স্পেসিফিকেশন ও ফ্যাক্টরি কোটেশন",
       step1Desc:
-        "আপনার কাপড়ের চাহিদা অনুযায়ী Cylinder, Gauge ও Feeder নির্বাচন করুন। আমরা সরাসরি প্রস্তুতকারকের মাধ্যমে L/C খোলার জন্য অফিশিয়াল CFR চট্টগ্রাম Proforma Invoice (PI) দেব।",
+        "কাপড়ের স্পেসিফিকেশন নির্বাচন করে সরাসরি L/C খোলার অফিসিয়াল CFR চট্টগ্রাম প্রফরমা ইনভয়েস গ্রহণ করুন।",
       step2Num: "০২",
       step2Title: "ফ্যাক্টরি প্রোডাকশন ও কোয়ালিটি ইন্সপেকশন",
       step2Desc:
-        "আপনার অর্ডার অনুযায়ী মেশিন তৈরির পর জাহাজে তোলার আগে টেস্ট নিটিং ও আন্তর্জাতিক সংস্থার মাধ্যমে কঠোর Pre-shipment Inspection সম্পন্ন করা হয়।",
+        "মেশিন তৈরির পর জাহাজে তোলার আগে আন্তর্জাতিক সংস্থার মাধ্যমে কঠোর কোয়ালিটি অডিট সম্পন্ন করা হয়।",
       step3Num: "০৩",
       step3Title: "চট্টগ্রাম বন্দরে ডেলিভারি ও কারখানায় চালু",
       step3Desc:
-        "সমুদ্রপথে কন্টেইনার আসার পর কাস্টমস ক্লিয়ারেন্স গাইডেন্স এবং সরাসরি আপনার ফ্লোরে নিয়ে অভিজ্ঞ মেকানিক দ্বারা মেশিনটি চালু করে দেওয়া হয়।",
+        "চট্টগ্রাম বন্দরে কন্টেইনার পৌঁছানোর পর কাস্টমস গাইডেন্স ও সরাসরি কারখানায় মেশিন চালু।",
     },
     installation: {
       badge: "টেকনিক্যাল সাপোর্ট ও সার্ভিস",

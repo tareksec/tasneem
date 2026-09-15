@@ -45,7 +45,7 @@ export function ProjectsGalleryPlaceholder() {
   }
 
   return (
-    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E5E5] text-[#2D2D2D]">
+    <section className="py-20 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5] text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
@@ -58,8 +58,8 @@ export function ProjectsGalleryPlaceholder() {
             </h2>
             <p className="mt-2 text-sm text-[#4A4A4A] max-w-xl">
               {locale === "bn"
-                ? "দেশের বিভিন্ন টেক্সটাইল ও গার্মেন্টস কারখানায় আমাদের সরবরাহ করা মেশিনের বাস্তব চিত্র। (ক্লায়েন্টের অনুমতি নিয়েই আমরা ছবি বা ভিডিও শেয়ার করি)।"
-                : "Real factory installations across Bangladesh textile hubs. (Strict policy: only verified photographs and client-authorized data are published)."}
+                ? "দেশের শীর্ষ টেক্সটাইল মিলগুলোতে আমাদের সরবরাহকৃত মেশিনের বাস্তব চিত্র।"
+                : "Verified industrial machinery installations operating in textile mills across Bangladesh."}
             </p>
           </div>
           <Link

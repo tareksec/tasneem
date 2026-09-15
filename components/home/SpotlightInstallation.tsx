@@ -9,7 +9,7 @@ import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 export function SpotlightInstallation() {
   const shouldReduceMotion = useReducedMotion();
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
 
   const leftChecklist = [
     {
@@ -21,8 +21,8 @@ export function SpotlightInstallation() {
       description: dict.installation.point2Desc,
     },
     {
-      title: "Precision Leveling & Calibration",
-      description: "Dial-cylinder runout calibration below 0.02mm for vibration-free high-RPM operation.",
+      title: locale === "bn" ? "নিখুঁত লেভেলিং ও ক্যালিব্রেশন" : "Precision Leveling & Calibration",
+      description: locale === "bn" ? "০.০২ মিমি-এর নিচে ডায়াল-সিলিন্ডার ক্যালিব্রেশন ও কম্পনমুক্ত হাই-আরপিএম অপারেশন।" : "Dial-cylinder runout calibration below 0.02mm for vibration-free high-RPM operation.",
     },
   ];
 
@@ -36,13 +36,13 @@ export function SpotlightInstallation() {
       description: dict.installation.point4Desc,
     },
     {
-      title: "Local Fast-Response Support",
-      description: "Dedicated maintenance technicians available across Narayanganj, Gazipur, and Chattogram.",
+      title: locale === "bn" ? "সার্বক্ষণিক টেকনিক্যাল সাপোর্ট" : "Local Fast-Response Support",
+      description: locale === "bn" ? "নারায়ণগঞ্জ, গাজীপুর ও চট্টগ্রামে প্রস্তুত সার্বক্ষণিক টেকনিশিয়ান টিম।" : "Dedicated maintenance technicians available across Narayanganj, Gazipur, and Chattogram.",
     },
   ];
 
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-white border-b border-[#E5E5E5] overflow-hidden text-[#2D2D2D]">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5] overflow-hidden text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">

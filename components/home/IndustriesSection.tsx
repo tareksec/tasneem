@@ -16,8 +16,8 @@ export function IndustriesSection() {
         ? "আন্তর্জাতিক ব্র্যান্ডের বাল্ক অর্ডারের জন্য হাই-স্পিড সার্কুলার মেশিনারি"
         : "High-productivity circular machines for global export apparel programs",
       description: locale === "bn"
-        ? "টি-শার্ট, পোলো শার্ট, ইনারওয়্যার ও অ্যাক্টিভওয়্যারের জন্য নিখুঁত GSM ও গেজ বজায় রাখতে আমাদের সিঙ্গেল ও ডাবল জার্সি মেশিনগুলো বিশ্বমানের কোয়ালিটি নিশ্চিত করে।"
-        : "High-gauge single and double jersey circular machines for high-volume export t-shirts, polo shirts, underwear, and activewear fabrics meeting international buyers' standards.",
+        ? "টি-শার্ট, পোলো শার্ট ও অ্যাক্টিভওয়্যারের আন্তর্জাতিক মান নিশ্চিতে উচ্চ-উৎপাদনশীল সার্কুলার মেশিনারি।"
+        : "High-gauge circular machinery engineered for high-volume export t-shirts, polo shirts, and activewear.",
       recommendedMachines: ["Single Jersey Circular", "Double Jersey Circular", "High-Speed Interlock"],
       targetFabrics: ["100% Cotton Jersey", "CVC / TC Pique", "Spandex Single Jersey", "1x1 & 2x2 Ribs"],
       bgClass: "bg-[#080D14] text-white",
@@ -36,8 +36,8 @@ export function IndustriesSection() {
         ? "বৃহৎ আকারের ভার্টিক্যাল নিটিং কারখানার জন্য হেভি-ডিউটি মেশিনারি"
         : "Heavy-duty machinery for large-scale vertical manufacturing operations",
       description: locale === "bn"
-        ? "নারায়ণগঞ্জ, গাজীপুর ও সাভারের কম্পোজিট কারখানার জন্য টেকসই ও কম ডাউনটাইমযুক্ত হেভি-ডিউটি মেশিন। সেন্ট্রাল লুব্রিকেশন ও নির্ভুল ফিডারযুক্ত পূর্ণাঙ্গ নিটিং লাইন।"
-        : "Continuous 24/7 industrial circular knitting lines engineered for integrated composite mills running yarn-to-finished-apparel operations in Narayanganj and Gazipur.",
+        ? "কম্পোজিট কারখানার জন্য সেন্ট্রাল লুব্রিকেশন ও নির্ভুল ফিডারযুক্ত পূর্ণাঙ্গ নিটিং লাইন।"
+        : "Heavy-duty 24/7 knitting lines engineered for vertical composite mills running yarn-to-garment operations.",
       recommendedMachines: ["Multi-Feeder Double Jersey", "High-RPM Single Jersey", "Universal Finishing Lines"],
       targetFabrics: ["Heavy Rib Knits", "Drop-Needle Jersey", "Structured Thermal Knitwear", "Collar Trims"],
       bgClass: "bg-[#F7F7F8] text-neutral-900 border-t border-neutral-300 shadow-[0_-30px_70px_rgba(0,0,0,0.14)]",
@@ -56,8 +56,8 @@ export function IndustriesSection() {
         ? "তোয়ালে ও শীতের ফ্লিসের জন্য নিখুঁত লুপ পাইল সার্কুলার মেশিনারি"
         : "Precision loop pile circular equipment for bath, towel, and winter fleece",
       description: locale === "bn"
-        ? "সুষম লুপ গঠন, নিখুঁত পাইল হাইট এবং আরামদায়ক কাপড়ের জন্য বিশেষায়িত সিঙ্কার ক্যামের টেরি ও শিয়ারিং মেশিনারি।"
-        : "Specialized high-pile terry circular machines for uniform loop heights, absorbent cotton towels, plush bathrobes, and French terry fleece fabrics.",
+        ? "তোয়ালে, বাথরোব ও উইন্টার ফ্লিসের সুষম লুপ গঠনে বিশেষায়িত সার্কুলার মেশিনারি।"
+        : "Specialized loop-pile circular machinery delivering uniform pile heights for towels, fleece, and bathrobes.",
       recommendedMachines: ["Single Terry Circular", "Double Terry Fleece Machine", "Rotary Shearing Lines"],
       targetFabrics: ["French Terry Fleece", "Loop Pile Toweling", "Polar Fleece Substrates", "Velour Fabrics"],
       bgClass: "bg-[#0B131E] text-white border-t border-white/15 shadow-[0_-30px_70px_rgba(0,0,0,0.3)]",
@@ -76,8 +76,8 @@ export function IndustriesSection() {
         ? "ফ্যাশন ও টেকনিক্যাল টেক্সটাইলের জন্য কম্পিউটারাইজড ইলেকট্রনিক জ্যাকার্ড"
         : "Computerized electronic pattern selection for fashion and athletic textiles",
       description: locale === "bn"
-        ? "জটিল মাল্টি-কালার ডিজাইন, অ্যাথলেটিক মেশ এবং ম্যাট্রেস টিকিংয়ের জন্য দ্রুত ডিজিটাল প্যাটার্ন পরিবর্তনের জ্যাকার্ড সার্কুলার মেশিন।"
-        : "Computerized electronic jacquard machines delivering complex patterned textures, multi-color fashion motifs, and elastic athletic mesh fabrics.",
+        ? "জটিল মাল্টি-কালার ডিজাইন ও টেকনিক্যাল টেক্সটাইলের জন্য ইলেকট্রনিক জ্যাকার্ড মেশিন।"
+        : "Computerized electronic jacquard machinery for rapid pattern changes and complex fashion knitwear.",
       recommendedMachines: ["Electronic Jacquard Circular", "Transfer Jacquard Machine", "Computerized Flat Knit"],
       targetFabrics: ["Fashion Jacquard Knitwear", "Mattress Ticking Fabric", "Athletic Jacquard Mesh", "Textured Ribs"],
       bgClass: "bg-white text-neutral-900 border-t border-neutral-300 shadow-[0_-35px_80px_rgba(0,0,0,0.18)]",

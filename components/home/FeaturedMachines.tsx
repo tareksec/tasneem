@@ -30,7 +30,7 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
   const featured = machines.slice(0, 4);
 
   return (
-    <section className="py-20 lg:py-24 bg-[#F9F9F9] border-b border-[#E5E5E5]">
+    <section className="py-20 sm:py-24 lg:py-28 bg-[#F9F9F9] border-b border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">

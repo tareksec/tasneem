@@ -19,7 +19,7 @@ export function HomeFaqSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-24 bg-white border-b border-[#E5E5E5]">
+    <section className="py-20 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-2xl mx-auto mb-12">

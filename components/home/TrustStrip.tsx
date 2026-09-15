@@ -49,7 +49,7 @@ export function TrustStrip() {
   };
 
   return (
-    <section className="bg-[#F9FAFB] border-b border-[#E5E7EB] py-6 sm:py-8">
+    <section className="bg-[#F9FAFB] border-b border-[#E5E7EB] py-8 sm:py-10 lg:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}

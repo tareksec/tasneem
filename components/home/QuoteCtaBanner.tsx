@@ -12,7 +12,7 @@ export function QuoteCtaBanner() {
   const { dict, locale } = useTranslation();
 
   return (
-    <section className="py-16 lg:py-24 bg-white border-t border-[#E5E5E5] overflow-hidden">
+    <section className="py-20 lg:py-28 bg-white border-t border-[#E5E5E5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}

@@ -62,7 +62,7 @@ export function ReviewsMarqueeSection({
   ];
 
   return (
-    <section className="w-full bg-[#FAFBFD] py-16 sm:py-20 border-t border-b border-[#E5E7EB] overflow-hidden select-none">
+    <section className="w-full bg-[#FAFBFD] py-20 sm:py-24 border-t border-b border-[#E5E7EB] overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
@@ -81,8 +81,8 @@ export function ReviewsMarqueeSection({
             </h2>
             <p className="mt-3 text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
               {locale === "bn"
-                ? "মেশিন আমদানি, চট্টগ্রাম বন্দর লজিস্টিকস এবং অন-সাইট কমিশনিং নিয়ে বিভিন্ন কারখানার বাস্তব রিভিউ।"
-                : "Real field experiences regarding CFR Chattogram imports, customs clearance, and turnkey factory commissioning."}
+                ? "আমদানি লজিস্টিকস ও কারখানায় অন-সাইট কমিশনিং নিয়ে গ্রাহকদের বাস্তব অভিজ্ঞতা।"
+                : "Verified factory testimonials on CFR Chattogram imports and turnkey mill commissioning."}
             </p>
           </div>
 

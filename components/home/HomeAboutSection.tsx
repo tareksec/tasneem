@@ -25,34 +25,34 @@ export function HomeAboutSection() {
       icon: Factory,
       title: isBn ? "সরাসরি প্রস্তুতকারক কারখানা" : "Direct Factory Sourcing",
       desc: isBn
-        ? "চীন ও তাইওয়ানের শীর্ষ কারখানা থেকে সরাসরি আমদানি, কোনো মধ্যস্বত্বভোগী ছাড়া।"
-        : "Direct import from verified builders in China & Taiwan with zero third-party markups.",
+        ? "কোনো মধ্যস্বত্বভোগী ছাড়া সরাসরি আন্তর্জাতিক প্রস্তুতকারক থেকে আমদানি।"
+        : "Direct import from verified builders with zero intermediary markups.",
     },
     {
       icon: Ship,
       title: isBn ? "সিএফআর চট্টগ্রাম পোর্ট" : "Turnkey CFR Sea Shipping",
       desc: isBn
-        ? "কনটেইনার বুকিং ও সিএফআর চট্টগ্রাম পোর্ট শিপমেন্টের সম্পূর্ণ ব্যবস্থাপনা।"
-        : "End-to-end ocean container freight logistics directly to Chattogram Port.",
+        ? "চট্টগ্রাম বন্দর পর্যন্ত কন্টেইনার সমুদ্র পরিবহন ও পূর্ণাঙ্গ কাস্টমস ডকুমেন্টেশন।"
+        : "End-to-end containerized sea shipping directly to Chattogram Port.",
     },
     {
       icon: Wrench,
       title: isBn ? "অন-সাইট ইনস্টলেশন সাপোর্ট" : "On-Site Mill Commissioning",
       desc: isBn
-        ? "দক্ষ টেকনিশিয়ান দ্বারা আপনার ফ্যাক্টরিতে মেশিন সেটিং ও ফ্যাব্রিক ট্রায়াল।"
-        : "Factory-floor machine leveling, feeder setup, and high-RPM fabric test run.",
+        ? "অভিজ্ঞ টেকনিশিয়ান দ্বারা কারখানায় মেশিন সেটিং ও টেস্ট নিটিং।"
+        : "Factory-floor machine leveling, calibration, and high-speed test knitting.",
     },
     {
       icon: ShieldCheck,
       title: isBn ? "১ বছরের ওয়ারেন্টি ও পার্টস" : "1-Year Warranty & Spare Parts",
       desc: isBn
-        ? "আন্তর্জাতিক প্রস্তুতকারক ওয়ারেন্টি ও বিসিক নারায়ণগঞ্জ থেকে দ্রুত স্পেয়ার পার্টস।"
-        : "International manufacturer warranty with local spares stock in Narayanganj.",
+        ? "আন্তর্জাতিক প্রস্তুতকারক ওয়ারেন্টি ও বিসিক নারায়ণগঞ্জ থেকে দ্রুত স্পেয়ার পার্টস।"
+        : "International OEM warranty backed by local spare parts in Narayanganj.",
     },
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-[#E5E5E5] overflow-hidden text-[#2D2D2D]">
+    <section className="py-20 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5] overflow-hidden text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="max-w-3xl mb-12 sm:mb-16">
@@ -70,8 +70,8 @@ export function HomeAboutSection() {
 
           <p className="mt-3 text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
             {isBn
-              ? "নারায়ণগঞ্জের তাসনীম নিট ইন্ডাস্ট্রি দেশের টেক্সটাইল ও রপ্তানিমুখী নিট মিলগুলোর জন্য কোনো মধ্যস্বত্বভোগী ছাড়াই সরাসরি প্রস্তুতকারক ফ্যাক্টরি থেকে বিশ্বমানের Circular Knitting, Dyeing, Shearing ও Finishing মেশিন সরবরাহ করে।"
-              : "Headquartered in BSCIC Narayanganj, Tasneem Knit Industry bridges Bangladesh's leading composite knit mills directly with international machinery builders, providing seamless sea delivery, precision factory commissioning, and dedicated after-sales service."}
+              ? "কোনো মধ্যস্বত্বভোগী ছাড়াই সরাসরি প্রস্তুতকারক ফ্যাক্টরি থেকে বিশ্বমানের সার্কুলার নিটিং মেশিন আমদানি ও অন-সাইট কমিশনিং।"
+              : "Connecting Bangladesh textile mills directly with international machinery builders for seamless import and local commissioning."}
           </p>
         </MotionSection>
 
