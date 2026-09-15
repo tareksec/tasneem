@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
@@ -95,6 +96,9 @@ export async function POST(request: Request) {
       });
     }
 
+    // Revalidate blog cache on creation/update across all language variants
+    revalidateBlogCache(post.slug_en, post.slug_bn);
+
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error("POST /api/admin/blog error:", error);
@@ -102,6 +106,24 @@ export async function POST(request: Request) {
       { success: false, error: error.message || "Failed to save blog post." },
       { status: 500 }
     );
+  }
+}
+
+export async function PUT(request: Request) {
+  return POST(request);
+}
+
+function revalidateBlogCache(slugEn?: string | null, slugBn?: string | null) {
+  revalidatePath("/blog");
+  revalidatePath("/en/blog");
+  revalidatePath("/bn/blog");
+  revalidatePath("/blog/[slug]", "page");
+
+  const slugs = [slugEn, slugBn].filter(Boolean) as string[];
+  for (const slug of slugs) {
+    revalidatePath(`/blog/${slug}`);
+    revalidatePath(`/en/blog/${slug}`);
+    revalidatePath(`/bn/blog/${slug}`);
   }
 }
 
@@ -117,9 +139,20 @@ export async function DELETE(request: Request) {
       );
     }
 
-    await prisma.blogPost.delete({
+    const existingPost = await prisma.blogPost.findUnique({
       where: { id },
     });
+
+    if (existingPost) {
+      await prisma.blogPost.delete({
+        where: { id },
+      });
+
+      // Revalidate cache after deletion across all language variants
+      revalidateBlogCache(existingPost.slug_en, existingPost.slug_bn);
+    } else {
+      revalidateBlogCache();
+    }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

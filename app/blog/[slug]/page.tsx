@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDbBlogPostBySlug, getDbBlogPosts } from "@/lib/db/blog";
-import { adminStore } from "@/lib/admin/admin-store";
 import { COMPANY_INFO } from "@/lib/constants";
 import { BlogPostClientView } from "@/components/blog/BlogPostClientView";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const posts = await getDbBlogPosts({ includeDrafts: false });
@@ -23,10 +25,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  let post = await getDbBlogPostBySlug(slug);
-  if (!post) {
-    post = adminStore.getBlogPostBySlug(slug) || adminStore.getBlogPostById(slug);
-  }
+  const post = await getDbBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -72,10 +71,7 @@ export default async function PublicBlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let post = await getDbBlogPostBySlug(slug);
-  if (!post) {
-    post = adminStore.getBlogPostBySlug(slug) || adminStore.getBlogPostById(slug);
-  }
+  const post = await getDbBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
