@@ -122,6 +122,16 @@ export function Footer() {
                     {locale === "bn" ? "ব্লগ ও প্রযুক্তি নিবন্ধ" : "Blog & Articles"}
                   </Link>
                 </li>
+                <li>
+                  <Link href="/reviews" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">
+                    {locale === "bn" ? "ক্রেতাদের মতামত ও রিভিউ" : "Buyer Reviews"}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy-policy" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5 text-[#800020] font-semibold">
+                    {locale === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -299,6 +309,10 @@ export function Footer() {
                 <p>
                   © {new Date().getFullYear()} {COMPANY_INFO.legalName}. {dict.footer.rightsReserved}
                 </p>
+                <span className="hidden sm:inline text-neutral-300">•</span>
+                <Link href="/privacy-policy" className="hover:text-[#800020] transition-colors underline">
+                  {locale === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
+                </Link>
                 <span className="hidden sm:inline text-neutral-300">•</span>
                 <p className="text-[11px] sm:text-xs text-neutral-500">
                   Developed by{" "}

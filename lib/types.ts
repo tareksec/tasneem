@@ -169,3 +169,17 @@ export interface CategoryInfo {
   subCategory?: CircularKnittingSubCategory;
 }
 
+export type ReviewStatus = "pending" | "approved" | "rejected";
+
+export interface Review {
+  id: string;
+  name: string;
+  company?: string | null;
+  rating: number;
+  message: string;
+  status: ReviewStatus;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+

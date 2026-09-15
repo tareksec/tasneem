@@ -16,6 +16,7 @@ import {
   X,
   Users,
   Home,
+  MessageSquareQuote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminAuth } from "@/lib/admin/auth-context";
@@ -93,6 +94,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   const { user, logout } = useAdminAuth();
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [pendingUsersCount, setPendingUsersCount] = useState(0);
+  const [pendingReviewsCount, setPendingReviewsCount] = useState(0);
 
   // Sync pending approval requests count for live badge
   useEffect(() => {
@@ -100,6 +102,8 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       try {
         const pending = AdminStore.getPendingCustomers();
         setPendingUsersCount(pending.length);
+        const pendingReviews = AdminStore.getPendingReviews();
+        setPendingReviewsCount(pendingReviews.length);
       } catch {
         // ignore
       }
@@ -138,6 +142,12 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       href: "/admin/users",
       icon: Users,
       badge: pendingUsersCount > 0 ? `${pendingUsersCount}` : undefined,
+    },
+    {
+      name: "Reviews",
+      href: "/admin/reviews",
+      icon: MessageSquareQuote,
+      badge: pendingReviewsCount > 0 ? `${pendingReviewsCount}` : undefined,
     },
     {
       name: "Blog",

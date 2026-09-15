@@ -14,6 +14,8 @@ import {
   RedirectRule,
   QuoteStatus,
   GalleryItem,
+  Review,
+  ReviewStatus,
 } from "@/lib/types";
 import { COMPANY_INFO } from "@/lib/constants";
 import { FAQ_ITEMS } from "@/lib/faq-data";
@@ -30,6 +32,7 @@ const STORAGE_KEY_QUOTES = "tasneem_admin_quotes";
 const STORAGE_KEY_CUSTOMERS = "tasneem_admin_customers";
 const STORAGE_KEY_REDIRECTS = "tasneem_admin_redirects";
 const STORAGE_KEY_GALLERY = "tasneem_admin_gallery_items";
+const STORAGE_KEY_REVIEWS = "tasneem_admin_reviews";
 
 
 // Initial Seed Data for Blog Posts
@@ -615,6 +618,51 @@ const INITIAL_GALLERY_ITEMS: GalleryItem[] = [
   },
 ];
 
+// Initial Seed Data for Customer Reviews & Testimonials
+// Note: All initial entries are explicitly marked as placeholders per project requirements
+const INITIAL_REVIEWS: Review[] = [
+  {
+    id: "rev-1",
+    name: "Engr. Tariqul Islam",
+    company: "Apex Textile Mills Ltd. [SAMPLE / FACTORY PARTNER PLACEHOLDER]",
+    rating: 5,
+    message: "[SAMPLE / FACTORY PARTNER PLACEHOLDER] We imported two Jiunn Long 34-inch double jersey circular knitting machines via Tasneem Knitting Industry under CFR Chattogram terms. Pre-shipment inspection and direct port clearance guidance were flawless.",
+    status: "approved",
+    createdAt: "2026-03-01T10:00:00.000Z",
+    updatedAt: "2026-03-01T10:00:00.000Z",
+  },
+  {
+    id: "rev-2",
+    name: "Mustafizur Rahman",
+    company: "Robin Knitwear Ltd., Fatullah [SAMPLE / FACTORY PARTNER PLACEHOLDER]",
+    rating: 5,
+    message: "[SAMPLE / FACTORY PARTNER PLACEHOLDER] Sourcing precision single jersey circular knitting machinery from Tasneem was straightforward. Their technician handled foundation leveling, cam adjustment, and test knitting at our factory.",
+    status: "approved",
+    createdAt: "2026-03-05T14:30:00.000Z",
+    updatedAt: "2026-03-05T14:30:00.000Z",
+  },
+  {
+    id: "rev-3",
+    name: "Md. Jahangir Alam",
+    company: "Epyllion Composite Mills, Gazipur [SAMPLE / FACTORY PARTNER PLACEHOLDER]",
+    rating: 5,
+    message: "[SAMPLE / FACTORY PARTNER PLACEHOLDER] Excellent communication regarding L/C terms and genuine spare parts availability (needles, sinkers, yarn feeders). Highly recommended industrial machinery partner in Bangladesh.",
+    status: "approved",
+    createdAt: "2026-03-10T09:15:00.000Z",
+    updatedAt: "2026-03-10T09:15:00.000Z",
+  },
+  {
+    id: "rev-4",
+    name: "Engr. M. A. Hasan",
+    company: "Standard Knitting Ltd. [SAMPLE / FACTORY PARTNER PLACEHOLDER]",
+    rating: 5,
+    message: "[SAMPLE / FACTORY PARTNER PLACEHOLDER] Requesting CFR Chattogram quote verification for 28G open-width circular knitting machines. Fast customer service and technical support.",
+    status: "pending",
+    createdAt: "2026-03-14T11:00:00.000Z",
+    updatedAt: "2026-03-14T11:00:00.000Z",
+  },
+];
+
 // Helper to safely access browser localStorage
 function isClient(): boolean {
   return typeof window !== "undefined";
@@ -1156,6 +1204,79 @@ export const AdminStore = {
     return true;
   },
 
+  // Customer Reviews / Testimonials
+  getReviews(): Review[] {
+    const reviews = getStoredItem<Review[]>(STORAGE_KEY_REVIEWS, INITIAL_REVIEWS);
+    return [...reviews].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  },
+
+  getApprovedReviews(): Review[] {
+    return this.getReviews().filter((r) => r.status === "approved");
+  },
+
+  getPendingReviews(): Review[] {
+    return this.getReviews().filter((r) => r.status === "pending");
+  },
+
+  getReviewById(id: string): Review | undefined {
+    return this.getReviews().find((r) => r.id === id);
+  },
+
+  addReview(review: {
+    name: string;
+    company?: string | null;
+    rating: number;
+    message: string;
+    status?: ReviewStatus;
+    id?: string;
+  }): Review {
+    const reviews = this.getReviews();
+    const now = new Date().toISOString();
+    const newReview: Review = {
+      id: review.id || `rev-${Date.now()}`,
+      name: review.name.trim(),
+      company: review.company ? review.company.trim() : null,
+      rating: Math.max(1, Math.min(5, Math.round(review.rating))),
+      message: review.message.trim(),
+      status: review.status || "pending",
+      createdAt: now,
+      updatedAt: now,
+    };
+    reviews.unshift(newReview);
+    setStoredItem(STORAGE_KEY_REVIEWS, reviews);
+    this.logActivity("create", "reviews", `New review submitted by ${newReview.name}`);
+    return newReview;
+  },
+
+  updateReviewStatus(id: string, status: ReviewStatus): Review | null {
+    const reviews = this.getReviews();
+    const index = reviews.findIndex((r) => r.id === id);
+    if (index < 0) return null;
+    const target = reviews[index];
+    target.status = status;
+    target.updatedAt = new Date().toISOString();
+    reviews[index] = target;
+    setStoredItem(STORAGE_KEY_REVIEWS, reviews);
+    this.logActivity(
+      status === "approved" ? "publish" : "update",
+      "reviews",
+      `Review ${id} (${target.name}) marked as ${status}`
+    );
+    return target;
+  },
+
+  deleteReview(id: string): boolean {
+    const reviews = this.getReviews();
+    const target = reviews.find((r) => r.id === id);
+    if (!target) return false;
+    const remaining = reviews.filter((r) => r.id !== id);
+    setStoredItem(STORAGE_KEY_REVIEWS, remaining);
+    this.logActivity("delete", "reviews", `Deleted review ${id} by ${target.name}`);
+    return true;
+  },
+
   // Reset to factory defaults for testing
   resetAll(): void {
     if (!isClient()) return;
@@ -1170,6 +1291,7 @@ export const AdminStore = {
     window.localStorage.removeItem(STORAGE_KEY_CUSTOMERS);
     window.localStorage.removeItem(STORAGE_KEY_REDIRECTS);
     window.localStorage.removeItem(STORAGE_KEY_GALLERY);
+    window.localStorage.removeItem(STORAGE_KEY_REVIEWS);
     window.dispatchEvent(new CustomEvent("tasneem-store-updated", { detail: { key: "all" } }));
   },
 };

@@ -10,10 +10,13 @@ import { IndustriesSection } from "@/components/home/IndustriesSection";
 import { ProjectsGalleryPlaceholder } from "@/components/home/ProjectsGalleryPlaceholder";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { QuoteCtaBanner } from "@/components/home/QuoteCtaBanner";
+import { ReviewsMarqueeSection } from "@/components/home/ReviewsMarqueeSection";
 import { getDbFeaturedMachines } from "@/lib/db/machines";
+import { getDbReviews } from "@/lib/db/reviews";
 
 export default async function HomePage() {
   const featuredMachines = await getDbFeaturedMachines(4);
+  const approvedReviews = await getDbReviews({ status: "approved" });
 
   return (
     <>
@@ -49,6 +52,9 @@ export default async function HomePage() {
 
       {/* 10. FAQ Accordion */}
       <HomeFaqSection />
+
+      {/* 10.1 Customer Reviews & Testimonials Slider */}
+      <ReviewsMarqueeSection initialReviews={approvedReviews} />
 
       {/* 11. Quote CTA Banner */}
       <QuoteCtaBanner />
