@@ -179,14 +179,20 @@ export function Header() {
                     })}
                   </div>
 
-                  <div className="mt-2 pt-2 border-t border-neutral-100 px-1">
+                  <div className="mt-2.5 pt-2 border-t border-neutral-200/80 px-1">
                     <Link
                       href="/machines"
                       onClick={() => setMachinesDropdownOpen(false)}
-                      className="flex items-center justify-between p-2 rounded-xl text-neutral-900 font-semibold hover:bg-neutral-50 transition-colors text-xs"
+                      className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-[#800020] to-[#5A0017] text-white font-bold hover:shadow-md hover:brightness-110 active:scale-[0.99] transition-all text-xs group/btn shadow-xs"
                     >
-                      <span>{locale === "bn" ? "সব মেশিন ক্যাটালগ দেখুন" : "View All Machine Models"}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                        <span className="font-bold">{locale === "bn" ? "সব মেশিন মডেল দেখুন" : "View All Machine Models"}</span>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-white/20 px-2 py-0.5 rounded-full text-white group-hover/btn:translate-x-0.5 transition-transform shrink-0">
+                        <span>{locale === "bn" ? "সকল ক্যাটালগ" : "All Models"}</span>
+                        <ArrowRight className="w-3 h-3 text-white" />
+                      </span>
                     </Link>
                   </div>
                 </motion.div>
@@ -194,6 +200,9 @@ export function Header() {
             </AnimatePresence>
           </div>
 
+          <Link href="/projects" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
+            {dict.nav.projects}
+          </Link>
           <Link href="/services" className="hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1">
             {dict.nav.services}
           </Link>
@@ -330,14 +339,25 @@ export function Header() {
                         <Link
                           href="/machines"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="min-h-[38px] flex items-center py-1.5 px-2 text-xs font-semibold text-neutral-900 border-t border-neutral-200/60 mt-1"
+                          className="min-h-[42px] flex items-center justify-between py-2 px-3 text-xs font-bold bg-gradient-to-r from-[#800020] to-[#5A0017] text-white rounded-xl shadow-xs mt-2 transition-all hover:brightness-110 active:scale-[0.99]"
                         >
-                          {locale === "bn" ? "সব মেশিন দেখুন →" : "View All Machines →"}
+                          <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span>{locale === "bn" ? "সব মেশিন মডেল দেখুন" : "View All Machine Models"}</span>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
                         </Link>
                       </div>
                     )}
                   </div>
 
+                  <Link
+                    href="/projects"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[44px] flex items-center py-2.5 px-3 rounded-xl hover:bg-neutral-50"
+                  >
+                    {dict.nav.projects}
+                  </Link>
                   <Link
                     href="/services"
                     onClick={() => setMobileMenuOpen(false)}
