@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getDbMachines } from "@/lib/db/machines";
+import { getDbCategories } from "@/lib/db/categories";
 import { MachinesCatalogClient } from "@/components/machines/MachinesCatalogClient";
 import { COMPANY_INFO } from "@/lib/constants";
 
@@ -25,7 +26,15 @@ export const metadata: Metadata = {
 };
 
 export default async function MachinesIndexPage() {
-  const initialMachines = await getDbMachines({ includeDrafts: false });
+  const [initialMachines, initialCategories] = await Promise.all([
+    getDbMachines({ includeDrafts: false }),
+    getDbCategories(),
+  ]);
 
-  return <MachinesCatalogClient initialMachines={initialMachines} />;
+  return (
+    <MachinesCatalogClient
+      initialMachines={initialMachines}
+      initialCategories={initialCategories}
+    />
+  );
 }

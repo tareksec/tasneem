@@ -1,42 +1,74 @@
 import prisma from "@/lib/prisma";
-import { CATEGORIES } from "@/lib/machines-data";
-import { MachineCategoryInfo } from "@/lib/types";
+import { CATEGORIES, MAIN_CATEGORIES } from "@/lib/machines-data";
+import { CategoryInfo, MachineCategoryInfo } from "@/lib/types";
 
-export async function getDbCategories(): Promise<MachineCategoryInfo[]> {
+export async function getDbCategories(): Promise<CategoryInfo[]> {
   try {
     const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
-    return [
-      ...CATEGORIES,
-      ...categories
-        .filter((category) => !CATEGORIES.some((legacy) => legacy.slug === category.slug))
-        .map((category) => ({
-          ...category,
-          name_bn: category.name_bn || undefined,
-          description: category.description || undefined,
-          description_bn: category.description_bn || undefined,
-          icon: category.icon || undefined,
-        })),
-    ];
+    const dynamicCategories: CategoryInfo[] = categories
+      .filter((category) => !CATEGORIES.some((legacy) => legacy.slug === category.slug))
+      .map((category) => ({
+        slug: category.slug as any,
+        name: category.name,
+        name_bn: category.name_bn || category.name,
+        tagline: category.description || `${category.name} machinery for industrial production`,
+        tagline_bn: category.description_bn || `${category.name_bn || category.name} মেশিনারি`,
+        description: category.description || "",
+        description_bn: category.description_bn || category.description || "",
+        typicalGauge: "Universal",
+        commonApplications: [category.name],
+        isTopLevel: true,
+      }));
+    return [...CATEGORIES, ...dynamicCategories];
   } catch {
-    return CATEGORIES as MachineCategoryInfo[];
+    return CATEGORIES;
   }
 }
 
-export async function getDbCategoryBySlug(slug: string): Promise<MachineCategoryInfo | undefined> {
+export async function getDbMainCategories(): Promise<CategoryInfo[]> {
+  try {
+    const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
+    const dynamicCategories: CategoryInfo[] = categories
+      .filter((category) => !CATEGORIES.some((legacy) => legacy.slug === category.slug))
+      .map((category) => ({
+        slug: category.slug as any,
+        name: category.name,
+        name_bn: category.name_bn || category.name,
+        tagline: category.description || `${category.name} machinery for industrial production`,
+        tagline_bn: category.description_bn || `${category.name_bn || category.name} মেশিনারি`,
+        description: category.description || "",
+        description_bn: category.description_bn || category.description || "",
+        typicalGauge: "Universal",
+        commonApplications: [category.name],
+        isTopLevel: true,
+      }));
+    return [...MAIN_CATEGORIES, ...dynamicCategories];
+  } catch {
+    return MAIN_CATEGORIES;
+  }
+}
+
+export async function getDbCategoryBySlug(slug: string): Promise<CategoryInfo | undefined> {
   const legacy = CATEGORIES.find((category) => category.slug === slug);
-  if (legacy) return legacy as MachineCategoryInfo;
+  if (legacy) return legacy;
   try {
     const category = await prisma.category.findUnique({ where: { slug } });
     return category
       ? {
-          ...category,
-          name_bn: category.name_bn || undefined,
-          description: category.description || undefined,
+          slug: category.slug as any,
+          name: category.name,
+          name_bn: category.name_bn || category.name,
+          tagline: category.description || `${category.name} machinery for industrial production`,
+          tagline_bn: category.description_bn || undefined,
+          description: category.description || "",
           description_bn: category.description_bn || undefined,
-          icon: category.icon || undefined,
+          typicalGauge: "Universal",
+          commonApplications: [category.name],
+          isTopLevel: true,
         }
       : undefined;
   } catch {
     return undefined;
   }
 }
+

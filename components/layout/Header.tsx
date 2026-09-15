@@ -54,7 +54,7 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const machineCategories = [
+  const defaultMachineCategories = [
     {
       slug: "circular-knitting",
       name: locale === "bn" ? "সার্কুলার নিটিং মেশিন" : "Circular Knitting Machines",
@@ -86,6 +86,32 @@ export function Header() {
       icon: Sparkles,
     },
   ];
+
+  const [machineCategories, setMachineCategories] = useState(defaultMachineCategories);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.mainCategories && Array.isArray(data.mainCategories)) {
+          const iconMap: Record<string, any> = {
+            "circular-knitting": Cpu,
+            dyeing: Layers,
+            shearing: Sliders,
+            finishing: Box,
+            other: Sparkles,
+          };
+          const mapped = data.mainCategories.map((c: any) => ({
+            slug: c.slug,
+            name: locale === "bn" && c.name_bn ? c.name_bn : c.name,
+            desc: locale === "bn" && c.tagline_bn ? c.tagline_bn : (c.tagline || c.description || "Machinery for textile production"),
+            icon: iconMap[c.slug] || Cpu,
+          }));
+          setMachineCategories(mapped);
+        }
+      })
+      .catch(() => {});
+  }, [locale]);
 
   return (
     <motion.header

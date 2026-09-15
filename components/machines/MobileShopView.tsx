@@ -30,6 +30,7 @@ import { Machine } from "@/lib/types";
 
 interface MobileShopViewProps {
   machines: Machine[];
+  categories?: any[];
   selectedCategory: string;
   onSelectCategory: (cat: string) => void;
   searchQuery: string;
@@ -55,8 +56,20 @@ const CATEGORY_PILLS: CategoryPill[] = [
   { slug: "finishing", name: "Finishing", name_bn: "ফিনিশিং", icon: Sparkles },
 ];
 
+const DEFAULT_ICON_MAP: Record<string, LucideIcon> = {
+  all: Layers,
+  "circular-knitting": RotateCcw,
+  "double-jersey": Copy,
+  "single-jersey": Activity,
+  interlock: Grid2X2,
+  dyeing: Droplets,
+  shearing: Scissors,
+  finishing: Sparkles,
+};
+
 export function MobileShopView({
   machines,
+  categories,
   selectedCategory,
   onSelectCategory,
   searchQuery,
@@ -68,6 +81,24 @@ export function MobileShopView({
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [detailsMachine, setDetailsMachine] = useState<Machine | null>(null);
+
+  const categoryPills = useMemo<CategoryPill[]>(() => {
+    if (!categories || categories.length === 0) {
+      return CATEGORY_PILLS;
+    }
+    const pills: CategoryPill[] = [
+      { slug: "all", name: "All", name_bn: "সব", icon: Layers },
+    ];
+    for (const cat of categories) {
+      pills.push({
+        slug: cat.slug,
+        name: cat.name,
+        name_bn: cat.name_bn || cat.name,
+        icon: DEFAULT_ICON_MAP[cat.slug] || Layers,
+      });
+    }
+    return pills;
+  }, [categories]);
 
   // Details modal states
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
@@ -262,7 +293,7 @@ export function MobileShopView({
 
         {/* Horizontal Scrolling Category Pills */}
         <div className="flex items-center gap-2 overflow-x-auto px-4 pb-2 scrollbar-none">
-          {CATEGORY_PILLS.map((pill) => {
+          {categoryPills.map((pill) => {
             const isSelected = selectedCategory === pill.slug;
             const IconComponent = pill.icon;
 
@@ -678,7 +709,7 @@ export function MobileShopView({
             </div>
 
             <div className="grid grid-cols-2 gap-2.5 pt-1">
-              {CATEGORY_PILLS.map((pill) => {
+              {categoryPills.map((pill) => {
                 const isSelected = selectedCategory === pill.slug;
                 const IconComponent = pill.icon;
                 return (

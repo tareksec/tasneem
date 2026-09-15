@@ -6,45 +6,77 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Layers } from "lucide-react";
 import { MAIN_CATEGORIES } from "@/lib/machines-data";
+import { CategoryInfo } from "@/lib/types";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
-export function CategoriesSection() {
+const getCategoryImageUrl = (slug: string) => {
+  if (slug === "circular-knitting") return "/images/machines/cat-circular-knitting.webp";
+  if (["dyeing", "shearing", "finishing", "other"].includes(slug)) {
+    return `/images/machines/cat-${slug}.webp`;
+  }
+  return "/images/machines/cat-circular-knitting.webp";
+};
+
+interface CategoriesSectionProps {
+  initialCategories?: CategoryInfo[];
+}
+
+export function CategoriesSection({ initialCategories }: CategoriesSectionProps = {}) {
   const { dict, locale } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const [categories, setCategories] = useState<CategoryInfo[]>(initialCategories || MAIN_CATEGORIES);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+
+  useEffect(() => {
+    if (initialCategories && initialCategories.length > 0) {
+      setCategories(initialCategories);
+      return;
+    }
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.mainCategories && Array.isArray(data.mainCategories)) {
+          setCategories(data.mainCategories);
+        }
+      })
+      .catch(() => {});
+  }, [initialCategories]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Smooth horizontal translation across the 5 categories
-  // 5 cards: 0% to -66% moves all cards into view
+  // Calculate dynamic shift percentage based on category count
+  const shiftPercentage = categories.length <= 1
+    ? 0
+    : Math.max(0, Math.min(85, Math.round(((categories.length - 1.5) / categories.length) * 100)));
+
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", shouldReduceMotion ? "0%" : "-66%"]
+    ["0%", shouldReduceMotion ? "0%" : `-${shiftPercentage}%`]
   );
 
   // Listen to scroll progress to update active category tab
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
       const index = Math.min(
-        MAIN_CATEGORIES.length - 1,
-        Math.max(0, Math.floor(latest * MAIN_CATEGORIES.length))
+        categories.length - 1,
+        Math.max(0, Math.floor(latest * categories.length))
       );
       setActiveCategoryIndex(index);
     });
     return () => unsubscribe();
-  }, [scrollYProgress]);
+  }, [scrollYProgress, categories.length]);
 
   // Click tab to scroll to that category segment
   const scrollToCategory = (index: number) => {
     if (!containerRef.current) return;
     const containerTop = containerRef.current.offsetTop;
     const containerHeight = containerRef.current.offsetHeight - window.innerHeight;
-    const targetScroll = containerTop + (index / (MAIN_CATEGORIES.length - 1)) * containerHeight;
+    const targetScroll = containerTop + (index / Math.max(1, categories.length - 1)) * containerHeight;
     window.scrollTo({
       top: targetScroll,
       behavior: "smooth",
@@ -62,7 +94,7 @@ export function CategoriesSection() {
               <span>{locale === "bn" ? "মেশিনারি ক্যাটালগ" : dict.categories.badge}</span>
               <span> • </span>
               <span>
-                {locale === "bn" ? "৫টি মূল ক্যাটাগরি" : "5 Primary Categories"}
+                {locale === "bn" ? `${categories.length}টি মূল ক্যাটাগরি` : `${categories.length} Primary Categories`}
               </span>
             </div>
             <h2 className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-base sm:text-3xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
@@ -77,7 +109,7 @@ export function CategoriesSection() {
 
           {/* Category shortcuts */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none -mx-1 px-1 pb-1">
-            {MAIN_CATEGORIES.map((category) => {
+            {categories.map((category) => {
               const categoryName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
               return (
                 <Link
@@ -96,7 +128,7 @@ export function CategoriesSection() {
 
           {/* Cards Grid: compact two-column product-style cards */}
           <div className="grid grid-cols-2 gap-3">
-            {MAIN_CATEGORIES.map((category, index) => {
+            {categories.map((category, index) => {
               const isCircular = category.slug === "circular-knitting";
               const catName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
               const catTagline = locale === "bn" && category.tagline_bn ? category.tagline_bn : category.tagline;
@@ -109,11 +141,7 @@ export function CategoriesSection() {
                 >
                   <div className="relative aspect-square overflow-hidden rounded-xl bg-[#F8F9FA]">
                     <Image
-                      src={
-                        category.slug === "circular-knitting"
-                          ? "/images/machines/cat-circular-knitting.webp"
-                          : `/images/machines/cat-${category.slug}.webp`
-                      }
+                      src={getCategoryImageUrl(category.slug)}
                       alt={catName}
                       fill
                       sizes="(max-width: 640px) 50vw, 25vw"
@@ -165,7 +193,7 @@ export function CategoriesSection() {
                 <span>{locale === "bn" ? "মেশিনারি ক্যাটালগ" : dict.categories.badge}</span>
                 <span> • </span>
                 <span>
-                  {locale === "bn" ? "৫টি মূল ক্যাটাগরি" : "5 Primary Categories"}
+                  {locale === "bn" ? `${categories.length}টি মূল ক্যাটাগরি` : `${categories.length} Primary Categories`}
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
@@ -186,7 +214,7 @@ export function CategoriesSection() {
 
           {/* Interactive Category Tab Navigation Bar */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar">
-            {MAIN_CATEGORIES.map((category, idx) => {
+            {categories.map((category, idx) => {
               const isActive = activeCategoryIndex === idx;
               const catName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
 
@@ -208,7 +236,7 @@ export function CategoriesSection() {
                     />
                   )}
                   <span className={`relative z-10 text-[10px] font-mono ${isActive ? "text-rose-100 font-bold" : "text-neutral-400"}`}>
-                    0{idx + 1}
+                    {String(idx + 1).padStart(2, "0")}
                   </span>
                   <span className="relative z-10">{catName}</span>
                 </button>
@@ -223,7 +251,7 @@ export function CategoriesSection() {
             style={{ x }}
             className="flex gap-6 sm:gap-8 items-center pl-4 sm:pl-8 lg:pl-16 pr-12 sm:pr-20 will-change-transform"
           >
-            {MAIN_CATEGORIES.map((category, index) => {
+            {categories.map((category, index) => {
               const isCircular = category.slug === "circular-knitting";
               const catName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
               const catTagline = locale === "bn" && category.tagline_bn ? category.tagline_bn : category.tagline;
@@ -236,11 +264,7 @@ export function CategoriesSection() {
                 >
                   {/* 1. Full-bleed background image */}
                   <Image
-                    src={
-                      category.slug === "circular-knitting"
-                        ? "/images/machines/cat-circular-knitting.webp"
-                        : `/images/machines/cat-${category.slug}.webp`
-                    }
+                    src={getCategoryImageUrl(category.slug)}
                     alt={catName}
                     fill
                     sizes="(max-width: 640px) 85vw, 420px"
@@ -252,7 +276,7 @@ export function CategoriesSection() {
                   <div className="relative z-10 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
                       <span className="bg-white/85 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-xs font-mono font-bold px-3 py-1 rounded-full shadow-2xs">
-                        0{index + 1} / 05
+                        {String(index + 1).padStart(2, "0")} / {String(categories.length).padStart(2, "0")}
                       </span>
                       {isCircular && (
                         <span className="inline-flex items-center gap-1.5 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-xs font-bold px-3 py-1 rounded-full shadow-2xs">
@@ -271,7 +295,7 @@ export function CategoriesSection() {
                   <div className="relative z-10 mt-auto flex flex-col">
                     {/* Carousel Dash/Dot Indicators */}
                     <div className="flex items-center gap-1.5 mb-3.5">
-                      {MAIN_CATEGORIES.map((_, i) => (
+                      {categories.map((_, i) => (
                         <span
                           key={i}
                           className={`h-1 rounded-full transition-all duration-300 ${
@@ -303,7 +327,7 @@ export function CategoriesSection() {
                           ? (locale === "bn" ? "টপ চয়েস" : "Top Pick")
                           : (locale === "bn" ? "সরাসরি আমদানি" : "Direct Import")}
                       </span>
-                      {category.commonApplications.slice(0, 2).map((app) => (
+                      {(category.commonApplications || []).slice(0, 2).map((app) => (
                         <span
                           key={app}
                           className="bg-neutral-100 hover:bg-neutral-200/70 border border-neutral-200/90 text-neutral-700 text-xs font-medium px-3 py-1 rounded-full transition-colors"

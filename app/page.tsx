@@ -15,6 +15,7 @@ import type { Metadata } from "next";
 import { COMPANY_INFO } from "@/lib/constants";
 import { getDbFeaturedMachines } from "@/lib/db/machines";
 import { getDbReviews } from "@/lib/db/reviews";
+import { getDbMainCategories } from "@/lib/db/categories";
 
 export const metadata: Metadata = {
   title: "Tasneem Knitting Industry | Industrial Circular Knitting Machine Importer Bangladesh",
@@ -31,8 +32,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const featuredMachines = await getDbFeaturedMachines(4);
-  const approvedReviews = await getDbReviews({ status: "approved" });
+  const [featuredMachines, approvedReviews, mainCategories] = await Promise.all([
+    getDbFeaturedMachines(4),
+    getDbReviews({ status: "approved" }),
+    getDbMainCategories(),
+  ]);
 
   return (
     <>
@@ -46,7 +50,7 @@ export default async function HomePage() {
       <InfinityBandScroll />
 
       {/* 3. Machine Categories */}
-      <CategoriesSection />
+      <CategoriesSection initialCategories={mainCategories} />
 
       {/* 4. Featured Machines */}
       <FeaturedMachines initialMachines={featuredMachines} />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, MapPin, Mail, ShieldCheck, ArrowUpRight, MessageCircle } from "lucide-react";
@@ -8,8 +9,34 @@ import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { OfficeMap } from "@/components/ui/OfficeMap";
 
+const defaultFooterCategories = [
+  { slug: "circular-knitting", name: "Circular Knitting Machines", name_bn: "সার্কুলার নিটিং মেশিন" },
+  { slug: "dyeing", name: "Eco Dyeing Machines", name_bn: "ডাইং মেশিনারি" },
+  { slug: "shearing", name: "Shearing Machines", name_bn: "শিয়ারিং মেশিনারি" },
+  { slug: "finishing", name: "Stenter & Finishing", name_bn: "ফিনিশিং মেশিনারি" },
+  { slug: "other", name: "Fabric Slitting & Specialty", name_bn: "অন্যান্য গার্মেন্টস ও টেক্সটাইল মেশিন" },
+];
+
 export function Footer() {
   const { dict, locale } = useTranslation();
+  const [categories, setCategories] = useState(defaultFooterCategories);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.mainCategories && Array.isArray(data.mainCategories)) {
+          setCategories(
+            data.mainCategories.map((c: any) => ({
+              slug: c.slug,
+              name: c.name,
+              name_bn: c.name_bn || c.name,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <footer className="bg-[#2D2D2D] text-neutral-900 px-2.5 sm:px-6 lg:px-10 pt-8 sm:pt-14 pb-6 sm:pb-8 mt-auto">
@@ -141,46 +168,18 @@ export function Footer() {
                 {dict.footer.machineCategoriesTitle}
               </h3>
               <ul className="flex flex-col gap-2.5 text-xs sm:text-sm text-neutral-600 font-medium">
-                <li>
-                  <Link
-                    href="/machines/circular-knitting"
-                    className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5 text-neutral-900 font-semibold"
-                  >
-                    {locale === "bn" ? "সার্কুলার নিটিং মেশিন" : "Circular Knitting Machines"}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/machines/dyeing"
-                    className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5"
-                  >
-                    {locale === "bn" ? "ডাইং মেশিনারি" : "Eco Dyeing Machines"}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/machines/shearing"
-                    className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5"
-                  >
-                    {locale === "bn" ? "শিয়ারিং মেশিনারি" : "Shearing Machines"}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/machines/finishing"
-                    className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5"
-                  >
-                    {locale === "bn" ? "ফিনিশিং মেশিনারি" : "Stenter & Finishing"}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/machines/other"
-                    className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5"
-                  >
-                    {locale === "bn" ? "অন্যান্য গার্মেন্টস ও টেক্সটাইল মেশিন" : "Fabric Slitting & Specialty"}
-                  </Link>
-                </li>
+                {categories.map((c, idx) => (
+                  <li key={c.slug}>
+                    <Link
+                      href={`/machines/${c.slug}`}
+                      className={`hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5 ${
+                        idx === 0 ? "text-neutral-900 font-semibold" : ""
+                      }`}
+                    >
+                      {locale === "bn" ? c.name_bn : c.name}
+                    </Link>
+                  </li>
+                ))}
                 <li className="pt-1">
                   <Link
                     href="/quote"

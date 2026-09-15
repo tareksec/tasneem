@@ -151,7 +151,7 @@ export default async function CategoryPage({
               Common Industrial Applications in Bangladesh
             </span>
             <div className="flex flex-wrap gap-2">
-              {(catInfo.commonApplications || []).map((app) => (
+              {(catInfo.commonApplications || []).map((app: string) => (
                 <span
                   key={app}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-medium text-[#2D2D2D]"

@@ -29,6 +29,7 @@ import { useToast } from "@/components/admin/ui/toast";
 export default function AdminProductsListPage() {
   const { showToast } = useToast();
   const [machines, setMachines] = useState<Machine[]>([]);
+  const [categories, setCategories] = useState(CATEGORIES);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -43,6 +44,14 @@ export default function AdminProductsListPage() {
     loadData();
     const handleUpdate = () => loadData();
     window.addEventListener("tasneem-store-updated", handleUpdate);
+    fetch("/api/admin/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.categories && Array.isArray(data.categories)) {
+          setCategories(data.categories);
+        }
+      })
+      .catch(() => {});
     return () => window.removeEventListener("tasneem-store-updated", handleUpdate);
   }, []);
 
@@ -221,8 +230,8 @@ export default function AdminProductsListPage() {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#800020]"
           >
-            <option value="all">All Categories ({CATEGORIES.length})</option>
-            {CATEGORIES.map((c) => (
+            <option value="all">All Categories ({categories.length})</option>
+            {categories.map((c) => (
               <option key={c.slug} value={c.slug}>
                 {c.name}
               </option>
@@ -275,7 +284,7 @@ export default function AdminProductsListPage() {
               className="py-1.5 px-2.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none cursor-pointer"
             >
               <option value="">Reassign Category...</option>
-              {CATEGORIES.map((c) => (
+              {categories.map((c) => (
                 <option key={c.slug} value={c.slug}>
                   {c.name}
                 </option>

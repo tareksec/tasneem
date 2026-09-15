@@ -1,51 +1,64 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { getCategoryInfo } from "@/lib/machines-data";
 import { getDbMachines } from "@/lib/db/machines";
-import { MachineCard } from "@/components/machines/MachineCard";
-import { MachineCategory } from "@/lib/types";
+import { MachineCategory, MainCategory } from "@/lib/types";
+import { RelatedMachinesClient } from "@/components/machines/RelatedMachinesClient";
 
 interface RelatedMachinesProps {
   currentMachineId: string;
   category: MachineCategory;
+  mainCategory?: MainCategory;
 }
 
-export async function RelatedMachines({ currentMachineId, category }: RelatedMachinesProps) {
+export async function RelatedMachines({
+  currentMachineId,
+  category,
+  mainCategory,
+}: RelatedMachinesProps) {
   const categoryInfo = getCategoryInfo(category);
-  const allInCategory = await getDbMachines({ category });
-  const related = allInCategory.filter((m) => m.id !== currentMachineId).slice(0, 4);
 
-  if (related.length === 0) return null;
+  // Tier 1: Exact category match
+  const sameCategoryMachines = await getDbMachines({ category, includeDrafts: false });
+  let related = sameCategoryMachines.filter((m) => m.id !== currentMachineId);
+
+  // Tier 2: If fewer than 4, expand to the same overall collection/mainCategory
+  if (related.length < 4) {
+    const isCircular =
+      mainCategory === "circular-knitting" ||
+      ["double-jersey", "single-jersey", "interlock", "jacquard", "terry"].includes(category);
+
+    const collectionCategory = isCircular ? "circular-knitting" : (mainCategory || category);
+    const collectionMachines = await getDbMachines({
+      category: collectionCategory,
+      includeDrafts: false,
+    });
+
+    const additional = collectionMachines.filter(
+      (m) => m.id !== currentMachineId && !related.some((r) => r.id === m.id)
+    );
+    related = [...related, ...additional];
+  }
+
+  // Tier 3: If still fewer than 4 (e.g. niche single-model categories), fill with catalog machines
+  if (related.length < 4) {
+    const allPublished = await getDbMachines({ includeDrafts: false });
+    const fallback = allPublished.filter(
+      (m) => m.id !== currentMachineId && !related.some((r) => r.id === m.id)
+    );
+    related = [...related, ...fallback];
+  }
+
+  const finalRelated = related.slice(0, 4);
+
+  if (finalRelated.length === 0) return null;
 
   return (
-    <section className="mt-16 pt-12 border-t border-[#E5E5E5]">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <div>
-          <span className="sr-only">
-            Similar Specifications
-          </span>
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2D2D2D]">
-            Related {categoryInfo?.name || "Machinery"} Models
-          </h2>
-          <p className="text-xs text-[#4A4A4A] mt-0.5">
-            Compare alternative cylinder diameters and feeder configurations in the same category.
-          </p>
-        </div>
-
-        <Link
-          href={`/machines/${category}`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#800020] hover:underline shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-sm"
-        >
-          <span>View all {categoryInfo?.name} models ({allInCategory.length})</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {related.map((machine) => (
-          <MachineCard key={machine.id} machine={machine} />
-        ))}
-      </div>
-    </section>
+    <RelatedMachinesClient
+      related={finalRelated}
+      category={category}
+      categoryName={categoryInfo?.name || "Machinery"}
+      categoryNameBn={categoryInfo?.name_bn}
+      totalCategoryCount={sameCategoryMachines.length}
+    />
   );
 }
+

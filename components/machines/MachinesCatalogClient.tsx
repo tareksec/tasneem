@@ -23,16 +23,18 @@ import { CATEGORIES, MAIN_CATEGORIES, CIRCULAR_SUB_CATEGORIES } from "@/lib/mach
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { Machine } from "@/lib/types";
+import { Machine, CategoryInfo } from "@/lib/types";
 import { MobileShopView } from "@/components/machines/MobileShopView";
 
 interface MachinesCatalogClientProps {
   initialMachines: Machine[];
+  initialCategories?: CategoryInfo[];
 }
 
-export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClientProps) {
+export function MachinesCatalogClient({ initialMachines, initialCategories }: MachinesCatalogClientProps) {
   const { t, locale } = useTranslation();
   const [machines, setMachines] = useState<Machine[]>(initialMachines);
+  const [allCategories, setAllCategories] = useState<CategoryInfo[]>(initialCategories || CATEGORIES);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("all");
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
@@ -44,6 +46,10 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const machinesGridRef = useRef<HTMLDivElement>(null);
+
+  const mainCategoriesList = useMemo(() => {
+    return allCategories.filter((c) => c.isTopLevel !== false);
+  }, [allCategories]);
 
   const scrollToResults = () => {
     if (machinesGridRef.current) {
@@ -63,6 +69,15 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
       .catch(() => {
         // Fallback to initialMachines already hydrated
       });
+
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.categories) && data.categories.length > 0) {
+          setAllCategories(data.categories);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   // Direct handler methods resetting pagination on user filter action
@@ -261,6 +276,7 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
       {/* Mobile-Only Explore / Shop View (Exact Design from Reference Mockup) */}
       <MobileShopView
         machines={filteredMachines}
+        categories={allCategories}
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategoryChange}
         searchQuery={searchQuery}
@@ -373,7 +389,7 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
         {/* Primary Controls: Floating Card with Category Tabs, Subtypes, Search & Filter Bar */}
         <div className="bg-white border border-slate-200/90 rounded-2xl lg:rounded-3xl p-4 sm:p-6 mb-8 shadow-md shadow-slate-200/40 flex flex-col gap-4">
           {/* Row 1: Top-Level Category Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+          <div className="flex flex-wrap items-center gap-2 pb-1">
             {/* All Categories Button */}
             <button
               onClick={() => handleCategoryChange("all")}
@@ -390,7 +406,7 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
               </span>
             </button>
 
-            {MAIN_CATEGORIES.map((cat) => {
+            {mainCategoriesList.map((cat) => {
               const isSelected = selectedCategory === cat.slug;
               const count = machines.filter((m) => {
                 const isCirc =
@@ -427,7 +443,7 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
 
           {/* Row 2: Sub-types Pills for Circular Knitting */}
           {(selectedCategory === "circular-knitting" || selectedCategory === "all") && (
-            <div className="flex items-center gap-2 overflow-x-auto pt-2 pb-1 scrollbar-none border-t border-slate-100">
+            <div className="flex flex-wrap items-center gap-2 pt-2 pb-1 border-t border-slate-100">
               <span className="text-xs font-bold text-slate-700 uppercase tracking-wider mr-1 shrink-0">
                 SUB-TYPES:
               </span>
@@ -590,7 +606,7 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
                 </span>
                 {selectedCategory !== "all" && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#FDF2F4] text-[#800020] border border-[#D8A4AF] font-semibold text-[11px]">
-                    Category: {CATEGORIES.find((c) => c.slug === selectedCategory)?.name}
+                    Category: {allCategories.find((c) => c.slug === selectedCategory)?.name}
                     <button onClick={() => setSelectedCategory("all")} className="cursor-pointer">
                       <X className="w-3 h-3" />
                     </button>
@@ -662,9 +678,9 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
           <div className="mb-8 p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#4B5563]">
             <div>
               <span className="font-bold text-[#2D2D2D]">
-                {CATEGORIES.find((c) => c.slug === selectedCategory)?.name} {locale === "bn" ? "বিভাগ:" : "Category:"}
+                {allCategories.find((c) => c.slug === selectedCategory)?.name} {locale === "bn" ? "বিভাগ:" : "Category:"}
               </span>{" "}
-              {CATEGORIES.find((c) => c.slug === selectedCategory)?.description}
+              {allCategories.find((c) => c.slug === selectedCategory)?.description}
             </div>
             <Link
               href={`/machines/${selectedCategory}`}

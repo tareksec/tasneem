@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { CATEGORIES } from "@/lib/machines-data";
 
 const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+function revalidateCategoryPaths(slug?: string) {
+  try {
+    revalidatePath("/");
+    revalidatePath("/machines");
+    if (slug) {
+      revalidatePath(`/machines/${slug}`);
+    }
+  } catch (err) {
+    console.warn("revalidateCategoryPaths error:", err);
+  }
+}
 
 export async function GET() {
   try {
@@ -31,6 +44,7 @@ export async function POST(request: Request) {
         icon: body.icon?.trim() || null,
       },
     });
+    revalidateCategoryPaths(category.slug);
     return NextResponse.json({ success: true, category });
   } catch (error) {
     const message = error && typeof error === "object" && "code" in error && error.code === "P2002"
@@ -56,6 +70,7 @@ export async function PATCH(request: Request) {
         icon: body.icon?.trim() || null,
       },
     });
+    revalidateCategoryPaths(category.slug);
     return NextResponse.json({ success: true, category });
   } catch (error) {
     console.error("PATCH /api/admin/categories error:", error);
@@ -71,6 +86,7 @@ export async function DELETE(request: Request) {
     const machineCount = await prisma.machine.count({ where: { category: category.slug } });
     if (machineCount > 0) return NextResponse.json({ success: false, error: "Move or delete machines in this category first." }, { status: 409 });
     await prisma.category.delete({ where: { id } });
+    revalidateCategoryPaths(category.slug);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("DELETE /api/admin/categories error:", error);

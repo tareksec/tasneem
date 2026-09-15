@@ -14,12 +14,16 @@ import {
 } from "lucide-react";
 import { getCategoryInfo } from "@/lib/machines-data";
 import { getDbMachineById, getDbMachines } from "@/lib/db/machines";
+import prisma from "@/lib/prisma";
 import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCategory } from "@/lib/types";
 import { MachineSpecTable, SpecRow } from "@/components/machines/MachineSpecTable";
 import { MachineStickyCta } from "@/components/machines/MachineStickyCta";
 import { MachineGallery } from "@/components/machines/MachineGallery";
 import { RelatedMachines } from "@/components/machines/RelatedMachines";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const machines = await getDbMachines();
@@ -39,6 +43,11 @@ export async function generateMetadata({
   params: Promise<{ category: string; id: string }>;
 }): Promise<Metadata> {
   const { category, id } = await params;
+  const dbRecord = await prisma.machine.findUnique({
+    where: { id },
+  });
+  if (!dbRecord) return {};
+
   const machine = await getDbMachineById(id);
   if (!machine) return {};
 
@@ -80,6 +89,16 @@ export default async function MachineDetailPage({
   params: Promise<{ category: string; id: string }>;
 }) {
   const { category, id } = await params;
+
+  // Immediately 404 if machine is not in database (prevents in-memory fallback)
+  const dbRecord = await prisma.machine.findUnique({
+    where: { id },
+  });
+
+  if (!dbRecord) {
+    notFound();
+  }
+
   const machine = await getDbMachineById(id);
 
   const matchesCategory =
@@ -329,7 +348,11 @@ export default async function MachineDetailPage({
         })()}
 
         {/* Related Machines Section */}
-        <RelatedMachines currentMachineId={machine.id} category={machine.category} />
+        <RelatedMachines
+          currentMachineId={machine.id}
+          category={machine.category}
+          mainCategory={machine.mainCategory}
+        />
 
         {/* Bottom CTA Card */}
         <div className="mt-12 bg-[#F9FAFB] border border-[#E5E7EB] text-[#2D2D2D] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
