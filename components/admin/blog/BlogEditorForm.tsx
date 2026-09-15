@@ -24,6 +24,7 @@ import {
   RotateCcw,
   Clock,
   FileText,
+  Loader2,
 } from "lucide-react";
 import { AdminStore } from "@/lib/admin/admin-store";
 import { BlogPost, ContentLocale } from "@/lib/admin/types";
@@ -98,6 +99,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
 
   const [tagInput, setTagInput] = useState("");
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [showPresetGallery, setShowPresetGallery] = useState(false);
   const [titleError, setTitleError] = useState("");
 
@@ -158,38 +160,80 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
     }
   };
 
-  // Image Upload with Client-Side Canvas WebP Optimization
-  const processImageFile = (file: File) => {
+  // Image Upload with /api/upload server storage and Client-Side Canvas WebP Optimization fallback
+  const processImageFile = async (file: File) => {
     if (!file.type.startsWith("image/")) {
       showToast("Please upload a valid image file (JPG, PNG, WebP).", "error");
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (uploadEvent) => {
-      const img = document.createElement("img");
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 1600;
-        let w = img.width;
-        let h = img.height;
-        if (w > MAX_WIDTH) {
-          h = Math.round((h * MAX_WIDTH) / w);
-          w = MAX_WIDTH;
-        }
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext("2d");
-        ctx?.drawImage(img, 0, 0, w, h);
-        const optimizedWebp = canvas.toDataURL("image/webp", 0.85);
+    setUploadingImage(true);
 
-        setPost((prev) => ({ ...prev, cover_image: optimizedWebp }));
-        setIsDirty(true);
-        showToast(`Cover photo "${file.name}" updated & optimized`, "success");
+    try {
+      // 1. Try uploading to server filesystem via /api/upload
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.url) {
+          setPost((prev) => ({ ...prev, cover_image: data.url }));
+          setIsDirty(true);
+          showToast(`Cover photo "${file.name}" uploaded successfully`, "success");
+          setUploadingImage(false);
+          return;
+        }
+      }
+    } catch (uploadErr) {
+      console.warn("Direct upload failed, falling back to client-side optimization:", uploadErr);
+    }
+
+    // 2. Fallback: Client-Side Canvas WebP Optimization
+    try {
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const img = document.createElement("img");
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 1600;
+          let w = img.width;
+          let h = img.height;
+          if (w > MAX_WIDTH) {
+            h = Math.round((h * MAX_WIDTH) / w);
+            w = MAX_WIDTH;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(img, 0, 0, w, h);
+          const optimizedWebp = canvas.toDataURL("image/webp", 0.85);
+
+          setPost((prev) => ({ ...prev, cover_image: optimizedWebp }));
+          setIsDirty(true);
+          showToast(`Cover photo "${file.name}" optimized & set`, "success");
+          setUploadingImage(false);
+        };
+        img.onerror = () => {
+          showToast("Failed to process image file.", "error");
+          setUploadingImage(false);
+        };
+        img.src = uploadEvent.target?.result as string;
       };
-      img.src = uploadEvent.target?.result as string;
-    };
-    reader.readAsDataURL(file);
+      reader.onerror = () => {
+        showToast("Failed to read image file.", "error");
+        setUploadingImage(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (e) {
+      console.error(e);
+      showToast("Could not process image.", "error");
+      setUploadingImage(false);
+    }
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -591,11 +635,24 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
             {/* Current Cover Preview */}
             <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-slate-200 group">
               <Image
-                src={post.cover_image}
+                src={post.cover_image || "/images/machines/cat-double-jersey.jpg"}
                 alt="Cover photo preview"
                 fill
+                unoptimized={Boolean(!post.cover_image || post.cover_image.startsWith("data:") || post.cover_image.startsWith("/uploads") || post.cover_image.startsWith("http"))}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target && target.src !== "/images/machines/cat-double-jersey.jpg") {
+                    target.src = "/images/machines/cat-double-jersey.jpg";
+                  }
+                }}
                 className="object-cover"
               />
+              {uploadingImage && (
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center text-white text-xs font-semibold gap-2 z-10">
+                  <Loader2 className="w-6 h-6 animate-spin text-white" />
+                  <span>Uploading cover image...</span>
+                </div>
+              )}
               <div
                 onClick={() => fileInputRef.current?.click()}
                 className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-white text-xs font-bold gap-2"
@@ -625,8 +682,25 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
                 Drag & Drop new cover photo here
               </p>
               <p className="text-[10px] text-slate-400 mt-0.5">
-                or click to browse from your computer
+                or click to browse from your computer (auto-saved to /uploads)
               </p>
+            </div>
+
+            {/* Direct Image URL input */}
+            <div className="space-y-1">
+              <label className="text-[11px] font-semibold text-slate-600 block">
+                Direct Image Path or URL:
+              </label>
+              <input
+                type="text"
+                value={post.cover_image}
+                onChange={(e) => {
+                  setPost((prev) => ({ ...prev, cover_image: e.target.value }));
+                  setIsDirty(true);
+                }}
+                placeholder="/uploads/... or https://..."
+                className="w-full text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-800 focus:outline-hidden focus:border-[#800020] font-mono"
+              />
             </div>
 
             {/* Preset Photo Library Picker */}

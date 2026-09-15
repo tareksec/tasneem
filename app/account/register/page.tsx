@@ -35,7 +35,7 @@ export default function CustomerRegisterPage() {
     phone: string;
   } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -44,7 +44,7 @@ export default function CustomerRegisterPage() {
       return;
     }
 
-    const res = register(name, company, email, phone, password);
+    const res = await register(name, company, email, phone, password);
     if (!res.success) {
       setError(res.error || "Registration failed. Please try again.");
       return;

@@ -132,7 +132,13 @@ export default function PublicBlogPage() {
                         src={post.cover_image || "/images/machines/cat-double-jersey.jpg"}
                         alt={title}
                         fill
-                        unoptimized={Boolean(post.cover_image?.startsWith("http"))}
+                        unoptimized={Boolean(!post.cover_image || post.cover_image.startsWith("http") || post.cover_image.startsWith("data:") || post.cover_image.startsWith("/uploads"))}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          if (target && target.src !== "/images/machines/cat-double-jersey.jpg") {
+                            target.src = "/images/machines/cat-double-jersey.jpg";
+                          }
+                        }}
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3 bg-[#2D2D2D]/85 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">

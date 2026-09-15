@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { MachineGalleryImage } from "@/lib/types";
 import { Maximize2, Sparkles } from "lucide-react";
@@ -49,6 +49,17 @@ export function MachineGallery({
   const [activeIndex, setActiveIndex] = useState(0);
   const activeImage = fallbackItems[activeIndex] || fallbackItems[0];
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
+
+  useEffect(() => {
+    if (fullscreenOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [fullscreenOpen]);
 
   return (
     <div className="border border-[#E5E5E5] rounded-2xl bg-white p-4 sm:p-5 shadow-sm flex flex-col gap-3">
@@ -120,7 +131,8 @@ export function MachineGallery({
       {/* Fullscreen Lightbox Modal */}
       {fullscreenOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          data-lenis-prevent
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 overscroll-contain"
           onClick={() => setFullscreenOpen(false)}
         >
           <div className="relative max-w-5xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center">

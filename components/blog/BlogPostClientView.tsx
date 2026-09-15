@@ -67,6 +67,7 @@ export function BlogPostClientView({ post, slug }: BlogPostClientViewProps) {
       .replace(/`([^`]+)`/gim, '<code class="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono">$1</code>')
       .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
       .replace(/\*(.*?)\*/gim, '<em class="italic">$1</em>')
+      .replace(/!\[(.*?)\]\((.*?)\)/gim, '<div class="my-6 text-center"><img src="$2" alt="$1" class="rounded-2xl border border-slate-200 max-w-full h-auto shadow-sm inline-block" onerror="this.src=\'/images/machines/cat-double-jersey.jpg\'" /><span class="text-xs text-slate-500 mt-1.5 block">$1</span></div>')
       .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#800020] underline hover:text-[#5A0017] font-medium">$1</a>')
       .replace(/^\- (.*$)/gim, '<li class="ml-5 list-disc text-slate-700 my-1 leading-relaxed">$1</li>')
       .replace(/^\d+\. (.*$)/gim, '<li class="ml-5 list-decimal text-slate-700 my-1 leading-relaxed">$1</li>')

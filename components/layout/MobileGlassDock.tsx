@@ -10,8 +10,10 @@ import { trackWhatsAppClick } from "@/components/analytics/GoogleAnalytics";
 export function MobileGlassDock() {
   const pathname = usePathname();
 
-  // Hide on admin routes, /machines or /shop (which has its own specialized mobile explore dock)
-  if (!pathname || pathname.startsWith("/admin") || pathname.startsWith("/machines") || pathname.startsWith("/shop")) {
+    // Keep the specialized catalog docks on listing pages, but show the public dock on machine details.
+    const pathSegments = pathname?.split("/").filter(Boolean) ?? [];
+    const isMachineCatalogRoute = pathname === "/machines" || (pathname?.startsWith("/machines/") && pathSegments.length === 2);
+    if (!pathname || pathname.startsWith("/admin") || isMachineCatalogRoute || pathname.startsWith("/shop")) {
     return null;
   }
 

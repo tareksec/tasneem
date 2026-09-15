@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useLenis } from "lenis/react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,7 +9,6 @@ import {
   Search,
   Heart,
   ChevronLeft,
-  ChevronRight,
   X,
   Star,
   ShoppingBag,
@@ -23,10 +23,8 @@ import {
   Sparkles,
   Layers,
   ArrowRight,
-  Check,
-  ShieldCheck,
-  Anchor,
   SlidersHorizontal,
+  type LucideIcon,
 } from "lucide-react";
 import { Machine } from "@/lib/types";
 
@@ -43,7 +41,7 @@ interface CategoryPill {
   slug: string;
   name: string;
   name_bn: string;
-  icon: any;
+  icon: LucideIcon;
 }
 
 const CATEGORY_PILLS: CategoryPill[] = [
@@ -66,7 +64,6 @@ export function MobileShopView({
   locale,
 }: MobileShopViewProps) {
   // UI states
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
@@ -77,6 +74,23 @@ export function MobileShopView({
   const [selectedGauge, setSelectedGauge] = useState<string>("24G");
   const [activeDetailsTab, setActiveDetailsTab] = useState<"description" | "specifications">("description");
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const lenis = useLenis();
+
+  // Prevent background scroll and pause Lenis virtual scroll while modal or drawer is open
+  useEffect(() => {
+    if (detailsMachine || isCategoryDrawerOpen) {
+      document.body.style.overflow = "hidden";
+      lenis?.stop();
+    } else {
+      document.body.style.overflow = "";
+      lenis?.start();
+    }
+    return () => {
+      document.body.style.overflow = "";
+      lenis?.start();
+    };
+  }, [detailsMachine, isCategoryDrawerOpen, lenis]);
 
   // Hero carousel banners
   const HERO_SLIDES = [
@@ -135,43 +149,22 @@ export function MobileShopView({
 
   return (
     <div className="md:hidden bg-[#FAFAFA] min-h-screen pb-28 text-neutral-900 font-sans">
-      {/* 1. Header Bar: Grid Icon, "Explore", Search Icon */}
+      {/* 1. Search and filter bar */}
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-neutral-100 px-4 py-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setIsCategoryDrawerOpen(true)}
             aria-label="Open categories menu"
-            className="w-10 h-10 rounded-2xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-800 shadow-2xs active:scale-95 transition-transform"
+            className="w-10 h-10 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-800 shadow-2xs active:scale-95 transition-transform shrink-0"
           >
             <Grid2X2 className="w-5 h-5 text-neutral-800" />
           </button>
 
-          <h1 className="text-xl font-black tracking-tight text-neutral-900">
-            {locale === "bn" ? "এক্সপ্লোর" : "Explore"}
-          </h1>
-
-          <button
-            type="button"
-            onClick={() => setIsSearchOpen((prev) => !prev)}
-            aria-label="Search machinery"
-            className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-2xs active:scale-95 transition-all ${
-              isSearchOpen
-                ? "bg-[#800020] text-white border-[#800020]"
-                : "bg-white text-neutral-800 border-neutral-200"
-            }`}
-          >
-            <Search className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Collapsible Search Input */}
-        {isSearchOpen && (
-          <div className="mt-3 relative animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="relative flex-1">
             <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              autoFocus
               placeholder={
                 locale === "bn"
                   ? "মেশিন, ব্র্যান্ড, বা গেজ অনুসন্ধান করুন..."
@@ -179,23 +172,23 @@ export function MobileShopView({
               }
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-9 py-2.5 bg-neutral-100 border border-neutral-200 rounded-2xl text-xs text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
+              className="w-full pl-10 pr-3 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
             />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => onSearchChange("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
           </div>
-        )}
+
+          <button
+            type="button"
+            onClick={() => setIsCategoryDrawerOpen(true)}
+            aria-label="Filter machinery"
+            className="w-10 h-10 rounded-xl border border-[#D8A4AF] bg-white text-[#800020] flex items-center justify-center shadow-2xs active:scale-95 transition-transform shrink-0"
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+          </button>
+        </div>
       </header>
 
       {/* 2. Hero Promotional Banner Carousel */}
-      <section className="px-4 pt-4">
+      <section className="hidden px-4 pt-4">
         <div className="relative rounded-3xl bg-[#18181b] text-white p-5 overflow-hidden shadow-lg border border-neutral-800">
           {/* Subtle background glow */}
           <div className="absolute -top-12 -right-12 w-44 h-44 bg-[#800020]/30 rounded-full blur-2xl pointer-events-none" />
@@ -394,9 +387,12 @@ export function MobileShopView({
 
       {/* 5. Mobile Product Details View (Full View as seen in reference design top-right) */}
       {detailsMachine && (
-        <div className="fixed inset-0 z-50 bg-white overflow-y-auto animate-in slide-in-from-bottom-6 duration-300 flex flex-col">
+        <div
+          data-lenis-prevent
+          className="fixed inset-0 z-50 bg-white flex flex-col overflow-hidden"
+        >
           {/* Top Bar: Back Button, "Details", Heart Icon */}
-          <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-neutral-100 px-4 py-3 flex items-center justify-between">
+          <header className="shrink-0 z-20 bg-white/95 backdrop-blur-md border-b border-neutral-100 px-4 py-3 flex items-center justify-between">
             <button
               type="button"
               onClick={closeDetails}
@@ -422,9 +418,17 @@ export function MobileShopView({
                 }`}
               />
             </button>
-          </div>
+          </header>
 
-          <div className="flex-1 px-4 py-4 space-y-5 pb-32">
+          {/* Scrollable Content Container */}
+          <div
+            data-lenis-prevent
+            className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-5 pb-8"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-y",
+            }}
+          >
             {/* Hero Product Photo with Subtle Float Effect */}
             <div className="relative w-full aspect-[4/3] bg-[#F8F9FA] rounded-3xl overflow-hidden flex items-center justify-center p-4 border border-neutral-100">
               <Image
@@ -456,7 +460,7 @@ export function MobileShopView({
 
             {/* Small Thumbnails Row */}
             {detailsMachine.images && detailsMachine.images.length > 1 && (
-              <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+              <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x" data-lenis-prevent>
                 {detailsMachine.images.map((img, idx) => (
                   <button
                     key={idx}
@@ -486,7 +490,7 @@ export function MobileShopView({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none touch-pan-x" data-lenis-prevent>
                 {availableGauges.map((gauge) => {
                   const isSelected = selectedGauge === gauge;
                   return (
@@ -610,10 +614,21 @@ export function MobileShopView({
                 )}
               </div>
             </div>
+
+            {/* Direct Link to Dedicated Full Machine Page */}
+            <div className="pt-2">
+              <Link
+                href={`/machines/${detailsMachine.category}/${detailsMachine.id}`}
+                className="w-full py-3 px-4 rounded-2xl border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 text-neutral-800 text-xs font-semibold flex items-center justify-between transition-colors shadow-2xs active:scale-[0.99]"
+              >
+                <span>{locale === "bn" ? "সম্পূর্ণ টেকনিক্যাল স্পেসিফিকেশন ও শিপিং তথ্য দেখুন" : "View Complete Technical Specs & Shipping Info"}</span>
+                <ArrowRight className="w-4 h-4 text-[#800020] shrink-0" />
+              </Link>
+            </div>
           </div>
 
-          {/* Fixed Bottom Action Bar: Cart/RFQ Icon + Wide "Request Quote" / "Buy Now" Button */}
-          <div className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-neutral-200 px-4 py-3 flex items-center gap-3">
+          {/* Pinned Bottom Action Bar: Always sits at bottom of modal without overlapping content */}
+          <footer className="shrink-0 z-20 bg-white/95 backdrop-blur-md border-t border-neutral-200 px-4 py-3 flex items-center gap-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
             <Link
               href={`/quote?machine=${detailsMachine.id}&gauge=${selectedGauge}`}
               className="w-12 h-12 rounded-2xl border border-neutral-200 bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 shadow-2xs active:scale-95 transition-transform"
@@ -629,14 +644,26 @@ export function MobileShopView({
               <span>{locale === "bn" ? "অফিসিয়াল কোটেশন চান" : "Request Official Quote"}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </footer>
         </div>
       )}
 
       {/* 6. Category Selection Drawer Modal */}
       {isCategoryDrawerOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end animate-in fade-in duration-200">
-          <div className="w-full bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 space-y-4 animate-in slide-in-from-bottom-8 duration-300">
+        <div
+          data-lenis-prevent
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end animate-in fade-in duration-200"
+          onClick={() => setIsCategoryDrawerOpen(false)}
+        >
+          <div
+            data-lenis-prevent
+            onClick={(e) => e.stopPropagation()}
+            className="w-full bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto overscroll-contain p-5 space-y-4 animate-in slide-in-from-bottom-8 duration-300"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-y",
+            }}
+          >
             <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
               <h3 className="text-base font-bold text-neutral-900">
                 {locale === "bn" ? "মেশিনারি ক্যাটাগরি" : "All Machinery Categories"}
@@ -689,11 +716,11 @@ export function MobileShopView({
       {/* 7. Floating Mobile Bottom Navigation Bar (as in reference screenshot) */}
       <nav
         aria-label="Mobile Bottom Navigation"
-        className="fixed bottom-4 left-6 right-6 z-40 max-w-xs mx-auto bg-[#18181b] text-white rounded-full py-2.5 px-6 shadow-2xl flex items-center justify-between border border-neutral-800/90 backdrop-blur-md"
+        className="fixed bottom-3 left-4 right-4 z-40 max-w-sm mx-auto bg-white/95 text-neutral-500 rounded-2xl py-2.5 px-5 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center justify-between border border-neutral-200/90 backdrop-blur-md"
       >
         <Link
           href="/"
-          className="flex flex-col items-center gap-0.5 text-neutral-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-0.5 text-neutral-500 hover:text-[#800020] transition-colors"
           title="Home"
         >
           <Home className="w-4 h-4" />
@@ -702,17 +729,17 @@ export function MobileShopView({
 
         <Link
           href="/machines"
-          className="flex flex-col items-center gap-0.5 text-[#D8A4AF] font-bold relative transition-colors"
+          className="flex flex-col items-center gap-0.5 text-[#800020] font-bold relative transition-colors"
           title="Explore"
         >
-          <ShoppingBag className="w-4 h-4 text-white" />
-          <span className="text-[9px] font-bold text-white">Explore</span>
+          <ShoppingBag className="w-4 h-4 text-[#800020]" />
+          <span className="text-[9px] font-bold text-[#800020]">Explore</span>
           <span className="w-1 h-1 rounded-full bg-[#800020] absolute -bottom-1" />
         </Link>
 
         <Link
           href="/quote"
-          className="flex flex-col items-center gap-0.5 text-neutral-400 hover:text-white transition-colors relative"
+          className="flex flex-col items-center gap-0.5 text-neutral-500 hover:text-[#800020] transition-colors relative"
           title="Quote"
         >
           <FileText className="w-4 h-4" />
@@ -722,7 +749,7 @@ export function MobileShopView({
 
         <Link
           href="/contact"
-          className="flex flex-col items-center gap-0.5 text-neutral-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-0.5 text-neutral-500 hover:text-[#800020] transition-colors"
           title="Contact"
         >
           <Phone className="w-4 h-4" />

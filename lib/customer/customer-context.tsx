@@ -15,7 +15,7 @@ interface CustomerAuthContextType {
     email: string,
     phoneOrWhatsApp: string,
     password?: string
-  ) => { success: boolean; error?: string; customer?: CustomerUser };
+  ) => Promise<{ success: boolean; error?: string; customer?: CustomerUser }>;
   logout: () => void;
   updateProfile: (updates: Partial<CustomerUser>) => boolean;
   refreshQuotes: () => void;
@@ -107,29 +107,14 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     return { success: true };
   };
 
-  const register = (
+  const register = async (
     name: string,
     company: string,
     email: string,
     phoneOrWhatsApp: string,
     password?: string
-  ): { success: boolean; error?: string; customer?: CustomerUser } => {
+  ): Promise<{ success: boolean; error?: string; customer?: CustomerUser }> => {
     const trimmedEmail = email.trim().toLowerCase();
-    const existing = AdminStore.getCustomerByEmail(trimmedEmail);
-
-    if (existing) {
-      if (existing.status === "pending") {
-        return {
-          success: false,
-          error: "PENDING_APPROVAL: এই ইমেইল দিয়ে ইতোমধ্যে একটি রেজিস্ট্রেশন রিকোয়েস্ট জমা রয়েছে এবং তা অ্যাডমিন অনুমোদনের অপেক্ষায় রয়েছে।",
-        };
-      }
-      return {
-        success: false,
-        error: "এই ইমেইল দিয়ে ইতোমধ্যে একটি সক্রিয় অ্যাকাউন্ট রয়েছে। অনুগ্রহ করে সাইন-ইন করুন।",
-      };
-    }
-
     const newCustomer: CustomerUser = {
       id: `cust-${Date.now()}`,
       name: name.trim(),
@@ -142,8 +127,21 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       createdAt: new Date().toISOString(),
     };
 
-    AdminStore.saveCustomer(newCustomer);
-    return { success: true, customer: newCustomer };
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, company, email: trimmedEmail, phoneOrWhatsApp, password }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        return { success: false, error: result.error || "Registration failed. Please try again." };
+      }
+      AdminStore.saveCustomer(result.customer || newCustomer);
+      return { success: true, customer: result.customer || newCustomer };
+    } catch {
+      return { success: false, error: "Registration service is unavailable. Please try again." };
+    }
   };
 
   const logout = () => {

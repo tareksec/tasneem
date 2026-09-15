@@ -3,9 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MessageCircle, ArrowUpRight, ShieldCheck, Ship, Wrench } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Ship, Wrench } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 export function HeroSection() {
@@ -70,22 +69,22 @@ export function HeroSection() {
       {/* Confined to the left 60-65% on desktop; widened on mobile for stacked readability */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/35 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/65 lg:to-transparent lg:w-[68%] xl:w-[60%] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/35 max-md:bg-none lg:bg-gradient-to-r lg:from-black/90 lg:via-black/65 lg:to-transparent lg:w-[68%] xl:w-[60%] pointer-events-none"
       />
 
       {/* Subtle top & bottom vignette to blend seamlessly with navbar and following section */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
+        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent max-md:hidden pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"
+        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent max-md:hidden pointer-events-none"
       />
 
       {/* 3. Hero Text Content (Positioned Upper-Left / Left-Aligned on Top of Video) */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left">
+        <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left max-md:min-h-[calc(100svh-12rem)]">
           
           {/* Top Status Pill (Visually hidden for clean UI, preserved in DOM for SEO/GEO) */}
           <span className="sr-only">{dict.hero.badge}</span>
@@ -95,7 +94,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 }}
-            className="text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
+            className="max-md:order-1 text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
           >
             {dict.hero.title}
           </motion.h1>
@@ -105,7 +104,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
-            className="mt-3.5 sm:mt-5 text-sm min-[360px]:text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
+            className="max-md:hidden mt-3.5 sm:mt-5 text-sm min-[360px]:text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
           >
             {dict.hero.subtitle}
           </motion.p>
@@ -115,7 +114,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.24 }}
-            className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+            className="max-md:order-3 max-md:mt-auto mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 w-full sm:w-auto"
           >
             {/* Primary CTA */}
             <Link
@@ -126,20 +125,14 @@ export function HeroSection() {
               <ArrowUpRight className="w-4 h-4" />
             </Link>
 
-            {/* Secondary CTA: WhatsApp */}
-            <a
-              href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
-                "Hello Tasneem Knit Industry, I am contacting you for machine specifications and quotation."
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Secondary CTA: Services */}
+            <Link
+              href="/services"
               className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="truncate">
-                {dict.hero.whatsappCta}: <strong className="text-emerald-300 font-mono font-bold tracking-wide">{COMPANY_INFO.whatsappFormatted}</strong>
-              </span>
-            </a>
+              <span>Visit Our Services</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
           </motion.div>
 
           {/* Value Micro-Badges (Trust Badges inside the text area) */}
@@ -147,25 +140,25 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.3 }}
-            className="mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-wrap items-center gap-3 sm:gap-7 text-xs text-neutral-200 font-medium"
+            className="max-md:hidden max-md:order-2 mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-nowrap items-center justify-between gap-2 sm:gap-7 text-xs text-neutral-200 font-medium"
           >
-            <div className="flex items-center gap-2">
+            <div aria-label={dict.hero.cfrBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
               <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <Ship className="w-3.5 h-3.5 text-rose-200" />
               </div>
-              <span>{dict.hero.cfrBadge}</span>
+              <span className="max-md:sr-only">{dict.hero.cfrBadge}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div aria-label={dict.hero.inspectionBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
               <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               </div>
-              <span>{dict.hero.inspectionBadge}</span>
+              <span className="max-md:sr-only">{dict.hero.inspectionBadge}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div aria-label={dict.hero.installBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
               <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <Wrench className="w-3.5 h-3.5 text-rose-200" />
               </div>
-              <span>{dict.hero.installBadge}</span>
+              <span className="max-md:sr-only">{dict.hero.installBadge}</span>
             </div>
           </motion.div>
 

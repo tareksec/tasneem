@@ -145,6 +145,9 @@ model Customer {
   company   String
   email     String   @unique
   phone     String?
+  passwordHash String?
+  status    String   @default("pending")
+  isApproved Boolean  @default(false)
   address   String?
   district  String?
   notes     String?  @db.Text

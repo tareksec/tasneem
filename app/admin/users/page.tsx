@@ -38,12 +38,22 @@ export default function AdminUsersPage() {
   const [customerToDelete, setCustomerToDelete] = useState<CustomerUser | null>(null);
 
   // Load and sync customers from AdminStore
-  const loadCustomers = () => {
+  const loadCustomers = async () => {
+    try {
+      const response = await fetch("/api/admin/customers", { cache: "no-store" });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setCustomers(result.customers);
+        return;
+      }
+    } catch {
+      // Use the local store when the database is unavailable.
+    }
     setCustomers(AdminStore.getCustomers());
   };
 
   useEffect(() => {
-    loadCustomers();
+    void loadCustomers();
     const handleUpdate = () => loadCustomers();
     window.addEventListener("tasneem-store-updated", handleUpdate);
     return () => window.removeEventListener("tasneem-store-updated", handleUpdate);
@@ -78,34 +88,41 @@ export default function AdminUsersPage() {
   );
   const totalCount = customers.length;
 
-  const handleApprove = (c: CustomerUser) => {
-    const updated = AdminStore.approveCustomer(c.id);
-    if (updated) {
-      loadCustomers();
-      toast({
-        type: "success",
-        message: "Buyer Account Approved!",
-        description: `"${c.company}" (${c.email}) can now sign in to the portal.`,
-      });
+  const handleApprove = async (c: CustomerUser) => {
+    const response = await fetch("/api/admin/customers", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: c.id, status: "approved" }),
+    });
+    if (response.ok) {
+      AdminStore.approveCustomer(c.id);
+      void loadCustomers();
+      toast({ type: "success", message: "Buyer Account Approved!", description: `"${c.company}" (${c.email}) can now sign in to the portal.` });
     }
   };
 
-  const handleReject = (c: CustomerUser) => {
-    const updated = AdminStore.rejectCustomer(c.id);
-    if (updated) {
-      loadCustomers();
-      toast({
-        type: "info",
-        message: "Registration Declined",
-        description: `"${c.company}" has been marked as rejected.`,
-      });
+  const handleReject = async (c: CustomerUser) => {
+    const response = await fetch("/api/admin/customers", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: c.id, status: "rejected" }),
+    });
+    if (response.ok) {
+      AdminStore.rejectCustomer(c.id);
+      void loadCustomers();
+      toast({ type: "info", message: "Registration Declined", description: `"${c.company}" has been marked as rejected.` });
     }
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (!customerToDelete) return;
+    await fetch("/api/admin/customers", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: customerToDelete.id }),
+    });
     AdminStore.deleteCustomer(customerToDelete.id);
-    loadCustomers();
+    void loadCustomers();
     toast({
       type: "success",
       message: "Buyer Record Removed",

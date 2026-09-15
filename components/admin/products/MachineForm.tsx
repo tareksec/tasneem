@@ -397,7 +397,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
   };
 
   // Save Submission
-  const handleSave = (publishStatus: "published" | "draft") => {
+  const handleSave = async (publishStatus: "published" | "draft") => {
     // Validate required fields
     if (!name.trim()) {
       setCurrentStep(1);
@@ -466,7 +466,24 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       seoDesc_bn: seoDesc_bn.trim() || undefined,
     };
 
-    AdminStore.saveMachine(savedMachine, isEditing ? originalId : undefined, isEditing ? originalCategory : undefined);
+    try {
+      const response = await fetch("/api/admin/machines", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(savedMachine),
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to save machine to the database.");
+      }
+
+      AdminStore.saveMachine(savedMachine, isEditing ? originalId : undefined, isEditing ? originalCategory : undefined);
+    } catch (error) {
+      console.error("Machine save failed:", error);
+      showToast("Machine could not be saved. Please try again.", "error");
+      return;
+    }
 
     showToast(
       publishStatus === "published"

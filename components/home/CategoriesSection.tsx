@@ -53,11 +53,11 @@ export function CategoriesSection() {
 
   return (
     <>
-      {/* MOBILE LAYOUT (< md): Clean responsive grid of 1-2 columns, natural scroll with no viewport clipping or traps */}
+      {/* MOBILE LAYOUT (< md): Compact catalog grid inspired by the product reference */}
       <section className="block md:hidden py-12 px-4 sm:px-6 bg-[#F9F9F9] text-[#2D2D2D] border-b border-[#E5E5E5]">
         <div className="max-w-7xl mx-auto flex flex-col gap-6">
-          {/* Header */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start gap-2">
+            <div className="min-w-0">
             <div className="sr-only">
               <span>{locale === "bn" ? "মেশিনারি ক্যাটালগ" : dict.categories.badge}</span>
               <span> • </span>
@@ -65,22 +65,37 @@ export function CategoriesSection() {
                 {locale === "bn" ? "৫টি মূল ক্যাটাগরি" : "5 Primary Categories"}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
-              {locale === "bn"
-                ? "আমদানিকৃত টেক্সটাইল ও গার্মেন্টস মেশিনারি"
-                : "Industrial Machinery Catalog"}
+            <h2 className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-base sm:text-3xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
+              Industrial Machinery Catalog
             </h2>
-            <Link
-              href="/machines"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D2D2D] hover:text-[#800020] bg-white hover:bg-[#FDF2F4]/30 border border-neutral-300/80 px-4 py-2.5 rounded-xl transition-all self-start mt-1 shadow-xs min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
-            >
+            </div>
+            <Link href="/machines" className="inline-flex items-center gap-1 text-xs font-bold text-[#800020] whitespace-nowrap">
               <span>{dict.categories.viewAllBtn}</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#800020]" />
             </Link>
           </div>
 
-          {/* Cards Grid: 1 col on small phones, 2 cols on sm: (tablet portrait) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          {/* Category shortcuts */}
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none -mx-1 px-1 pb-1">
+            {MAIN_CATEGORIES.map((category) => {
+              const categoryName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
+              return (
+                <Link
+                  key={category.slug}
+                  href={`/machines/${category.slug}`}
+                  className="flex min-w-[82px] shrink-0 flex-col items-center gap-1.5 text-center"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-[#800020] shadow-2xs">
+                    <Layers className="h-4 w-4" />
+                  </span>
+                  <span className="line-clamp-1 text-[10px] font-semibold text-neutral-600">{categoryName}</span>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Cards Grid: compact two-column product-style cards */}
+          <div className="grid grid-cols-2 gap-3">
             {MAIN_CATEGORIES.map((category, index) => {
               const isCircular = category.slug === "circular-knitting";
               const catName = locale === "bn" && category.name_bn ? category.name_bn : category.name;
@@ -90,81 +105,39 @@ export function CategoriesSection() {
                 <Link
                   key={category.slug}
                   href={`/machines/${category.slug}`}
-                  className="relative w-full h-[470px] sm:h-[500px] rounded-3xl overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#800020]/40 transition-all duration-300 flex flex-col justify-between p-5 sm:p-6 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                  className="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white p-2.5 shadow-[0_4px_14px_rgba(0,0,0,0.05)] transition-all hover:border-[#800020]/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 >
-                  {/* Full-bleed background image */}
-                  <Image
-                    src={
-                      category.slug === "circular-knitting"
-                        ? "/images/machines/cat-circular-knitting.webp"
-                        : `/images/machines/cat-${category.slug}.webp`
-                    }
-                    alt={catName}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    priority={index === 0}
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                  />
-
-                  {/* Gradient Scrim */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/95 via-50% to-transparent z-1 pointer-events-none" />
-                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 via-white/30 to-transparent z-1 pointer-events-none" />
-
-                  {/* Top Header row */}
-                  <div className="relative z-10 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <span className="bg-white/90 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-xs font-mono font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                        0{index + 1} / 05
-                      </span>
-                      {isCircular && (
-                        <span className="inline-flex items-center gap-1 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                          <Layers className="w-2.5 h-2.5 text-amber-600" />
-                          <span>{locale === "bn" ? "৫টি সাব-টাইপ" : "5 Sub-Types"}</span>
-                        </span>
-                      )}
-                    </div>
-
-                    <span className="bg-white/80 backdrop-blur-md border border-neutral-200/80 text-neutral-600 text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded-full">
-                      {category.slug}
+                  <div className="relative aspect-square overflow-hidden rounded-xl bg-[#F8F9FA]">
+                    <Image
+                      src={
+                        category.slug === "circular-knitting"
+                          ? "/images/machines/cat-circular-knitting.webp"
+                          : `/images/machines/cat-${category.slug}.webp`
+                      }
+                      alt={catName}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      priority={index === 0}
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute left-2 top-2 rounded-md bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">
+                      {isCircular ? (locale === "bn" ? "জনপ্রিয়" : "Popular") : (locale === "bn" ? "সরাসরি আমদানি" : "Direct Import")}
                     </span>
                   </div>
 
-                  {/* Bottom Content */}
-                  <div className="relative z-10 mt-auto flex flex-col">
-                    <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#2D2D2D] group-hover:text-[#800020] transition-colors tracking-tight leading-snug">
+                  <div className="flex min-w-0 flex-col pt-2">
+                    <div className="flex items-start justify-between gap-1">
+                      <h3 className="line-clamp-2 min-w-0 text-sm font-bold leading-tight text-neutral-900 group-hover:text-[#800020]">
                         {catName}
                       </h3>
-                      <span className="shrink-0 bg-neutral-100/90 border border-neutral-200 text-[#2D2D2D] font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-2xs">
-                        {category.typicalGauge !== "Universal" ? category.typicalGauge : "CFR / CIF"}
+                      <span className="shrink-0 text-[9px] font-bold text-neutral-500">
+                        {category.typicalGauge !== "Universal" ? category.typicalGauge : "CFR"}
                       </span>
                     </div>
-
-                    <p className="text-xs text-neutral-600 font-normal leading-relaxed line-clamp-2 mb-3">
-                      {catTagline}
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-1.5 mb-4">
-                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                        {index === 0
-                          ? (locale === "bn" ? "টপ চয়েস" : "Top Pick")
-                          : (locale === "bn" ? "সরাসরি আমদানি" : "Direct Import")}
-                      </span>
-                      {category.commonApplications.slice(0, 2).map((app) => (
-                        <span
-                          key={app}
-                          className="bg-neutral-100 border border-neutral-200/90 text-neutral-700 text-xs font-medium px-2.5 py-0.5 rounded-full"
-                        >
-                          {app}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div
-                      className="w-full bg-[#800020] group-hover:bg-[#5A0017] active:scale-[0.99] text-white font-bold text-sm py-3 px-5 rounded-full shadow-md transition-all flex items-center justify-center gap-1.5 min-h-[44px]"
-                    >
-                      <span>{locale === "bn" ? "মেশিন মডেল দেখুন" : "Explore Machinery"}</span>
-                      <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-neutral-500">{catTagline}</p>
+                    <div className="mt-2 flex items-center justify-between border-t border-neutral-100 pt-2">
+                      <span className="text-[10px] font-bold text-[#800020]">{locale === "bn" ? "মেশিন দেখুন" : "View machines"}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 text-[#800020]" />
                     </div>
                   </div>
                 </Link>
@@ -275,11 +248,7 @@ export function CategoriesSection() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                   />
 
-                  {/* 2. Light Theme Gradient Scrim (Crisp white bottom fade + soft top vignette) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/95 via-50% to-transparent z-1 pointer-events-none" />
-                  <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/70 via-white/30 to-transparent z-1 pointer-events-none" />
-
-                  {/* 3. Top Row Header: Frosted Light Badges */}
+                  {/* 2. Top Row Header: Frosted Light Badges */}
                   <div className="relative z-10 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
                       <span className="bg-white/85 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-xs font-mono font-bold px-3 py-1 rounded-full shadow-2xs">

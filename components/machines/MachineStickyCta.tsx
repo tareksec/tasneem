@@ -46,7 +46,7 @@ export function MachineStickyCta({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: shouldReduceMotion ? 0 : 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-3 px-4 sm:px-6"
+              className="fixed bottom-[5.5rem] md:bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-3 px-4 sm:px-6"
         >
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="min-w-0">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Bold,
   Italic,
@@ -15,6 +15,7 @@ import {
   Edit3,
   Columns,
   Image as ImageIcon,
+  Loader2,
   Sparkles,
   Table,
   CheckSquare,
@@ -36,6 +37,59 @@ export function MarkdownEditor({
   minHeight = "360px",
 }: MarkdownEditorProps) {
   const [activeView, setActiveView] = useState<"write" | "preview" | "split">("split");
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const data = await res.json();
+      if (data.success && data.url) {
+        const altName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+        const imageMarkdown = `\n![${altName}](${data.url})\n`;
+
+        const textarea = document.getElementById("markdown-textarea") as HTMLTextAreaElement | null;
+        if (textarea) {
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const text = textarea.value;
+          const newValue = text.substring(0, start) + imageMarkdown + text.substring(end);
+          onChange(newValue);
+          setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + imageMarkdown.length, start + imageMarkdown.length);
+          }, 10);
+        } else {
+          onChange(value + imageMarkdown);
+        }
+      } else {
+        alert(data.error || "Failed to upload image.");
+      }
+    } catch (err: any) {
+      console.error("Markdown image upload error:", err);
+      alert("Failed to upload image to server.");
+    } finally {
+      setIsUploadingImage(false);
+      if (imageInputRef.current) {
+        imageInputRef.current.value = "";
+      }
+    }
+  };
 
   const insertFormatting = (prefix: string, suffix = "") => {
     const textarea = document.getElementById("markdown-textarea") as HTMLTextAreaElement | null;
@@ -108,7 +162,7 @@ export function MarkdownEditor({
       .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
       .replace(/\*(.*?)\*/gim, '<em class="italic text-slate-700">$1</em>')
       // Images
-      .replace(/!\[(.*?)\]\((.*?)\)/gim, '<div class="my-4"><img src="$2" alt="$1" class="rounded-xl border border-slate-200 max-w-full h-auto" /><span class="text-[11px] text-slate-400 mt-1 block">$1</span></div>')
+      .replace(/!\[(.*?)\]\((.*?)\)/gim, '<div class="my-4"><img src="$2" alt="$1" class="rounded-xl border border-slate-200 max-w-full h-auto" onerror="this.src=\'/images/machines/cat-double-jersey.jpg\'" /><span class="text-[11px] text-slate-400 mt-1 block">$1</span></div>')
       // Links
       .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#800020] underline font-semibold hover:text-[#5A0017]">$1</a>')
       // Unordered lists
@@ -213,6 +267,30 @@ export function MarkdownEditor({
             title="Insert Website Link"
           >
             <LinkIcon className="h-3.5 w-3.5" />
+          </button>
+
+          {/* Hidden file input for uploading images */}
+          <input
+            ref={imageInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+
+          <button
+            type="button"
+            onClick={() => imageInputRef.current?.click()}
+            disabled={isUploadingImage}
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-200/70 text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+            title="Upload and insert an image into the article"
+          >
+            {isUploadingImage ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin text-[#800020]" />
+            ) : (
+              <ImageIcon className="h-3.5 w-3.5 text-[#800020]" />
+            )}
+            <span>{isUploadingImage ? "Uploading..." : "Image"}</span>
           </button>
 
           {/* Snippet dropdown templates */}
