@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Handshake, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 interface PartnerBrand {
@@ -92,10 +92,10 @@ export function InfinityBandScroll() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#800020] animate-pulse" />
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#800020]">
+            <span className="text-xs font-mono font-bold tracking-wide text-[#800020]">
               {locale === "bn"
                 ? "আন্তর্জাতিক শীর্ষ প্রস্তুতকারক ও OEM পার্টনার্স"
-                : "VERIFIED OVERSEAS MACHINERY BUILDERS & OEM PARTNERS"}
+                : "Verified Overseas Machinery Builders & OEM Partners"}
             </span>
           </div>
 
@@ -118,18 +118,20 @@ export function InfinityBandScroll() {
             <li key={`track1-${brand.id}-${index}`} className="shrink-0">
               <Link
                 href={brand.link || "/machines"}
-                className="relative flex items-center justify-center h-20 sm:h-24 px-7 sm:px-9 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl sm:rounded-3xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
+                className="relative flex flex-col items-center justify-center h-24 sm:h-28 px-7 sm:px-9 pb-5 pt-3 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
               >
-                <Image
-                  src={brand.src}
-                  alt={brand.alt}
-                  width={brand.width}
-                  height={brand.height}
-                  className="max-h-10 sm:max-h-12 w-auto object-contain transition-transform duration-300 group-hover/card:scale-105"
-                />
+                <div className="h-12 w-full flex items-center justify-center">
+                  <Image
+                    src={brand.src}
+                    alt={brand.alt}
+                    width={brand.width}
+                    height={brand.height}
+                    className="max-h-10 sm:max-h-11 w-auto max-w-[160px] object-contain transition-transform duration-300 group-hover/card:scale-105"
+                  />
+                </div>
 
                 {/* Subtle Hover Origin Tag */}
-                <span className="absolute bottom-1.5 right-3 text-[9px] font-mono text-neutral-400 group-hover/card:text-red-500 font-medium transition-colors">
+                <span className="absolute bottom-1.5 right-3 text-xs font-mono text-neutral-600 group-hover/card:text-[#800020] font-medium transition-colors">
                   {locale === "bn" ? brand.originBn : brand.origin}
                 </span>
               </Link>
@@ -147,18 +149,20 @@ export function InfinityBandScroll() {
               <Link
                 href={brand.link || "/machines"}
                 tabIndex={-1}
-                className="relative flex items-center justify-center h-20 sm:h-24 px-7 sm:px-9 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl sm:rounded-3xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
+                className="relative flex flex-col items-center justify-center h-24 sm:h-28 px-7 sm:px-9 pb-5 pt-3 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
               >
-                <Image
-                  src={brand.src}
-                  alt={brand.alt}
-                  width={brand.width}
-                  height={brand.height}
-                  className="max-h-10 sm:max-h-12 w-auto object-contain transition-transform duration-300 group-hover/card:scale-105"
-                />
+                <div className="h-12 w-full flex items-center justify-center">
+                  <Image
+                    src={brand.src}
+                    alt={brand.alt}
+                    width={brand.width}
+                    height={brand.height}
+                    className="max-h-10 sm:max-h-11 w-auto max-w-[160px] object-contain transition-transform duration-300 group-hover/card:scale-105"
+                  />
+                </div>
 
                 {/* Subtle Hover Origin Tag */}
-                <span className="absolute bottom-1.5 right-3 text-[9px] font-mono text-neutral-400 group-hover/card:text-red-500 font-medium transition-colors">
+                <span className="absolute bottom-1.5 right-3 text-xs font-mono text-neutral-600 group-hover/card:text-[#800020] font-medium transition-colors">
                   {locale === "bn" ? brand.originBn : brand.origin}
                 </span>
               </Link>

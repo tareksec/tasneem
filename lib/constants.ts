@@ -3,7 +3,7 @@
 export const COMPANY_INFO = {
   name: "Tasneem Knitting Industry",
   legalName: "TASNEEM KNITTING INDUSTRY",
-  owner: "MD MAMUNUR RASHID",
+  owner: "Md. Mamunur Rashid",
   contactPerson: "Mr Hasan",
   tagline: "Industrial Circular Knitting, Dyeing, Shearing & Textile Machinery Importer",
   description:

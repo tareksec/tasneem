@@ -8,9 +8,7 @@ import {
   Wrench,
   ArrowUpRight,
   Phone,
-  Building2,
   CheckCircle2,
-  Video,
 } from "lucide-react";
 import { MotionSection, SlideIn } from "@/components/ui/MotionWrapper";
 import { COMPANY_INFO } from "@/lib/constants";
@@ -119,13 +117,15 @@ export function HomeAboutSection() {
                         : "Md. Mamunur Rashid (Proprietor) detailing direct import operations"}
                     </span>
                   </div>
-                  <Link
-                    href="/about"
+                  <a
+                    href="https://www.youtube.com/watch?v=ONTd4X4M-Vo"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 font-bold text-[#800020] hover:underline"
                   >
-                    <span>{isBn ? "সম্পূর্ণ ভিডিও ও প্রোফাইল" : "Full Profile"}</span>
+                    <span>{isBn ? "ইউটিউবে ভিডিও দেখুন" : "Watch on YouTube"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </SlideIn>
@@ -173,7 +173,7 @@ export function HomeAboutSection() {
                           {item.title}
                         </h4>
                       </div>
-                      <p className="text-[11px] text-[#717171] leading-snug">
+                      <p className="text-xs text-[#4A4A4A] leading-relaxed">
                         {item.desc}
                       </p>
                     </div>
@@ -185,15 +185,15 @@ export function HomeAboutSection() {
               <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-[#E5E5E5]">
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white text-xs font-bold shadow-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
-                  <span>{isBn ? "আমাদের সম্পর্কে বিস্তারিত" : "Full About Us Profile"}</span>
+                  <span>{isBn ? "প্রতিষ্ঠাতার সম্পূর্ণ প্রোফাইল" : "Full Founder Profile"}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
 
                 <a
                   href={`tel:${COMPANY_INFO.phone}`}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#E5E5E5] hover:border-neutral-300 active:scale-[0.98] text-[#2D2D2D] text-xs font-bold shadow-2xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white border border-[#E5E5E5] hover:border-neutral-300 active:scale-[0.98] text-[#2D2D2D] text-xs sm:text-sm font-bold shadow-2xs transition-all cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#800020]" />
                   <span>{COMPANY_INFO.phone}</span>

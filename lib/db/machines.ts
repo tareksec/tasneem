@@ -6,11 +6,15 @@ import { MACHINES } from "@/lib/machines-data";
  * Format raw Prisma Machine record into TypeScript Machine domain model
  */
 function formatDbMachine(raw: any): Machine {
+  const isCircularSub = ["double-jersey", "single-jersey", "interlock", "jacquard", "terry"].includes(raw.category);
+  const mainCategory = (raw.mainCategory as MainCategory) || (isCircularSub ? "circular-knitting" : (raw.category as MainCategory));
+  const subCategory = (raw.subCategory as CircularKnittingSubCategory) || (isCircularSub ? (raw.category as CircularKnittingSubCategory) : undefined);
+
   return {
     ...raw,
     name_bn: raw.name_bn || undefined,
-    mainCategory: (raw.mainCategory as MainCategory) || undefined,
-    subCategory: (raw.subCategory as CircularKnittingSubCategory) || undefined,
+    mainCategory,
+    subCategory,
     category: raw.category as MachineCategory,
     cylinderDiameter: raw.cylinderDiameter || undefined,
     gauge: raw.gauge || undefined,

@@ -199,9 +199,10 @@ export function IndustriesSection() {
 
                   <Link
                     href="/quote"
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs sm:text-sm font-semibold border border-current/20 hover:border-current/50 opacity-80 hover:opacity-100 active:scale-[0.98] transition-all min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-xs sm:text-sm bg-[#800020] hover:bg-[#5A0017] text-white shadow-md hover:shadow-lg active:scale-[0.98] transition-all min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                   >
                     <span>{dict.common.requestQuote}</span>
+                    <ArrowUpRight className="w-4 h-4 shrink-0" />
                   </Link>
                 </div>
 

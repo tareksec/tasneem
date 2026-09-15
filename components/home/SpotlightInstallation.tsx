@@ -123,7 +123,7 @@ export function SpotlightInstallation() {
           {/* Right Checklist (3 cols) */}
           <div className="lg:col-span-3 order-3">
             <SlideIn direction="right" distance={20} duration={0.45}>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
+              <div className="flex items-center lg:flex-row-reverse gap-2 text-xs uppercase tracking-wider text-[#2D2D2D] font-bold pb-2 border-b border-[#E5E5E5] mb-6">
                 <GraduationCap className="w-4 h-4 text-[#800020]" />
                 <span>Training & Support</span>
               </div>
@@ -131,13 +131,13 @@ export function SpotlightInstallation() {
                 {rightChecklist.map((item) => (
                   <StaggerItem key={item.title}>
                     <div className="border border-[#E5E5E5] rounded-xl p-4 bg-[#F9F9F9] shadow-xs hover:border-[#800020]/40 transition-colors duration-200">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center lg:flex-row-reverse gap-2 mb-1">
                         <div className="w-5 h-5 rounded-full bg-white border border-[#E5E5E5] text-[#800020] flex items-center justify-center shrink-0">
                           <Check className="w-3 h-3 text-[#800020]" />
                         </div>
-                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D]">{item.title}</h3>
+                        <h3 className="text-xs sm:text-sm font-bold text-[#2D2D2D] lg:text-right">{item.title}</h3>
                       </div>
-                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7">{item.description}</p>
+                      <p className="text-xs text-[#4A4A4A] leading-relaxed pl-7 lg:pl-0 lg:pr-7 lg:text-right">{item.description}</p>
                     </div>
                   </StaggerItem>
                 ))}
@@ -150,7 +150,7 @@ export function SpotlightInstallation() {
         <MotionSection delay={0.1} className="mt-12 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 bg-[#800020] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 bg-[#800020] text-white px-7 py-3 rounded-full text-sm font-semibold hover:bg-[#5A0017] active:scale-[0.98] transition-all duration-200 shadow-md min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
           >
             <span>{dict.common.readMore}</span>
             <ArrowUpRight className="w-4 h-4" />

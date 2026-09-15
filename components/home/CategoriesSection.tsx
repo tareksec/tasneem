@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Cpu, Layers } from "lucide-react";
+import { ArrowUpRight, Layers } from "lucide-react";
 import { MAIN_CATEGORIES } from "@/lib/machines-data";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
@@ -90,7 +90,7 @@ export function CategoriesSection() {
                 <Link
                   key={category.slug}
                   href={`/machines/${category.slug}`}
-                  className="relative w-full h-[470px] sm:h-[500px] rounded-[28px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#800020]/40 transition-all duration-300 flex flex-col justify-between p-5 sm:p-6 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                  className="relative w-full h-[470px] sm:h-[500px] rounded-3xl overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#800020]/40 transition-all duration-300 flex flex-col justify-between p-5 sm:p-6 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 >
                   {/* Full-bleed background image */}
                   <Image
@@ -113,18 +113,18 @@ export function CategoriesSection() {
                   {/* Top Header row */}
                   <div className="relative z-10 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5">
-                      <span className="bg-white/90 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                      <span className="bg-white/90 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-xs font-mono font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
                         0{index + 1} / 05
                       </span>
                       {isCircular && (
-                        <span className="inline-flex items-center gap-1 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                        <span className="inline-flex items-center gap-1 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
                           <Layers className="w-2.5 h-2.5 text-amber-600" />
                           <span>{locale === "bn" ? "৫টি সাব-টাইপ" : "5 Sub-Types"}</span>
                         </span>
                       )}
                     </div>
 
-                    <span className="bg-white/80 backdrop-blur-md border border-neutral-200/80 text-neutral-600 text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full">
+                    <span className="bg-white/80 backdrop-blur-md border border-neutral-200/80 text-neutral-600 text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded-full">
                       {category.slug}
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export function CategoriesSection() {
                     </p>
 
                     <div className="flex flex-wrap items-center gap-1.5 mb-4">
-                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
                         {index === 0
                           ? (locale === "bn" ? "টপ চয়েস" : "Top Pick")
                           : (locale === "bn" ? "সরাসরি আমদানি" : "Direct Import")}
@@ -153,7 +153,7 @@ export function CategoriesSection() {
                       {category.commonApplications.slice(0, 2).map((app) => (
                         <span
                           key={app}
-                          className="bg-neutral-100 border border-neutral-200/90 text-neutral-700 text-[10px] font-medium px-2.5 py-0.5 rounded-full"
+                          className="bg-neutral-100 border border-neutral-200/90 text-neutral-700 text-xs font-medium px-2.5 py-0.5 rounded-full"
                         >
                           {app}
                         </span>
@@ -259,7 +259,7 @@ export function CategoriesSection() {
                 <Link
                   key={category.slug}
                   href={`/machines/${category.slug}`}
-                  className="relative w-[85vw] sm:w-[370px] lg:w-[410px] h-[530px] sm:h-[570px] shrink-0 rounded-[32px] overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_-12px_rgba(128,0,32,0.16)] hover:border-[#800020]/40 transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                  className="relative w-[85vw] sm:w-[370px] lg:w-[410px] h-[530px] sm:h-[570px] shrink-0 rounded-3xl overflow-hidden bg-white border border-[#E5E5E5] shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] hover:shadow-[0_25px_50px_-12px_rgba(128,0,32,0.16)] hover:border-[#800020]/40 transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 >
                   {/* 1. Full-bleed background image */}
                   <Image
@@ -282,18 +282,18 @@ export function CategoriesSection() {
                   {/* 3. Top Row Header: Frosted Light Badges */}
                   <div className="relative z-10 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="bg-white/85 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-[11px] font-mono font-bold px-3 py-1 rounded-full shadow-2xs">
+                      <span className="bg-white/85 backdrop-blur-md border border-neutral-200/90 text-neutral-900 text-xs font-mono font-bold px-3 py-1 rounded-full shadow-2xs">
                         0{index + 1} / 05
                       </span>
                       {isCircular && (
-                        <span className="inline-flex items-center gap-1.5 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-2xs">
+                        <span className="inline-flex items-center gap-1.5 bg-amber-50/90 backdrop-blur-md border border-amber-200/90 text-amber-900 text-xs font-bold px-3 py-1 rounded-full shadow-2xs">
                           <Layers className="w-3 h-3 text-amber-600" />
                           <span>{locale === "bn" ? "৫টি সাব-টাইপ" : "5 Sub-Types"}</span>
                         </span>
                       )}
                     </div>
 
-                    <span className="bg-white/80 backdrop-blur-md border border-neutral-200/80 text-neutral-600 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full">
+                    <span className="bg-white/80 backdrop-blur-md border border-neutral-200/80 text-neutral-600 text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full">
                       {category.slug}
                     </span>
                   </div>
@@ -323,13 +323,13 @@ export function CategoriesSection() {
                     </div>
 
                     {/* Description Tagline */}
-                    <p className="text-xs sm:text-[13px] text-neutral-600 font-normal leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
+                    <p className="text-xs sm:text-sm text-neutral-600 font-normal leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
                       {catTagline}
                     </p>
 
                     {/* Pill Chips */}
                     <div className="flex flex-wrap items-center gap-2 mb-5">
-                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] text-[11px] font-bold px-3 py-1 rounded-full shadow-2xs">
+                      <span className="bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] text-xs font-bold px-3 py-1 rounded-full shadow-2xs">
                         {index === 0
                           ? (locale === "bn" ? "টপ চয়েস" : "Top Pick")
                           : (locale === "bn" ? "সরাসরি আমদানি" : "Direct Import")}
@@ -337,7 +337,7 @@ export function CategoriesSection() {
                       {category.commonApplications.slice(0, 2).map((app) => (
                         <span
                           key={app}
-                          className="bg-neutral-100 hover:bg-neutral-200/70 border border-neutral-200/90 text-neutral-700 text-[11px] font-medium px-3 py-1 rounded-full transition-colors"
+                          className="bg-neutral-100 hover:bg-neutral-200/70 border border-neutral-200/90 text-neutral-700 text-xs font-medium px-3 py-1 rounded-full transition-colors"
                         >
                           {app}
                         </span>

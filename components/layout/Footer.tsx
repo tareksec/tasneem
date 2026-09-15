@@ -50,11 +50,11 @@ export function Footer() {
                   <ShieldCheck className="w-3.5 h-3.5 text-[#800020]" />
                   <span>{dict.footer.complianceTitle}</span>
                 </div>
-                <div className="flex items-center justify-between text-[11px] pt-1 border-t border-neutral-100">
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-neutral-100">
                   <span className="text-neutral-500">{dict.footer.binLabel}:</span>
                   <span className="font-semibold text-neutral-800">{COMPANY_INFO.registration.bin}</span>
                 </div>
-                <div className="flex items-center justify-between text-[11px]">
+                <div className="flex items-center justify-between text-xs">
                   <span className="text-neutral-500">Trade License:</span>
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-neutral-800">{COMPANY_INFO.registration.tradeLicense}</span>
@@ -62,14 +62,14 @@ export function Footer() {
                       href={COMPANY_INFO.tradeLicenseUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] text-[#800020] hover:underline font-semibold inline-flex items-center gap-0.5"
+                      className="text-xs text-[#800020] hover:underline font-semibold inline-flex items-center gap-0.5"
                     >
                       <span>({dict.common.viewTradeLicense})</span>
-                      <ArrowUpRight className="w-2.5 h-2.5" />
+                      <ArrowUpRight className="w-3 h-3" />
                     </a>
                   </div>
                 </div>
-                <p className="text-[10px] text-neutral-500 mt-0.5 border-t border-neutral-100 pt-1">
+                <p className="text-xs text-neutral-600 mt-1 border-t border-neutral-200/60 pt-1.5 leading-normal">
                   {dict.footer.complianceNote}
                 </p>
               </div>
@@ -196,7 +196,7 @@ export function Footer() {
                       <span className="font-bold text-[#2D2D2D] block">
                         {locale === "bn" ? "ঢাকা হেড অফিস:" : "Dhaka Head Office:"}
                       </span>
-                      <span className="text-[11px] text-neutral-600 mt-0.5 block">
+                      <span className="text-xs text-neutral-600 mt-0.5 block">
                         {locale === "bn" ? COMPANY_INFO.headOffice.addressBn : COMPANY_INFO.headOffice.address}
                       </span>
                     </div>
@@ -205,7 +205,7 @@ export function Footer() {
                       <span className="font-bold text-[#2D2D2D] block">
                         {locale === "bn" ? "শোরুম ও ওয়্যারহাউস:" : "Showroom & Hub:"}
                       </span>
-                      <span className="text-[11px] text-neutral-600 mt-0.5 block">
+                      <span className="text-xs text-neutral-600 mt-0.5 block">
                         {COMPANY_INFO.addressShort}
                       </span>
                       {/* Small embedded compact Google map */}
@@ -218,10 +218,10 @@ export function Footer() {
                       <span className="font-bold text-[#2D2D2D] block">
                         {locale === "bn" ? "চীন অফিস (সোর্সিং ও পার্টনার):" : "China Sourcing Office:"}
                       </span>
-                      <span className="text-[10px] text-neutral-500 font-semibold block">
+                      <span className="text-xs text-neutral-700 font-semibold block">
                         {COMPANY_INFO.chinaOffice.company}
                       </span>
-                      <span className="text-[10px] text-neutral-500 mt-0.5 block leading-tight">
+                      <span className="text-xs text-neutral-600 mt-0.5 block leading-normal">
                         {locale === "bn" ? COMPANY_INFO.chinaOffice.addressBn : COMPANY_INFO.chinaOffice.address}
                       </span>
                     </div>
@@ -234,7 +234,7 @@ export function Footer() {
                     <a href={`tel:${COMPANY_INFO.hotline}`} className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors break-all sm:break-normal">
                       Hotline: {COMPANY_INFO.hotline}
                     </a>
-                    <a href={`tel:${COMPANY_INFO.directContact.replace(/[^0-9+]/g, "")}`} className="text-[11px] text-neutral-500 hover:text-[#2D2D2D] mt-0.5 break-all sm:break-normal">
+                    <a href={`tel:${COMPANY_INFO.directContact.replace(/[^0-9+]/g, "")}`} className="text-xs text-neutral-600 hover:text-[#800020] py-0.5 mt-0.5 break-all sm:break-normal inline-block transition-colors">
                       Direct Sales: {COMPANY_INFO.directContact} ({COMPANY_INFO.contactPerson})
                     </a>
                   </div>
@@ -243,11 +243,11 @@ export function Footer() {
                 <div className="flex items-start gap-2">
                   <Mail className="w-3.5 h-3.5 text-neutral-500 shrink-0 mt-0.5" />
                   <div className="flex flex-col leading-tight min-w-0">
-                    <a href={`mailto:${COMPANY_INFO.email}`} className="text-[11px] font-semibold text-[#2D2D2D] hover:text-black hover:underline break-all sm:break-normal">
+                    <a href={`mailto:${COMPANY_INFO.email}`} className="text-xs font-semibold text-[#2D2D2D] hover:text-black hover:underline break-all sm:break-normal">
                       {COMPANY_INFO.email}
                     </a>
                     {COMPANY_INFO.businessEmail && (
-                      <a href={`mailto:${COMPANY_INFO.businessEmail}`} className="text-[10px] text-neutral-500 hover:text-[#2D2D2D] hover:underline break-all sm:break-normal mt-0.5">
+                      <a href={`mailto:${COMPANY_INFO.businessEmail}`} className="text-xs text-neutral-600 hover:text-[#800020] hover:underline py-0.5 mt-0.5 break-all sm:break-normal inline-block transition-colors">
                         Business: {COMPANY_INFO.businessEmail}
                       </a>
                     )}

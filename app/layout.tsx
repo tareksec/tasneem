@@ -108,7 +108,7 @@ export const metadata: Metadata = {
     ],
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || "google-site-verification-tasneem-pending",
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || "wGKuU1wkzeFDwhHUp-7bNHpZsxE1cc9jD5a1tcbId7E",
   },
 };
 
@@ -120,6 +120,7 @@ export default function RootLayout({
   return (
     <html lang="bn" className={`${notoSerifBengali.variable} h-full antialiased`}>
       <head>
+        <meta name="google-site-verification" content="wGKuU1wkzeFDwhHUp-7bNHpZsxE1cc9jD5a1tcbId7E" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
         <link rel="icon" href="/logo/icon.png" type="image/png" />
