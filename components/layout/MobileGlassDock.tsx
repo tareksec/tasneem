@@ -10,8 +10,8 @@ import { trackWhatsAppClick } from "@/components/analytics/GoogleAnalytics";
 export function MobileGlassDock() {
   const pathname = usePathname();
 
-  // Hide on admin routes or when pathname is unavailable
-  if (!pathname || pathname.startsWith("/admin")) {
+  // Hide on admin routes, /machines or /shop (which has its own specialized mobile explore dock)
+  if (!pathname || pathname.startsWith("/admin") || pathname.startsWith("/machines") || pathname.startsWith("/shop")) {
     return null;
   }
 

@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Handoff Report — Tasneem Knitting Industry Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       TASNEEM KNIT INDUSTRY — BRAND DESIGN SYSTEM
+       Primary: Burgundy (#800020), Dark: (#5A0017), Light Tint: (#FDF2F4)
+       Dark Gray: (#2D2D2D), Secondary: (#4A4A4A), Border: (#E5E5E5)
+       ========================================================================== */
+    :root {
+      --burgundy: #800020;
+      --burgundy-dark: #5A0017;
+      --burgundy-light: #FDF2F4;
+      --burgundy-tint: #F9E6EA;
+      --burgundy-border: #D8A4AF;
+      --gray-dark: #2D2D2D;
+      --gray-secondary: #4A4A4A;
+      --gray-muted: #717171;
+      --gray-light: #F9FAFB;
+      --gray-border: #E5E7EB;
+      --white: #FFFFFF;
+      --emerald: #059669;
+      --emerald-light: #ECFDF5;
+      --amber: #D97706;
+      --amber-light: #FFFBEB;
+      --blue: #2563EB;
+      --blue-light: #EFF6FF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #F4F6F9;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    /* Top Floating Action Bar (hidden in print) */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+    }
+
+    .top-bar-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--burgundy);
+    }
+
+    .top-bar-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--burgundy);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--burgundy-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--white);
+      color: var(--gray-dark);
+      border-color: var(--gray-border);
+    }
+
+    .btn-outline:hover {
+      background: var(--gray-light);
+      border-color: #CBD5E1;
+    }
+
+    /* Page Container */
+    .container {
+      max-width: 960px;
+      margin: 32px auto 0 auto;
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--gray-border);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+    }
+
+    /* Header Section */
+    .report-header {
+      background: linear-gradient(135deg, #800020 0%, #5A0017 100%);
+      color: var(--white);
+      padding: 48px 48px 40px 48px;
+      position: relative;
+    }
+
+    .report-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      margin-bottom: 18px;
+      color: var(--white);
+    }
+
+    .report-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .report-tagline {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      max-width: 760px;
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .meta-value {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    /* Main Content Body */
+    .report-body {
+      padding: 48px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-light);
+    }
+
+    .section-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--burgundy-light);
+      color: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gray-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--gray-secondary);
+      margin-top: -12px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* What's Included Grid */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .page-card {
+      background: var(--gray-light);
+      border: 1px solid var(--gray-border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page-card:hover {
+      border-color: var(--burgundy-border);
+      background: var(--white);
+      box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .page-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .page-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .page-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #E2E8F0;
+      color: #334155;
+    }
+
+    .page-badge.b2b {
+      background: var(--burgundy-light);
+      color: var(--burgundy);
+      border: 1px solid var(--burgundy-border);
+    }
+
+    .page-badge.core {
+      background: var(--emerald-light);
+      color: var(--emerald);
+      border: 1px solid #A7F3D0;
+    }
+
+    .page-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+      margin-bottom: 6px;
+    }
+
+    .page-desc {
+      font-size: 0.825rem;
+      color: var(--gray-secondary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .page-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gray-muted);
+      background: rgba(0, 0, 0, 0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    /* Key Features: 3-column benefit table/cards */
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-item {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 240px 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+      transition: border-color 0.2s ease;
+    }
+
+    .feature-item:hover {
+      border-color: var(--burgundy-border);
+    }
+
+    .feature-name-col {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--burgundy-light);
+      color: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+    }
+
+    .feature-pill {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--gray-muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .feature-col {
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    .col-header {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .col-header.action {
+      color: var(--gray-muted);
+    }
+
+    .col-header.benefit {
+      color: var(--emerald);
+    }
+
+    .feature-action {
+      color: var(--gray-secondary);
+    }
+
+    .feature-benefit {
+      color: var(--gray-dark);
+      font-weight: 600;
+      background: var(--emerald-light);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-left: 3px solid var(--emerald);
+    }
+
+    /* Trust & Credibility Grid */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .trust-card {
+      background: #FAFBFD;
+      border: 1px solid var(--gray-border);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .trust-badge-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--burgundy-light);
+      color: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .trust-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+    }
+
+    .trust-data {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--burgundy);
+      background: var(--white);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--gray-border);
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    .trust-desc {
+      font-size: 0.825rem;
+      color: var(--gray-secondary);
+      line-height: 1.5;
+    }
+
+    .trust-why {
+      font-size: 0.78rem;
+      color: var(--emerald);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Mobile & Performance Highlight Card */
+    .highlight-banner {
+      background: linear-gradient(135deg, #F9FAFB 0%, #F1F5F9 100%);
+      border: 1px solid var(--gray-border);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .highlight-icon-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .highlight-content h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--gray-dark);
+      margin-bottom: 8px;
+    }
+
+    .highlight-content p {
+      font-size: 0.875rem;
+      color: var(--gray-secondary);
+      line-height: 1.6;
+    }
+
+    .speed-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .speed-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      color: var(--gray-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .speed-pill span.green {
+      color: var(--emerald);
+    }
+
+    /* Next Steps / Maintenance Box */
+    .maintenance-box {
+      background: var(--burgundy-light);
+      border: 1px solid var(--burgundy-border);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .maintenance-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .maintenance-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--burgundy-dark);
+    }
+
+    .maintenance-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .maintenance-step {
+      background: var(--white);
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(128, 0, 32, 0.15);
+    }
+
+    .step-number {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--burgundy);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .step-heading {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--gray-dark);
+      margin-bottom: 6px;
+    }
+
+    .step-text {
+      font-size: 0.8rem;
+      color: var(--gray-secondary);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .report-footer {
+      background: var(--gray-light);
+      border-top: 1px solid var(--gray-border);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      font-size: 0.825rem;
+      color: var(--gray-muted);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.825rem;
+      font-weight: 600;
+    }
+
+    .footer-link {
+      color: var(--burgundy);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       PRINT STYLES FOR PDF EXPORT
+       ========================================================================== */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .top-bar {
+        display: none !important;
+      }
+
+      .container {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+        border-radius: 0;
+      }
+
+      .report-header {
+        padding: 32px 32px 24px 32px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .report-body {
+        padding: 28px 32px;
+      }
+
+      .feature-item {
+        break-inside: avoid;
+        grid-template-columns: 200px 1fr 1fr;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .page-card {
+        break-inside: avoid;
+      }
+
+      .trust-card {
+        break-inside: avoid;
+      }
+
+      .maintenance-step {
+        break-inside: avoid;
+      }
+
+      .section {
+        margin-bottom: 32px;
+        break-inside: avoid;
+      }
+
+      .report-footer {
+        padding: 24px 32px;
+      }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .report-header {
+        padding: 32px 24px;
+      }
+
+      .report-title {
+        font-size: 1.75rem;
+      }
+
+      .report-body {
+        padding: 24px;
+      }
+
+      .feature-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .highlight-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+      }
+
+      .report-footer {
+        padding: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Bar (Browser View Only) -->
+  <header class="top-bar">
+    <div class="top-bar-brand">
+      <div class="top-bar-dot"></div>
+      <span>Tasneem Knit Industry — Project Deliverable</span>
+    </div>
+    <div class="top-bar-actions">
+      <button class="btn btn-outline" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Save as PDF / Print
+      </button>
+      <a class="btn btn-primary" href="https://tasneemknitindustry.com" target="_blank" rel="noopener">
+        Visit Website
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Report Container -->
+  <main class="container">
+
+    <!-- 1. Header -->
+    <header class="report-header">
+      <div class="report-badge">Official Client Deliverable & Handoff</div>
+      <h1 class="report-title">Tasneem Knitting Industry — Website</h1>
+      <p class="report-tagline">
+        A complete summary of your new digital platform — built from the ground up to establish industry leadership, generate B2B machinery sales leads, and present your business with full authority to mill owners across Bangladesh.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-label">Client</span>
+          <span class="meta-value">Tasneem Knit Industry</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Proprietor</span>
+          <span class="meta-value">Md. Mamunur Rashid</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Domain</span>
+          <span class="meta-value">tasneemknitindustry.com</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Completion Date</span>
+          <span class="meta-value">March 2026</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Project Status</span>
+          <span class="meta-value" style="color: #6EE7B7;">✓ Completed & Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Report Body -->
+    <div class="report-body">
+
+      <!-- 2. What's Included -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <h2 class="section-title">What Was Built (Every Page & System)</h2>
+        </div>
+        <p class="section-subtitle">
+          Every page and tool listed below is fully designed, coded, and operational in your website. No generic templates or unbuilt placeholders were used.
+        </p>
+
+        <div class="pages-grid">
+          <!-- Homepage -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🏠</div>
+                <span class="page-badge core">Core Page</span>
+              </div>
+              <h3 class="page-name">Homepage</h3>
+              <p class="page-desc">
+                High-impact B2B storefront with your value proposition, compliance strip, category navigation, why Tasneem comparison, and founder video.
+              </p>
+            </div>
+            <span class="page-path">/ (Home)</span>
+          </div>
+
+          <!-- Machinery Catalog -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">⚙️</div>
+                <span class="page-badge b2b">Sales Tool</span>
+              </div>
+              <h3 class="page-name">Machinery Catalog</h3>
+              <p class="page-desc">
+                Interactive equipment showcase with live search, category filtering (Double Jersey, Single Jersey, Interlock, Terry, Finishing), and instant quote shortcuts.
+              </p>
+            </div>
+            <span class="page-path">/machines</span>
+          </div>
+
+          <!-- Machine Detail Pages -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">📋</div>
+                <span class="page-badge b2b">Catalog Detail</span>
+              </div>
+              <h3 class="page-name">Machine Detail Pages</h3>
+              <p class="page-desc">
+                Dedicated spec sheets for each model (cylinder diameter, gauge, feeders, speed, power, weight, warranty) with image galleries and sticky quote actions.
+              </p>
+            </div>
+            <span class="page-path">/machines/[category]/[id]</span>
+          </div>
+
+          <!-- Quote Request System -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">📝</div>
+                <span class="page-badge b2b">Lead Engine</span>
+              </div>
+              <h3 class="page-name">Quote Request System</h3>
+              <p class="page-desc">
+                3-step guided quote wizard with 1-click machine presets, BD phone validation, reference ID generation, and WhatsApp follow-up link.
+              </p>
+            </div>
+            <span class="page-path">/quote</span>
+          </div>
+
+          <!-- About Us -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🏢</div>
+                <span class="page-badge core">Brand Trust</span>
+              </div>
+              <h3 class="page-name">About Us & Corporate Story</h3>
+              <p class="page-desc">
+                Your direct factory sourcing pipeline, BSCIC Narayanganj hub, China procurement desk, and proprietor introduction with speech video.
+              </p>
+            </div>
+            <span class="page-path">/about</span>
+          </div>
+
+          <!-- How It Works -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🔄</div>
+                <span class="page-badge core">Process</span>
+              </div>
+              <h3 class="page-name">How It Works (Procurement)</h3>
+              <p class="page-desc">
+                Step-by-step visual roadmap showing how your direct imports work from overseas factory testing to CFR sea shipping and local installation.
+              </p>
+            </div>
+            <span class="page-path">/how-it-works</span>
+          </div>
+
+          <!-- Services -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🛠️</div>
+                <span class="page-badge core">Services</span>
+              </div>
+              <h3 class="page-name">Services & Engineering</h3>
+              <p class="page-desc">
+                Full breakdown of pre-shipment inspections (SGS/BV), CFR shipping, factory-floor commissioning, operator training, and local spare parts inventory.
+              </p>
+            </div>
+            <span class="page-path">/services</span>
+          </div>
+
+          <!-- Industries Served -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🏭</div>
+                <span class="page-badge core">Industry</span>
+              </div>
+              <h3 class="page-name">Industries & Applications</h3>
+              <p class="page-desc">
+                Tailored solutions for Export Garment Mills, Vertical Composite Facilities, Commission Knitters, and Dyeing/Finishing operations.
+              </p>
+            </div>
+            <span class="page-path">/industries</span>
+          </div>
+
+          <!-- Projects & Gallery -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">📸</div>
+                <span class="page-badge core">Proof</span>
+              </div>
+              <h3 class="page-name">Projects & Installation Gallery</h3>
+              <p class="page-desc">
+                Visual proof of actual machine installations across Narayanganj, Gazipur, Savar, and Chattogram with photo and video media filters.
+              </p>
+            </div>
+            <span class="page-path">/projects</span>
+          </div>
+
+          <!-- Reviews & Testimonials -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">⭐</div>
+                <span class="page-badge core">Social Proof</span>
+              </div>
+              <h3 class="page-name">Client Reviews & Testimonials</h3>
+              <p class="page-desc">
+                Real customer feedback from factory engineers and mill owners, complete with 5-star rating breakdowns and a public submission form.
+              </p>
+            </div>
+            <span class="page-path">/reviews</span>
+          </div>
+
+          <!-- Technical Guides & Resources -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">📚</div>
+                <span class="page-badge core">Authority</span>
+              </div>
+              <h3 class="page-name">Technical Resources & Guides</h3>
+              <p class="page-desc">
+                Educational B2B guides for mill owners: Cylinder diameter vs. gauge calculation, yarn count matching, and 24/7 preventive maintenance schedules.
+              </p>
+            </div>
+            <span class="page-path">/resources</span>
+          </div>
+
+          <!-- FAQ -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">❓</div>
+                <span class="page-badge core">Help</span>
+              </div>
+              <h3 class="page-name">Frequently Asked Questions</h3>
+              <p class="page-desc">
+                Accordion answers addressing L/C terms, CFR Chattogram delivery timelines, warranty coverage, engineer availability, and spare parts.
+              </p>
+            </div>
+            <span class="page-path">/faq</span>
+          </div>
+
+          <!-- Contact & Locations -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">📍</div>
+                <span class="page-badge core">Contact</span>
+              </div>
+              <h3 class="page-name">Contact & Multi-Office Hub</h3>
+              <p class="page-desc">
+                Full directory of your Narayanganj Machinery Hub, Dhaka Corporate Office, and China Sourcing Desk with verified Google Maps and fast inquiry forms.
+              </p>
+            </div>
+            <span class="page-path">/contact</span>
+          </div>
+
+          <!-- Privacy Policy -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">🔒</div>
+                <span class="page-badge core">Legal</span>
+              </div>
+              <h3 class="page-name">Privacy & Data Protection</h3>
+              <p class="page-desc">
+                Clear B2B data confidentiality agreement assuring mill owners that their quote requests and corporate specifications remain 100% private.
+              </p>
+            </div>
+            <span class="page-path">/privacy-policy</span>
+          </div>
+
+          <!-- Buyer Account Portal -->
+          <div class="page-card">
+            <div>
+              <div class="page-top">
+                <div class="page-icon">👤</div>
+                <span class="page-badge b2b">Client Portal</span>
+              </div>
+              <h3 class="page-name">Buyer Account Portal</h3>
+              <p class="page-desc">
+                Client login and registration system allowing textile mill procurement officers to track their quote requests and historical submissions.
+              </p>
+            </div>
+            <span class="page-path">/account & /account/quotes</span>
+          </div>
+
+          <!-- Admin Control Center -->
+          <div class="page-card" style="border-color: var(--burgundy-border); background: var(--burgundy-light);">
+            <div>
+              <div class="page-top">
+                <div class="page-icon" style="background: var(--burgundy); color: white;">⚡</div>
+                <span class="page-badge b2b">Admin Only</span>
+              </div>
+              <h3 class="page-name">Admin Control Center</h3>
+              <p class="page-desc">
+                Your private back-office dashboard to manage machine listings, track new quotes, moderate reviews, and approve registered buyers without code.
+              </p>
+            </div>
+            <span class="page-path">/admin</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Key Features & Benefits -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <h2 class="section-title">Key Features & Business Benefits</h2>
+        </div>
+        <p class="section-subtitle">
+          Every capability built into the website serves a specific business purpose — to save you time, establish credibility, and convert visitors into paying clients.
+        </p>
+
+        <div class="features-list">
+          
+          <!-- Feature 1: Bilingual -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">🌐</div>
+              <div>
+                <h4 class="feature-title">Bilingual Experience</h4>
+                <span class="feature-pill">English + বাংলা Toggle</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                With a single click, any visitor can switch the entire website between English and native Bengali, remembering their language preference automatically.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                Local mill owners and factory technicians can read comfortably in Bangla, while international partners, bank officers, and foreign suppliers see fluent English.
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 2: Quote Request Engine -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">📑</div>
+              <div>
+                <h4 class="feature-title">Smart Quote Engine</h4>
+                <span class="feature-pill">3-Step Guided Wizard</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                Walks buyers through choosing their machine type, cylinder diameter (30"–38"), gauge (20G–36G), and delivery terms, issuing an official Reference ID.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                Turns casual website browsers into qualified sales leads with exact technical specifications, cutting out days of back-and-forth phone tag.
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 3: WhatsApp & Phone Integration -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">💬</div>
+              <div>
+                <h4 class="feature-title">Fast-Track WhatsApp</h4>
+                <span class="feature-pill">Instant Chat Pre-filling</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                Direct WhatsApp action buttons across every machine card and quote screen that open an instant chat with your sales manager with the machine details pre-filled.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                Matches how business is actually done in Bangladesh. Mill owners love immediate WhatsApp answers — you capture hot leads while they are actively shopping.
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 4: Admin Dashboard -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">📊</div>
+              <div>
+                <h4 class="feature-title">Self-Service Admin</h4>
+                <span class="feature-pill">Full Content Control</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                A password-protected back office where you can add new machines, update specifications, review quotes, update lead statuses, and moderate customer reviews.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                You have 100% independence. You never need to pay a web developer or wait days just to add a new machine model, update a phone number, or change a price.
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 5: Searchable Machine Catalog -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">🔍</div>
+              <div>
+                <h4 class="feature-title">Live Machine Filter</h4>
+                <span class="feature-pill">Instant Search & Specs</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                Buyers can search by model name, filter by knitting category (Double Jersey, Single Jersey, etc.), or narrow down machines by cylinder gauge and diameter.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                Positions Tasneem as a serious, well-organized machinery distributor rather than a generic trader, making your catalog effortless for busy engineers to navigate.
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 6: Review Moderation -->
+          <div class="feature-item">
+            <div class="feature-name-col">
+              <div class="feature-icon-circle">⭐</div>
+              <div>
+                <h4 class="feature-title">Review Management</h4>
+                <span class="feature-pill">Approval Before Live</span>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="col-header action">What it does</div>
+              <p class="feature-action">
+                Allows clients to submit feedback directly on the website, but holds them in an admin moderation queue until you personally approve them for display.
+              </p>
+            </div>
+            <div class="feature-col">
+              <div class="col-header benefit">Why it matters for your business</div>
+              <div class="feature-benefit">
+                Builds powerful social proof from real factory owners while keeping you in total control so no spam or inappropriate content ever appears publicly.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. Trust & Credibility Elements -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <h2 class="section-title">Trust & Credibility Elements</h2>
+        </div>
+        <p class="section-subtitle">
+          In industrial machinery sales, trust is everything. A single circular knitting machine or dyeing vessel is a multi-million Taka investment. We built specific credibility anchors across the site to eliminate buyer hesitation.
+        </p>
+
+        <div class="trust-grid">
+          <!-- Trade License -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">📜</div>
+              <h4 class="trust-title">Verified Trade License</h4>
+            </div>
+            <span class="trust-data">No: 20252617218016419</span>
+            <p class="trust-desc">
+              Your official municipal trade license registration is explicitly stated in the header and trust strip, complete with a clickable link to view the document.
+            </p>
+            <div class="trust-why">
+              ✓ Proves you are a legally registered business
+            </div>
+          </div>
+
+          <!-- Tax & Business Identifiers -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">🏛️</div>
+              <h4 class="trust-title">BIN & ETIN Compliance</h4>
+            </div>
+            <span class="trust-data">BIN: 006673859-0403</span>
+            <p class="trust-desc">
+              Your VAT registration (BIN) and electronic tax identification (ETIN: 626339507948) are clearly shown across the website header and footer.
+            </p>
+            <div class="trust-why">
+              ✓ Vital for mills opening bank L/Cs
+            </div>
+          </div>
+
+          <!-- Inspection Partners -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">🛡️</div>
+              <h4 class="trust-title">Inspection Partners</h4>
+            </div>
+            <span class="trust-data">SGS • Intertek • BV</span>
+            <p class="trust-desc">
+              Badges for world-leading inspection agencies highlight that your imported machinery undergoes rigorous quality checks before container loading.
+            </p>
+            <div class="trust-why">
+              ✓ Eliminates fear of receiving damaged or sub-par machines
+            </div>
+          </div>
+
+          <!-- Founder Video -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">🎥</div>
+              <h4 class="trust-title">Proprietor Introduction Video</h4>
+            </div>
+            <span class="trust-data">Md. Mamunur Rashid</span>
+            <p class="trust-desc">
+              A high-definition video of the owner explaining Tasneem's direct factory sourcing model is embedded right on the homepage and about page.
+            </p>
+            <div class="trust-why">
+              ✓ Puts a real face and name to the company
+            </div>
+          </div>
+
+          <!-- Physical Hub & Showroom -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">📍</div>
+              <h4 class="trust-title">Verified Google Maps Hub</h4>
+            </div>
+            <span class="trust-data">Plot-594, BSCIC Narayanganj</span>
+            <p class="trust-desc">
+              Your physical machinery hub and showroom in Chan Nagor, Narayanganj is linked directly with official Google Maps coordinates and an interactive map.
+            </p>
+            <div class="trust-why">
+              ✓ Buyers know where to visit and inspect stock in person
+            </div>
+          </div>
+
+          <!-- China Sourcing Office -->
+          <div class="trust-card">
+            <div class="trust-badge-header">
+              <div class="trust-icon">🌏</div>
+              <h4 class="trust-title">Overseas Sourcing Desk</h4>
+            </div>
+            <span class="trust-data">Shaoxing, Zhejiang, China</span>
+            <p class="trust-desc">
+              Detailed physical address and registration of your direct sourcing office in the Shaoxing Textile Trade Center in China.
+            </p>
+            <div class="trust-why">
+              ✓ Confirms you buy directly from primary builders without middlemen
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Mobile & Performance -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <h2 class="section-title">Mobile Experience & Performance</h2>
+        </div>
+
+        <div class="highlight-banner">
+          <div class="highlight-icon-box">⚡</div>
+          <div class="highlight-content">
+            <h3>Built for Speed and Smooth Browsing on Any Phone</h3>
+            <p>
+              Most factory managers and textile mill owners in Bangladesh browse the web on smartphones over cellular data. Your new website was engineered specifically for mobile-first speed: pages load almost instantaneously, images are automatically compressed, and the interface is smooth and responsive whether opened on an Android phone, an iPhone, a tablet, or a desktop computer.
+            </p>
+            <div class="speed-pills">
+              <span class="speed-pill"><span class="green">●</span> 100% Mobile Responsive</span>
+              <span class="speed-pill"><span class="green">●</span> Fast 4G Performance</span>
+              <span class="speed-pill"><span class="green">●</span> Zero Annoying Popups</span>
+              <span class="speed-pill"><span class="green">●</span> Direct Tap-to-Call & WhatsApp</span>
+              <span class="speed-pill"><span class="green">●</span> Secure SSL Encryption</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. What's Next & Maintenance -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <h2 class="section-title">What's Next & Simple Day-to-Day Operation</h2>
+        </div>
+        <p class="section-subtitle">
+          Your website is live, stable, and ready to welcome customers. Here is a brief, non-technical guide on how you can manage your site moving forward:
+        </p>
+
+        <div class="maintenance-box">
+          <div class="maintenance-header">
+            <span style="font-size: 1.4rem;">🧭</span>
+            <h3 class="maintenance-title">How to Run Your New Website Going Forward</h3>
+          </div>
+
+          <div class="maintenance-list">
+            <!-- Step 1 -->
+            <div class="maintenance-step">
+              <span class="step-number">Step 01</span>
+              <h4 class="step-heading">Checking Inbound Quote Requests</h4>
+              <p class="step-text">
+                When a buyer submits a quote, it immediately arrives in your <strong>Admin Dashboard &gt; Quotes</strong> pipeline and triggers a direct WhatsApp notification with their contact and machine details.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="maintenance-step">
+              <span class="step-number">Step 02</span>
+              <h4 class="step-heading">Adding or Updating Machines</h4>
+              <p class="step-text">
+                Got a new model from Taiwan or China? Log in to your Admin portal, click <em>"Add Machine"</em>, type the specifications, upload a photo, and it is instantly published to your live catalog.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="maintenance-step">
+              <span class="step-number">Step 03</span>
+              <h4 class="step-heading">Approving Customer Reviews</h4>
+              <p class="step-text">
+                Whenever a satisfied client writes a review, you will find it waiting under <strong>Admin &gt; Reviews</strong>. Click "Approve" with one tap to show it proudly on your homepage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Report Footer -->
+    <footer class="report-footer">
+      <div class="footer-left">
+        <strong>Tasneem Knitting Industry</strong> • Commercial Machinery Website Build<br>
+        Delivered with full source code, admin credentials, and documentation.
+      </div>
+      <div class="footer-right">
+        <span>Need assistance?</span>
+        <a class="footer-link" href="mailto:tasneemknit@gmail.com">tasneemknit@gmail.com</a>
+        <span>•</span>
+        <a class="footer-link" href="tel:+8801887683333">01887683333</a>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

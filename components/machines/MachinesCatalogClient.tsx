@@ -20,6 +20,7 @@ import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Machine } from "@/lib/types";
+import { MobileShopView } from "@/components/machines/MobileShopView";
 
 interface MachinesCatalogClientProps {
   initialMachines: Machine[];
@@ -245,7 +246,19 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <>
+      {/* Mobile-Only Explore / Shop View (Exact Design from Reference Mockup) */}
+      <MobileShopView
+        machines={filteredMachines}
+        selectedCategory={selectedCategory}
+        onSelectCategory={handleCategoryChange}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        locale={locale}
+      />
+
+      {/* Desktop / Tablet Catalog View (Preserved for Larger Screens) */}
+      <div className="hidden md:block bg-white min-h-screen">
       {/* Header Banner with Industrial Sourcing Positioning */}
       <div className="border-b border-[#E5E7EB] bg-[#FFFDFB] py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -748,5 +761,6 @@ export function MachinesCatalogClient({ initialMachines }: MachinesCatalogClient
         </div>
       </div>
     </div>
+    </>
   );
 }

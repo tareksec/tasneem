@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Save,
-  CheckCircle,
+  CheckCircle2,
   ExternalLink,
   ArrowLeft,
   Image as ImageIcon,
@@ -13,25 +14,19 @@ import {
   Globe,
   Calendar,
   Sparkles,
-  Layers,
-  UploadCloud,
+  Upload,
   Trash2,
   RefreshCw,
   Eye,
   Check,
-  FileImage,
-  AlertTriangle,
+  AlertCircle,
+  Plus,
+  RotateCcw,
+  Clock,
+  FileText,
 } from "lucide-react";
 import { AdminStore } from "@/lib/admin/admin-store";
 import { BlogPost, ContentLocale } from "@/lib/admin/types";
-import { useAdminAuth } from "@/lib/admin/auth-context";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/admin/ui/card";
-import { Button } from "@/components/admin/ui/button";
-import { Input } from "@/components/admin/ui/input";
-import { Textarea } from "@/components/admin/ui/textarea";
-import { Tabs } from "@/components/admin/ui/tabs";
-import { Switch } from "@/components/admin/ui/switch";
-import { Badge } from "@/components/admin/ui/badge";
 import { MarkdownEditor } from "./MarkdownEditor";
 import { useToast } from "@/components/admin/ui/toast";
 
@@ -41,62 +36,18 @@ interface BlogEditorFormProps {
 }
 
 const PRESET_IMAGES = [
-  {
-    label: "Double Jersey Machine",
-    url: "/images/machines/cat-double-jersey.jpg",
-    category: "Double Jersey",
-  },
-  {
-    label: "Single Jersey Machine",
-    url: "/images/machines/cat-single-jersey.jpg",
-    category: "Single Jersey",
-  },
-  {
-    label: "Interlock Machine",
-    url: "/images/machines/cat-interlock.jpg",
-    category: "Interlock",
-  },
-  {
-    label: "Jacquard Circular",
-    url: "/images/machines/cat-jacquard.jpg",
-    category: "Jacquard",
-  },
-  {
-    label: "Factory Commissioning & Leveling",
-    url: "/images/machines/spotlight-installation.jpg",
-    category: "Commissioning",
-  },
-  {
-    label: "Circular Knitting Floor",
-    url: "/images/machines/cat-circular-knitting.jpg",
-    category: "Knitting",
-  },
-  {
-    label: "High-Temp Eco-Dyeing Line",
-    url: "/images/machines/cat-dyeing.jpg",
-    category: "Dyeing",
-  },
-  {
-    label: "Fabric Finishing & Inspection",
-    url: "/images/machines/cat-finishing.jpg",
-    category: "Finishing",
-  },
-  {
-    label: "Precision Fabric Shearing",
-    url: "/images/machines/cat-shearing.jpg",
-    category: "Shearing",
-  },
-  {
-    label: "Industrial Machinery Spotlight",
-    url: "/product-image/product-1.jpg",
-    category: "Showcase",
-  },
+  { label: "Double Jersey Machine Floor", url: "/images/machines/cat-double-jersey.jpg" },
+  { label: "Single Jersey Circular Unit", url: "/images/machines/cat-single-jersey.jpg" },
+  { label: "Interlock Precision Knitting", url: "/images/machines/cat-interlock.jpg" },
+  { label: "Factory Commissioning & Leveling", url: "/images/machines/spotlight-installation.jpg" },
+  { label: "High-Temperature Eco-Dyeing Vessel", url: "/images/machines/cat-dyeing.jpg" },
+  { label: "Fabric Shearing & Finishing Line", url: "/images/machines/cat-shearing.jpg" },
 ];
 
 const CATEGORIES = [
   "Technical Sourcing",
   "Quality Assurance",
-  "Maintenance",
+  "Maintenance & Spares",
   "Knitting Technology",
   "Industry News",
   "Commercial & Shipping",
@@ -104,16 +55,19 @@ const CATEGORIES = [
 
 export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormProps) {
   const router = useRouter();
-  const { toast } = useToast();
-  const { contentLocale, setContentLocale } = useAdminAuth();
+  const { showToast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Active form tab: either "en" or "bn"
-  const [activeTab, setActiveTab] = useState<ContentLocale>(contentLocale || "en");
+  // Active language tab: "en" | "bn"
+  const [activeTab, setActiveTab] = useState<ContentLocale>("en");
 
-  // Keep local active tab in sync if top bar content locale changes
-  useEffect(() => {
-    if (contentLocale) setActiveTab(contentLocale);
-  }, [contentLocale]);
+  // Success Modal State
+  const [successPost, setSuccessPost] = useState<{ id: string; slug: string; title: string } | null>(null);
+
+  // Unsaved changes tracking
+  const [isDirty, setIsDirty] = useState(false);
+  const [hasRestorableDraft, setHasRestorableDraft] = useState(false);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   // Form State
   const [post, setPost] = useState<Omit<BlogPost, "id"> & { id?: string }>(() => {
@@ -130,7 +84,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       body_en: "",
       body_bn: "",
       category: "Technical Sourcing",
-      tags: ["Machinery Sourcing"],
+      tags: ["Machinery Sourcing", "Circular Knitting"],
       seo_title_en: "",
       seo_title_bn: "",
       seo_desc_en: "",
@@ -138,85 +92,124 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       status: "draft",
       published_at: today,
       updated_at: today,
-      author: "Admin Staff",
+      author: "Tasneem Technical Desk",
     };
   });
 
   const [tagInput, setTagInput] = useState("");
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [previewBlobUrl, setPreviewBlobUrl] = useState<string | null>(null);
-  const [imageError, setImageError] = useState(false);
   const [showPresetGallery, setShowPresetGallery] = useState(false);
+  const [titleError, setTitleError] = useState("");
 
-  // Clean up blob object URL on unmount or URL change
+  const draftStorageKey = `tasneem_blog_draft_${initialPost?.id || "new"}`;
+
+  // Check for autosaved local draft on mount
   useEffect(() => {
-    return () => {
-      if (previewBlobUrl) {
-        URL.revokeObjectURL(previewBlobUrl);
+    try {
+      const saved = localStorage.getItem(draftStorageKey);
+      if (saved && isNew) {
+        const parsed = JSON.parse(saved);
+        if (parsed && (parsed.title_en || parsed.title_bn || parsed.body_en || parsed.body_bn)) {
+          setHasRestorableDraft(true);
+        }
+      }
+    } catch {
+      // Ignore
+    }
+  }, [draftStorageKey, isNew]);
+
+  // Autosave to localStorage every 5 seconds if dirty
+  useEffect(() => {
+    if (!isDirty) return;
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem(draftStorageKey, JSON.stringify(post));
+      } catch {
+        // Ignore
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [post, isDirty, draftStorageKey]);
+
+  // Warn before closing browser tab if unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+        e.returnValue = "";
       }
     };
-  }, [previewBlobUrl]);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 15 * 1024 * 1024) {
-      toast({
-        type: "error",
-        message: "File too large",
-        description: "Please select an image smaller than 15MB.",
-      });
-      return;
-    }
-
-    // Instant local preview for immediate visual feedback
-    const localUrl = URL.createObjectURL(file);
-    setPreviewBlobUrl(localUrl);
-    setImageError(false);
-    setUploading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-
+  const handleRestoreDraft = () => {
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.success && data.url) {
-        setPost((prev) => ({ ...prev, cover_image: data.url }));
-        setPreviewBlobUrl(null);
-        setImageError(false);
-        toast({
-          type: "success",
-          message: "Image uploaded successfully",
-          description: `Saved to server: ${data.url}`,
-        });
-      } else {
-        toast({
-          type: "error",
-          message: "Upload failed",
-          description: data.error || "Could not upload file to server.",
-        });
+      const saved = localStorage.getItem(draftStorageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setPost(parsed);
+        setIsDirty(true);
+        setHasRestorableDraft(false);
+        showToast("Restored your previous unsaved draft!", "success");
       }
-    } catch (err: any) {
-      toast({
-        type: "error",
-        message: "Upload error",
-        description: err.message || "Failed to reach upload server.",
-      });
-    } finally {
-      setUploading(false);
+    } catch {
+      showToast("Could not restore draft.", "error");
     }
   };
 
-  // Auto-generate slug from title if slug has not been manually edited
+  // Image Upload with Client-Side Canvas WebP Optimization
+  const processImageFile = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      showToast("Please upload a valid image file (JPG, PNG, WebP).", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (uploadEvent) => {
+      const img = document.createElement("img");
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 1600;
+        let w = img.width;
+        let h = img.height;
+        if (w > MAX_WIDTH) {
+          h = Math.round((h * MAX_WIDTH) / w);
+          w = MAX_WIDTH;
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0, w, h);
+        const optimizedWebp = canvas.toDataURL("image/webp", 0.85);
+
+        setPost((prev) => ({ ...prev, cover_image: optimizedWebp }));
+        setIsDirty(true);
+        showToast(`Cover photo "${file.name}" updated & optimized`, "success");
+      };
+      img.src = uploadEvent.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processImageFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggingOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processImageFile(file);
+  };
+
+  // Auto-generate slug from title
   const handleTitleChange = (val: string, locale: ContentLocale) => {
-    const slugKey = locale === "en" ? "slug_en" : "slug_bn";
+    setIsDirty(true);
+    setTitleError("");
     const titleKey = locale === "en" ? "title_en" : "title_bn";
+    const slugKey = locale === "en" ? "slug_en" : "slug_bn";
 
     const autoSlug = val
       .toLowerCase()
@@ -228,7 +221,6 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
     setPost((prev) => ({
       ...prev,
       [titleKey]: val,
-      // Auto-update slug if empty or previously generated
       [slugKey]: prev[slugKey] === "" || prev[slugKey] === autoSlug.slice(0, -1) ? autoSlug : prev[slugKey],
     }));
   };
@@ -237,6 +229,7 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
     if (!tagInput.trim()) return;
     if (!post.tags.includes(tagInput.trim())) {
       setPost((prev) => ({ ...prev, tags: [...prev.tags, tagInput.trim()] }));
+      setIsDirty(true);
     }
     setTagInput("");
   };
@@ -246,16 +239,14 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       ...prev,
       tags: prev.tags.filter((t) => t !== tagToRemove),
     }));
+    setIsDirty(true);
   };
 
+  // Save handler
   const handleSave = async (targetStatus?: "draft" | "published") => {
-    // Validation
     if (!post.title_en.trim() && !post.title_bn.trim()) {
-      toast({
-        type: "error",
-        message: "Title required",
-        description: "Please enter a title in at least one language (EN or BN).",
-      });
+      setTitleError("Please provide an article title (English or Bengali).");
+      showToast("Article title is required.", "error");
       return;
     }
 
@@ -267,10 +258,10 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
       ...post,
       status: finalStatus,
       published_at: finalStatus === "published" && !post.published_at ? now : post.published_at,
+      updated_at: now,
     };
 
     try {
-      // Save to database via API
       const res = await fetch("/api/admin/blog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -281,690 +272,409 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
         postToSave.id = data.post.id;
       }
     } catch (e) {
-      console.warn("Could not save to /api/admin/blog:", e);
+      console.warn("API save warning:", e);
     }
 
     const saved = AdminStore.saveBlogPost(postToSave);
     setSaving(false);
+    setIsDirty(false);
 
-    toast({
-      type: "success",
-      message: finalStatus === "published" ? "Post published!" : "Draft saved successfully",
-      description: `"${saved.title_en || saved.title_bn}" has been saved.`,
-    });
-
-    if (isNew) {
-      router.push(`/admin/blog/${saved.id}`);
-    } else {
-      setPost(saved);
+    // Remove local draft backup since it was saved
+    try {
+      localStorage.removeItem(draftStorageKey);
+    } catch {
+      // Ignore
     }
+
+    showToast(
+      finalStatus === "published" ? "Article is now live!" : "Draft saved successfully",
+      "success"
+    );
+
+    setSuccessPost({
+      id: saved.id,
+      slug: saved.slug_en || saved.slug_bn || saved.id,
+      title: saved.title_en || saved.title_bn || "Article",
+    });
   };
 
-  // Language Completeness Badges
   const isEnComplete = Boolean(post.title_en.trim() && post.body_en.trim());
   const isBnComplete = Boolean(post.title_bn.trim() && post.body_bn.trim());
 
-  const tabItems = [
-    {
-      key: "en",
-      label: "English Content",
-      badge: (
-        <Badge variant={isEnComplete ? "success" : "warning"} size="sm">
-          {isEnComplete ? "EN ✓" : "EN Incomplete"}
-        </Badge>
-      ),
-    },
-    {
-      key: "bn",
-      label: "Bengali Content (বাংলা)",
-      badge: (
-        <Badge variant={isBnComplete ? "success" : "warning"} size="sm">
-          {isBnComplete ? "BN ✓" : "BN Incomplete"}
-        </Badge>
-      ),
-    },
-  ];
-
   return (
-    <div className="space-y-6">
-      {/* Back and Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6 pb-20 select-none">
+      {/* 1. Top Breadcrumb & Action Header Bar */}
+      <div className="sticky top-0 z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3.5 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link href="/admin/blog">
             <button
               type="button"
-              className="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors shadow-2xs"
+              className="p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 transition-colors cursor-pointer"
+              title="Back to Blog Articles List"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
           </Link>
           <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              {isNew ? "Create Technical Article" : `Edit: ${post.title_en || post.title_bn || "Article"}`}
-            </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Bilingual technical post editor with live markdown preview and SEO parameters.
-            </p>
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+              <Link href="/admin/blog" className="hover:text-[#800020] transition-colors">
+                Blog Articles
+              </Link>
+              <span className="text-slate-400">/</span>
+              <span className="text-slate-900 font-semibold">
+                {isNew ? "Write New Article" : "Edit Article"}
+              </span>
+            </div>
+            <h1 className="text-base sm:text-lg font-black text-slate-900 leading-tight flex items-center gap-2">
+              <span>{post.title_en || post.title_bn || "Untitled Article"}</span>
+              {isDirty && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                  Unsaved changes
+                </span>
+              )}
+            </h1>
           </div>
         </div>
 
-        {/* Action Buttons Top */}
-        <div className="flex items-center gap-2">
-          {/* Public Preview Button */}
+        {/* Top Action Buttons */}
+        <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
           {post.slug_en && (
-            <Link
+            <a
               href={`/blog/${post.slug_en}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[40px] rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors shadow-2xs"
             >
-              <Button variant="outline" size="sm" className="gap-1.5 shadow-2xs">
-                <ExternalLink className="h-3.5 w-3.5" />
-                <span>Preview</span>
-              </Button>
-            </Link>
+              <ExternalLink className="w-3.5 h-3.5 text-[#800020]" />
+              <span className="hidden sm:inline">Preview Live</span>
+            </a>
           )}
 
-          <Button
-            variant="secondary"
-            size="sm"
+          <button
+            type="button"
             disabled={saving}
             onClick={() => handleSave("draft")}
+            className="px-4 py-2 min-h-[40px] rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
           >
             Save Draft
-          </Button>
+          </button>
 
-          <Button
-            variant="default"
-            size="sm"
+          <button
+            type="button"
             disabled={saving}
             onClick={() => handleSave("published")}
-            className="gap-1.5 shadow-xs font-semibold"
+            className="inline-flex items-center gap-2 px-5 py-2 min-h-[40px] rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
           >
-            <CheckCircle className="h-4 w-4" />
-            <span>Publish</span>
-          </Button>
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Publish Article</span>
+          </button>
         </div>
       </div>
 
-      {/* Main Grid: Form Left (2 cols) & Publication Sidebar Right (1 col) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Language Tabs and Fields */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Bilingual EN / BN Tab Switcher (Section 4 requirement) */}
-          <div className="bg-white p-2 sm:p-3 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 overflow-hidden">
-            <Tabs
-              items={tabItems}
-              activeKey={activeTab}
-              onChange={(k) => {
-                const loc = k as ContentLocale;
-                setActiveTab(loc);
-                setContentLocale(loc);
-              }}
-            />
-            <span className="text-xs text-slate-400 hidden sm:inline">
-              Fills one language tab, then switches to the other.
+      {/* Draft Restore Alert if found */}
+      {hasRestorableDraft && (
+        <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-amber-800">
+            <Clock className="w-4 h-4 shrink-0 text-amber-600" />
+            <span>
+              An unsaved draft was found from your previous session. Would you like to restore it?
             </span>
           </div>
-
-          {/* Tab 1: English Content */}
-          {activeTab === "en" && (
-            <Card className="rounded-2xl p-4 sm:p-6 space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 className="text-base font-bold text-slate-900">
-                  English Fields (EN)
-                </h3>
-                <Badge variant={isEnComplete ? "success" : "warning"} size="sm">
-                  {isEnComplete ? "Ready for Publish" : "Missing Title or Body"}
-                </Badge>
-              </div>
-
-              {/* Title */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 block">
-                  Article Title (EN) *
-                </label>
-                <Input
-                  value={post.title_en}
-                  onChange={(e) => handleTitleChange(e.target.value, "en")}
-                  placeholder="e.g. Circular Knitting Machine Gauge (G) Selection Guide..."
-                />
-              </div>
-
-              {/* Slug */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-700 block">
-                    URL Slug (EN)
-                  </label>
-                  <span className="text-[11px] text-slate-400 font-mono">
-                    /blog/{post.slug_en || "slug"}
-                  </span>
-                </div>
-                <Input
-                  value={post.slug_en}
-                  onChange={(e) => setPost((prev) => ({ ...prev, slug_en: e.target.value }))}
-                  placeholder="circular-knitting-gauge-selection"
-                  className="font-mono text-xs"
-                />
-              </div>
-
-              {/* Excerpt */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 block">
-                  Short Excerpt / Lead Summary (EN)
-                </label>
-                <Textarea
-                  value={post.excerpt_en}
-                  onChange={(e) => setPost((prev) => ({ ...prev, excerpt_en: e.target.value }))}
-                  placeholder="Brief 2-sentence overview displayed on card listings..."
-                  className="min-h-[70px]"
-                />
-              </div>
-
-              {/* Body (Markdown Editor) */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-700 block">
-                    Article Body in Markdown (EN) *
-                  </label>
-                  <span className="text-[11px] text-slate-400">
-                    Supports formatting toolbar and live preview
-                  </span>
-                </div>
-                <MarkdownEditor
-                  value={post.body_en}
-                  onChange={(val) => setPost((prev) => ({ ...prev, body_en: val }))}
-                  placeholder="Write full article in Markdown format..."
-                  minHeight="350px"
-                />
-              </div>
-
-              {/* SEO Title & Description */}
-              <div className="pt-4 border-t border-slate-100 space-y-4">
-                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Search Engine Optimization (EN)
-                </h4>
-
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-slate-700 block">
-                      SEO Meta Title
-                    </label>
-                    <span
-                      className={`text-[11px] ${
-                        post.seo_title_en.length > 60 ? "text-amber-600 font-semibold" : "text-slate-400"
-                      }`}
-                    >
-                      {post.seo_title_en.length}/60 chars
-                    </span>
-                  </div>
-                  <Input
-                    value={post.seo_title_en}
-                    onChange={(e) => setPost((prev) => ({ ...prev, seo_title_en: e.target.value }))}
-                    placeholder="e.g. Circular Knitting Gauge Guide | Tasneem Knit Industry"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-slate-700 block">
-                      SEO Meta Description
-                    </label>
-                    <span
-                      className={`text-[11px] ${
-                        post.seo_desc_en.length > 160 ? "text-amber-600 font-semibold" : "text-slate-400"
-                      }`}
-                    >
-                      {post.seo_desc_en.length}/160 chars
-                    </span>
-                  </div>
-                  <Textarea
-                    value={post.seo_desc_en}
-                    onChange={(e) => setPost((prev) => ({ ...prev, seo_desc_en: e.target.value }))}
-                    placeholder="Search snippet summary (~150-160 characters)..."
-                    className="min-h-[70px]"
-                  />
-                </div>
-              </div>
-            </Card>
-          )}
-
-          {/* Tab 2: Bengali Content */}
-          {activeTab === "bn" && (
-            <Card className="rounded-2xl p-4 sm:p-6 space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 className="text-base font-bold text-slate-900">
-                  বাংলা ফিল্ড সমূহ (Bengali - BN)
-                </h3>
-                <Badge variant={isBnComplete ? "success" : "warning"} size="sm">
-                  {isBnComplete ? "বাংলা সম্পন্ন (BN ✓)" : "বাংলা অপূর্ণ (BN ✗)"}
-                </Badge>
-              </div>
-
-              {/* Title */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 block">
-                  নিবন্ধের শিরোনাম (বাংলা) *
-                </label>
-                <Input
-                  value={post.title_bn}
-                  onChange={(e) => handleTitleChange(e.target.value, "bn")}
-                  placeholder="যেমন: সার্কুলার নিটিং মেশিন গেজ ও সিলিন্ডার নির্বাচন নির্দেশিকা..."
-                />
-              </div>
-
-              {/* Slug */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-700 block">
-                    ইউআরএল স্লাগ (বাংলা বিকল্প)
-                  </label>
-                  <span className="text-[11px] text-slate-400 font-mono">
-                    /blog/{post.slug_bn || "slug-bn"}
-                  </span>
-                </div>
-                <Input
-                  value={post.slug_bn}
-                  onChange={(e) => setPost((prev) => ({ ...prev, slug_bn: e.target.value }))}
-                  placeholder="circular-knitting-gauge-guide-bn"
-                  className="font-mono text-xs"
-                />
-              </div>
-
-              {/* Excerpt */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700 block">
-                  সংক্ষিপ্ত সারাংশ (বাংলা)
-                </label>
-                <Textarea
-                  value={post.excerpt_bn}
-                  onChange={(e) => setPost((prev) => ({ ...prev, excerpt_bn: e.target.value }))}
-                  placeholder="কার্ড লিস্টে প্রদর্শনের জন্য ২ বাক্যের সংক্ষিপ্ত সারমর্ম..."
-                  className="min-h-[70px]"
-                />
-              </div>
-
-              {/* Body (Markdown Editor) */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-700 block">
-                    নিবন্ধের মূল বডি (মার্কডাউন ফরম্যাট - বাংলা) *
-                  </label>
-                  <span className="text-[11px] text-slate-400">
-                    টুলবার ও লাইভ প্রিভিউ সমর্থিত
-                  </span>
-                </div>
-                <MarkdownEditor
-                  value={post.body_bn}
-                  onChange={(val) => setPost((prev) => ({ ...prev, body_bn: val }))}
-                  placeholder="সম্পূর্ণ নিবন্ধটি বাংলায় মার্কডাউন ফরম্যাটে লিখুন..."
-                  minHeight="350px"
-                />
-              </div>
-
-              {/* SEO Title & Description */}
-              <div className="pt-4 border-t border-slate-100 space-y-4">
-                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  সার্চ ইঞ্জিন অপটিমাইজেশন (SEO - বাংলা)
-                </h4>
-
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-slate-700 block">
-                      এসইও মেটা টাইটেল (বাংলা)
-                    </label>
-                    <span className="text-[11px] text-slate-400">
-                      {post.seo_title_bn.length}/60 বর্ণ
-                    </span>
-                  </div>
-                  <Input
-                    value={post.seo_title_bn}
-                    onChange={(e) => setPost((prev) => ({ ...prev, seo_title_bn: e.target.value }))}
-                    placeholder="সার্কুলার নিটিং নির্দেশিকা | তাসনীম নিট ইন্ডাস্ট্রি"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-slate-700 block">
-                      এসইও মেটা ডেসক্রিপশন (বাংলা)
-                    </label>
-                    <span className="text-[11px] text-slate-400">
-                      {post.seo_desc_bn.length}/160 বর্ণ
-                    </span>
-                  </div>
-                  <Textarea
-                    value={post.seo_desc_bn}
-                    onChange={(e) => setPost((prev) => ({ ...prev, seo_desc_bn: e.target.value }))}
-                    placeholder="গুগল সার্চ ফলাফলের জন্য সংক্ষিপ্ত সারাংশ..."
-                    className="min-h-[70px]"
-                  />
-                </div>
-              </div>
-            </Card>
-          )}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={handleRestoreDraft}
+              className="px-3 py-1.5 rounded-lg bg-amber-700 hover:bg-amber-800 text-white font-bold transition-colors cursor-pointer"
+            >
+              Restore Draft
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setHasRestorableDraft(false);
+                try {
+                  localStorage.removeItem(draftStorageKey);
+                } catch {}
+              }}
+              className="px-3 py-1.5 rounded-lg text-amber-700 hover:bg-amber-100 font-semibold transition-colors cursor-pointer"
+            >
+              Discard
+            </button>
+          </div>
         </div>
+      )}
 
-        {/* Right Column: Publication, Cover Image, Taxonomy Sidebar */}
-        <div className="space-y-6">
-          {/* Publication Status Card */}
-          <Card className="rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2.5">
-              Publication Settings
-            </h3>
-
-            {/* Status Toggle Switch */}
-            <div className="pt-1">
-              <Switch
-                checked={post.status === "published"}
-                onCheckedChange={(checked) =>
-                  setPost((prev) => ({
-                    ...prev,
-                    status: checked ? "published" : "draft",
-                  }))
-                }
-                label={`Status: ${post.status === "published" ? "Published" : "Draft"}`}
-                description={
-                  post.status === "published"
-                    ? "Visible on public resources"
-                    : "Hidden from public website"
-                }
-              />
+      {/* 2. Main 2-Column Grid: Editor Left (8 cols) & Publication Settings Right (4 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* ========================================================================= */}
+        {/* LEFT COLUMN: Bilingual Tabs, Title & WYSIWYG Markdown Editor (8 cols) */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-8 space-y-6">
+          {/* Friendly Bilingual Switcher Tabs */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-[#800020]" />
+              <span className="text-xs font-bold text-slate-800">Article Language:</span>
             </div>
 
-            {/* Publish Date */}
-            <div className="space-y-1.5 pt-2 border-t border-slate-100">
-              <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5 text-slate-400" />
-                <span>Publish Date</span>
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                type="button"
+                onClick={() => setActiveTab("en")}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === "en"
+                    ? "bg-[#800020] text-white shadow-xs"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                <span>🇬🇧 English Version</span>
+                {isEnComplete && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" title="English content complete" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("bn")}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  activeTab === "bn"
+                    ? "bg-[#800020] text-white shadow-xs"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                <span>🇧🇩 বাংলা ভার্সন</span>
+                {isBnComplete && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" title="Bangla content complete" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Title & Excerpt Box */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-7 shadow-xs space-y-5">
+            {activeTab === "en" ? (
+              /* English Title & Excerpt */
+              <>
+                <div>
+                  <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                    Article Title (English) <span className="text-rose-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={post.title_en}
+                    onChange={(e) => handleTitleChange(e.target.value, "en")}
+                    placeholder="e.g. How to Choose the Ideal Cylinder Diameter & Gauge for Circular Knitting"
+                    className={`w-full px-4 py-3 rounded-xl border text-sm font-semibold focus:outline-none transition-all ${
+                      titleError
+                        ? "border-rose-400 bg-rose-50/20"
+                        : "border-slate-200 focus:border-[#800020] focus:ring-1 focus:ring-[#800020]"
+                    }`}
+                  />
+                  {titleError && (
+                    <p className="text-xs text-rose-600 font-semibold mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" />
+                      <span>{titleError}</span>
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                    Brief Summary / Excerpt (English)
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={post.excerpt_en}
+                    onChange={(e) => {
+                      setIsDirty(true);
+                      setPost((prev) => ({ ...prev, excerpt_en: e.target.value }));
+                    }}
+                    placeholder="A 1-2 sentence preview that appears on the blog index cards..."
+                    className="w-full p-3 rounded-xl border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#800020]"
+                  />
+                </div>
+              </>
+            ) : (
+              /* Bengali Title & Excerpt */
+              <>
+                <div>
+                  <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                    আর্টিকেলের শিরোনাম (বাংলা)
+                  </label>
+                  <input
+                    type="text"
+                    value={post.title_bn}
+                    onChange={(e) => handleTitleChange(e.target.value, "bn")}
+                    placeholder="উদাঃ সার্কুলার নিটিং মেশিনের সঠিক সিলিন্ডার ডায়ামিটার ও গেজ নির্বাচন গাইড"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:border-[#800020]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                    সংক্ষিপ্ত সারসংক্ষেপ (বাংলা)
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={post.excerpt_bn}
+                    onChange={(e) => {
+                      setIsDirty(true);
+                      setPost((prev) => ({ ...prev, excerpt_bn: e.target.value }));
+                    }}
+                    placeholder="ব্লগ কার্ডে প্রদর্শনের জন্য ১-২ লাইনের সংক্ষিপ্ত পরিচিতি..."
+                    className="w-full p-3 rounded-xl border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#800020]"
+                  />
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Rich WYSIWYG & Markdown Body Editor */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-[#800020]" />
+                <span>
+                  {activeTab === "en" ? "Article Body Content (English)" : "আর্টিকেলের মূল বক্তব্য (বাংলা)"}
+                </span>
               </label>
-              <Input
-                type="date"
-                value={post.published_at || ""}
-                onChange={(e) => setPost((prev) => ({ ...prev, published_at: e.target.value }))}
-                className="text-xs"
-              />
-            </div>
-
-            {/* Author */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700 block">Author Credit</label>
-              <Input
-                value={post.author}
-                onChange={(e) => setPost((prev) => ({ ...prev, author: e.target.value }))}
-                placeholder="e.g. Technical Division"
-                className="text-xs"
-              />
-            </div>
-
-            {/* Actions Card Footer */}
-            <div className="pt-3 border-t border-slate-100 space-y-2">
-              <Button
-                type="button"
-                onClick={() => handleSave("published")}
-                disabled={saving}
-                className="w-full font-semibold shadow-xs"
-              >
-                <CheckCircle className="h-4 w-4" />
-                <span>{post.status === "published" ? "Update Published Post" : "Publish Post"}</span>
-              </Button>
-
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => handleSave("draft")}
-                disabled={saving}
-                className="w-full text-xs"
-              >
-                Save as Draft
-              </Button>
-
-              {post.slug_en && (
-                <Link
-                  href={`/blog/${post.slug_en}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full"
-                >
-                  <Button variant="outline" size="sm" className="w-full text-xs gap-1.5">
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    <span>Preview in Live Site Layout ↗</span>
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </Card>
-
-          {/* Cover Image Selector & Instant Live Preview */}
-          <Card className="rounded-2xl p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <ImageIcon className="h-4 w-4 text-slate-400" />
-                <span>Cover Image</span>
-              </h3>
-              {/* Source badge */}
-              <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                {previewBlobUrl
-                  ? "Local Preview"
-                  : post.cover_image?.startsWith("/uploads")
-                  ? "Uploaded File"
-                  : "Preset / URL"}
+              <span className="text-[11px] text-slate-400">
+                Use the toolbar to format headers, bold, bullet points, and quotes.
               </span>
             </div>
 
-            {/* Interactive High-Def Preview Box */}
-            <div className="relative aspect-video w-full rounded-xl overflow-hidden border-2 border-slate-200/90 bg-slate-900/5 group shadow-inner flex items-center justify-center">
-              {/* The Image */}
-              <img
-                src={previewBlobUrl || post.cover_image || "/images/machines/cat-double-jersey.jpg"}
-                alt="Post cover preview"
-                onError={(e) => {
-                  setImageError(true);
-                  e.currentTarget.src = "/images/machines/cat-double-jersey.jpg";
-                }}
-                onLoad={() => setImageError(false)}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            <MarkdownEditor
+              value={activeTab === "en" ? post.body_en : post.body_bn}
+              onChange={(val) => {
+                setIsDirty(true);
+                if (activeTab === "en") setPost((prev) => ({ ...prev, body_en: val }));
+                else setPost((prev) => ({ ...prev, body_bn: val }));
+              }}
+              placeholder={
+                activeTab === "en"
+                  ? "Write or paste article text here. Use the toolbar buttons above for easy formatting..."
+                  : "এখানে আপনার আর্টিকেলের বিষয়বস্তু লিখুন..."
+              }
+              minHeight="460px"
+            />
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* RIGHT COLUMN: Featured Cover Image, Category, Tags & Publishing (4 cols) */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-4 space-y-6">
+          {/* Featured Cover Image Box */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Featured Cover Photo
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowPresetGallery(!showPresetGallery)}
+                className="text-[11px] text-[#800020] hover:underline font-semibold cursor-pointer"
+              >
+                {showPresetGallery ? "Close Presets" : "Choose Preset Photo"}
+              </button>
+            </div>
+
+            {/* Hidden Input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileInputChange}
+              className="hidden"
+            />
+
+            {/* Current Cover Preview */}
+            <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-slate-200 group">
+              <Image
+                src={post.cover_image}
+                alt="Cover photo preview"
+                fill
+                className="object-cover"
               />
-
-              {/* Uploading progress overlay */}
-              {uploading && (
-                <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs flex flex-col items-center justify-center gap-2 text-white z-10">
-                  <RefreshCw className="h-6 w-6 animate-spin text-[#800020]" />
-                  <span className="text-xs font-semibold">Uploading to server...</span>
-                  <span className="text-[10px] text-slate-300">Instant live preview active</span>
-                </div>
-              )}
-
-              {/* Top Right Quick Controls */}
-              <div className="absolute top-2 right-2 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                {/* Open full image */}
-                <a
-                  href={previewBlobUrl || post.cover_image || "/images/machines/cat-double-jersey.jpg"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-black/70 hover:bg-black text-white text-xs backdrop-blur-xs transition-colors shadow-sm"
-                  title="Open Full Image in New Tab"
-                >
-                  <Eye className="h-3.5 w-3.5" />
-                </a>
-                {/* Clear/Reset button */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPost((prev) => ({ ...prev, cover_image: "/images/machines/cat-double-jersey.jpg" }));
-                    setPreviewBlobUrl(null);
-                    setImageError(false);
-                  }}
-                  className="p-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs transition-colors shadow-sm cursor-pointer"
-                  title="Reset to Default Machinery Image"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              </div>
-
-              {/* Bottom Overlay Info */}
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 pt-6 flex items-end justify-between text-white text-[11px]">
-                <span className="font-mono truncate max-w-[200px] text-[10px]">
-                  {previewBlobUrl ? "local_file_preview" : post.cover_image}
-                </span>
-                <span className="text-[10px] bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded font-medium shrink-0">
-                  16:9 Aspect
-                </span>
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer text-white text-xs font-bold gap-2"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Change Image</span>
               </div>
             </div>
 
-            {/* Image Error Alert if URL fails */}
-            {imageError && (
-              <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                <div className="space-y-0.5">
-                  <p className="font-semibold">Image path not found or invalid</p>
-                  <p className="text-[11px] text-amber-700">
-                    Displaying factory fallback photo. Please select a machinery preset or upload a new photo from your device.
-                  </p>
+            {/* Drag and Drop Zone */}
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDraggingOver(true);
+              }}
+              onDragLeave={() => setIsDraggingOver(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`p-3.5 rounded-xl border-2 border-dashed text-center transition-all cursor-pointer ${
+                isDraggingOver
+                  ? "border-[#800020] bg-[#FDF2F4]"
+                  : "border-slate-200 hover:border-slate-300 bg-slate-50/50"
+              }`}
+            >
+              <Upload className="w-5 h-5 text-[#800020] mx-auto mb-1" />
+              <p className="text-xs font-bold text-slate-800">
+                Drag & Drop new cover photo here
+              </p>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                or click to browse from your computer
+              </p>
+            </div>
+
+            {/* Preset Photo Library Picker */}
+            {showPresetGallery && (
+              <div className="pt-2 border-t border-slate-100 space-y-2">
+                <p className="text-[11px] font-bold text-slate-700">Quick Machine Photos:</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {PRESET_IMAGES.map((p, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => {
+                        setPost((prev) => ({ ...prev, cover_image: p.url }));
+                        setIsDirty(true);
+                        setShowPresetGallery(false);
+                      }}
+                      className="cursor-pointer rounded-lg overflow-hidden border border-slate-200 hover:border-[#800020] relative aspect-[4/3] group"
+                    >
+                      <Image src={p.url} alt={p.label} fill className="object-cover" />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1">
+                        <span className="text-[9px] text-white font-medium block truncate">
+                          {p.label}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
+          </div>
 
-            {/* Upload from Device Dropzone */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-slate-700 block">
-                  Upload from Device
-                </label>
-                <span className="text-[10px] text-slate-400">JPG, PNG, WebP (Max 15MB)</span>
-              </div>
-
-              <label className="relative flex flex-col items-center justify-center p-3.5 border-2 border-dashed border-slate-200 hover:border-[#800020] rounded-xl bg-slate-50/70 hover:bg-[#FDF2F4] cursor-pointer transition-colors group">
-                <UploadCloud className="h-5 w-5 text-slate-400 group-hover:text-[#800020] transition-colors mb-1" />
-                <span className="text-xs font-semibold text-slate-700 group-hover:text-slate-900">
-                  Click to choose file or drag photo here
-                </span>
-                <span className="text-[10px] text-slate-400 mt-0.5">
-                  Instant visual preview + saved to /public/uploads
-                </span>
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
-                  onChange={handleFileUpload}
-                  disabled={uploading}
-                  className="hidden"
-                />
-              </label>
-            </div>
-
-            {/* Visual Preset Selector Grid & Dropdown */}
-            <div className="space-y-2 pt-2 border-t border-slate-100">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-slate-700 block">
-                  Quick Select Machinery Preset
-                </label>
-                <button
-                  type="button"
-                  onClick={() => setShowPresetGallery(!showPresetGallery)}
-                  className="text-[11px] text-[#800020] hover:underline font-semibold cursor-pointer"
-                >
-                  {showPresetGallery ? "Hide Thumbnails" : "Show Visual Gallery"}
-                </button>
-              </div>
-
-              {/* Dropdown for keyboard and compact select */}
-              <select
-                value={post.cover_image}
-                onChange={(e) => {
-                  setPost((prev) => ({ ...prev, cover_image: e.target.value }));
-                  setPreviewBlobUrl(null);
-                  setImageError(false);
-                }}
-                className="w-full h-9 rounded-xl border border-slate-200 bg-white px-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
-              >
-                {PRESET_IMAGES.map((img) => (
-                  <option key={img.url} value={img.url}>
-                    {img.label} ({img.category})
-                  </option>
-                ))}
-              </select>
-
-              {/* Visual Thumbnail Grid */}
-              {showPresetGallery && (
-                <div className="grid grid-cols-2 gap-2 pt-1 max-h-56 overflow-y-auto pr-1">
-                  {PRESET_IMAGES.map((img) => {
-                    const isSelected = post.cover_image === img.url && !previewBlobUrl;
-                    return (
-                      <button
-                        key={img.url}
-                        type="button"
-                        onClick={() => {
-                          setPost((prev) => ({ ...prev, cover_image: img.url }));
-                          setPreviewBlobUrl(null);
-                          setImageError(false);
-                        }}
-                        className={`relative flex items-center gap-2 p-1.5 rounded-xl border text-left transition-all cursor-pointer ${
-                          isSelected
-                            ? "border-[#800020] bg-[#FDF2F4] ring-2 ring-[#800020]/20 shadow-2xs"
-                            : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
-                        }`}
-                      >
-                        <img
-                          src={img.url}
-                          alt={img.label}
-                          className="w-12 h-10 object-cover rounded-lg shrink-0 bg-slate-100"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[11px] font-bold text-slate-800 truncate leading-tight">
-                            {img.label}
-                          </p>
-                          <p className="text-[10px] text-slate-400 truncate">
-                            {img.category}
-                          </p>
-                        </div>
-                        {isSelected && (
-                          <div className="w-4 h-4 rounded-full bg-[#800020] text-white flex items-center justify-center shrink-0">
-                            <Check className="h-2.5 w-2.5" />
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Custom Image URL */}
-            <div className="space-y-1.5 pt-2 border-t border-slate-100">
-              <label className="text-xs font-bold text-slate-700 block">
-                Or Direct Custom Image URL / Path
-              </label>
-              <Input
-                value={post.cover_image}
-                onChange={(e) => {
-                  setPost((prev) => ({ ...prev, cover_image: e.target.value }));
-                  setPreviewBlobUrl(null);
-                  setImageError(false);
-                }}
-                placeholder="/images/machines/cat-double-jersey.jpg"
-                className="text-xs font-mono"
-              />
-              <p className="text-[10px] text-slate-400">
-                Supports local assets (/images/..., /uploads/...) and external web URLs.
-              </p>
-            </div>
-          </Card>
-
-          {/* Category & Tags */}
-          <Card className="rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-              <Tag className="h-4 w-4 text-slate-400" />
-              <span>Taxonomy & Tags</span>
+          {/* Publishing Settings Box */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 pb-2 border-b border-slate-100">
+              Publishing Options
             </h3>
 
-            {/* Category */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700 block">Category</label>
+            {/* Category Dropdown */}
+            <div>
+              <label className="block text-xs font-bold text-slate-800 mb-1">
+                Category
+              </label>
               <select
                 value={post.category}
-                onChange={(e) => setPost((prev) => ({ ...prev, category: e.target.value }))}
-                className="w-full h-9 rounded-xl border border-slate-200 bg-white px-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+                onChange={(e) => {
+                  setIsDirty(true);
+                  setPost((prev) => ({ ...prev, category: e.target.value }));
+                }}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none bg-white"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -974,11 +684,47 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
               </select>
             </div>
 
-            {/* Tags Input */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-700 block">Article Tags</label>
-              <div className="flex gap-1.5">
-                <Input
+            {/* Author */}
+            <div>
+              <label className="block text-xs font-bold text-slate-800 mb-1">
+                Author Byline
+              </label>
+              <input
+                type="text"
+                value={post.author}
+                onChange={(e) => {
+                  setIsDirty(true);
+                  setPost((prev) => ({ ...prev, author: e.target.value }));
+                }}
+                placeholder="e.g. Md. Mamunur Rashid / Technical Desk"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none"
+              />
+            </div>
+
+            {/* Date */}
+            <div>
+              <label className="block text-xs font-bold text-slate-800 mb-1">
+                Publication Date
+              </label>
+              <input
+                type="date"
+                value={post.published_at}
+                onChange={(e) => {
+                  setIsDirty(true);
+                  setPost((prev) => ({ ...prev, published_at: e.target.value }));
+                }}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none"
+              />
+            </div>
+
+            {/* Tags */}
+            <div>
+              <label className="block text-xs font-bold text-slate-800 mb-1">
+                Topic Tags
+              </label>
+              <div className="flex gap-1.5 mb-2">
+                <input
+                  type="text"
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyDown={(e) => {
@@ -987,31 +733,28 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
                       handleAddTag();
                     }
                   }}
-                  placeholder="Type tag & press Enter..."
-                  className="text-xs"
+                  placeholder="e.g. Circular Knitting"
+                  className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none"
                 />
-                <Button
+                <button
                   type="button"
-                  variant="secondary"
-                  size="sm"
                   onClick={handleAddTag}
+                  className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold cursor-pointer"
                 >
                   Add
-                </Button>
+                </button>
               </div>
-
-              {/* Tag Pills */}
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {post.tags.map((tag) => (
+              <div className="flex flex-wrap gap-1.5">
+                {post.tags.map((t) => (
                   <span
-                    key={tag}
-                    className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200"
+                    key={t}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[11px] font-semibold"
                   >
-                    <span>{tag}</span>
+                    <span>{t}</span>
                     <button
                       type="button"
-                      onClick={() => handleRemoveTag(tag)}
-                      className="text-slate-400 hover:text-red-600 font-bold ml-0.5"
+                      onClick={() => handleRemoveTag(t)}
+                      className="hover:text-rose-600 cursor-pointer"
                     >
                       ×
                     </button>
@@ -1019,9 +762,85 @@ export function BlogEditorForm({ initialPost, isNew = false }: BlogEditorFormPro
                 ))}
               </div>
             </div>
-          </Card>
+
+            {/* Status & Big Save Actions */}
+            <div className="pt-4 border-t border-slate-100 space-y-2.5">
+              <button
+                type="button"
+                disabled={saving}
+                onClick={() => handleSave("published")}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Publish Article to Website</span>
+              </button>
+
+              <button
+                type="button"
+                disabled={saving}
+                onClick={() => handleSave("draft")}
+                className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+              >
+                Save as Draft Only
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* 3. POST-SAVE SUCCESS CONFIRMATION MODAL */}
+      {/* ========================================================================= */}
+      {successPost && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 text-center space-y-5">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
+              <CheckCircle2 className="w-8 h-8" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                Article Successfully Saved!
+              </h3>
+              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                <strong>"{successPost.title}"</strong> has been recorded. What would you like to do next?
+              </p>
+            </div>
+
+            <div className="space-y-2.5 pt-2">
+              <a
+                href={`/blog/${successPost.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+              >
+                <span>View Live Article on Website</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setSuccessPost(null);
+                  router.push("/admin/blog/new");
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Write Another Article</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => router.push("/admin/blog")}
+                className="w-full py-2.5 text-xs text-slate-500 hover:text-slate-900 font-semibold transition-colors cursor-pointer"
+              >
+                Back to Blog Articles List
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
