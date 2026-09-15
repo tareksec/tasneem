@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface FaqItemProps {
   question: string;
@@ -39,20 +38,18 @@ export function FaqAccordionItem({ question, answer }: FaqItemProps) {
         />
       </div>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="faq-content"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <p className="mt-3 text-sm text-[#4A4A4A] leading-relaxed">{answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Answer text is ALWAYS present in the DOM for SEO & AI crawlers, collapsed visually with CSS */}
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0 mt-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="text-sm text-[#4A4A4A] leading-relaxed pt-1">{answer}</p>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default FaqAccordionItem;

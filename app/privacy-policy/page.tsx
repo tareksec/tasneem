@@ -186,7 +186,7 @@ export default function PrivacyPolicyPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#800020]" />
-                <a href={`tel:${COMPANY_INFO.phone}`} className="hover:underline">{COMPANY_INFO.phone}</a>
+                <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="hover:underline">{COMPANY_INFO.phone}</a>
               </div>
               <div className="flex items-center gap-2 sm:col-span-2">
                 <MapPin className="w-4 h-4 text-[#800020] shrink-0" />

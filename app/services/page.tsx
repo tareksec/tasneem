@@ -21,10 +21,10 @@ import {
   HelpCircle,
   Sparkles,
   ChevronRight,
-  FileText,
   X,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { COMPANY_INFO } from "@/lib/constants";
 
 interface ServiceItem {
   id: string;
@@ -611,15 +611,15 @@ export default function ServicesPage() {
             {/* Quick Contact Badges */}
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono text-neutral-700">
               <a
-                href="tel:01887683333"
+                href="tel:+8801887683333"
                 className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-neutral-200 hover:border-[#D8A4AF] transition-colors shadow-2xs"
               >
                 <Phone className="w-3.5 h-3.5 text-[#800020]" />
-                <span>Hotline: 01887683333</span>
+                <span>Hotline: +880 1887-683333</span>
               </a>
 
               <a
-                href="https://wa.me/8801711110516"
+                href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-neutral-200 hover:border-emerald-300 transition-colors shadow-2xs"

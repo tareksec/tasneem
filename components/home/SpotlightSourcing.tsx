@@ -126,7 +126,7 @@ export function SpotlightSourcing() {
           <div className="hidden lg:flex items-center gap-2 pl-4 border-l border-neutral-300/80 text-[11px] text-neutral-600 shrink-0">
             <Phone className="w-3.5 h-3.5 text-[#800020]" />
             <span>
-              Hotline: <a href={`tel:${COMPANY_INFO.phone}`} className="text-[#2D2D2D] font-bold hover:text-[#800020] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-xs">{COMPANY_INFO.phone}</a>
+              Hotline: <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="text-[#2D2D2D] font-bold hover:text-[#800020] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-xs">{COMPANY_INFO.phone}</a>
             </span>
           </div>
         </div>

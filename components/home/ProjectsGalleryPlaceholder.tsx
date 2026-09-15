@@ -20,7 +20,13 @@ import { GalleryItem } from "@/lib/types";
 
 export function ProjectsGalleryPlaceholder() {
   const { dict, locale } = useTranslation();
-  const [publishedItems, setPublishedItems] = useState<GalleryItem[]>([]);
+  const [publishedItems, setPublishedItems] = useState<GalleryItem[]>(() => {
+    try {
+      return AdminStore.getGalleryItems().filter((i) => i.published);
+    } catch {
+      return [];
+    }
+  });
   const [activeMedia, setActiveMedia] = useState<GalleryItem | null>(null);
 
   useEffect(() => {
@@ -34,23 +40,9 @@ export function ProjectsGalleryPlaceholder() {
     return () => window.removeEventListener("tasneem-store-updated", loadItems);
   }, []);
 
-  const placeholders = [
-    {
-      region: locale === "bn" ? "নারায়ণগঞ্জ টেক্সটাইল জোন" : "Narayanganj Industrial Zone",
-      type: locale === "bn" ? "Double Jersey সার্কুলার নিটিং লাইন সেটআপ" : "Double Jersey Circular Knitting Line Installation",
-      status: locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন সম্পন্ন" : "Verified Installation Record",
-    },
-    {
-      region: locale === "bn" ? "গাজীপুর টেক্সটাইল জোন" : "Gazipur Textile Corridor",
-      type: locale === "bn" ? "হাই-স্পিড Single Jersey মেশিন সেটআপ" : "High-Speed Single Jersey Machinery Deployment",
-      status: locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন সম্পন্ন" : "Verified Installation Record",
-    },
-    {
-      region: locale === "bn" ? "চট্টগ্রাম রপ্তানি অঞ্চল" : "Chattogram Export Zone",
-      type: locale === "bn" ? "Terry ও Interlock মেশিন কমিশনিং" : "Terry & Interlock Machine Commissioning",
-      status: locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন সম্পন্ন" : "Verified Installation Record",
-    },
-  ];
+  if (publishedItems.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-20 lg:py-24 bg-white border-b border-[#E5E5E5] text-[#2D2D2D]">
@@ -79,45 +71,8 @@ export function ProjectsGalleryPlaceholder() {
           </Link>
         </MotionSection>
 
-        {/* Dynamic Display: If no published items, show strict authentic placeholders */}
-        {publishedItems.length === 0 ? (
-          <MotionSection delay={0.1} duration={0.4} yOffset={15} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {placeholders.map((item, index) => (
-              <div
-                key={index}
-                className="border border-[#E5E7EB] rounded-xl bg-white p-5 flex flex-col justify-between shadow-xs"
-              >
-                <div>
-                  <div className="w-full aspect-[4/3] rounded-lg bg-[#F9FAFB] border border-dashed border-[#E5E7EB] flex flex-col items-center justify-center p-6 text-center mb-4">
-                    <div className="w-10 h-10 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#4B5563] mb-2 shadow-xs">
-                      <ImageIcon className="w-5 h-5" />
-                    </div>
-                    <span className="text-xs font-semibold text-[#2D2D2D]">
-                      {locale === "bn" ? "ফ্যাক্টরি ইনস্টলেশন রেকর্ড" : "Client Installation Photo"}
-                    </span>
-                    <span className="text-[11px] text-[#6B7280] mt-1">
-                      {locale === "bn" ? "[ক্লায়েন্ট অনুমোদনের অপেক্ষায়]" : "[Awaiting Owner Photographic Assets]"}
-                    </span>
-                  </div>
-
-                  <span className="text-[11px] uppercase tracking-wider text-[#6B7280] font-semibold block mb-1">
-                    {item.region}
-                  </span>
-                  <h3 className="font-bold text-sm sm:text-base text-[#2D2D2D]">
-                    {item.type}
-                  </h3>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-[#E5E7EB] flex items-center justify-between text-xs text-[#6B7280]">
-                  <span>{item.status}</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                </div>
-              </div>
-            ))}
-          </MotionSection>
-        ) : (
-          /* Real Admin-Managed Installations Grid */
-          <MotionSection delay={0.1} duration={0.4} yOffset={15} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Real Admin-Managed Installations Grid */}
+        <MotionSection delay={0.1} duration={0.4} yOffset={15} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {publishedItems.slice(0, 6).map((item) => {
               const isVideo = item.type === "video";
               const title = locale === "bn" && item.title_bn ? item.title_bn : item.title_en;
@@ -215,7 +170,6 @@ export function ProjectsGalleryPlaceholder() {
               );
             })}
           </MotionSection>
-        )}
       </div>
 
       {/* Public Interactive Lightbox Modal */}

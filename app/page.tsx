@@ -11,8 +11,24 @@ import { ProjectsGalleryPlaceholder } from "@/components/home/ProjectsGalleryPla
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { QuoteCtaBanner } from "@/components/home/QuoteCtaBanner";
 import { ReviewsMarqueeSection } from "@/components/home/ReviewsMarqueeSection";
+import type { Metadata } from "next";
+import { COMPANY_INFO } from "@/lib/constants";
 import { getDbFeaturedMachines } from "@/lib/db/machines";
 import { getDbReviews } from "@/lib/db/reviews";
+
+export const metadata: Metadata = {
+  title: "Tasneem Knitting Industry | Industrial Circular Knitting Machine Importer Bangladesh",
+  description:
+    "Direct overseas importer of industrial circular knitting machines in Bangladesh. Double Jersey, Single Jersey, Interlock, Jacquard & Terry machines with 3rd-party pre-shipment inspection, CFR Chattogram sea delivery, and factory installation. বাংলাদেশে উচ্চমানের সার্কুলার নিটিং মেশিন সরাসরি আমদানি।",
+  alternates: {
+    canonical: COMPANY_INFO.domain,
+    languages: {
+      en: `${COMPANY_INFO.domain}/en`,
+      bn: `${COMPANY_INFO.domain}/bn`,
+      "x-default": COMPANY_INFO.domain,
+    },
+  },
+};
 
 export default async function HomePage() {
   const featuredMachines = await getDbFeaturedMachines(4);

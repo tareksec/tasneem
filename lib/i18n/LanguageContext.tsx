@@ -63,6 +63,23 @@ export function LanguageProvider({
     }
   }, []);
 
+  // Sync with URL when pathname changes (e.g. back/forward navigation or link clicks)
+  useEffect(() => {
+    if (pathname) {
+      if (pathname.startsWith("/en/") || pathname === "/en") {
+        if (locale !== "en") {
+          setLocaleState("en");
+          if (typeof document !== "undefined") document.documentElement.lang = "en";
+        }
+      } else if (pathname.startsWith("/bn/") || pathname === "/bn") {
+        if (locale !== "bn") {
+          setLocaleState("bn");
+          if (typeof document !== "undefined") document.documentElement.lang = "bn";
+        }
+      }
+    }
+  }, [pathname, locale]);
+
   const setLocale = useCallback(
     (newLocale: Locale) => {
       setLocaleState(newLocale);
@@ -80,23 +97,32 @@ export function LanguageProvider({
         // ignore
       }
 
-      // If URL has locale prefix (/en/ or /bn/), switch path
-      if (pathname) {
-        let newPath = pathname;
-        if (pathname.startsWith("/en")) {
-          newPath = pathname.replace(/^\/en/, newLocale === "bn" ? "/bn" : "/en");
-        } else if (pathname.startsWith("/bn")) {
-          newPath = pathname.replace(/^\/bn/, newLocale === "en" ? "/en" : "/bn");
+      // Update URL to /en/... or /bn/... unless on admin/api routes
+      if (typeof window !== "undefined") {
+        const currentPath = window.location.pathname;
+        if (currentPath.startsWith("/admin") || currentPath.startsWith("/api")) {
+          return;
         }
 
-        if (newPath !== pathname) {
+        let cleanPath = currentPath;
+        if (cleanPath.startsWith("/en")) {
+          cleanPath = cleanPath.slice(3);
+        } else if (cleanPath.startsWith("/bn")) {
+          cleanPath = cleanPath.slice(3);
+        }
+        if (!cleanPath.startsWith("/")) {
+          cleanPath = "/" + cleanPath;
+        }
+
+        const targetPath = `/${newLocale}${cleanPath === "/" ? "" : cleanPath}${window.location.search}${window.location.hash}`;
+        if (targetPath !== currentPath + window.location.search + window.location.hash) {
           startTransition(() => {
-            router.push(newPath);
+            router.push(targetPath);
           });
         }
       }
     },
-    [pathname, router]
+    [router]
   );
 
   const toggleLocale = useCallback(() => {

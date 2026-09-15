@@ -27,9 +27,35 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // Handle locale prefix routing (/en/... and /bn/...)
+  if (pathname.startsWith("/en") || pathname.startsWith("/bn")) {
+    const isEn = pathname.startsWith("/en");
+    const locale = isEn ? "en" : "bn";
+    const strippedPath = pathname.replace(/^\/(en|bn)/, "") || "/";
+
+    // Rewrite internally to the stripped path
+    const url = req.nextUrl.clone();
+    url.pathname = strippedPath;
+
+    const res = NextResponse.rewrite(url);
+    res.cookies.set("NEXT_LOCALE", locale, {
+      path: "/",
+      maxAge: 31536000,
+      sameSite: "lax",
+    });
+    res.headers.set("x-locale", locale);
+    return res;
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/en",
+    "/en/:path*",
+    "/bn",
+    "/bn/:path*",
+  ],
 };

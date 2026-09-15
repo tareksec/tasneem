@@ -11,6 +11,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { MotionSection, SlideIn } from "@/components/ui/MotionWrapper";
+import { LiteYouTubeEmbed } from "@/components/ui/LiteYouTubeEmbed";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
@@ -96,16 +97,11 @@ export function HomeAboutSection() {
                   </span>
                 </div>
 
-                {/* 16:9 Responsive Video Frame with Autoplay */}
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-neutral-900 shadow-inner border border-neutral-800">
-                  <iframe
-                    src="https://www.youtube-nocookie.com/embed/ONTd4X4M-Vo?autoplay=1&mute=1&playsinline=1&rel=0&loop=1&playlist=ONTd4X4M-Vo"
-                    title="Md Mamunur Rashid - Owner Introduction & Factory Operations | Tasneem Knit Industry"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {/* 16:9 Responsive Video Frame with Click-to-Play Facade */}
+                <LiteYouTubeEmbed
+                  videoId="ONTd4X4M-Vo"
+                  title="Md Mamunur Rashid - Owner Introduction & Factory Operations | Tasneem Knit Industry"
+                />
 
                 {/* Bottom Caption */}
                 <div className="mt-3 px-2 sm:px-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#717171]">
@@ -192,7 +188,7 @@ export function HomeAboutSection() {
                 </Link>
 
                 <a
-                  href={`tel:${COMPANY_INFO.phone}`}
+                  href={`tel:${COMPANY_INFO.phoneIntl}`}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white border border-[#E5E5E5] hover:border-neutral-300 active:scale-[0.98] text-[#2D2D2D] text-xs sm:text-sm font-bold shadow-2xs transition-all cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#800020]" />

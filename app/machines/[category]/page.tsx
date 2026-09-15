@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Gauge, Check } from "lucide-react";
 import { CATEGORIES, getCategoryInfo } from "@/lib/machines-data";
 import { getDbMachines } from "@/lib/db/machines";
+import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { MachineCategory } from "@/lib/types";
@@ -11,6 +13,38 @@ export function generateStaticParams() {
   return CATEGORIES.map((cat) => ({
     category: cat.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category } = await params;
+  const catInfo = getCategoryInfo(category as MachineCategory);
+  if (!catInfo) return {};
+
+  const title = `${catInfo.name} | Circular Knitting Machinery Importer Bangladesh`;
+  const description = `${catInfo.description} Explore industrial machinery models, technical cylinder gauges, and CFR Chattogram import delivery terms.`;
+  const canonicalUrl = `${COMPANY_INFO.domain}/machines/${category}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: `${COMPANY_INFO.domain}/en/machines/${category}`,
+        bn: `${COMPANY_INFO.domain}/bn/machines/${category}`,
+        "x-default": canonicalUrl,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+    },
+  };
 }
 
 export default async function CategoryPage({
@@ -27,8 +61,37 @@ export default async function CategoryPage({
 
   const machines = await getDbMachines({ category });
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: COMPANY_INFO.domain,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Machines",
+        item: `${COMPANY_INFO.domain}/machines`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: catInfo.name,
+        item: `${COMPANY_INFO.domain}/machines/${category}`,
+      },
+    ],
+  };
+
   return (
     <div className="py-12 sm:py-16 bg-white text-[#2D2D2D]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb / Back Link */}
         <div className="mb-6">

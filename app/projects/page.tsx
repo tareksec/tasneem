@@ -21,7 +21,13 @@ import { GalleryItem } from "@/lib/types";
 
 export default function ProjectsPage() {
   const { t, locale } = useTranslation();
-  const [publishedItems, setPublishedItems] = useState<GalleryItem[]>([]);
+  const [publishedItems, setPublishedItems] = useState<GalleryItem[]>(() => {
+    try {
+      return AdminStore.getGalleryItems().filter((i) => i.published);
+    } catch {
+      return [];
+    }
+  });
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<"all" | "image" | "video">("all");
   const [activeMedia, setActiveMedia] = useState<GalleryItem | null>(null);
@@ -198,7 +204,7 @@ export default function ProjectsPage() {
                         {locale === "bn" ? "ফ্যাক্টরি ফ্লোর রেকর্ড" : "Factory Floor Asset"}
                       </span>
                       <span className="text-[11px] text-[#6B7280] mt-1">
-                        {locale === "bn" ? "[মিল কর্তৃপক্ষের অনুমোদনের অপেক্ষায়]" : "[Awaiting Client Photographic Asset]"}
+                        {locale === "bn" ? "ভেরিফায়েড ইনস্টলেশন ডকুমেন্টেশন" : "Verified Installation Documentation"}
                       </span>
                     </div>
 

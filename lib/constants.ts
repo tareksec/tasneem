@@ -62,6 +62,8 @@ export const COMPANY_INFO = {
   // Confirmed Contact Details (3 Reconciled Numbers)
   hotline: "01887683333", // Primary Listed Hotline (General inquiries)
   phone: "01887683333", // Primary Phone alias
+  phoneIntl: "+8801887683333", // International E.164 for tel: links
+  hotlineIntl: "+8801887683333",
   directContact: "+880 1884-611888", // Direct Sales Contact (Mr Hasan)
   phoneAlt: "+880 1884-611888", // Secondary phone alias
   whatsapp: "+8801884611888", // Main WhatsApp Button Number (Mr Hasan)
@@ -125,7 +127,6 @@ export const COMPANY_INFO = {
   developer: {
     name: "Md Tarek",
     website: "https://artx.techvrs.com",
-    linkedin: "https://www.linkedin.com/in/mdtarek404/",
   },
 };
 

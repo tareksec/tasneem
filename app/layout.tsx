@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
-import { OrganizationSchema, LocalBusinessSchema } from "@/components/seo/SchemaOrg";
+import { OrganizationSchema, LocalBusinessSchema, VideoObjectSchema } from "@/components/seo/SchemaOrg";
 import { COMPANY_INFO } from "@/lib/constants";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
@@ -22,45 +22,10 @@ export const metadata: Metadata = {
   },
   description:
     "Direct overseas importer of industrial circular knitting machines in Bangladesh. Double Jersey, Single Jersey, Interlock, Jacquard & Terry machines with 3rd-party pre-shipment inspection, CFR Chattogram sea delivery, and factory installation. বাংলাদেশে উচ্চমানের সার্কুলার নিটিং মেশিন সরাসরি আমদানি।",
-  keywords: [
-    "knitting machine Bangladesh",
-    "circular knitting machine Bangladesh",
-    "industrial knitting machine Bangladesh",
-    "double jersey knitting machine Bangladesh",
-    "single jersey knitting machine Bangladesh",
-    "interlock knitting machine Bangladesh",
-    "jacquard knitting machine Bangladesh",
-    "terry knitting machine Bangladesh",
-    "textile machinery Bangladesh",
-    "knitting machine price Bangladesh",
-    "CFR Chattogram machinery import",
-    "নিটিং মেশিন বাংলাদেশ",
-    "সার্কুলার নিটিং মেশিন বাংলাদেশ",
-    "শিল্প নিটিং মেশিন",
-    "ডাবল জার্সি নিটিং মেশিন",
-    "সিঙ্গেল জার্সি নিটিং মেশিন",
-    "ইন্টারলক নিটিং মেশিন",
-    "জ্যাকার্ড নিটিং মেশিন",
-    "টেরি নিটিং মেশিন",
-    "টেক্সটাইল মেশিনারি বাংলাদেশ",
-    "নিটিং মেশিনের দাম বাংলাদেশ",
-    "সিএফআর চট্টগ্রাম ডেলিভারি",
-  ],
   authors: [
     { name: COMPANY_INFO.name, url: COMPANY_INFO.domain },
-    { name: "Md Tarek", url: "https://www.linkedin.com/in/mdtarek404/" },
-    { name: "artx.techvrs.com", url: "https://artx.techvrs.com" },
   ],
-  creator: "Md Tarek (artx.techvrs.com)",
   publisher: COMPANY_INFO.name,
-  alternates: {
-    canonical: COMPANY_INFO.domain,
-    languages: {
-      "en": `${COMPANY_INFO.domain}/en`,
-      "bn": `${COMPANY_INFO.domain}/bn`,
-      "x-default": COMPANY_INFO.domain,
-    },
-  },
   openGraph: {
     type: "website",
     locale: "bn_BD",
@@ -134,6 +99,7 @@ export default function RootLayout({
         />
         <OrganizationSchema />
         <LocalBusinessSchema />
+        <VideoObjectSchema />
       </head>
       <body className="min-h-full flex flex-col bg-white text-[#2D2D2D] font-sans antialiased selection:bg-[#800020] selection:text-white">
         <GoogleAnalytics />

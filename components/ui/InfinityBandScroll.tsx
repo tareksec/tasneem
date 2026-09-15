@@ -114,29 +114,37 @@ export function InfinityBandScroll() {
       <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)] mask-[linear-gradient(to_right,transparent_0,black_64px,black_calc(100%-64px),transparent_100%)] group/track">
         {/* Track 1 */}
         <ul className="flex items-center justify-center md:justify-start gap-4 sm:gap-6 shrink-0 animate-infinite-scroll group-hover/track:[animation-play-state:paused] pr-4 sm:pr-6">
-          {marqueeItems.map((brand, index) => (
-            <li key={`track1-${brand.id}-${index}`} className="shrink-0">
-              <Link
-                href={brand.link || "/machines"}
-                className="relative flex flex-col items-center justify-center h-24 sm:h-28 px-7 sm:px-9 pb-5 pt-3 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
+          {marqueeItems.map((brand, index) => {
+            const isClone = index >= PARTNER_BRANDS.length;
+            return (
+              <li
+                key={`track1-${brand.id}-${index}`}
+                className="shrink-0"
+                aria-hidden={isClone ? "true" : undefined}
               >
-                <div className="h-12 w-full flex items-center justify-center">
-                  <Image
-                    src={brand.src}
-                    alt={brand.alt}
-                    width={brand.width}
-                    height={brand.height}
-                    className="max-h-10 sm:max-h-11 w-auto max-w-[160px] object-contain transition-transform duration-300 group-hover/card:scale-105"
-                  />
-                </div>
+                <Link
+                  href={brand.link || "/machines"}
+                  tabIndex={isClone ? -1 : undefined}
+                  className="relative flex flex-col items-center justify-center h-24 sm:h-28 px-7 sm:px-9 pb-5 pt-3 bg-white hover:bg-neutral-50 border border-neutral-200/90 hover:border-red-300 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 group/card cursor-pointer min-w-[220px] sm:min-w-[260px]"
+                >
+                  <div className="h-12 w-full flex items-center justify-center">
+                    <Image
+                      src={brand.src}
+                      alt={brand.alt}
+                      width={brand.width}
+                      height={brand.height}
+                      className="max-h-10 sm:max-h-11 w-auto max-w-[160px] object-contain transition-transform duration-300 group-hover/card:scale-105"
+                    />
+                  </div>
 
-                {/* Subtle Hover Origin Tag */}
-                <span className="absolute bottom-1.5 right-3 text-xs font-mono text-neutral-600 group-hover/card:text-[#800020] font-medium transition-colors">
-                  {locale === "bn" ? brand.originBn : brand.origin}
-                </span>
-              </Link>
-            </li>
-          ))}
+                  {/* Subtle Hover Origin Tag */}
+                  <span className="absolute bottom-1.5 right-3 text-xs font-mono text-neutral-600 group-hover/card:text-[#800020] font-medium transition-colors">
+                    {locale === "bn" ? brand.originBn : brand.origin}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Track 2 (Accessible Duplicate for Continuous Seamless Motion) */}

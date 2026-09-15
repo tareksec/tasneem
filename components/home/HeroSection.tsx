@@ -43,6 +43,7 @@ export function HeroSection() {
             src="/video/hero-video-poster.png"
             alt="Industrial circular knitting machines operating in factory"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -54,6 +55,7 @@ export function HeroSection() {
             muted
             loop
             playsInline
+            preload="none"
             poster="/video/hero-video-poster.png"
             aria-hidden="true"
             className="w-full h-full object-cover"

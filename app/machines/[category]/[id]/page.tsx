@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,6 +31,47 @@ export async function generateStaticParams() {
     }
   });
   return params;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; id: string }>;
+}): Promise<Metadata> {
+  const { category, id } = await params;
+  const machine = await getDbMachineById(id);
+  if (!machine) return {};
+
+  const title = machine.seoTitle_en || `${machine.name} | ${machine.brand || "Tasneem Knitting Industry"}`;
+  const description = machine.seoDesc_en || `${machine.description?.slice(0, 150) || machine.name} - Direct factory import with CFR Chattogram shipping, pre-shipment inspection, and on-site commissioning across Bangladesh.`;
+  const canonicalUrl = `${COMPANY_INFO.domain}/machines/${category}/${id}`;
+  const imageUrl = machine.ogImage || machine.images?.[0] || `${COMPANY_INFO.domain}/logo/og-image.png`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: `${COMPANY_INFO.domain}/en/machines/${category}/${id}`,
+        bn: `${COMPANY_INFO.domain}/bn/machines/${category}/${id}`,
+        "x-default": canonicalUrl,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: machine.name,
+        },
+      ],
+    },
+  };
 }
 
 export default async function MachineDetailPage({
@@ -178,8 +220,8 @@ export default async function MachineDetailPage({
                   {machine.availability === "in-stock"
                     ? "In Stock"
                     : machine.availability === "made-to-order"
-                    ? "Made to Order"
-                    : "Contact for availability"}
+                      ? "Made to Order"
+                      : "Contact for availability"}
                 </span>
               </div>
             </div>

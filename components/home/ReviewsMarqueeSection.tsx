@@ -102,11 +102,18 @@ export function ReviewsMarqueeSection({
       <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_48px,_black_calc(100%-48px),transparent_100%)] mask-[linear-gradient(to_right,transparent_0,black_48px,black_calc(100%-48px),transparent_100%)] group/track">
         {/* Track 1 */}
         <ul className="flex items-center justify-center md:justify-start gap-5 sm:gap-6 shrink-0 animate-infinite-scroll group-hover/track:[animation-play-state:paused] pr-5 sm:pr-6">
-          {marqueeItems.map((review, idx) => (
-            <li key={`track1-rev-${review.id}-${idx}`} className="shrink-0">
-              <ReviewCard review={review} />
-            </li>
-          ))}
+          {marqueeItems.map((review, idx) => {
+            const isClone = idx >= approvedList.length;
+            return (
+              <li
+                key={`track1-rev-${review.id}-${idx}`}
+                className="shrink-0"
+                aria-hidden={isClone ? "true" : undefined}
+              >
+                <ReviewCard review={review} />
+              </li>
+            );
+          })}
         </ul>
 
         {/* Track 2 (Duplicate for Seamless Loop) */}

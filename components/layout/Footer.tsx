@@ -241,7 +241,7 @@ export function Footer() {
                 <div className="flex items-start gap-2">
                   <Phone className="w-3.5 h-3.5 text-neutral-500 shrink-0 mt-0.5" />
                   <div className="flex flex-col leading-tight min-w-0">
-                    <a href={`tel:${COMPANY_INFO.hotline}`} className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors break-all sm:break-normal">
+                    <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors break-all sm:break-normal">
                       Hotline: {COMPANY_INFO.hotline}
                     </a>
                     <a href={`tel:${COMPANY_INFO.directContact.replace(/[^0-9+]/g, "")}`} className="text-xs text-neutral-600 hover:text-[#800020] py-0.5 mt-0.5 break-all sm:break-normal inline-block transition-colors">
@@ -317,11 +317,11 @@ export function Footer() {
                 <p className="text-[11px] sm:text-xs text-neutral-500">
                   Developed by{" "}
                   <a
-                    href={COMPANY_INFO.developer.linkedin}
+                    href={COMPANY_INFO.developer.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors"
-                    title="Md Tarek | LinkedIn"
+                    title="Md Tarek"
                   >
                     Md Tarek
                   </a>{" "}
@@ -352,21 +352,6 @@ export function Footer() {
                   </svg>
                 </a>
 
-                {/* Instagram */}
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Tasneem Instagram"
-                  className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-colors shadow-2xs shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
-                >
-                  <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
-                </a>
-
                 {/* YouTube */}
                 <a
                   href="https://youtu.be/ONTd4X4M-Vo"
@@ -377,20 +362,6 @@ export function Footer() {
                 >
                   <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                </a>
-
-                {/* LinkedIn - Md Tarek */}
-                <a
-                  href={COMPANY_INFO.developer.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Md Tarek | LinkedIn"
-                  title="Md Tarek | LinkedIn"
-                  className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-neutral-100 hover:bg-[#0077B5] hover:text-white text-neutral-700 flex items-center justify-center transition-colors shadow-2xs shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
-                >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z" />
                   </svg>
                 </a>
 

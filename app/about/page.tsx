@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck, Ship, Wrench, ArrowUpRight, Factory, ExternalLink } from "lucide-react";
 import { MotionSection } from "@/components/ui/MotionWrapper";
+import { LiteYouTubeEmbed } from "@/components/ui/LiteYouTubeEmbed";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { OfficeMap } from "@/components/ui/OfficeMap";
@@ -65,15 +66,10 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Video Player Column (7 cols) */}
               <div className="lg:col-span-7">
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl border border-[#E5E7EB] bg-neutral-900 group">
-                  <iframe
-                    src="https://www.youtube-nocookie.com/embed/ONTd4X4M-Vo?autoplay=1&mute=1&playsinline=1&rel=0"
-                    title="Md Mamunur Rashid - Owner Introduction | Tasneem Knit Industry"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <LiteYouTubeEmbed
+                  videoId="ONTd4X4M-Vo"
+                  title="Md Mamunur Rashid - Owner Introduction | Tasneem Knit Industry"
+                />
               </div>
 
               {/* Owner Info & Leadership Statement Column (5 cols) */}
@@ -103,7 +99,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <span className="text-neutral-500 block font-medium">{locale === "bn" ? "সরাসরি হটলাইন" : "Direct Helpline"}</span>
-                    <a href={`tel:${COMPANY_INFO.phone}`} className="font-bold text-[#800020] hover:underline">
+                    <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="font-bold text-[#800020] hover:underline">
                       {COMPANY_INFO.phone}
                     </a>
                   </div>
