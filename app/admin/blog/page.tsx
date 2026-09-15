@@ -38,12 +38,22 @@ export default function BlogListPage() {
   // Delete modal state
   const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
 
-  const loadPosts = () => {
+  const loadPosts = async () => {
+    try {
+      const response = await fetch("/api/admin/blog", { cache: "no-store" });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setPosts(result.posts);
+        return;
+      }
+    } catch {
+      // Fall back to local admin data when the database is unavailable.
+    }
     setPosts(AdminStore.getBlogPosts());
   };
 
   useEffect(() => {
-    loadPosts();
+    void loadPosts();
 
     const handleUpdate = () => loadPosts();
     window.addEventListener("tasneem-store-updated", handleUpdate);
@@ -85,9 +95,15 @@ export default function BlogListPage() {
     return filteredPosts.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredPosts, currentPage]);
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (!postToDelete) return;
+    const response = await fetch(`/api/admin/blog?id=${encodeURIComponent(postToDelete.id)}`, { method: "DELETE" });
+    if (!response.ok) {
+      toast({ type: "error", message: "Post could not be deleted", description: "The database delete request failed." });
+      return;
+    }
     AdminStore.deleteBlogPost(postToDelete.id);
+    void loadPosts();
     toast({
       type: "success",
       message: "Post deleted",

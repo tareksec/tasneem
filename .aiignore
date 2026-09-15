@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.yarn/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Assets (AI এর দরকার নেই)
+public/
+/coverage
+
+# Logs & Debug
+*.log
+*.pem
+*.tsbuildinfo
+
+# Config files (rarely needed)
+next-env.d.ts
+.vercel
+.DS_Store
+.env*
+
+# Lock files (AI এর দরকার নেই)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Scratch
+scratch/

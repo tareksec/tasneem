@@ -39,6 +39,7 @@ import {
   CircularKnittingSubCategory,
   MachineAvailability,
   MachineGalleryImage,
+  MachineCategoryInfo,
 } from "@/lib/types";
 import { MAIN_CATEGORIES, CIRCULAR_SUB_CATEGORIES } from "@/lib/machines-data";
 import { AdminStore } from "@/lib/admin/admin-store";
@@ -108,6 +109,14 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
   const [manufacturer, setManufacturer] = useState(initialMachine?.manufacturer || "Precision Machinery Co., Ltd.");
   const [mainCategory, setMainCategory] = useState<MainCategory>(getInitialMainCategory(initialMachine));
   const [subCategory, setSubCategory] = useState<CircularKnittingSubCategory>(getInitialSubCategory(initialMachine));
+  const [liveCategories, setLiveCategories] = useState<MachineCategoryInfo[]>([]);
+  const [customCategory, setCustomCategory] = useState(
+    initialMachine?.category && !CATEGORY_CARDS.some((category) => category.id === initialMachine.category)
+      ? initialMachine.category
+      : ""
+  );
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [machineType, setMachineType] = useState(
     initialMachine?.machineType || "Double Jersey Circular Knitting Machine"
   );
@@ -206,6 +215,15 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
     }
   }, [name, isEditing, slugOverridden]);
 
+  useEffect(() => {
+    fetch("/api/admin/categories", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) setLiveCategories(result.categories);
+      })
+      .catch(() => undefined);
+  }, []);
+
   // Auto-generate SEO defaults
   useEffect(() => {
     if (!seoTitle_en && name) {
@@ -218,6 +236,7 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
 
   // Category card click handler
   const handleSelectCategory = (cat: typeof CATEGORY_CARDS[0]) => {
+    setCustomCategory("");
     setMainCategory(cat.main as MainCategory);
     if (cat.sub) {
       setSubCategory(cat.sub as CircularKnittingSubCategory);
@@ -406,8 +425,8 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       return;
     }
 
-    const finalCategory: MachineCategory =
-      mainCategory === "circular-knitting" ? subCategory : mainCategory;
+    const finalCategory: MachineCategory = customCategory ||
+      (mainCategory === "circular-knitting" ? subCategory : mainCategory);
 
     // Check slug uniqueness
     const existing = AdminStore.getMachineById(id.trim());
@@ -498,6 +517,26 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
       category: finalCategory,
       name: savedMachine.name,
     });
+  };
+
+  const handleAddCategory = async () => {
+    const categoryName = newCategoryName.trim();
+    if (!categoryName) return;
+    const response = await fetch("/api/admin/categories", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: categoryName }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      showToast(result.error || "Could not add category.", "error");
+      return;
+    }
+    setLiveCategories((current) => [...current, result.category]);
+    setCustomCategory(result.category.slug);
+    setNewCategoryName("");
+    setIsAddingCategory(false);
+    showToast("Category created and selected.", "success");
   };
 
   const handleResetForNew = () => {
@@ -837,6 +876,37 @@ export function MachineForm({ initialMachine, isEditing = false }: MachineFormPr
                 );
               })}
             </div>
+
+            {liveCategories.length > 0 && (
+              <div className="border-t border-slate-200 pt-4">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Admin-created categories</label>
+                <select
+                  value={customCategory}
+                  onChange={(event) => setCustomCategory(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-800 focus:border-[#800020] focus:outline-none"
+                >
+                  <option value="">Use an existing category above</option>
+                  {liveCategories.map((category) => (
+                    <option key={category.slug} value={category.slug}>{category.name} ({category.slug})</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {isAddingCategory ? (
+              <div className="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row">
+                <input
+                  value={newCategoryName}
+                  onChange={(event) => setNewCategoryName(event.target.value)}
+                  placeholder="New category name"
+                  className="min-w-0 flex-1 rounded-xl border border-slate-200 px-3 py-2.5 text-xs focus:border-[#800020] focus:outline-none"
+                />
+                <button type="button" onClick={() => void handleAddCategory()} className="rounded-xl bg-[#800020] px-4 py-2.5 text-xs font-bold text-white">Create & Select</button>
+                <button type="button" onClick={() => setIsAddingCategory(false)} className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-slate-600">Cancel</button>
+              </div>
+            ) : (
+              <button type="button" onClick={() => setIsAddingCategory(true)} className="text-xs font-bold text-[#800020] hover:underline">+ Add New Category</button>
+            )}
           </div>
 
           {/* Section 1C: Brief Machine Description */}

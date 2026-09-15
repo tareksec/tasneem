@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Gauge, Check } from "lucide-react";
-import { CATEGORIES, getCategoryInfo } from "@/lib/machines-data";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { getCategoryInfo } from "@/lib/machines-data";
+import { getDbCategories, getDbCategoryBySlug } from "@/lib/db/categories";
 import { getDbMachines } from "@/lib/db/machines";
 import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCard } from "@/components/machines/MachineCard";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { MachineCategory } from "@/lib/types";
 
-export function generateStaticParams() {
-  return CATEGORIES.map((cat) => ({
+export async function generateStaticParams() {
+  const categories = await getDbCategories();
+  return categories.map((cat) => ({
     category: cat.slug,
   }));
 }
@@ -21,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const { category } = await params;
-  const catInfo = getCategoryInfo(category as MachineCategory);
+  const catInfo = (await getDbCategoryBySlug(category)) || getCategoryInfo(category as MachineCategory);
   if (!catInfo) return {};
 
   const title = `${catInfo.name} | Circular Knitting Machinery Importer Bangladesh`;
@@ -53,7 +55,7 @@ export default async function CategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const catInfo = getCategoryInfo(category as MachineCategory);
+  const catInfo = (await getDbCategoryBySlug(category)) || getCategoryInfo(category as MachineCategory);
 
   if (!catInfo) {
     notFound();
@@ -106,7 +108,7 @@ export default async function CategoryPage({
 
         {/* Category Hero Banner */}
         <MotionSection className="border border-[#E5E7EB] rounded-2xl bg-[#F9FAFB] p-6 sm:p-10 mb-12 shadow-sm">
-          <span className="sr-only">Typical Range: {catInfo.typicalGauge}</span>
+          <span className="sr-only">Typical Range: {catInfo.typicalGauge || "Universal"}</span>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2D2D2D]">
             {catInfo.name}
@@ -149,7 +151,7 @@ export default async function CategoryPage({
               Common Industrial Applications in Bangladesh
             </span>
             <div className="flex flex-wrap gap-2">
-              {catInfo.commonApplications.map((app) => (
+              {(catInfo.commonApplications || []).map((app) => (
                 <span
                   key={app}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-medium text-[#2D2D2D]"
@@ -211,14 +213,14 @@ export default async function CategoryPage({
             Explore Other Machinery Categories
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {CATEGORIES.filter((c) => c.slug !== catInfo.slug).map((c) => (
+            {(await getDbCategories()).filter((c) => c.slug !== catInfo.slug).map((c) => (
               <Link
                 key={c.slug}
                 href={`/machines/${c.slug}`}
                 className="border border-[#E5E7EB] rounded-xl p-4 bg-white hover:border-[#C0C0C0] hover:-translate-y-0.5 transition-all duration-200 text-center flex flex-col items-center justify-center gap-1 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
               >
                 <span className="font-bold text-xs text-[#2D2D2D]">{c.name}</span>
-                <span className="text-[10px] text-[#6B7280]">{c.typicalGauge}</span>
+                <span className="text-[10px] text-[#6B7280]">{c.typicalGauge || "Universal"}</span>
               </Link>
             ))}
           </div>

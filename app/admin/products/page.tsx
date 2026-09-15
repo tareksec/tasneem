@@ -79,8 +79,17 @@ export default function AdminProductsListPage() {
     );
   };
 
-  const handleDelete = (machine: Machine) => {
+  const handleDelete = async (machine: Machine) => {
     if (confirm(`Are you sure you want to delete "${machine.name}"? This cannot be undone.`)) {
+      const response = await fetch("/api/admin/machines", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: machine.id }),
+      });
+      if (!response.ok) {
+        showToast("Machine could not be deleted from the database.", "error");
+        return;
+      }
       AdminStore.deleteMachine(machine.id);
       showToast(`Machine "${machine.name}" deleted`, "success");
       loadData();
@@ -112,9 +121,16 @@ export default function AdminProductsListPage() {
     loadData();
   };
 
-  const handleBulkDelete = () => {
+  const handleBulkDelete = async () => {
     if (selectedIds.length === 0) return;
     if (confirm(`Delete ${selectedIds.length} selected machines?`)) {
+      await Promise.all(
+        selectedIds.map((id) => fetch("/api/admin/machines", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        }))
+      );
       selectedIds.forEach((id) => AdminStore.deleteMachine(id));
       showToast(`Deleted ${selectedIds.length} machines`, "success");
       setSelectedIds([]);

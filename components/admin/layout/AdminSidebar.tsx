@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Cpu,
+  Tags,
   Inbox,
   FileText,
   Images,
@@ -130,6 +131,11 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       name: "Catalog",
       href: "/admin/products",
       icon: Cpu,
+    },
+    {
+      name: "Categories",
+      href: "/admin/categories",
+      icon: Tags,
     },
     {
       name: "Quotes",

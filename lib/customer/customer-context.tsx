@@ -8,7 +8,7 @@ interface CustomerAuthContextType {
   customer: CustomerUser | null;
   quotes: QuoteRecord[];
   isLoading: boolean;
-  login: (email: string, password?: string) => { success: boolean; error?: string };
+  login: (email: string, password?: string) => Promise<{ success: boolean; error?: string }>;
   register: (
     name: string,
     company: string,
@@ -76,8 +76,26 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     return () => window.removeEventListener("tasneem-store-updated", handleUpdate);
   }, []);
 
-  const login = (email: string, password?: string): { success: boolean; error?: string } => {
+  const login = async (email: string, password?: string): Promise<{ success: boolean; error?: string }> => {
     const trimmed = email.trim().toLowerCase();
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed, password }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) return { success: false, error: result.error };
+      const found = result.customer as CustomerUser;
+      AdminStore.saveCustomer(found);
+      setCustomer(found);
+      window.localStorage.setItem(STORAGE_KEY_AUTH_EMAIL, found.email);
+      syncQuotes(found.email);
+      return { success: true };
+    } catch {
+      // Fall through to local demo/offline behavior.
+    }
+
     const found = AdminStore.getCustomerByEmail(trimmed);
 
     if (!found) {

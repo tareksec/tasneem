@@ -22,7 +22,7 @@ export default function CustomerLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -31,7 +31,7 @@ export default function CustomerLoginPage() {
       return;
     }
 
-    const res = login(email, password);
+    const res = await login(email, password);
     if (!res.success) {
       setError(res.error || "Login failed. Please check credentials.");
       return;
@@ -40,10 +40,10 @@ export default function CustomerLoginPage() {
     router.push("/account/quotes");
   };
 
-  const handleDemoLogin = () => {
+  const handleDemoLogin = async () => {
     setEmail("buyer@demo.com");
     setPassword("password123");
-    const res = login("buyer@demo.com", "password123");
+    const res = await login("buyer@demo.com", "password123");
     if (res.success) {
       router.push("/account/quotes");
     }

@@ -94,7 +94,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 }}
-            className="max-md:order-1 text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
+            className="max-md:order-1 max-md:mt-6 text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
           >
             {dict.hero.title}
           </motion.h1>
@@ -140,25 +140,25 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.3 }}
-            className="max-md:hidden max-md:order-2 mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-nowrap items-center justify-between gap-2 sm:gap-7 text-xs text-neutral-200 font-medium"
+            className="max-md:order-2 max-md:mt-6 max-md:pt-0 max-md:border-0 mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-col max-md:items-start sm:flex-row sm:items-center justify-between gap-2 max-md:gap-1.5 sm:gap-7 text-xs text-neutral-200 font-medium"
           >
-            <div aria-label={dict.hero.cfrBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+            <div aria-label={dict.hero.cfrBadge} className="flex items-center gap-2 max-md:border-l-2 max-md:border-rose-200/70 max-md:pl-2">
+              <div className="max-md:hidden w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <Ship className="w-3.5 h-3.5 text-rose-200" />
               </div>
-              <span className="max-md:sr-only">{dict.hero.cfrBadge}</span>
+              <span className="max-md:text-[11px] max-md:font-semibold max-md:tracking-wide text-neutral-100">{dict.hero.cfrBadge}</span>
             </div>
-            <div aria-label={dict.hero.inspectionBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+            <div aria-label={dict.hero.inspectionBadge} className="flex items-center gap-2 max-md:border-l-2 max-md:border-emerald-300/70 max-md:pl-2">
+              <div className="max-md:hidden w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               </div>
-              <span className="max-md:sr-only">{dict.hero.inspectionBadge}</span>
+              <span className="max-md:text-[11px] max-md:font-semibold max-md:tracking-wide text-neutral-100">{dict.hero.inspectionBadge}</span>
             </div>
-            <div aria-label={dict.hero.installBadge} className="flex items-center gap-2 max-md:flex-1 max-md:flex-col max-md:gap-1 max-md:text-center">
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+            <div aria-label={dict.hero.installBadge} className="flex items-center gap-2 max-md:border-l-2 max-md:border-rose-200/70 max-md:pl-2">
+              <div className="max-md:hidden w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                 <Wrench className="w-3.5 h-3.5 text-rose-200" />
               </div>
-              <span className="max-md:sr-only">{dict.hero.installBadge}</span>
+              <span className="max-md:text-[11px] max-md:font-semibold max-md:tracking-wide text-neutral-100">{dict.hero.installBadge}</span>
             </div>
           </motion.div>
 

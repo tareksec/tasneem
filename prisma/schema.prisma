@@ -73,6 +73,20 @@ model Machine {
   @@map("machines")
 }
 
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  name_bn     String?
+  description String?  @db.Text
+  description_bn String? @db.Text
+  icon        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("machine_categories")
+}
+
 // ----------------------------------------------------
 // Technical Knowledge & Sourcing Blog
 // ----------------------------------------------------

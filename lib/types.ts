@@ -12,9 +12,7 @@ export type CircularKnittingSubCategory =
   | "jacquard"
   | "terry";
 
-export type MachineCategory =
-  | MainCategory
-  | CircularKnittingSubCategory;
+export type MachineCategory = string;
 
 export type MachineAvailability =
   | "in-stock"
@@ -27,6 +25,18 @@ export interface MachineGalleryImage {
   alt_en: string;
   alt_bn?: string;
   isPrimary?: boolean;
+}
+
+export interface MachineCategoryInfo {
+  id?: string;
+  slug: string;
+  name: string;
+  name_bn?: string;
+  description?: string;
+  description_bn?: string;
+  icon?: string;
+  typicalGauge?: string;
+  commonApplications?: string[];
 }
 
 export interface Machine {
