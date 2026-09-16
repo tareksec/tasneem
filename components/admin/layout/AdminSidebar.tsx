@@ -199,8 +199,6 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
               <div key={item.name} className="group relative w-full flex justify-center">
                 <Link
                   href={item.href}
-                  target={item.target}
-                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "relative w-full lg:w-11 h-11 rounded-2xl flex items-center justify-start lg:justify-center gap-3 lg:gap-0 px-3 lg:px-0 transition-all duration-200 cursor-pointer",
