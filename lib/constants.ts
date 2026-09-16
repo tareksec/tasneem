@@ -126,6 +126,7 @@ export const COMPANY_INFO = {
   // Developer Credits
   developer: {
     name: "Md Tarek",
+    linkedin: "https://www.linkedin.com/in/mdtarek404/",
     website: "https://artx.techvrs.com",
   },
 };

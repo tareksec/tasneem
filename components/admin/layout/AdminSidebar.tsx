@@ -176,9 +176,9 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full items-start justify-between py-6 px-3 select-none">
+    <div className="flex flex-col h-full items-center justify-between py-6 px-2.5 select-none">
       {/* Top Section: Brand Squircle & Navigation */}
-      <div className="flex flex-col items-start w-full space-y-6">
+      <div className="flex flex-col items-center w-full space-y-6">
         {/* Brand Logo Squircle */}
         <Link
           href="/admin"
@@ -203,14 +203,14 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
             const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
 
             return (
-              <div key={item.name} className="relative w-full">
+              <div key={item.name} className="group relative w-full flex justify-center">
                 <Link
                   href={item.href}
                   target={item.target}
                   rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "relative w-full min-h-11 rounded-2xl flex items-center justify-start gap-3 px-3 transition-all duration-200 cursor-pointer",
+                    "relative w-full lg:w-11 h-11 rounded-2xl flex items-center justify-start lg:justify-center gap-3 lg:gap-0 px-3 lg:px-0 transition-all duration-200 cursor-pointer",
                     isActive
                       ? "bg-[#800020] text-white shadow-inner"
                       : "text-slate-400 hover:text-white hover:bg-white/5"
@@ -218,7 +218,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                   aria-label={item.name}
                 >
                   <Icon className={cn("w-5 h-5 transition-transform", isActive ? "scale-105" : "")} />
-                  <span className="text-sm font-semibold whitespace-nowrap">{item.name}</span>
+                  <span className="text-sm font-semibold whitespace-nowrap lg:hidden">{item.name}</span>
 
                   {/* Active Capsule Indicator Tab on Right Edge */}
                   {isActive && (
@@ -234,6 +234,9 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                   )}
                 </Link>
 
+                <div className="pointer-events-none absolute left-14 top-1/2 z-50 hidden -translate-y-1/2 whitespace-nowrap rounded-lg border border-white/10 bg-slate-900 px-2.5 py-1 text-[11px] font-semibold text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100 lg:block">
+                  {item.name}
+                </div>
               </div>
             );
           })}
@@ -241,7 +244,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       </div>
 
       {/* Bottom Section: 3D Fluid Knot, User Avatar & Controls */}
-      <div className="flex flex-col items-start w-full space-y-4 pt-4">
+      <div className="flex flex-col items-center w-full space-y-4 pt-4">
         {/* Signature brand accent */}
         <div className="relative cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95" title="Tasneem Knitting Technology">
           <Knot3DAccent />
@@ -269,7 +272,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
         </div>
 
         {/* Bottom Actions: Home & Logout */}
-        <div className="flex items-center gap-2 text-slate-400 self-center">
+        <div className="flex items-center gap-2 text-slate-400">
           <Link
             href="/"
             target="_blank"
@@ -297,7 +300,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   return (
     <>
       {/* Desktop Compact Dark Sidebar */}
-      <aside className="hidden lg:flex w-56 xl:w-60 flex-col shrink-0 bg-[#2D2D2D] z-30 select-none">
+      <aside className="hidden lg:flex w-20 xl:w-[84px] flex-col shrink-0 bg-[#2D2D2D] z-30 select-none">
         {sidebarContent}
       </aside>
 

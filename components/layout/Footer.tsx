@@ -316,7 +316,7 @@ export function Footer() {
                 <p className="text-[11px] sm:text-xs text-neutral-500">
                   Developed by{" "}
                   <a
-                    href={COMPANY_INFO.developer.website}
+                    href={COMPANY_INFO.developer.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-bold text-[#2D2D2D] hover:text-[#800020] transition-colors"
@@ -330,9 +330,9 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-bold text-[#800020] hover:underline"
-                    title="artx.techvrs.com"
+                    title="Artx"
                   >
-                    artx.techvrs.com
+                    Artx
                   </a>
                 </p>
               </div>
