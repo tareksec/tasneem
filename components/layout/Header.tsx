@@ -27,6 +27,7 @@ import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useCustomerAuth } from "@/lib/customer/customer-context";
+import { useLenis } from "lenis/react";
 
 export function Header() {
   const { customer } = useCustomerAuth();
@@ -72,16 +73,32 @@ export function Header() {
     }
   }, [isExpanded]);
 
-  // Lock body scroll when mobile drawer is open to prevent background scrolling
+  const lenis = useLenis();
+
+  // Lock body scroll and pause Lenis virtual scrolling when menu drawer is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      lenis?.stop();
     } else {
       document.body.style.overflow = "";
+      lenis?.start();
     }
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
+  }, [mobileMenuOpen, lenis]);
+
+  // Close drawer on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
   // Close dropdown on click outside
@@ -161,7 +178,8 @@ export function Header() {
   };
 
   return (
-    <motion.header
+    <>
+      <motion.header
       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -12 }}
       animate={{
         opacity: 1,
@@ -174,7 +192,7 @@ export function Header() {
         stiffness: 280,
       }}
       onClick={handleNavClick}
-      className={`sticky top-3 sm:top-4 z-50 mx-auto w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] transition-all duration-300 ${
+      className={`sticky top-3 sm:top-4 z-50 mx-auto w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] ${
         !isExpanded ? "cursor-pointer" : ""
       }`}
     >
@@ -189,12 +207,6 @@ export function Header() {
         {/* Left: Brand Logo */}
         <Link
           href="/"
-          onClick={(e) => {
-            if (!isExpanded) {
-              e.preventDefault();
-              setIsExpanded(true);
-            }
-          }}
           className="flex items-center gap-1.5 sm:gap-3 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg"
           aria-label="Tasneem Knit Industry Home"
         >
@@ -399,10 +411,11 @@ export function Header() {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsExpanded(true);
+                  setMobileMenuOpen(true);
                 }}
                 className="px-3 py-1.5 rounded-full bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
-                title={locale === "bn" ? "মেনু বড় করতে ক্লিক করুন" : "Click to expand menu"}
+                title={locale === "bn" ? "মেনু খুলুন" : "Open menu"}
+                aria-label={locale === "bn" ? "মেনু খুলুন" : "Open menu"}
               >
                 <Menu className="w-3.5 h-3.5" />
                 <span className="text-[11px] font-semibold">{locale === "bn" ? "মেনু" : "Menu"}</span>
@@ -411,34 +424,38 @@ export function Header() {
           )}
         </div>
       </div>
+    </motion.header>
 
-      {/* Mobile Off-Canvas Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Dimmed Backdrop */}
-            <motion.div
-              key="mobile-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs lg:hidden"
-              aria-hidden="true"
-            />
+    {/* Off-Canvas Navigation Drawer */}
+    <AnimatePresence>
+      {mobileMenuOpen && (
+        <>
+          {/* Dimmed Backdrop */}
+          <motion.div
+            key="drawer-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-xs"
+            aria-hidden="true"
+          />
 
-            {/* Slide-in Drawer */}
-            <motion.div
-              key="mobile-drawer"
-              initial={{ x: shouldReduceMotion ? 0 : "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: shouldReduceMotion ? 0 : "100%" }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-[85vw] max-w-xs bg-white/95 backdrop-blur-2xl shadow-2xl flex flex-col justify-between p-4 sm:p-6 lg:hidden border-l border-white/60"
+          {/* Slide-in Drawer */}
+          <motion.div
+            key="nav-drawer"
+            initial={{ x: shouldReduceMotion ? 0 : "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: shouldReduceMotion ? 0 : "100%" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed top-0 right-0 bottom-0 z-[70] w-[85vw] max-w-xs sm:max-w-sm bg-white/95 backdrop-blur-2xl shadow-2xl flex flex-col justify-between p-4 sm:p-6 border-l border-white/60"
+          >
+            <div
+              className="flex flex-col gap-6 overflow-y-auto flex-1 min-h-0 pr-1"
+              data-lenis-prevent
             >
-              <div className="flex flex-col gap-6 overflow-y-auto">
-                <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+              <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
                   <div className="relative h-7 w-28 flex items-center">
                     <Image
                       src="/logo/nave-var.png"
@@ -540,8 +557,8 @@ export function Header() {
                 </div>
               </div>
 
-              {/* Mobile Drawer Bottom Actions */}
-              <div className="pt-4 border-t border-neutral-100 flex flex-col gap-3">
+              {/* Drawer Bottom Actions */}
+              <div className="pt-4 border-t border-neutral-100 flex flex-col gap-3 shrink-0">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-xs font-medium text-neutral-500">
                     {locale === "bn" ? "ভাষা নির্বাচন:" : "Language:"}
@@ -580,6 +597,6 @@ export function Header() {
           </>
         )}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 }
