@@ -1,20 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  Gauge,
-  SlidersHorizontal,
-  Layers,
-  CheckCircle2,
-  Activity,
-  Droplets,
-  Scissors,
-  Eye,
-  ShieldCheck,
-  Anchor,
-} from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Sparkles } from "lucide-react";
 import { Machine } from "@/lib/types";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
@@ -23,279 +12,169 @@ interface MachineCardProps {
 }
 
 export function MachineCard({ machine }: MachineCardProps) {
-  const { dict, locale } = useTranslation();
+  const { locale } = useTranslation();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const isCircular =
-    machine.mainCategory === "circular-knitting" ||
-    ["double-jersey", "single-jersey", "interlock", "jacquard", "terry"].includes(
-      machine.category
-    );
-  const isDyeing = machine.mainCategory === "dyeing" || machine.category === "dyeing";
-  const isShearing = machine.mainCategory === "shearing" || machine.category === "shearing";
-  const isFinishing = machine.mainCategory === "finishing" || machine.category === "finishing";
+  const images =
+    machine.images && machine.images.length > 0
+      ? machine.images
+      : [`/images/machines/cat-${machine.category || "circular-knitting"}.webp`];
+
+  const currentImage = images[activeImageIndex % images.length];
+
+  // Derive localized title
+  const title = locale === "bn" && machine.name_bn ? machine.name_bn : machine.name;
+
+  // Derive price or primary badge text
+  const badgeText =
+    machine.price && machine.price > 0
+      ? `$${machine.price.toLocaleString()}`
+      : machine.availability === "in-stock"
+      ? locale === "bn"
+        ? "রেডি স্টক"
+        : "Ready Stock"
+      : "CFR Port";
+
+  // Derive description text
+  const descriptionText =
+    (locale === "bn" && machine.description_bn ? machine.description_bn : machine.description) ||
+    `${machine.brand} ${machine.machineType || "Textile Machinery"} engineered for high-efficiency knit composite manufacturing with CFR Chattogram delivery.`;
+
+  // Dynamic tags (up to 2-3 tags for the card)
+  const tag1 = machine.category
+    ? machine.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : "Textile Equipment";
+
+  const tag2 = machine.gauge
+    ? `Gauge: ${machine.gauge}`
+    : machine.cylinderDiameter
+    ? `Dia: ${machine.cylinderDiameter}`
+    : machine.machineSpeed
+    ? `Speed: ${machine.machineSpeed}`
+    : machine.origin
+    ? `Origin: ${machine.origin}`
+    : "Export Quality";
+
+  const tag3 = machine.feeders
+    ? `${machine.feeders} Feeders`
+    : machine.productionCapacity
+    ? machine.productionCapacity.split("(")[0].trim()
+    : machine.origin
+    ? `${machine.origin} OEM`
+    : null;
 
   return (
-    <div className="h-full border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 bg-white flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:border-[#800020]/40 transition-all duration-200 group">
-      <div>
-        {/* Product Photo Preview */}
-        <Link
-          href={`/machines/${machine.category}/${machine.id}`}
-          className="relative w-full aspect-[4/3] rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] overflow-hidden mb-4 flex items-center justify-center cursor-pointer block"
-        >
-          <Image
-            src={machine.images?.[0] || `/images/machines/cat-${machine.category}.webp`}
-            alt={locale === "bn" && machine.name_bn ? machine.name_bn : machine.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-xs border border-[#E5E7EB] px-2.5 py-0.5 rounded-md text-[11px] font-bold text-[#2D2D2D] shadow-xs">
-            {machine.brand}
-          </div>
-          <div className="absolute bottom-2 right-2 bg-[#800020] text-white px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide uppercase shadow-xs">
-            {machine.category.replace(/-/g, " ")}
-          </div>
-        </Link>
+    <div className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-[#0D1117] text-white flex flex-col justify-end min-h-[480px] sm:min-h-[520px] border border-white/10 shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1.5 transition-all duration-300 group select-none">
+      {/* Background Image Container */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={currentImage}
+          alt={title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
 
-        {/* Origin & Availability */}
-        <div className="flex items-center justify-between gap-2 mb-1.5">
-          <span className="text-xs uppercase tracking-wider text-neutral-600 font-semibold leading-tight">
-            {machine.origin ? `Origin: ${machine.origin}` : "Imported Machinery"}
-          </span>
-          <span
-            className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1 ${
-              machine.availability === "in-stock"
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                : "bg-amber-50 text-amber-700 border border-amber-200"
-            }`}
-          >
-            <CheckCircle2 className="w-2.5 h-2.5" />
-            {machine.availability === "in-stock"
-              ? locale === "bn"
-                ? "রেডি স্টক"
-                : "Ready Stock"
-              : locale === "bn"
-              ? "অর্ডার ভিত্তিক"
-              : "Made to Order"}
-          </span>
-        </div>
-
-        {/* Title */}
-        <Link href={`/machines/${machine.category}/${machine.id}`}>
-          <h3 className="font-bold text-base text-neutral-900 line-clamp-2 leading-snug group-hover:text-[#800020] transition-colors cursor-pointer">
-            {locale === "bn" && machine.name_bn ? machine.name_bn : machine.name}
-          </h3>
-        </Link>
-
-        {/* Dynamic Context-Aware Specifications Table (Standardized Tabular Layout) */}
-        <div className="mt-4 pt-3 border-t border-neutral-200 flex flex-col gap-1.5 text-xs">
-          {isCircular ? (
-            <>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Gauge className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.gauge}:
-                </span>
-                <span className="font-semibold text-neutral-800 text-right">{machine.gauge || "18G – 36G"}</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.cylinderDiameter}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right">{machine.cylinderDiameter || "30\" – 38\""}</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.feeders}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right">
-                  {machine.feeders ? `${machine.feeders} Feeders` : "High-Density"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Activity className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "উৎপাদন গতি:" : "Speed & Yield:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right line-clamp-2 leading-snug">
-                  {machine.machineSpeed || (machine.productionCapacity ? machine.productionCapacity.split("(")[0] : "22 – 34 RPM")}
-                </span>
-              </div>
-            </>
-          ) : isDyeing ? (
-            <>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Droplets className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.productionCapacity}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right">
-                  {machine.productionCapacity || "350 – 500 kg/batch"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "লিকার রেশিও:" : "Liquor Ratio:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">1:4.5 Low-Liquor</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.fabricType}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right line-clamp-2 leading-snug">
-                  {locale === "bn" && machine.fabricType_bn ? machine.fabricType_bn : machine.fabricType || "Cotton & Blends"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "কন্ট্রোলার:" : "Controller:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Multi-Stage Curve</span>
-              </div>
-            </>
-          ) : isShearing ? (
-            <>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Activity className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "শিয়ারিং গতি:" : "Working Speed:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">
-                  {machine.productionCapacity || "15 – 35 m/min"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Scissors className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "কাটিং সিস্টেম:" : "Cutting System:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">24-Spiral Alloy</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.fabricType}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right line-clamp-2 leading-snug">
-                  {locale === "bn" && machine.fabricType_bn ? machine.fabricType_bn : machine.fabricType || "Polar Fleece & Terry"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "বর্জ্য নিষ্কাশন:" : "Waste Exhaust:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Integrated Vacuum</span>
-              </div>
-            </>
-          ) : isFinishing ? (
-            <>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Activity className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "অপারেশন স্পিড:" : "Line Speed:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">
-                  {machine.productionCapacity || "10 – 30 m/min"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Eye className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "ইন্সপেকশন:" : "Screen:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Dual LED Light</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "উইন্ডিং:" : "Winding:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Tensionless Auto</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.fabricType}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right line-clamp-2 leading-snug">
-                  {locale === "bn" && machine.fabricType_bn ? machine.fabricType_bn : machine.fabricType || "All Circular Tubular"}
-                </span>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Other: Stenters / Compactors */}
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Activity className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "স্পিড:" : "Process Speed:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">
-                  {machine.productionCapacity || "20 – 45 m/min"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "শ্রিংকেজ রেট:" : "Shrinkage Rate:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Residual &lt; 3%</span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {dict.specLabels.fabricType}:
-                </span>
-                <span className="font-medium text-neutral-800 text-right line-clamp-2 leading-snug">
-                  {locale === "bn" && machine.fabricType_bn ? machine.fabricType_bn : machine.fabricType || "Knit Open-Width"}
-                </span>
-              </div>
-              <div className="grid grid-cols-[130px_1fr] items-baseline justify-between py-1 border-b border-neutral-100 gap-2">
-                <span className="text-neutral-500 flex items-center gap-1.5 shrink-0">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                  {locale === "bn" ? "বেল্ট:" : "Compacting Belt:"}
-                </span>
-                <span className="font-medium text-neutral-800 text-right">Nomex Felt</span>
-              </div>
-            </>
-          )}
-        </div>
+        {/* Ambient multi-stop dark gradient overlay - replicates the luxury aesthetic */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 via-35% to-[#0A0D12]/95 to-80%" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-[#0A0D12]/80 via-40% to-transparent pointer-events-none" />
       </div>
 
-      {/* Industrial Card Footer (Consistent Vertical Spacing & Balanced Buttons) */}
-      <div className="mt-4 pt-3.5 border-t border-neutral-200 flex flex-col gap-3">
-        <div className="flex items-center justify-between text-xs">
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-md">
-            <Anchor className="w-3 h-3 text-[#800020]" />
-            CFR Chattogram
+      {/* Top Floating Badges */}
+      <div className="absolute top-4 left-4 right-4 z-10 flex items-center justify-between gap-2 pointer-events-none">
+        {machine.brand && (
+          <span className="px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-[11px] font-bold text-white/95 tracking-wide shadow-sm">
+            {machine.brand}
           </span>
-          <span className="text-xs font-medium text-neutral-500">
-            {locale === "bn" ? "১ বছর ওয়ারেন্টি + সাপোর্ট" : "1 Yr Warranty + Support"}
+        )}
+        <span
+          className={`px-2.5 py-1 rounded-full backdrop-blur-md border text-[10px] font-semibold tracking-wide flex items-center gap-1 shadow-sm ${
+            machine.availability === "in-stock"
+              ? "bg-emerald-950/60 border-emerald-500/30 text-emerald-300"
+              : "bg-black/45 border-white/15 text-white/85"
+          }`}
+        >
+          <CheckCircle2 className="w-2.5 h-2.5" />
+          {machine.availability === "in-stock"
+            ? locale === "bn"
+              ? "রেডি স্টক"
+              : "Ready Stock"
+            : locale === "bn"
+            ? "অর্ডার ভিত্তিক"
+            : "Made to Order"}
+        </span>
+      </div>
+
+      {/* Bottom Content Area */}
+      <div className="relative z-10 px-5 sm:px-6 pb-5 sm:pb-6 pt-2 flex flex-col">
+        {/* Pagination Dots (3 Dots Indicator) */}
+        <div className="flex items-center justify-center gap-1.5 mb-3.5">
+          {[0, 1, 2].map((idx) => {
+            const isActive = activeImageIndex % 3 === idx;
+            return (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`View photo ${idx + 1}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (images.length > 1) {
+                    setActiveImageIndex(idx % images.length);
+                  }
+                }}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  isActive
+                    ? "w-2 h-2 bg-white shadow-xs"
+                    : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        {/* Title & Price/Badge Row */}
+        <div className="flex items-center justify-between gap-3">
+          <Link
+            href={`/machines/${machine.category}/${machine.id}`}
+            className="flex-1 min-w-0"
+          >
+            <h3 className="font-bold text-lg sm:text-xl text-white tracking-tight leading-snug line-clamp-1 hover:text-white/90 transition-colors">
+              {title}
+            </h3>
+          </Link>
+          <span className="px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-xs font-bold text-white shadow-xs shrink-0 tracking-wide">
+            {badgeText}
           </span>
         </div>
 
-        {/* Balanced Action Buttons */}
-        <div className="grid grid-cols-2 gap-2 mt-1 w-full">
-          <Link
-            href={`/machines/${machine.category}/${machine.id}`}
-            className="inline-flex items-center justify-center gap-1 text-xs font-semibold text-neutral-700 bg-white hover:bg-neutral-50 py-2.5 px-3 rounded-xl transition-colors border border-neutral-300 text-center"
-          >
-            <span>{dict.featured.specsBtn}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-          <Link
-            href={`/quote?machine=${machine.id}`}
-            className="inline-flex items-center justify-center text-xs font-bold text-white bg-[#800020] hover:bg-[#5A0017] py-2.5 px-3 rounded-xl transition-colors shadow-xs text-center"
-          >
-            {locale === "bn" ? "কোটেশন নিন" : "Request Quote"}
-          </Link>
+        {/* Short Description */}
+        <p className="text-xs sm:text-[13px] text-white/75 line-clamp-2 leading-relaxed mt-2.5 mb-4">
+          {descriptionText}
+        </p>
+
+        {/* Feature Tags (Pills) */}
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white/90 text-xs font-medium tracking-wide">
+            {tag1}
+          </span>
+          <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white/90 text-xs font-medium tracking-wide">
+            {tag2}
+          </span>
+          {tag3 && (
+            <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white/90 text-xs font-medium tracking-wide hidden sm:inline-block">
+              {tag3}
+            </span>
+          )}
         </div>
+
+        {/* Full-width White Action Button */}
+        <Link
+          href={`/machines/${machine.category}/${machine.id}`}
+          className="w-full py-3 sm:py-3.5 px-4 rounded-full bg-white text-slate-950 font-bold text-xs sm:text-sm text-center shadow-lg shadow-black/30 hover:bg-slate-100 hover:shadow-xl active:scale-[0.98] transition-all duration-200 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          {locale === "bn" ? "বিস্তারিত দেখুন" : "View Details"}
+        </Link>
       </div>
     </div>
   );
