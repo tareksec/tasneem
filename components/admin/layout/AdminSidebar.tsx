@@ -15,7 +15,6 @@ import {
   LogOut,
   X,
   Users,
-  Home,
   MessageSquareQuote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -113,12 +112,6 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   }, []);
 
   const navItems = [
-    {
-      name: "Website Home",
-      href: "/",
-      icon: Home,
-      target: "_blank",
-    },
     {
       name: "Analytics",
       href: "/admin",
@@ -271,18 +264,8 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
           </span>
         </div>
 
-        {/* Bottom Actions: Home & Logout */}
+        {/* Bottom Actions: Logout */}
         <div className="flex items-center gap-2 text-slate-400">
-          <Link
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center"
-            title="Visit Public Website Home"
-            aria-label="Visit Public Website Home"
-          >
-            <Home className="w-4 h-4" />
-          </Link>
           <button
             type="button"
             onClick={() => logout()}
