@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,13 +12,21 @@ import {
   Building2,
   RotateCcw,
   LayoutGrid,
-  Check,
-  ArrowRight,
-  Filter,
+  Droplets,
+  Scissors,
+  Layers,
+  Copy,
+  Activity,
+  Disc,
+  Cpu,
+  Shirt,
+  Grid2X2,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
-import { CATEGORIES, MAIN_CATEGORIES, CIRCULAR_SUB_CATEGORIES } from "@/lib/machines-data";
+import { CATEGORIES, CIRCULAR_SUB_CATEGORIES } from "@/lib/machines-data";
 import { MachineCard } from "@/components/machines/MachineCard";
-import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
+import { StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { Machine, CategoryInfo } from "@/lib/types";
 
@@ -27,11 +35,29 @@ interface MachinesCatalogClientProps {
   initialCategories?: CategoryInfo[];
 }
 
+const CATEGORY_ICONS: Record<string, any> = {
+  all: LayoutGrid,
+  "circular-knitting": RotateCcw,
+  dyeing: Droplets,
+  shearing: Scissors,
+  finishing: Sparkles,
+  other: Layers,
+};
+
+const SUB_CATEGORY_ICONS: Record<string, any> = {
+  all: Grid2X2,
+  "double-jersey": Copy,
+  "single-jersey": Activity,
+  interlock: Disc,
+  jacquard: Cpu,
+  terry: Shirt,
+};
+
 export function MachinesCatalogClient({
   initialMachines,
   initialCategories,
 }: MachinesCatalogClientProps) {
-  const { t, locale } = useTranslation();
+  const { locale } = useTranslation();
   const [machines, setMachines] = useState<Machine[]>(initialMachines);
   const [allCategories, setAllCategories] = useState<CategoryInfo[]>(
     initialCategories || CATEGORIES
@@ -44,6 +70,7 @@ export function MachinesCatalogClient({
   const [selectedDiameter, setSelectedDiameter] = useState<string>("all");
   const [selectedAvailability, setSelectedAvailability] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("newest");
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   const mainCategoriesList = useMemo(() => {
@@ -264,247 +291,332 @@ export function MachinesCatalogClient({
         </div>
       </div>
 
+      {/* Docked Floating Side Filter Button when Sidebar is Hidden */}
+      {!isSidebarVisible && (
+        <button
+          type="button"
+          onClick={() => setIsSidebarVisible(true)}
+          className="fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-[#800020] hover:bg-[#600018] text-white py-3.5 px-2.5 rounded-r-2xl shadow-xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:pl-3 group active:scale-95 border-y border-r border-rose-400/30"
+          title={locale === "bn" ? "ফিল্টার সাইডবার খুলুন" : "Open Filters"}
+          aria-label="Open Filters"
+        >
+          <SlidersHorizontal className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+          <span className="[writing-mode:vertical-lr] rotate-180 text-[11px] font-bold tracking-wider uppercase select-none">
+            {locale === "bn" ? "ফিল্টার" : "Filters"}
+          </span>
+          {hasActiveFilters && (
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 ring-2 ring-white shadow-xs" />
+          )}
+        </button>
+      )}
+
       {/* Main Catalog Area with Side Filter & Machinery Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* ================= DESKTOP SIDEBAR FILTER ================= */}
-          <aside className="hidden lg:block lg:col-span-3 xl:col-span-3 sticky top-24 space-y-6">
-            <div className="bg-white rounded-[24px] p-5 border border-slate-200/90 shadow-sm space-y-5">
-              {/* Filter Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                  <SlidersHorizontal className="w-4 h-4 text-[#800020]" />
-                  <span>{locale === "bn" ? "ফিল্টার সমূহ" : "Filters"}</span>
-                </div>
-                {hasActiveFilters && (
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-xs font-semibold text-[#800020] hover:underline flex items-center gap-1 cursor-pointer"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    <span>{locale === "bn" ? "রিসেট" : "Reset"}</span>
-                  </button>
-                )}
-              </div>
+          {/* ================= DESKTOP SIDEBAR FILTER (COLLAPSIBLE) ================= */}
+          {isSidebarVisible && (
+            <aside className="hidden lg:block lg:col-span-3 xl:col-span-3 sticky top-24 space-y-6 animate-in fade-in duration-200">
+              <div className="bg-white rounded-[26px] p-5 border border-slate-200/90 shadow-sm space-y-5">
+                {/* Filter Header with Hide & Reset Actions */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+                    <SlidersHorizontal className="w-4 h-4 text-[#800020]" />
+                    <span>{locale === "bn" ? "ফিল্টার সমূহ" : "Filters"}</span>
+                  </div>
 
-              {/* Search Bar */}
-              <div>
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-                  {locale === "bn" ? "অনুসন্ধান" : "Search Machinery"}
-                </label>
-                <div className="relative">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    placeholder={
-                      locale === "bn" ? "মডেল, ব্র্যান্ড, গেজ..." : "Model, brand, gauge..."
-                    }
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#800020] transition-colors"
-                  />
-                  {searchQuery && (
+                  <div className="flex items-center gap-1.5">
+                    {hasActiveFilters && (
+                      <button
+                        onClick={clearAllFilters}
+                        className="text-xs font-semibold text-[#800020] hover:underline flex items-center gap-1 cursor-pointer mr-1"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        <span>{locale === "bn" ? "রিসেট" : "Reset"}</span>
+                      </button>
+                    )}
                     <button
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                      onClick={() => setIsSidebarVisible(false)}
+                      className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                      title={locale === "bn" ? "ফিল্টার সাইডবার লুকান" : "Hide filter sidebar"}
                     >
-                      <X className="w-3.5 h-3.5" />
+                      <PanelLeftClose className="w-4 h-4" />
                     </button>
-                  )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Categories Filter */}
-              <div>
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2.5">
-                  {locale === "bn" ? "ক্যাটাগরি" : "Categories"}
-                </label>
-                <div className="space-y-1">
-                  <button
-                    onClick={() => handleCategoryChange("all")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
-                      selectedCategory === "all"
-                        ? "bg-[#800020] text-white font-bold shadow-xs"
-                        : "text-slate-700 hover:bg-slate-100"
-                    }`}
-                  >
-                    <span>{locale === "bn" ? "সব ক্যাটাগরি" : "All Categories"}</span>
-                    <span
-                      className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${
+                {/* Search Bar */}
+                <div>
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                    {locale === "bn" ? "অনুসন্ধান" : "Search Machinery"}
+                  </label>
+                  <div className="relative">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      placeholder={
+                        locale === "bn" ? "মডেল, ব্র্যান্ড, গেজ..." : "Model, brand, gauge..."
+                      }
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#800020] transition-colors"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery("")}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Modern Categories Filter with Sleek Icons */}
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                      {locale === "bn" ? "ক্যাটাগরি" : "Categories"}
+                    </label>
+                    <span className="text-[10px] text-slate-400 font-semibold">
+                      ({mainCategoriesList.length + 1})
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    {/* All Categories Button */}
+                    <button
+                      onClick={() => handleCategoryChange("all")}
+                      className={`w-full flex items-center justify-between p-2 rounded-2xl text-xs font-semibold transition-all cursor-pointer group ${
                         selectedCategory === "all"
-                          ? "bg-white/20 text-white"
-                          : "bg-slate-100 text-slate-600"
+                          ? "bg-[#800020] text-white shadow-xs"
+                          : "text-slate-700 hover:bg-slate-100"
                       }`}
                     >
-                      {machines.length}
-                    </span>
-                  </button>
-
-                  {mainCategoriesList.map((cat) => {
-                    const isSelected = selectedCategory === cat.slug;
-                    const count = machines.filter((m) => {
-                      const isCirc =
-                        m.mainCategory === "circular-knitting" ||
-                        ["double-jersey", "single-jersey", "interlock", "jacquard", "terry"].includes(
-                          m.category
-                        );
-                      if (cat.slug === "circular-knitting") return isCirc;
-                      return m.category === cat.slug || m.mainCategory === cat.slug;
-                    }).length;
-
-                    return (
-                      <button
-                        key={cat.slug}
-                        onClick={() => handleCategoryChange(cat.slug)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-[#800020] text-white font-bold shadow-xs"
-                            : "text-slate-700 hover:bg-slate-100"
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div
+                          className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                            selectedCategory === "all"
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-100 text-slate-600 group-hover:bg-slate-200"
+                          }`}
+                        >
+                          <LayoutGrid className="w-3.5 h-3.5" />
+                        </div>
+                        <span className="truncate">{locale === "bn" ? "সব ক্যাটাগরি" : "All Categories"}</span>
+                      </div>
+                      <span
+                        className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ${
+                          selectedCategory === "all"
+                            ? "bg-white/25 text-white"
+                            : "bg-slate-100 text-slate-600"
                         }`}
                       >
-                        <span className="truncate text-left mr-2">{cat.name}</span>
-                        <span
-                          className={`text-[11px] px-2 py-0.5 rounded-full font-semibold shrink-0 ${
-                            isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
-                          }`}
-                        >
-                          {count}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Circular Sub-types (when circular knitting or all is active) */}
-              {(selectedCategory === "circular-knitting" || selectedCategory === "all") && (
-                <div className="pt-3 border-t border-slate-100">
-                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-                    {locale === "bn" ? "সার্কুলার সাব-টাইপ" : "Circular Types"}
-                  </label>
-                  <div className="space-y-1 pl-1">
-                    <button
-                      onClick={() => setSelectedSubCategory("all")}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
-                        selectedSubCategory === "all"
-                          ? "bg-slate-900 text-white font-semibold"
-                          : "text-slate-600 hover:bg-slate-100"
-                      }`}
-                    >
-                      <span>All Types</span>
+                        {machines.length}
+                      </span>
                     </button>
-                    {CIRCULAR_SUB_CATEGORIES.map((sub) => {
-                      const isSub = selectedSubCategory === sub.slug;
-                      const count = machines.filter(
-                        (m) => m.subCategory === sub.slug || m.category === sub.slug
-                      ).length;
+
+                    {/* Specific Category Buttons */}
+                    {mainCategoriesList.map((cat) => {
+                      const isSelected = selectedCategory === cat.slug;
+                      const Icon = CATEGORY_ICONS[cat.slug] || Layers;
+                      const count = machines.filter((m) => {
+                        const isCirc =
+                          m.mainCategory === "circular-knitting" ||
+                          ["double-jersey", "single-jersey", "interlock", "jacquard", "terry"].includes(
+                            m.category
+                          );
+                        if (cat.slug === "circular-knitting") return isCirc;
+                        return m.category === cat.slug || m.mainCategory === cat.slug;
+                      }).length;
+
                       return (
                         <button
-                          key={sub.slug}
-                          onClick={() => {
-                            setSelectedCategory("circular-knitting");
-                            setSelectedSubCategory(sub.slug);
-                          }}
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
-                            isSub
-                              ? "bg-slate-900 text-white font-semibold"
-                              : "text-slate-600 hover:bg-slate-100"
+                          key={cat.slug}
+                          onClick={() => handleCategoryChange(cat.slug)}
+                          className={`w-full flex items-center justify-between p-2 rounded-2xl text-xs font-semibold transition-all cursor-pointer group ${
+                            isSelected
+                              ? "bg-[#800020] text-white shadow-xs"
+                              : "text-slate-700 hover:bg-slate-100"
                           }`}
                         >
-                          <span className="truncate text-left mr-2">{sub.name}</span>
-                          <span className="text-[10px] text-slate-400">({count})</span>
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div
+                              className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                                isSelected
+                                  ? "bg-white/20 text-white"
+                                  : "bg-slate-100 text-slate-600 group-hover:bg-slate-200"
+                              }`}
+                            >
+                              <Icon className="w-3.5 h-3.5" />
+                            </div>
+                            <span className="truncate text-left">{cat.name}</span>
+                          </div>
+                          <span
+                            className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ${
+                              isSelected ? "bg-white/25 text-white" : "bg-slate-100 text-slate-600"
+                            }`}
+                          >
+                            {count}
+                          </span>
                         </button>
                       );
                     })}
                   </div>
                 </div>
-              )}
 
-              {/* Brand Filter */}
-              <div className="pt-3 border-t border-slate-100">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-                  {locale === "bn" ? "ব্র্যান্ড / ম্যানুফ্যাকচারার" : "OEM Brands"}
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedBrand}
-                    onChange={(e) => setSelectedBrand(e.target.value)}
-                    className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
-                  >
-                    <option value="all">All Brands ({availableBrands.length})</option>
-                    {availableBrands.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                {/* Modern Circular Sub-types Filter with Icons */}
+                {(selectedCategory === "circular-knitting" || selectedCategory === "all") && (
+                  <div className="pt-3.5 border-t border-slate-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                        {locale === "bn" ? "সার্কুলার টাইপসমূহ" : "Circular Sub-Types"}
+                      </label>
+                      <span className="text-[10px] text-slate-400 font-semibold">
+                        ({CIRCULAR_SUB_CATEGORIES.length})
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <button
+                        onClick={() => setSelectedSubCategory("all")}
+                        className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all cursor-pointer ${
+                          selectedSubCategory === "all"
+                            ? "bg-slate-900 text-white font-bold shadow-xs"
+                            : "text-slate-600 hover:bg-slate-100 font-medium"
+                        }`}
+                      >
+                        <Grid2X2 className="w-3.5 h-3.5 shrink-0" />
+                        <span>All Circular Types</span>
+                      </button>
+
+                      {CIRCULAR_SUB_CATEGORIES.map((sub) => {
+                        const isSub = selectedSubCategory === sub.slug;
+                        const SubIcon = SUB_CATEGORY_ICONS[sub.slug] || Disc;
+                        const count = machines.filter(
+                          (m) => m.subCategory === sub.slug || m.category === sub.slug
+                        ).length;
+
+                        return (
+                          <button
+                            key={sub.slug}
+                            onClick={() => {
+                              setSelectedCategory("circular-knitting");
+                              setSelectedSubCategory(sub.slug);
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer ${
+                              isSub
+                                ? "bg-slate-900 text-white font-bold shadow-xs"
+                                : "text-slate-600 hover:bg-slate-100 font-medium"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 truncate">
+                              <SubIcon className="w-3.5 h-3.5 shrink-0" />
+                              <span className="truncate">{sub.name}</span>
+                            </div>
+                            <span
+                              className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
+                                isSub ? "bg-white/20 text-white" : "text-slate-400"
+                              }`}
+                            >
+                              ({count})
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Brand Filter */}
+                <div className="pt-3.5 border-t border-slate-100">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                    {locale === "bn" ? "ব্র্যান্ড / ম্যানুফ্যাকচারার" : "OEM Brands"}
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={selectedBrand}
+                      onChange={(e) => setSelectedBrand(e.target.value)}
+                      className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
+                    >
+                      <option value="all">All Brands ({availableBrands.length})</option>
+                      {availableBrands.map((b) => (
+                        <option key={b} value={b}>
+                          {b}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Technical Specifications: Gauge, Diameter, Availability */}
+                <div className="pt-3.5 border-t border-slate-100 space-y-2.5">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                    {locale === "bn" ? "স্পেসিফিকেশন" : "Technical Specs"}
+                  </label>
+
+                  {/* Gauge */}
+                  <div className="relative">
+                    <select
+                      value={selectedGauge}
+                      onChange={(e) => setSelectedGauge(e.target.value)}
+                      className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
+                    >
+                      <option value="all">All Gauges ({availableGauges.length})</option>
+                      {availableGauges.map((g) => (
+                        <option key={g} value={g}>
+                          Gauge: {g}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+
+                  {/* Diameter */}
+                  <div className="relative">
+                    <select
+                      value={selectedDiameter}
+                      onChange={(e) => setSelectedDiameter(e.target.value)}
+                      className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
+                    >
+                      <option value="all">All Diameters ({availableDiameters.length})</option>
+                      {availableDiameters.map((d) => (
+                        <option key={d} value={d}>
+                          Dia: {d}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+
+                  {/* Availability */}
+                  <div className="relative">
+                    <select
+                      value={selectedAvailability}
+                      onChange={(e) => setSelectedAvailability(e.target.value)}
+                      className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
+                    >
+                      <option value="all">All Availability</option>
+                      <option value="in-stock">Ready Stock (রেডি স্টক)</option>
+                      <option value="made-to-order">Made to Order (অর্ডার ভিত্তিক)</option>
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
                 </div>
               </div>
-
-              {/* Technical Specifications: Gauge, Diameter, Availability */}
-              <div className="pt-3 border-t border-slate-100 space-y-2.5">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                  {locale === "bn" ? "স্পেসিফিকেশন" : "Technical Specs"}
-                </label>
-
-                {/* Gauge */}
-                <div className="relative">
-                  <select
-                    value={selectedGauge}
-                    onChange={(e) => setSelectedGauge(e.target.value)}
-                    className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
-                  >
-                    <option value="all">All Gauges ({availableGauges.length})</option>
-                    {availableGauges.map((g) => (
-                      <option key={g} value={g}>
-                        Gauge: {g}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-
-                {/* Diameter */}
-                <div className="relative">
-                  <select
-                    value={selectedDiameter}
-                    onChange={(e) => setSelectedDiameter(e.target.value)}
-                    className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
-                  >
-                    <option value="all">All Diameters ({availableDiameters.length})</option>
-                    {availableDiameters.map((d) => (
-                      <option key={d} value={d}>
-                        Dia: {d}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-
-                {/* Availability */}
-                <div className="relative">
-                  <select
-                    value={selectedAvailability}
-                    onChange={(e) => setSelectedAvailability(e.target.value)}
-                    className="w-full py-2 pl-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 appearance-none focus:outline-none focus:border-[#800020] cursor-pointer"
-                  >
-                    <option value="all">All Availability</option>
-                    <option value="in-stock">Ready Stock (রেডি স্টক)</option>
-                    <option value="made-to-order">Made to Order (অর্ডার ভিত্তিক)</option>
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-              </div>
-            </div>
-          </aside>
+            </aside>
+          )}
 
           {/* ================= RIGHT MAIN AREA: ALL PRODUCTS ON ONE PAGE ================= */}
-          <main className="lg:col-span-9 xl:col-span-9 space-y-6">
-            {/* Top Toolbar: Showing count, Mobile filter button & Sort selector */}
-            <div className="bg-white rounded-2xl sm:rounded-[24px] p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <main
+            className={`${
+              isSidebarVisible ? "lg:col-span-9 xl:col-span-9" : "lg:col-span-12"
+            } space-y-6 transition-all duration-300`}
+          >
+            {/* Top Toolbar: Showing count, Hide/Show Filter toggle & Sort selector */}
+            <div className="bg-white rounded-2xl sm:rounded-[26px] p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <h2 className="text-base sm:text-lg font-bold text-slate-900">
                     {locale === "bn" ? "সকল যন্ত্রপাতি" : "Industrial Machinery Catalog"}
                   </h2>
@@ -520,6 +632,28 @@ export function MachinesCatalogClient({
               </div>
 
               <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
+                {/* Desktop Hide/Show Filter Toggle Button */}
+                <button
+                  onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+                  className="hidden lg:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200/90 text-slate-800 text-xs font-bold cursor-pointer transition-all active:scale-95"
+                  title={isSidebarVisible ? "Hide filter sidebar" : "Show filter sidebar"}
+                >
+                  {isSidebarVisible ? (
+                    <>
+                      <PanelLeftClose className="w-3.5 h-3.5 text-[#800020]" />
+                      <span>{locale === "bn" ? "ফিল্টার লুকান" : "Hide Filters"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <PanelLeftOpen className="w-3.5 h-3.5 text-[#800020]" />
+                      <span>{locale === "bn" ? "ফিল্টার দেখান" : "Show Filters"}</span>
+                      {hasActiveFilters && (
+                        <span className="w-2 h-2 rounded-full bg-[#800020]" />
+                      )}
+                    </>
+                  )}
+                </button>
+
                 {/* Mobile Filter Drawer Button */}
                 <button
                   onClick={() => setIsMobileFilterOpen(true)}
@@ -623,11 +757,11 @@ export function MachinesCatalogClient({
               </div>
             )}
 
-            {/* PRODUCT CARDS GRID: NO PAGINATION! ALL MATCHING PRODUCTS SHOWN! */}
+            {/* PRODUCT CARDS GRID: 3 PRODUCTS PER LINE */}
             {sortedMachines.length > 0 ? (
               <StaggerContainer
                 staggerDelay={0.03}
-                className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300"
               >
                 {sortedMachines.map((machine) => (
                   <StaggerItem key={machine.id}>
@@ -723,7 +857,7 @@ export function MachinesCatalogClient({
                 </div>
                 <button
                   onClick={() => setIsMobileFilterOpen(false)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600"
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -743,36 +877,45 @@ export function MachinesCatalogClient({
                 />
               </div>
 
-              {/* Mobile Categories */}
+              {/* Mobile Categories with Icons */}
               <div>
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
                   {locale === "bn" ? "ক্যাটাগরি" : "Categories"}
                 </label>
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <button
                     onClick={() => handleCategoryChange("all")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium cursor-pointer ${
+                    className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-semibold cursor-pointer ${
                       selectedCategory === "all"
                         ? "bg-[#800020] text-white font-bold"
                         : "text-slate-700 bg-slate-50"
                     }`}
                   >
-                    <span>All Categories</span>
+                    <div className="flex items-center gap-2">
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <span>All Categories</span>
+                    </div>
                     <span>({machines.length})</span>
                   </button>
-                  {mainCategoriesList.map((cat) => (
-                    <button
-                      key={cat.slug}
-                      onClick={() => handleCategoryChange(cat.slug)}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium cursor-pointer ${
-                        selectedCategory === cat.slug
-                          ? "bg-[#800020] text-white font-bold"
-                          : "text-slate-700 bg-slate-50"
-                      }`}
-                    >
-                      <span className="truncate">{cat.name}</span>
-                    </button>
-                  ))}
+                  {mainCategoriesList.map((cat) => {
+                    const Icon = CATEGORY_ICONS[cat.slug] || Layers;
+                    return (
+                      <button
+                        key={cat.slug}
+                        onClick={() => handleCategoryChange(cat.slug)}
+                        className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-semibold cursor-pointer ${
+                          selectedCategory === cat.slug
+                            ? "bg-[#800020] text-white font-bold"
+                            : "text-slate-700 bg-slate-50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <Icon className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">{cat.name}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -825,13 +968,13 @@ export function MachinesCatalogClient({
             <div className="pt-4 border-t border-slate-100 flex items-center gap-2">
               <button
                 onClick={clearAllFilters}
-                className="w-1/2 py-2.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700"
+                className="w-1/2 py-2.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer"
               >
                 Reset
               </button>
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-1/2 py-2.5 rounded-full bg-[#800020] text-white text-xs font-bold shadow-sm"
+                className="w-1/2 py-2.5 rounded-full bg-[#800020] text-white text-xs font-bold shadow-sm cursor-pointer"
               >
                 Apply ({sortedMachines.length})
               </button>
