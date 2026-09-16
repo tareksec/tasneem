@@ -12,7 +12,6 @@ import {
   Images,
   SlidersHorizontal,
   Link2,
-  ExternalLink,
   LogOut,
   X,
   Users,
@@ -93,7 +92,6 @@ export function Knot3DAccent({ className }: { className?: string }) {
 export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useAdminAuth();
-  const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [pendingUsersCount, setPendingUsersCount] = useState(0);
   const [pendingReviewsCount, setPendingReviewsCount] = useState(0);
 
@@ -128,7 +126,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       exact: true,
     },
     {
-      name: "Catalog",
+      name: "Machines",
       href: "/admin/products",
       icon: Cpu,
     },
@@ -178,9 +176,9 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full items-center justify-between py-6 px-2.5 select-none">
+    <div className="flex flex-col h-full items-start justify-between py-6 px-3 select-none">
       {/* Top Section: Brand Squircle & Navigation */}
-      <div className="flex flex-col items-center w-full space-y-6">
+      <div className="flex flex-col items-start w-full space-y-6">
         {/* Brand Logo Squircle */}
         <Link
           href="/admin"
@@ -199,22 +197,20 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
         </Link>
 
         {/* Vertical Icon Navigation */}
-        <nav className="flex flex-col items-center space-y-2.5 w-full">
+        <nav className="flex flex-col items-stretch space-y-1.5 w-full">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
 
             return (
-              <div key={item.name} className="relative w-full flex justify-center">
+              <div key={item.name} className="relative w-full">
                 <Link
                   href={item.href}
                   target={item.target}
                   rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
-                  onMouseEnter={() => setShowTooltip(item.name)}
-                  onMouseLeave={() => setShowTooltip(null)}
                   className={cn(
-                    "relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 cursor-pointer",
+                    "relative w-full min-h-11 rounded-2xl flex items-center justify-start gap-3 px-3 transition-all duration-200 cursor-pointer",
                     isActive
                       ? "bg-[#800020] text-white shadow-inner"
                       : "text-slate-400 hover:text-white hover:bg-white/5"
@@ -222,6 +218,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                   aria-label={item.name}
                 >
                   <Icon className={cn("w-5 h-5 transition-transform", isActive ? "scale-105" : "")} />
+                  <span className="text-sm font-semibold whitespace-nowrap">{item.name}</span>
 
                   {/* Active Capsule Indicator Tab on Right Edge */}
                   {isActive && (
@@ -237,12 +234,6 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
                   )}
                 </Link>
 
-                {/* Floating Tooltip */}
-                {showTooltip === item.name && (
-                  <div className="absolute left-14 top-1/2 -translate-y-1/2 z-50 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-semibold whitespace-nowrap shadow-xl border border-white/10 animate-in fade-in zoom-in-95 pointer-events-none">
-                    {item.name}
-                  </div>
-                )}
               </div>
             );
           })}
@@ -250,7 +241,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
       </div>
 
       {/* Bottom Section: 3D Fluid Knot, User Avatar & Controls */}
-      <div className="flex flex-col items-center w-full space-y-4 pt-4">
+      <div className="flex flex-col items-start w-full space-y-4 pt-4">
         {/* Signature brand accent */}
         <div className="relative cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95" title="Tasneem Knitting Technology">
           <Knot3DAccent />
@@ -278,7 +269,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
         </div>
 
         {/* Bottom Actions: Home & Logout */}
-        <div className="flex items-center gap-2 text-slate-400">
+        <div className="flex items-center gap-2 text-slate-400 self-center">
           <Link
             href="/"
             target="_blank"
@@ -306,7 +297,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
   return (
     <>
       {/* Desktop Compact Dark Sidebar */}
-      <aside className="hidden lg:flex w-20 xl:w-[84px] flex-col shrink-0 bg-[#2D2D2D] z-30 select-none">
+      <aside className="hidden lg:flex w-56 xl:w-60 flex-col shrink-0 bg-[#2D2D2D] z-30 select-none">
         {sidebarContent}
       </aside>
 
@@ -318,7 +309,7 @@ export function AdminSidebar({ mobileOpen, setMobileOpen }: AdminSidebarProps) {
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed inset-y-0 left-0 w-24 bg-[#2D2D2D] shadow-2xl z-50 animate-in slide-in-from-left duration-200 overflow-y-auto">
+          <div className="fixed inset-y-0 left-0 w-64 bg-[#2D2D2D] shadow-2xl z-50 animate-in slide-in-from-left duration-200 overflow-y-auto">
             <div className="absolute top-2 right-2">
               <button
                 type="button"
