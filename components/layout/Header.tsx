@@ -14,6 +14,11 @@ import {
   Sliders,
   Box,
   ArrowRight,
+  Wrench,
+  HelpCircle,
+  Building2,
+  User,
+  BookOpen,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -31,11 +36,17 @@ export function Header() {
   const { customer } = useCustomerAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [machinesDropdownOpen, setMachinesDropdownOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [mobileMachinesOpen, setMobileMachinesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const machinesDropdownRef = useRef<HTMLDivElement>(null);
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const aboutDropdownRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { dict, locale } = useTranslation();
 
@@ -43,7 +54,7 @@ export function Header() {
   const lastScrollY = useRef(0);
   const scrollPositionOnCollapse = useRef(0);
   const manualExpandScrollY = useRef<number | null>(null);
-  const manualExpandScrollReadyAt = useRef(0);
+  const manualExpandScrollReadyAt = useRef<number>(0);
 
   // Scroll detection to smoothly shrink / expand the navbar
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -66,7 +77,11 @@ export function Header() {
         setIsExpanded(false);
         setMobileMenuOpen(false);
         setMobileMachinesOpen(false);
+        setMobileServicesOpen(false);
+        setMobileAboutOpen(false);
         setMachinesDropdownOpen(false);
+        setServicesDropdownOpen(false);
+        setAboutDropdownOpen(false);
         scrollPositionOnCollapse.current = latest;
       }
 
@@ -79,6 +94,8 @@ export function Header() {
     if (isExpanded && latest > previous && latest > 120) {
       setIsExpanded(false);
       setMachinesDropdownOpen(false);
+      setServicesDropdownOpen(false);
+      setAboutDropdownOpen(false);
       scrollPositionOnCollapse.current = latest;
     }
     // Scrolling up by >60px or reaching near top (<50px) -> expand back
@@ -107,8 +124,23 @@ export function Header() {
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        machinesDropdownRef.current &&
+        !machinesDropdownRef.current.contains(event.target as Node)
+      ) {
         setMachinesDropdownOpen(false);
+      }
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target as Node)
+      ) {
+        setServicesDropdownOpen(false);
+      }
+      if (
+        aboutDropdownRef.current &&
+        !aboutDropdownRef.current.contains(event.target as Node)
+      ) {
+        setAboutDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -195,7 +227,7 @@ export function Header() {
       animate={{
         opacity: 1,
         y: 0,
-        maxWidth: isExpanded ? "1340px" : "540px",
+        maxWidth: isExpanded ? "1080px" : "480px",
       }}
       transition={{
         type: "spring",
@@ -206,7 +238,7 @@ export function Header() {
     >
       {/* Floating Capsule Bar */}
       <div
-        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-3.5 sm:px-4 lg:px-5 xl:px-6 py-1.5 sm:py-2 flex items-center justify-between relative ${
+        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-3.5 sm:px-4.5 py-1 sm:py-1.5 flex items-center justify-between relative ${
           scrolled
             ? "bg-white/85 border border-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.1)]"
             : "bg-white/60 border border-white/70 shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
@@ -215,12 +247,12 @@ export function Header() {
         {/* Left: Brand Logo */}
         <Link
           href="/"
-          className={`${isExpanded ? "flex" : "hidden sm:flex"} items-center gap-1.5 sm:gap-2.5 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg`}
+          className={`${isExpanded ? "flex" : "hidden sm:flex"} items-center gap-1.5 sm:gap-2 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg`}
           aria-label="Tasneem Knit Industry Home"
         >
           <div
             className={`relative transition-all duration-300 flex items-center ${
-              isExpanded ? "h-7 sm:h-8 xl:h-9 w-28 sm:w-32 xl:w-36" : "h-7 sm:h-8 w-24 sm:w-28"
+              isExpanded ? "h-6.5 sm:h-7.5 w-24 sm:w-28" : "h-6 sm:h-7 w-20 sm:w-24"
             }`}
           >
             <Image
@@ -233,40 +265,44 @@ export function Header() {
           </div>
         </Link>
 
-        {/* Center: Desktop Navigation Links (Visible when expanded) */}
+        {/* Center: Streamlined Desktop Navigation Links (5 Clean Tabs) */}
         {isExpanded && (
-          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] 2xl:text-sm font-semibold text-neutral-800 animate-in fade-in duration-200">
-            {/* Machines Dropdown (Features ∨ style) */}
+          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5 text-xs xl:text-[13px] font-semibold text-neutral-800 animate-in fade-in duration-200">
+            {/* 1. Machines Dropdown */}
             <div
-              ref={dropdownRef}
+              ref={machinesDropdownRef}
               className="relative shrink-0 py-1"
-              onMouseEnter={() => setMachinesDropdownOpen(true)}
+              onMouseEnter={() => {
+                setMachinesDropdownOpen(true);
+                setServicesDropdownOpen(false);
+                setAboutDropdownOpen(false);
+              }}
               onMouseLeave={() => setMachinesDropdownOpen(false)}
             >
               <button
                 type="button"
                 onClick={() => setMachinesDropdownOpen(!machinesDropdownOpen)}
-                className="flex items-center gap-1 whitespace-nowrap hover:text-black transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+                className="flex items-center gap-1 whitespace-nowrap hover:text-[#800020] transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-2"
                 aria-expanded={machinesDropdownOpen}
                 aria-haspopup="true"
               >
                 <span>{dict.nav.machines}</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-neutral-500 transition-transform duration-200 ${
-                    machinesDropdownOpen ? "rotate-180 text-black" : ""
+                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ${
+                    machinesDropdownOpen ? "rotate-180 text-[#800020]" : ""
                   }`}
                 />
               </button>
 
-              {/* Dropdown Menu */}
+              {/* Machines Dropdown Menu */}
               <AnimatePresence>
                 {machinesDropdownOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[350px] max-w-[90vw] z-[100] text-xs pointer-events-auto"
+                    exit={{ opacity: 0, y: 5, scale: 0.98 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[340px] max-w-[90vw] z-[100] text-xs pointer-events-auto"
                   >
                     <div className="rounded-2xl bg-white/95 backdrop-blur-2xl border border-neutral-200/90 shadow-2xl p-3 space-y-1">
                       <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 py-1 mb-1">
@@ -323,45 +359,190 @@ export function Header() {
               </AnimatePresence>
             </div>
 
+            {/* 2. Projects Link */}
             <Link
               href="/projects"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+              className="whitespace-nowrap shrink-0 hover:text-[#800020] transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-2"
             >
               {dict.nav.projects}
             </Link>
-            <Link
-              href="/services"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+
+            {/* 3. Services Dropdown (Services + How It Works) */}
+            <div
+              ref={servicesDropdownRef}
+              className="relative shrink-0 py-1"
+              onMouseEnter={() => {
+                setServicesDropdownOpen(true);
+                setMachinesDropdownOpen(false);
+                setAboutDropdownOpen(false);
+              }}
+              onMouseLeave={() => setServicesDropdownOpen(false)}
             >
-              {dict.nav.services}
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+              <button
+                type="button"
+                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                className="flex items-center gap-1 whitespace-nowrap hover:text-[#800020] transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-2"
+                aria-expanded={servicesDropdownOpen}
+                aria-haspopup="true"
+              >
+                <span>{dict.nav.services}</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ${
+                    servicesDropdownOpen ? "rotate-180 text-[#800020]" : ""
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {servicesDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 5, scale: 0.98 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[290px] z-[100] text-xs pointer-events-auto"
+                  >
+                    <div className="rounded-2xl bg-white/95 backdrop-blur-2xl border border-neutral-200/90 shadow-2xl p-2 space-y-1">
+                      <Link
+                        href="/services"
+                        onClick={() => setServicesDropdownOpen(false)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <Wrench className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-[#800020] transition-colors">
+                            {dict.nav.services}
+                          </div>
+                          <div className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                            {locale === "bn" ? "ইনস্টলেশন ও টেকনিক্যাল সার্ভিস" : "Technical service & maintenance"}
+                          </div>
+                        </div>
+                      </Link>
+
+                      <Link
+                        href="/how-it-works"
+                        onClick={() => setServicesDropdownOpen(false)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-neutral-100 text-neutral-700 group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <HelpCircle className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-[#800020] transition-colors">
+                            {dict.nav.howItWorks}
+                          </div>
+                          <div className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                            {locale === "bn" ? "আমদানি ও ডেলিভারি প্রক্রিয়া" : "Import, LC & commissioning steps"}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* 4. About Dropdown (About Tasneem + Founder + Blog) */}
+            <div
+              ref={aboutDropdownRef}
+              className="relative shrink-0 py-1"
+              onMouseEnter={() => {
+                setAboutDropdownOpen(true);
+                setMachinesDropdownOpen(false);
+                setServicesDropdownOpen(false);
+              }}
+              onMouseLeave={() => setAboutDropdownOpen(false)}
             >
-              {dict.nav.howItWorks}
-            </Link>
-            <Link
-              href="/about"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
-            >
-              {dict.nav.about}
-            </Link>
-            <Link
-              href="/founder"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
-            >
-              {dict.nav.founder}
-            </Link>
-            <Link
-              href="/blog"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
-            >
-              {locale === "bn" ? "ব্লগ" : "Blog"}
-            </Link>
+              <button
+                type="button"
+                onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
+                className="flex items-center gap-1 whitespace-nowrap hover:text-[#800020] transition-colors py-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-2"
+                aria-expanded={aboutDropdownOpen}
+                aria-haspopup="true"
+              >
+                <span>{dict.nav.about}</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ${
+                    aboutDropdownOpen ? "rotate-180 text-[#800020]" : ""
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {aboutDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 5, scale: 0.98 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[295px] z-[100] text-xs pointer-events-auto"
+                  >
+                    <div className="rounded-2xl bg-white/95 backdrop-blur-2xl border border-neutral-200/90 shadow-2xl p-2 space-y-1">
+                      <Link
+                        href="/about"
+                        onClick={() => setAboutDropdownOpen(false)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-neutral-100 text-neutral-700 group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <Building2 className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-[#800020] transition-colors">
+                            {locale === "bn" ? "কোম্পানি পরিচিতি" : "About Tasneem"}
+                          </div>
+                          <div className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                            {locale === "bn" ? "২৫+ বছরের অভিজ্ঞতা ও ঐতিহ্য" : "25+ years textile machinery legacy"}
+                          </div>
+                        </div>
+                      </Link>
+
+                      <Link
+                        href="/founder"
+                        onClick={() => setAboutDropdownOpen(false)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-[#FDF2F4] text-[#800020] group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <User className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-[#800020] transition-colors">
+                            {dict.nav.founder}
+                          </div>
+                          <div className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                            {locale === "bn" ? "মোঃ মামুনুর রশীদ - দর্শন ও বক্তব্য" : "Md. Mamunur Rashid - Leadership"}
+                          </div>
+                        </div>
+                      </Link>
+
+                      <Link
+                        href="/blog"
+                        onClick={() => setAboutDropdownOpen(false)}
+                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 transition-colors group"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-neutral-100 text-neutral-700 group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-[#800020] transition-colors">
+                            {locale === "bn" ? "ব্লগ ও ইন্ডাস্ট্রি নিউজ" : "Blog & Insights"}
+                          </div>
+                          <div className="text-[11px] text-neutral-500 line-clamp-1 mt-0.5">
+                            {locale === "bn" ? "নিটিং প্রযুক্তি ও টেক্সটাইল আপডেট" : "Textile machinery news & trends"}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* 5. Contact Link */}
             <Link
               href="/contact"
-              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+              className="whitespace-nowrap shrink-0 hover:text-[#800020] transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-2"
             >
               {dict.nav.contact}
             </Link>
@@ -531,41 +712,84 @@ export function Header() {
                   >
                     {dict.nav.projects}
                   </Link>
-                  <Link
-                    href="/services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
-                  >
-                    {dict.nav.services}
-                  </Link>
-                  <Link
-                    href="/how-it-works"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
-                  >
-                    {dict.nav.howItWorks}
-                  </Link>
-                  <Link
-                    href="/about"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
-                  >
-                    {dict.nav.about}
-                  </Link>
-                  <Link
-                    href="/founder"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
-                  >
-                    {dict.nav.founder}
-                  </Link>
-                  <Link
-                    href="/blog"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
-                  >
-                    {locale === "bn" ? "ব্লগ" : "Blog"}
-                  </Link>
+                  {/* Services Accordion */}
+                  <div>
+                    <button
+                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                      className="flex items-center justify-between w-full py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                    >
+                      <span>{dict.nav.services}</span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-neutral-500 transition-transform duration-200 ${
+                          mobileServicesOpen ? "rotate-180 text-black" : ""
+                        }`}
+                      />
+                    </button>
+                    {mobileServicesOpen && (
+                      <div className="pl-4 pr-1 py-1 flex flex-col gap-1 border-l-2 border-[#800020]/20 ml-3 mt-1">
+                        <Link
+                          href="/services"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="py-2 px-3 text-xs font-medium text-neutral-700 hover:text-black rounded-lg hover:bg-neutral-50 flex items-center justify-between"
+                        >
+                          <span>{dict.nav.services}</span>
+                          <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+                        </Link>
+                        <Link
+                          href="/how-it-works"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="py-2 px-3 text-xs font-medium text-neutral-700 hover:text-black rounded-lg hover:bg-neutral-50 flex items-center justify-between"
+                        >
+                          <span>{dict.nav.howItWorks}</span>
+                          <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* About Accordion */}
+                  <div>
+                    <button
+                      onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                      className="flex items-center justify-between w-full py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                    >
+                      <span>{dict.nav.about}</span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-neutral-500 transition-transform duration-200 ${
+                          mobileAboutOpen ? "rotate-180 text-black" : ""
+                        }`}
+                      />
+                    </button>
+                    {mobileAboutOpen && (
+                      <div className="pl-4 pr-1 py-1 flex flex-col gap-1 border-l-2 border-[#800020]/20 ml-3 mt-1">
+                        <Link
+                          href="/about"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="py-2 px-3 text-xs font-medium text-neutral-700 hover:text-black rounded-lg hover:bg-neutral-50 flex items-center justify-between"
+                        >
+                          <span>{locale === "bn" ? "কোম্পানি পরিচিতি" : "About Tasneem"}</span>
+                          <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+                        </Link>
+                        <Link
+                          href="/founder"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="py-2 px-3 text-xs font-medium text-neutral-700 hover:text-black rounded-lg hover:bg-neutral-50 flex items-center justify-between"
+                        >
+                          <span>{dict.nav.founder}</span>
+                          <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+                        </Link>
+                        <Link
+                          href="/blog"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="py-2 px-3 text-xs font-medium text-neutral-700 hover:text-black rounded-lg hover:bg-neutral-50 flex items-center justify-between"
+                        >
+                          <span>{locale === "bn" ? "ব্লগ ও নিউজ" : "Blog & Insights"}</span>
+                          <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
