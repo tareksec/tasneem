@@ -52,7 +52,7 @@ export function SpotlightInstallation() {
   ];
 
   return (
-    <section className="relative py-20 sm:py-28 bg-[#FAF8F5] border-b border-stone-200/80 overflow-hidden text-slate-800">
+    <section className="relative py-20 sm:py-28 bg-white border-b border-[#E5E5E5] overflow-hidden text-slate-800">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header & 3-Column Value Strip (Inspired by Screenshot 1 Top) */}
         <MotionSection className="mb-12 sm:mb-16">

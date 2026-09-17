@@ -384,7 +384,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       title: "Ready to Expand Your Mill’s Circular Knitting Capacity?",
       subtitle:
         "Get verified overseas machinery specifications, CFR Chattogram shipping estimates, and full factory installation support.",
-      ctaBtn: "Request Machine Quotation",
+      ctaBtn: "Request Machine Quote",
       whatsappBtn: "WhatsApp Direct Inquiry",
     },
     quoteForm: {
@@ -610,7 +610,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       title: "আপনার মিলের উৎপাদন ক্ষমতা বাড়াতে সঠিক মেশিন খুঁজছেন?",
       subtitle:
         "সরাসরি ফ্যাক্টরি প্রাইস, নিরাপদ CFR চট্টগ্রাম শিপমেন্ট এবং আপনার মিলে ইনস্টলেশন সাপোর্ট পেতে আজই আমাদের সাথে কথা বলুন।",
-      ctaBtn: "কোটেশনের জন্য কথা বলুন",
+      ctaBtn: "কোটেশন রিকোয়েস্ট করুন",
       whatsappBtn: "WhatsApp-এ কথা বলুন",
     },
     quoteForm: {

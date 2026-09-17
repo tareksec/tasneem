@@ -54,7 +54,7 @@ export function QuoteCtaBanner() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5">
               <Link
                 href="/quote"
-                className="w-full sm:w-auto bg-[#800020] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm hover:bg-[#5A0017] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-rose-950/20 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-bold text-xs sm:text-sm bg-[#800020] text-white hover:bg-[#600018] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg shadow-rose-950/20 cursor-pointer min-h-[44px] shrink-0 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
               >
                 <span>{dict.quoteBanner.ctaBtn}</span>
                 <ArrowUpRight className="w-4 h-4" />
