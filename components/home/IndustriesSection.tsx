@@ -13,11 +13,11 @@ import {
   Factory,
   Layers,
   ShieldCheck,
-  CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
-interface IndustryItem {
+interface IndustrySector {
   num: string;
   tagEn: string;
   tagBn: string;
@@ -35,10 +35,12 @@ interface IndustryItem {
   targetFabricsBn: string;
   advantageEn: string;
   advantageBn: string;
+  bgClass: string;
+  gridClass: string;
   icon: React.ElementType;
 }
 
-const INDUSTRIES_DATA: IndustryItem[] = [
+const SECTORS_DATA: IndustrySector[] = [
   {
     num: "01",
     tagEn: "Apparel & Knitwear Export",
@@ -59,6 +61,8 @@ const INDUSTRIES_DATA: IndustryItem[] = [
     targetFabricsBn: "১০০% কটন জার্সি, CVC ও TC পিক, স্প্যানডেক্স জার্সি, ১x১ ও ২x২ রিব",
     advantageEn: "24/7 continuous operation with tight GSM tolerance & high output",
     advantageBn: "২৪/৭ বিরতিহীন অপারেশন ও নিখুঁত GSM নিয়ন্ত্রণ",
+    bgClass: "bg-[#0A0F18] text-white",
+    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
     icon: Shirt,
   },
   {
@@ -81,6 +85,8 @@ const INDUSTRIES_DATA: IndustryItem[] = [
     targetFabricsBn: "ড্রপ-নিডল জার্সি, হেভি রিব, স্ট্রাকচার্ড থার্মাল নিটওয়্যার ও কলার ট্রিম",
     advantageEn: "Zero vibration, high RPM consistency & minimum downtime",
     advantageBn: "কম্পনহীন হাই-আরপিএম রানিং ও সর্বনিম্ন ডাউনটাইম",
+    bgClass: "bg-[#111827] text-white",
+    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
     icon: Building2,
   },
   {
@@ -103,6 +109,8 @@ const INDUSTRIES_DATA: IndustryItem[] = [
     targetFabricsBn: "সফট টেরি তোয়ালে, বাথরোব ফ্যাব্রিক, পোলার ফ্লিস, ফ্রেঞ্চ টেরি",
     advantageEn: "Precision sinker cam timing & pill-free surface formation",
     advantageBn: "সুনির্দিষ্ট সিঙ্কার ট্র্যাকিং ও পিলিং-মুক্ত ফ্যাব্রিক সারফেস",
+    bgClass: "bg-[#1E293B] text-white",
+    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
     icon: Waves,
   },
   {
@@ -125,6 +133,8 @@ const INDUSTRIES_DATA: IndustryItem[] = [
     targetFabricsBn: "ফ্যাশন জ্যাকার্ড নিটওয়্যার, ম্যাট্রেস টিকিং, অ্যাথলেটিক জ্যাকার্ড মেশ",
     advantageEn: "Microsecond actuator needle selection & digital pattern memory",
     advantageBn: "ইউএসবি ও সফটওয়্যার নিয়ন্ত্রিত তাৎক্ষণিক ডিজাইন চেঞ্জ",
+    bgClass: "bg-[#0F172A] text-white",
+    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
     icon: Sparkles,
   },
 ];
@@ -133,63 +143,44 @@ export function IndustriesSection() {
   const { locale, t } = useTranslation();
 
   return (
-    <section className="py-16 sm:py-24 bg-[#F8F9FA] text-[#2D2D2D] relative overflow-hidden border-t border-[#E5E7EB]">
-      {/* Background Architectural Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,#000_70%,transparent_100%)] pointer-events-none" />
+    <article className="relative w-full">
+      {SECTORS_DATA.map((sector, index) => {
+        const isFirst = index === 0;
+        const isEven = index % 2 === 0;
+        const IconComponent = sector.icon;
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* ================================================================
-            SECTION HEADER
-            ================================================================ */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-mono font-bold text-[#800020] mb-3 shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
-            <span>
-              {locale === "bn"
-                ? "খাতভিত্তিক অ্যাপ্লিকেশন • 04 Sectors"
-                : "APPLICATIONS & SECTOR CAPABILITIES"}
-            </span>
-          </div>
+        return (
+          <section
+            key={sector.num}
+            className={`sticky top-0 min-h-screen md:h-screen w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-12 py-12 md:py-0 relative overflow-hidden ${
+              sector.bgClass
+            } ${
+              !isFirst
+                ? "rounded-t-[32px] sm:rounded-t-[48px] lg:rounded-t-[56px] shadow-[0_-30px_70px_rgba(0,0,0,0.35)] border-t border-white/10"
+                : ""
+            }`}
+          >
+            {/* Architectural Technical Grid with Radial Mask */}
+            <div
+              className={`absolute inset-0 ${sector.gridClass} bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none`}
+            />
 
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight mb-3">
-            {locale === "bn" ? (
-              <>
-                বাংলাদেশের নিটিং ও টেক্সটাইল খাতের উপযোগী <span className="text-[#800020]">মেশিনারি</span>
-              </>
-            ) : (
-              <>
-                Machinery Solutions Tailored to <span className="text-[#800020]">Bangladesh Industry Sectors</span>
-              </>
-            )}
-          </h2>
+            {/* Huge Watermark Number in Background */}
+            <div className="absolute right-4 sm:right-10 bottom-2 sm:bottom-6 text-[18vw] lg:text-[16vw] font-black font-mono leading-none select-none pointer-events-none text-white/[0.04]">
+              {sector.num}
+            </div>
 
-          <p className="text-xs sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-            {locale === "bn"
-              ? "কাপড়ের ধরন অনুযায়ী সিলিন্ডার সাইজ, Gauge আর Feeder সিলেকশন সহ যেকোনো খাতের উপযোগী সার্কুলার নিটিং মেশিন সরাসরি কারখানা থেকে আমদানির সুবিধা।"
-              : "Direct overseas sourcing of precision circular knitting, dyeing, and finishing machinery tailored to specific factory scales, fabric GSM tolerances, and export programs."}
-          </p>
-        </div>
-
-        {/* ================================================================
-            ASYMMETRIC CHAMFERED CARDS LIST (Services Page Aesthetic)
-            ================================================================ */}
-        <div className="space-y-8 sm:space-y-12">
-          {INDUSTRIES_DATA.map((ind, index) => {
-            const isEven = index % 2 === 0;
-
-            return (
-              <div
-                key={ind.num}
-                className="group relative bg-white border border-[#E5E7EB] rounded-[28px] sm:rounded-[36px] shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_-12px_rgba(128,0,32,0.1)] hover:border-red-200 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden"
-              >
+            {/* Central Services-Style Asymmetric Chamfered Card */}
+            <div className="relative z-10 w-full max-w-6xl mx-auto">
+              <div className="bg-white text-[#2D2D2D] rounded-[28px] sm:rounded-[36px] shadow-2xl p-5 sm:p-7 lg:p-9 border border-[#E5E7EB] overflow-hidden">
                 <div
                   className={`flex flex-col ${
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-                  } items-center gap-8 sm:gap-10 lg:gap-12`}
+                  } items-center gap-6 sm:gap-8 lg:gap-10`}
                 >
-                  {/* ========================================================
+                  {/* ====================================================
                       IMAGE COLUMN WITH SIGNATURE CHAMFER / CUT CORNER
-                      ======================================================== */}
+                      ==================================================== */}
                   <div className="w-full lg:w-[48%] shrink-0">
                     <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] w-full overflow-hidden shadow-md">
                       {/* Geometric Cut Corner */}
@@ -202,11 +193,12 @@ export function IndustriesSection() {
                         }}
                       >
                         <Image
-                          src={ind.image}
-                          alt={locale === "bn" ? ind.titleBn : ind.titleEn}
+                          src={sector.image}
+                          alt={locale === "bn" ? sector.titleBn : sector.titleEn}
                           fill
+                          priority={isFirst}
                           sizes="(max-width: 1024px) 100vw, 540px"
-                          className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                          className="object-cover object-center hover:scale-106 transition-transform duration-700 ease-out"
                         />
 
                         {/* Soft Vignette Overlay */}
@@ -215,53 +207,53 @@ export function IndustriesSection() {
                         {/* Floating Frosted Glass Pills */}
                         <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 flex flex-wrap items-center gap-2 z-10">
                           <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] sm:text-[11px] font-medium px-3 py-1 rounded-full shadow-xs">
-                            {locale === "bn" ? ind.badgeBn : ind.badgeEn}
+                            {locale === "bn" ? sector.badgeBn : sector.badgeEn}
                           </span>
 
                           <span className="bg-white/90 backdrop-blur-md border border-neutral-200/90 text-neutral-900 font-bold text-[10px] sm:text-[11px] px-3 py-1 rounded-full shadow-xs">
-                            {locale === "bn" ? ind.tagBn : ind.tagEn}
+                            {locale === "bn" ? sector.tagBn : sector.tagEn}
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* ========================================================
+                  {/* ====================================================
                       CONTENT COLUMN WITH CIRCULAR METRIC BULLETS
-                      ======================================================== */}
+                      ==================================================== */}
                   <div className="w-full lg:w-[52%] flex flex-col justify-center">
                     {/* Top Meta Tag & Number */}
-                    <div className="flex items-center gap-2.5 mb-3">
+                    <div className="flex items-center gap-2.5 mb-2.5">
                       <span className="text-xs font-mono font-bold text-[#800020] tracking-wider">
-                        {ind.num} / 04
+                        {sector.num} / 04
                       </span>
                       <span className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
                       <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
-                        {locale === "bn" ? ind.tagBn : ind.tagEn}
+                        {locale === "bn" ? sector.tagBn : sector.tagEn}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight leading-snug group-hover:text-[#800020] transition-colors mb-2">
-                      {locale === "bn" ? ind.titleBn : ind.titleEn}
-                    </h3>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-neutral-900 tracking-tight leading-snug mb-1.5">
+                      {locale === "bn" ? sector.titleBn : sector.titleEn}
+                    </h2>
 
                     {/* Headline */}
                     <p className="text-xs sm:text-sm font-semibold text-[#800020] mb-2 leading-relaxed">
-                      {locale === "bn" ? ind.headlineBn : ind.headlineEn}
+                      {locale === "bn" ? sector.headlineBn : sector.headlineEn}
                     </p>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-5 font-normal">
-                      {locale === "bn" ? ind.descriptionBn : ind.descriptionEn}
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-4 font-normal line-clamp-3 sm:line-clamp-none">
+                      {locale === "bn" ? sector.descriptionBn : sector.descriptionEn}
                     </p>
 
-                    {/* ====================================================
+                    {/* ================================================
                         CIRCULAR METRIC BULLETS (Services Page Aesthetic)
-                        ==================================================== */}
-                    <div className="space-y-3 mb-6">
+                        ================================================ */}
+                    <div className="space-y-2.5 mb-5">
                       {/* Metric 1: Recommended Machines */}
-                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                      <div className="flex items-start gap-2.5 text-xs sm:text-[13px] text-neutral-700">
                         <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
                           <Factory className="w-3.5 h-3.5" />
                         </div>
@@ -270,13 +262,13 @@ export function IndustriesSection() {
                             {locale === "bn" ? "প্রস্তাবিত মেশিনারি : " : "Recommended Machines : "}
                           </span>
                           <span className="text-neutral-600">
-                            {ind.recommendedMachines.join(", ")}
+                            {sector.recommendedMachines.join(", ")}
                           </span>
                         </div>
                       </div>
 
                       {/* Metric 2: Target Fabrics */}
-                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                      <div className="flex items-start gap-2.5 text-xs sm:text-[13px] text-neutral-700">
                         <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
                           <Layers className="w-3.5 h-3.5" />
                         </div>
@@ -285,13 +277,13 @@ export function IndustriesSection() {
                             {locale === "bn" ? "টার্গেট ফ্যাব্রিক আউটপুট : " : "Target Fabric Output : "}
                           </span>
                           <span className="text-neutral-600">
-                            {locale === "bn" ? ind.targetFabricsBn : ind.targetFabricsEn}
+                            {locale === "bn" ? sector.targetFabricsBn : sector.targetFabricsEn}
                           </span>
                         </div>
                       </div>
 
                       {/* Metric 3: Production Advantage */}
-                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                      <div className="flex items-start gap-2.5 text-xs sm:text-[13px] text-neutral-700">
                         <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
                           <ShieldCheck className="w-3.5 h-3.5" />
                         </div>
@@ -300,16 +292,16 @@ export function IndustriesSection() {
                             {locale === "bn" ? "ফ্যাক্টরি সুবিধা : " : "Key Advantage : "}
                           </span>
                           <span className="text-neutral-600">
-                            {locale === "bn" ? ind.advantageBn : ind.advantageEn}
+                            {locale === "bn" ? sector.advantageBn : sector.advantageEn}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* ====================================================
+                    {/* ================================================
                         ACTION ROW: "Explore Specs" + "Inquire"
-                        ==================================================== */}
-                    <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-4 flex-wrap">
+                        ================================================ */}
+                    <div className="pt-3.5 border-t border-neutral-100 flex items-center justify-between gap-3 flex-wrap">
                       <Link
                         href="/industries"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FDF2F4] hover:bg-[#800020] text-[#800020] hover:text-white border border-[#D8A4AF] text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer shadow-2xs group/btn"
@@ -331,10 +323,22 @@ export function IndustriesSection() {
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+
+              {/* Next Sector Hint (for sticky scroll affordance) */}
+              {index < SECTORS_DATA.length - 1 && (
+                <div className="mt-3 hidden sm:flex items-center justify-end gap-2 text-xs font-mono opacity-80 text-white font-semibold">
+                  <ChevronDown className="w-4 h-4 animate-bounce text-[#D8A4AF]" />
+                  <span>
+                    {locale === "bn"
+                      ? `পরবর্তী: খাত ০${index + 2} • ${SECTORS_DATA[index + 1].titleBn}`
+                      : `Next: Sector 0${index + 2} • ${SECTORS_DATA[index + 1].titleEn}`}
+                  </span>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })}
+    </article>
   );
 }
