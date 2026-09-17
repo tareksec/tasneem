@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { COMPANY_INFO } from "@/lib/constants";
 import { CATEGORIES } from "@/lib/machines-data";
 import { getDbMachines } from "@/lib/db/machines";
+import { getDbBlogPosts } from "@/lib/db/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = COMPANY_INFO.domain;
@@ -19,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/quote",
     "/contact",
     "/machines",
+    "/blog",
+    "/privacy-policy",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -26,8 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === "" ? 1.0 : 0.8,
     alternates: {
       languages: {
-        en: `${baseUrl}${route}`,
-        bn: `${baseUrl}${route}`,
+        en: `${baseUrl}/en${route}`,
+        bn: `${baseUrl}/bn${route}`,
         "x-default": `${baseUrl}${route}`,
       },
     },
@@ -41,8 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
     alternates: {
       languages: {
-        en: `${baseUrl}/machines/${cat.slug}`,
-        bn: `${baseUrl}/machines/${cat.slug}`,
+        en: `${baseUrl}/en/machines/${cat.slug}`,
+        bn: `${baseUrl}/bn/machines/${cat.slug}`,
         "x-default": `${baseUrl}/machines/${cat.slug}`,
       },
     },
@@ -57,12 +60,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
     alternates: {
       languages: {
-        en: `${baseUrl}/machines/${m.category}/${m.id}`,
-        bn: `${baseUrl}/machines/${m.category}/${m.id}`,
+        en: `${baseUrl}/en/machines/${m.category}/${m.id}`,
+        bn: `${baseUrl}/bn/machines/${m.category}/${m.id}`,
         "x-default": `${baseUrl}/machines/${m.category}/${m.id}`,
       },
     },
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...machineRoutes];
+  // Dynamic blog routes
+  let blogRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const blogPosts = await getDbBlogPosts();
+    blogRoutes = blogPosts.map((post) => {
+      const slug = post.slug_en || post.id;
+      return {
+        url: `${baseUrl}/blog/${slug}`,
+        lastModified: post.updated_at ? new Date(post.updated_at) : new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/blog/${slug}`,
+            bn: `${baseUrl}/bn/blog/${slug}`,
+            "x-default": `${baseUrl}/blog/${slug}`,
+          },
+        },
+      };
+    });
+  } catch {
+    // fallback if db unavailable
+  }
+
+  return [...staticRoutes, ...categoryRoutes, ...machineRoutes, ...blogRoutes];
 }

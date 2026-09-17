@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
-import { OrganizationSchema, LocalBusinessSchema, VideoObjectSchema } from "@/components/seo/SchemaOrg";
+import { OrganizationSchema, LocalBusinessSchema, VideoObjectSchema, WebSiteSchema } from "@/components/seo/SchemaOrg";
 import { COMPANY_INFO } from "@/lib/constants";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
@@ -19,6 +19,14 @@ export const metadata: Metadata = {
   title: {
     default: "Tasneem Knitting Industry | Industrial Circular Knitting Machine Importer Bangladesh • সার্কুলার নিটিং মেশিন",
     template: "%s | Tasneem Knitting Industry",
+  },
+  alternates: {
+    canonical: COMPANY_INFO.domain,
+    languages: {
+      en: `${COMPANY_INFO.domain}/en`,
+      bn: `${COMPANY_INFO.domain}/bn`,
+      "x-default": COMPANY_INFO.domain,
+    },
   },
   description:
     "Direct overseas importer of industrial circular knitting machines in Bangladesh. Double Jersey, Single Jersey, Interlock, Jacquard & Terry machines with 3rd-party pre-shipment inspection, CFR Chattogram sea delivery, and factory installation. বাংলাদেশে উচ্চমানের সার্কুলার নিটিং মেশিন সরাসরি আমদানি।",
@@ -100,6 +108,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
         <VideoObjectSchema />
+        <WebSiteSchema />
       </head>
       <body className="min-h-full flex flex-col bg-white text-[#2D2D2D] font-sans antialiased selection:bg-[#800020] selection:text-white">
         <GoogleAnalytics />

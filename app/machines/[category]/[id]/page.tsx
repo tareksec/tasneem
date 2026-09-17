@@ -115,6 +115,39 @@ export default async function MachineDetailPage({
     `Hello Tasneem Knit Industry, I am interested in technical specifications and CFR quotation for: ${machine.name} (${machine.brand}).`
   )}`;
 
+
+  // Breadcrumb Schema JSON-LD
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: COMPANY_INFO.domain,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Machines",
+        item: `${COMPANY_INFO.domain}/machines`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.replace(/-/g, " "),
+        item: `${COMPANY_INFO.domain}/machines/${category}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: machine.name,
+        item: `${COMPANY_INFO.domain}/machines/${category}/${machine.id}`,
+      },
+    ],
+  };
+
   // Product Schema JSON-LD
   const productSchema = {
     "@context": "https://schema.org",
@@ -149,6 +182,10 @@ export default async function MachineDetailPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

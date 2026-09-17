@@ -188,3 +188,28 @@ export function VideoObjectSchema() {
     />
   );
 }
+
+export function WebSiteSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: COMPANY_INFO.name,
+    alternateName: ["Tasneem Knit Industry", "তাসনীম নিট ইন্ডাস্ট্রি"],
+    url: COMPANY_INFO.domain,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${COMPANY_INFO.domain}/machines?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
