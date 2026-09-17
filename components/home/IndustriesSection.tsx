@@ -1,227 +1,340 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Shirt, Building2, Sparkles, Waves, CheckCircle2, ChevronDown } from "lucide-react";
+import {
+  Shirt,
+  Building2,
+  Waves,
+  Sparkles,
+  ArrowRight,
+  ArrowUpRight,
+  Factory,
+  Layers,
+  ShieldCheck,
+  CheckCircle2,
+} from "lucide-react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
-export function IndustriesSection() {
-  const { locale, dict } = useTranslation();
+interface IndustryItem {
+  num: string;
+  tagEn: string;
+  tagBn: string;
+  titleEn: string;
+  titleBn: string;
+  headlineEn: string;
+  headlineBn: string;
+  descriptionEn: string;
+  descriptionBn: string;
+  image: string;
+  badgeEn: string;
+  badgeBn: string;
+  recommendedMachines: string[];
+  targetFabricsEn: string;
+  targetFabricsBn: string;
+  advantageEn: string;
+  advantageBn: string;
+  icon: React.ElementType;
+}
 
-  const industries = [
-    {
-      num: "01",
-      tag: locale === "bn" ? "গার্মেন্টস ও নিটওয়্যার রপ্তানি" : "Apparel & Knitwear Export",
-      title: locale === "bn" ? "গার্মেন্টস ও নিটওয়্যার রপ্তানিকারক" : "Garment & Knitwear Exporters",
-      headline: locale === "bn"
-        ? "আন্তর্জাতিক ব্র্যান্ডের বাল্ক অর্ডারের জন্য হাই-স্পিড সার্কুলার মেশিনারি"
-        : "High-productivity circular machines for global export apparel programs",
-      description: locale === "bn"
-        ? "টি-শার্ট, পোলো শার্ট ও অ্যাক্টিভওয়্যারের আন্তর্জাতিক মান নিশ্চিতে উচ্চ-উৎপাদনশীল সার্কুলার মেশিনারি।"
-        : "High-gauge circular machinery engineered for high-volume export t-shirts, polo shirts, and activewear.",
-      recommendedMachines: ["Single Jersey Circular", "Double Jersey Circular", "High-Speed Interlock"],
-      targetFabrics: ["100% Cotton Jersey", "CVC / TC Pique", "Spandex Single Jersey", "1x1 & 2x2 Ribs"],
-      bgClass: "bg-[#080D14] text-white",
-      gridClass: "bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)]",
-      badgeBorder: "border-white/15 bg-white/10 text-white/90",
-      pillClass: "bg-white/10 border-white/15 text-white/90",
-      btnClass: "bg-white hover:bg-neutral-100 text-[#080D14]",
-      watermarkColor: "text-white/[0.03]",
-      icon: Shirt,
-    },
-    {
-      num: "02",
-      tag: locale === "bn" ? "ভার্টিক্যাল কম্পোজিট অপারেশন" : "Vertical Composite Operation",
-      title: locale === "bn" ? "কম্পোজিট টেক্সটাইল মিল" : "Composite Textile Mills",
-      headline: locale === "bn"
-        ? "বৃহৎ আকারের ভার্টিক্যাল নিটিং কারখানার জন্য হেভি-ডিউটি মেশিনারি"
-        : "Heavy-duty machinery for large-scale vertical manufacturing operations",
-      description: locale === "bn"
-        ? "কম্পোজিট কারখানার জন্য সেন্ট্রাল লুব্রিকেশন ও নির্ভুল ফিডারযুক্ত পূর্ণাঙ্গ নিটিং লাইন।"
-        : "Heavy-duty 24/7 knitting lines engineered for vertical composite mills running yarn-to-garment operations.",
-      recommendedMachines: ["Multi-Feeder Double Jersey", "High-RPM Single Jersey", "Universal Finishing Lines"],
-      targetFabrics: ["Heavy Rib Knits", "Drop-Needle Jersey", "Structured Thermal Knitwear", "Collar Trims"],
-      bgClass: "bg-[#F7F7F8] text-neutral-900 border-t border-neutral-300 shadow-[0_-30px_70px_rgba(0,0,0,0.14)]",
-      gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
-      badgeBorder: "border-[#F9E6EA] bg-[#FDF2F4] text-[#800020]",
-      pillClass: "bg-white border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 shadow-xs",
-      watermarkColor: "text-neutral-900/[0.04]",
-      icon: Building2,
-    },
-    {
-      num: "03",
-      tag: locale === "bn" ? "হাই-পাইল লুপ ও শোষণক্ষমতা" : "High-Pile Loop & Absorbency",
-      title: locale === "bn" ? "টেরি তোয়ালে ও ফ্লিস প্রস্তুতকারক" : "Terry Towel & Fleece Mills",
-      headline: locale === "bn"
-        ? "তোয়ালে ও শীতের ফ্লিসের জন্য নিখুঁত লুপ পাইল সার্কুলার মেশিনারি"
-        : "Precision loop pile circular equipment for bath, towel, and winter fleece",
-      description: locale === "bn"
-        ? "তোয়ালে, বাথরোব ও উইন্টার ফ্লিসের সুষম লুপ গঠনে বিশেষায়িত সার্কুলার মেশিনারি।"
-        : "Specialized loop-pile circular machinery delivering uniform pile heights for towels, fleece, and bathrobes.",
-      recommendedMachines: ["Single Terry Circular", "Double Terry Fleece Machine", "Rotary Shearing Lines"],
-      targetFabrics: ["French Terry Fleece", "Loop Pile Toweling", "Polar Fleece Substrates", "Velour Fabrics"],
-      bgClass: "bg-[#0B131E] text-white border-t border-white/15 shadow-[0_-30px_70px_rgba(0,0,0,0.3)]",
-      gridClass: "bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)]",
-      badgeBorder: "border-cyan-400/30 bg-cyan-950/40 text-cyan-300",
-      pillClass: "bg-white/10 border-white/15 text-white/90",
-      btnClass: "bg-white hover:bg-neutral-100 text-[#0B131E]",
-      watermarkColor: "text-white/[0.03]",
-      icon: Waves,
-    },
-    {
-      num: "04",
-      tag: locale === "bn" ? "কম্পিউটারাইজড ইলেকট্রনিক ডিজাইন" : "Electronic Pattern Selection",
-      title: locale === "bn" ? "ফ্যাশন জ্যাকার্ড ও টেকনিক্যাল নিট" : "Fashion Jacquard & Structural Knits",
-      headline: locale === "bn"
-        ? "ফ্যাশন ও টেকনিক্যাল টেক্সটাইলের জন্য কম্পিউটারাইজড ইলেকট্রনিক জ্যাকার্ড"
-        : "Computerized electronic pattern selection for fashion and athletic textiles",
-      description: locale === "bn"
-        ? "জটিল মাল্টি-কালার ডিজাইন ও টেকনিক্যাল টেক্সটাইলের জন্য ইলেকট্রনিক জ্যাকার্ড মেশিন।"
-        : "Computerized electronic jacquard machinery for rapid pattern changes and complex fashion knitwear.",
-      recommendedMachines: ["Electronic Jacquard Circular", "Transfer Jacquard Machine", "Computerized Flat Knit"],
-      targetFabrics: ["Fashion Jacquard Knitwear", "Mattress Ticking Fabric", "Athletic Jacquard Mesh", "Textured Ribs"],
-      bgClass: "bg-white text-neutral-900 border-t border-neutral-300 shadow-[0_-35px_80px_rgba(0,0,0,0.18)]",
-      gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
-      badgeBorder: "border-purple-200 bg-purple-50 text-purple-700",
-      pillClass: "bg-neutral-100 border-neutral-200 text-neutral-700 shadow-2xs",
-      btnClass: "bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 shadow-xs",
-      watermarkColor: "text-neutral-900/[0.04]",
-      icon: Sparkles,
-    },
-  ];
+const INDUSTRIES_DATA: IndustryItem[] = [
+  {
+    num: "01",
+    tagEn: "Apparel & Knitwear Export",
+    tagBn: "গার্মেন্টস ও নিটওয়্যার রপ্তানি",
+    titleEn: "Export-Oriented Garment & Knitwear Mills",
+    titleBn: "টি-শার্ট, পোলো শার্ট ও স্পোর্টসওয়্যার কারখানা",
+    headlineEn: "High-productivity circular machines for global apparel export programs",
+    headlineBn: "বিশ্বমানের এক্সপোর্ট অর্ডারের জন্য হাই-স্পিড ও নিখুঁত সার্কুলার নিটিং মেশিন",
+    descriptionEn:
+      "Bangladeshi knitwear exporters rely on continuous 24-hour manufacturing with tight fabric weight consistency. Our single and double jersey machines are tuned for high-volume basic tees, polo pique, interlock thermal tops, and rib trims.",
+    descriptionBn:
+      "দেশের নিটওয়্যার রপ্তানিকারক মিলগুলোতে প্রয়োজন ২৪ ঘণ্টা বিরতিহীন প্রোডাকশন আর নিখুঁত ফ্যাব্রিক GSM। আমাদের Single Jersey ও Double Jersey মেশিনগুলো বেসিক টি-শার্ট, Polo Pique, Interlock ও Rib কাপড়ের সেরা আউটপুট দেয়।",
+    image: "/images/industries/garment-knitwear.jpg",
+    badgeEn: "100% Export Ready",
+    badgeBn: "১০০% এক্সপোর্ট কোয়ালিটি",
+    recommendedMachines: ["Single Jersey Circular", "Double Jersey Circular", "High-Speed Interlock"],
+    targetFabricsEn: "100% Cotton Jersey, CVC & TC Pique, Spandex Single Jersey, 1x1 & 2x2 Ribs",
+    targetFabricsBn: "১০০% কটন জার্সি, CVC ও TC পিক, স্প্যানডেক্স জার্সি, ১x১ ও ২x২ রিব",
+    advantageEn: "24/7 continuous operation with tight GSM tolerance & high output",
+    advantageBn: "২৪/৭ বিরতিহীন অপারেশন ও নিখুঁত GSM নিয়ন্ত্রণ",
+    icon: Shirt,
+  },
+  {
+    num: "02",
+    tagEn: "Vertical Composite Facility",
+    tagBn: "ভার্টিক্যাল কম্পোজিট কারখানা",
+    titleEn: "Composite Knitting & High-Output Vertical Mills",
+    titleBn: "স্পিনিং থেকে নিটিং—পূর্ণাঙ্গ কম্পোজিট টেক্সটাইল কারখানা",
+    headlineEn: "Heavy-duty machinery for large-scale vertical manufacturing operations",
+    headlineBn: "বিশাল পরিসরে ভার্টিক্যাল উৎপাদনের জন্য হেভি-ডিউটি টেক্সটাইল মেশিনারি",
+    descriptionEn:
+      "Vertical composite facilities in Narayanganj, Gazipur, and Savar require robust machinery with low maintenance downtime. We supply machines equipped with central oil lubrication, synchronized dust extraction, and precision positive yarn storage feeders.",
+    descriptionBn:
+      "নারায়ণগঞ্জ, গাজীপুর ও সাভারের বড় কম্পোজিট মিলগুলোতে দরকার কম ডাউনটাইম আর দীর্ঘস্থায়ী পারফরম্যান্স। সেন্ট্রাল অয়েল লুব্রিকেশন, ডাস্ট একজস্ট ও পজিটিভ ইয়ার্ন Feeder সমৃদ্ধ মেশিন আমরা সরাসরি কারখানা থেকে সরবরাহ করি।",
+    image: "/images/industries/composite-textile.jpg",
+    badgeEn: "Heavy-Duty 24/7",
+    badgeBn: "২৪/৭ হেভি-ডিউটি",
+    recommendedMachines: ["Multi-Feeder Double Jersey", "High-RPM Single Jersey", "Universal Finishing Lines"],
+    targetFabricsEn: "Drop-Needle Jersey, Heavy Rib Knits, Structured Thermal Knitwear, Collar Trims",
+    targetFabricsBn: "ড্রপ-নিডল জার্সি, হেভি রিব, স্ট্রাকচার্ড থার্মাল নিটওয়্যার ও কলার ট্রিম",
+    advantageEn: "Zero vibration, high RPM consistency & minimum downtime",
+    advantageBn: "কম্পনহীন হাই-আরপিএম রানিং ও সর্বনিম্ন ডাউনটাইম",
+    icon: Building2,
+  },
+  {
+    num: "03",
+    tagEn: "Terry Towel & Fleece Mills",
+    tagBn: "টেরি তোয়ালে ও উইন্টার ফ্লিস",
+    titleEn: "Terry Towel, Bathrobe & Winter Fleece Mills",
+    titleBn: "তোয়ালে, বাথরোব ও প্রিমিয়াম উইন্টার ফ্লিস প্রোডাকশন",
+    headlineEn: "Engineered circular machinery for uniform loop pile and polar fleece fabrics",
+    headlineBn: "নিখুঁত লুপ ফরমেশন ও হাই-পাইল ফেব্রিকের জন্য বিশেষায়িত সার্কুলার মেশিনারি",
+    descriptionEn:
+      "Export-grade plush terry towels, velour bathrobes, and brushed winter fleece demand precise sinker cam timing. Our specialized terry and shearing-compatible machines deliver uniform loop height and dense, pill-free surfaces.",
+    descriptionBn:
+      "ইউরোপ-আমেরিকায় রপ্তানিযোগ্য সফট টেরি তোয়ালে ও শীতের উইন্টার ফ্লিসের জন্য দরকার ইউনিফর্ম লুপ পাইল। আমাদের স্পেশালাইজড Terry ও Polar Fleece সার্কুলার মেশিনগুলো সুনির্দিষ্ট সিঙ্কার ট্র্যাকিং নিশ্চিত করে।",
+    image: "/images/industries/terry-towel.jpg",
+    badgeEn: "Precision Loop Pile",
+    badgeBn: "নিখুঁত লুপ পাইল",
+    recommendedMachines: ["Single Loop Terry Machine", "Double-Sided Polar Fleece Circular", "Precision Shearing Unit"],
+    targetFabricsEn: "Soft Terry Towels, Bathrobe Velour, Polar Fleece, French Terry",
+    targetFabricsBn: "সফট টেরি তোয়ালে, বাথরোব ফ্যাব্রিক, পোলার ফ্লিস, ফ্রেঞ্চ টেরি",
+    advantageEn: "Precision sinker cam timing & pill-free surface formation",
+    advantageBn: "সুনির্দিষ্ট সিঙ্কার ট্র্যাকিং ও পিলিং-মুক্ত ফ্যাব্রিক সারফেস",
+    icon: Waves,
+  },
+  {
+    num: "04",
+    tagEn: "Fashion & Technical Knits",
+    tagBn: "ফ্যাশন ও টেকনিক্যাল টেক্সটাইল",
+    titleEn: "Engineered Jacquard, Mattress Fabric & Fashion Knits",
+    titleBn: "জ্যাকার্ড, ম্যাট্রেস কভার ও হাই-এন্ড স্ট্রাকচার্ড নিটওয়্যার",
+    headlineEn: "Computerized electronic jacquard machinery for rapid pattern changes",
+    headlineBn: "কম্পিউটারাইজড ইলেকট্রনিক জ্যাকার্ড ও দ্রুত প্যাটার্ন পরিবর্তনের স্বয়ংক্রিয় সুবিধা",
+    descriptionEn:
+      "For fashion mills producing intricate multi-color patterns, athletic mesh panels, and mattress ticking, we supply computerized electronic jacquard circular machines with rapid digital pattern change capabilities.",
+    descriptionBn:
+      "জটিল মাল্টি-কালার ডিজাইন, ম্যাট্রেস টিকিং ও স্পোর্টস মেশ ফ্যাব্রিকের জন্য ইলেকট্রনিক জ্যাকার্ড মেশিন অপরিহার্য। ইউএসবি ও সফটওয়্যার নিয়ন্ত্রিত নিডল সিলেকশনের মাধ্যমে যেকোনো নতুন ডিজাইন মুহূর্তে উৎপাদন লাইনে নেওয়া যায়।",
+    image: "/images/industries/fashion-jacquard.jpg",
+    badgeEn: "Digital Patterning",
+    badgeBn: "ডিজিটাল প্যাটার্নিং",
+    recommendedMachines: ["Electronic Jacquard Circular", "Transfer Jacquard Machine", "Computerized Flat Knit"],
+    targetFabricsEn: "Fashion Jacquard Knitwear, Mattress Ticking Fabric, Athletic Jacquard Mesh",
+    targetFabricsBn: "ফ্যাশন জ্যাকার্ড নিটওয়্যার, ম্যাট্রেস টিকিং, অ্যাথলেটিক জ্যাকার্ড মেশ",
+    advantageEn: "Microsecond actuator needle selection & digital pattern memory",
+    advantageBn: "ইউএসবি ও সফটওয়্যার নিয়ন্ত্রিত তাৎক্ষণিক ডিজাইন চেঞ্জ",
+    icon: Sparkles,
+  },
+];
+
+export function IndustriesSection() {
+  const { locale, t } = useTranslation();
 
   return (
-    <article className="relative w-full">
-      {industries.map((ind, idx) => {
-        const IconComponent = ind.icon;
-        const isFirst = idx === 0;
+    <section className="py-16 sm:py-24 bg-[#F8F9FA] text-[#2D2D2D] relative overflow-hidden border-t border-[#E5E7EB]">
+      {/* Background Architectural Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,#000_70%,transparent_100%)] pointer-events-none" />
 
-        return (
-          <section
-            key={ind.num}
-            className={`relative md:sticky md:top-0 min-h-screen md:h-screen w-full flex flex-col justify-center items-center py-14 sm:py-20 md:py-0 px-4 sm:px-8 lg:px-12 overflow-visible md:overflow-hidden ${
-              ind.bgClass
-            } ${!isFirst ? "rounded-t-[28px] sm:rounded-t-[48px] lg:rounded-t-[56px]" : ""}`}
-          >
-            {/* Architectural Technical Grid with Radial Mask Accent */}
-            <div
-              className={`absolute inset-0 ${ind.gridClass} bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none`}
-            />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* ================================================================
+            SECTION HEADER
+            ================================================================ */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#D8A4AF] bg-[#FDF2F4] text-xs font-mono font-bold text-[#800020] mb-3 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse" />
+            <span>
+              {locale === "bn"
+                ? "খাতভিত্তিক অ্যাপ্লিকেশন • 04 Sectors"
+                : "APPLICATIONS & SECTOR CAPABILITIES"}
+            </span>
+          </div>
 
-            {/* Huge Watermark Number in Background */}
-            <div
-              className={`absolute right-4 sm:right-12 bottom-4 sm:bottom-8 text-[20vw] lg:text-[18vw] font-black font-mono leading-none select-none pointer-events-none ${ind.watermarkColor}`}
-            >
-              {ind.num}
-            </div>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight mb-3">
+            {locale === "bn" ? (
+              <>
+                বাংলাদেশের নিটিং ও টেক্সটাইল খাতের উপযোগী <span className="text-[#800020]">মেশিনারি</span>
+              </>
+            ) : (
+              <>
+                Machinery Solutions Tailored to <span className="text-[#800020]">Bangladesh Industry Sectors</span>
+              </>
+            )}
+          </h2>
 
-            {/* Central Content Box */}
-            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col justify-center">
-              {/* Top Meta Bar */}
-              <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div
-                    className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full border text-xs font-mono font-bold shadow-xs ${ind.badgeBorder}`}
-                  >
-                    <IconComponent className="w-3.5 h-3.5 text-[#800020]" />
-                    <span>{ind.num} / 04</span>
-                    <span>•</span>
-                    <span className="font-sans font-medium">{ind.tag}</span>
-                  </div>
-                </div>
+          <p className="text-xs sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+            {locale === "bn"
+              ? "কাপড়ের ধরন অনুযায়ী সিলিন্ডার সাইজ, Gauge আর Feeder সিলেকশন সহ যেকোনো খাতের উপযোগী সার্কুলার নিটিং মেশিন সরাসরি কারখানা থেকে আমদানির সুবিধা।"
+              : "Direct overseas sourcing of precision circular knitting, dyeing, and finishing machinery tailored to specific factory scales, fabric GSM tolerances, and export programs."}
+          </p>
+        </div>
 
-                <span className="sr-only">
-                  {locale === "bn" ? "শিল্প অ্যাপ্লিকেশন" : "Industrial Application"}
-                </span>
-              </div>
+        {/* ================================================================
+            ASYMMETRIC CHAMFERED CARDS LIST (Services Page Aesthetic)
+            ================================================================ */}
+        <div className="space-y-8 sm:space-y-12">
+          {INDUSTRIES_DATA.map((ind, index) => {
+            const isEven = index % 2 === 0;
 
-              {/* Title & Headline */}
-              <h2 className="text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-2.5 sm:mb-4">
-                {ind.title}
-              </h2>
-              <p className="text-xs sm:text-lg font-medium opacity-80 max-w-3xl mb-3 sm:mb-6 leading-relaxed">
-                {ind.headline}
-              </p>
-
-              {/* Description Paragraph */}
-              <p className="text-xs sm:text-base opacity-70 max-w-2xl leading-relaxed mb-5 sm:mb-8 line-clamp-3 sm:line-clamp-none">
-                {ind.description}
-              </p>
-
-              {/* Recommended Machinery & Target Fabrics Chips */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 mb-6 sm:mb-10 pt-4 border-t border-current/10">
-                <div>
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
-                    {locale === "bn" ? "প্রস্তাবিত মেশিনারি:" : "Recommended Machinery:"}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {ind.recommendedMachines.map((m) => (
-                      <span
-                        key={m}
-                        className={`text-xs sm:text-sm font-medium px-2.5 sm:px-3 py-1 rounded-lg border flex items-center gap-1.5 ${ind.pillClass}`}
+            return (
+              <div
+                key={ind.num}
+                className="group relative bg-white border border-[#E5E7EB] rounded-[28px] sm:rounded-[36px] shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_-12px_rgba(128,0,32,0.1)] hover:border-red-200 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden"
+              >
+                <div
+                  className={`flex flex-col ${
+                    isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+                  } items-center gap-8 sm:gap-10 lg:gap-12`}
+                >
+                  {/* ========================================================
+                      IMAGE COLUMN WITH SIGNATURE CHAMFER / CUT CORNER
+                      ======================================================== */}
+                  <div className="w-full lg:w-[48%] shrink-0">
+                    <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] w-full overflow-hidden shadow-md">
+                      {/* Geometric Cut Corner */}
+                      <div
+                        className="w-full h-full relative overflow-hidden transition-transform duration-700 ease-out group-hover:scale-102"
+                        style={{
+                          clipPath: isEven
+                            ? "polygon(36px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 36px)"
+                            : "polygon(0% 0%, calc(100% - 36px) 0%, 100% 36px, 100% 100%, 0% 100%)",
+                        }}
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#800020] shrink-0" />
-                        <span>{m}</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                        <Image
+                          src={ind.image}
+                          alt={locale === "bn" ? ind.titleBn : ind.titleEn}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 540px"
+                          className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                        />
 
-                <div>
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider opacity-60 block mb-2 font-mono">
-                    {locale === "bn" ? "টার্গেট ফ্যাব্রিক আউটপুট:" : "Target Fabric Output:"}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {ind.targetFabrics.map((f) => (
-                      <span
-                        key={f}
-                        className={`text-xs sm:text-sm font-medium px-2.5 sm:px-3 py-1 rounded-lg border ${ind.pillClass}`}
+                        {/* Soft Vignette Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+
+                        {/* Floating Frosted Glass Pills */}
+                        <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 flex flex-wrap items-center gap-2 z-10">
+                          <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] sm:text-[11px] font-medium px-3 py-1 rounded-full shadow-xs">
+                            {locale === "bn" ? ind.badgeBn : ind.badgeEn}
+                          </span>
+
+                          <span className="bg-white/90 backdrop-blur-md border border-neutral-200/90 text-neutral-900 font-bold text-[10px] sm:text-[11px] px-3 py-1 rounded-full shadow-xs">
+                            {locale === "bn" ? ind.tagBn : ind.tagEn}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ========================================================
+                      CONTENT COLUMN WITH CIRCULAR METRIC BULLETS
+                      ======================================================== */}
+                  <div className="w-full lg:w-[52%] flex flex-col justify-center">
+                    {/* Top Meta Tag & Number */}
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <span className="text-xs font-mono font-bold text-[#800020] tracking-wider">
+                        {ind.num} / 04
+                      </span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+                        {locale === "bn" ? ind.tagBn : ind.tagEn}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight leading-snug group-hover:text-[#800020] transition-colors mb-2">
+                      {locale === "bn" ? ind.titleBn : ind.titleEn}
+                    </h3>
+
+                    {/* Headline */}
+                    <p className="text-xs sm:text-sm font-semibold text-[#800020] mb-2 leading-relaxed">
+                      {locale === "bn" ? ind.headlineBn : ind.headlineEn}
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-5 font-normal">
+                      {locale === "bn" ? ind.descriptionBn : ind.descriptionEn}
+                    </p>
+
+                    {/* ====================================================
+                        CIRCULAR METRIC BULLETS (Services Page Aesthetic)
+                        ==================================================== */}
+                    <div className="space-y-3 mb-6">
+                      {/* Metric 1: Recommended Machines */}
+                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
+                          <Factory className="w-3.5 h-3.5" />
+                        </div>
+                        <div>
+                          <span className="font-bold text-neutral-900">
+                            {locale === "bn" ? "প্রস্তাবিত মেশিনারি : " : "Recommended Machines : "}
+                          </span>
+                          <span className="text-neutral-600">
+                            {ind.recommendedMachines.join(", ")}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Metric 2: Target Fabrics */}
+                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
+                          <Layers className="w-3.5 h-3.5" />
+                        </div>
+                        <div>
+                          <span className="font-bold text-neutral-900">
+                            {locale === "bn" ? "টার্গেট ফ্যাব্রিক আউটপুট : " : "Target Fabric Output : "}
+                          </span>
+                          <span className="text-neutral-600">
+                            {locale === "bn" ? ind.targetFabricsBn : ind.targetFabricsEn}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Metric 3: Production Advantage */}
+                      <div className="flex items-start gap-3 text-xs sm:text-[13px] text-neutral-700">
+                        <div className="w-6 h-6 rounded-full bg-[#FDF2F4] border border-[#F9E6EA] text-[#800020] flex items-center justify-center shrink-0 mt-0.5">
+                          <ShieldCheck className="w-3.5 h-3.5" />
+                        </div>
+                        <div>
+                          <span className="font-bold text-neutral-900">
+                            {locale === "bn" ? "ফ্যাক্টরি সুবিধা : " : "Key Advantage : "}
+                          </span>
+                          <span className="text-neutral-600">
+                            {locale === "bn" ? ind.advantageBn : ind.advantageEn}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ====================================================
+                        ACTION ROW: "Explore Specs" + "Inquire"
+                        ==================================================== */}
+                    <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-4 flex-wrap">
+                      <Link
+                        href="/industries"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FDF2F4] hover:bg-[#800020] text-[#800020] hover:text-white border border-[#D8A4AF] text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer shadow-2xs group/btn"
                       >
-                        {f}
-                      </span>
-                    ))}
+                        <span>
+                          {locale === "bn" ? "এই খাতের বিস্তারিত ও ছবি দেখুন" : "Explore Industry Specs & Gallery"}
+                        </span>
+                        <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+                      </Link>
+
+                      <Link
+                        href="/quote"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-neutral-100 hover:bg-neutral-900 text-neutral-700 hover:text-white border border-neutral-200 text-xs font-mono font-bold transition-all duration-200 shadow-2xs group/inquire"
+                      >
+                        <span>{locale === "bn" ? "কোটেশন চান" : "Inquire"}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#800020] group-hover/inquire:text-white transition-colors" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              {/* Action Buttons & Scroll Indicator Row */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 w-full">
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-                  <Link
-                    href="/industries"
-                    className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2 ${ind.btnClass}`}
-                  >
-                    <span>
-                      {locale === "bn" ? "এই খাতের বিস্তারিত ও ছবি দেখুন" : "Explore Industry Specs & Gallery"}
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 shrink-0" />
-                  </Link>
-
-                  <Link
-                    href="/quote"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-xs sm:text-sm bg-[#800020] hover:bg-[#5A0017] text-white shadow-md hover:shadow-lg active:scale-[0.98] transition-all min-h-[44px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
-                  >
-                    <span>{dict.common.requestQuote}</span>
-                    <ArrowUpRight className="w-4 h-4 shrink-0" />
-                  </Link>
-                </div>
-
-                {/* Subtle Scroll Hint with high contrast and next preview */}
-                {idx < industries.length - 1 && (
-                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono opacity-90 font-semibold text-current">
-                    <ChevronDown className="w-4 h-4 animate-bounce" />
-                    <span>
-                      {locale === "bn"
-                        ? `পরবর্তী: খাত ০${idx + 2} • ${industries[idx + 1].title}`
-                        : `Next: Sector 0${idx + 2} • ${industries[idx + 1].title}`}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        );
-      })}
-    </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
