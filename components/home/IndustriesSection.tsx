@@ -61,8 +61,8 @@ const SECTORS_DATA: IndustrySector[] = [
     targetFabricsBn: "১০০% কটন জার্সি, CVC ও TC পিক, স্প্যানডেক্স জার্সি, ১x১ ও ২x২ রিব",
     advantageEn: "24/7 continuous operation with tight GSM tolerance & high output",
     advantageBn: "২৪/৭ বিরতিহীন অপারেশন ও নিখুঁত GSM নিয়ন্ত্রণ",
-    bgClass: "bg-[#0A0F18] text-white",
-    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
+    bgClass: "bg-[#F9F8F6] text-[#2D2D2D]",
+    gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
     icon: Shirt,
   },
   {
@@ -85,8 +85,8 @@ const SECTORS_DATA: IndustrySector[] = [
     targetFabricsBn: "ড্রপ-নিডল জার্সি, হেভি রিব, স্ট্রাকচার্ড থার্মাল নিটওয়্যার ও কলার ট্রিম",
     advantageEn: "Zero vibration, high RPM consistency & minimum downtime",
     advantageBn: "কম্পনহীন হাই-আরপিএম রানিং ও সর্বনিম্ন ডাউনটাইম",
-    bgClass: "bg-[#111827] text-white",
-    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
+    bgClass: "bg-[#F9F8F6] text-[#2D2D2D]",
+    gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
     icon: Building2,
   },
   {
@@ -109,8 +109,8 @@ const SECTORS_DATA: IndustrySector[] = [
     targetFabricsBn: "সফট টেরি তোয়ালে, বাথরোব ফ্যাব্রিক, পোলার ফ্লিস, ফ্রেঞ্চ টেরি",
     advantageEn: "Precision sinker cam timing & pill-free surface formation",
     advantageBn: "সুনির্দিষ্ট সিঙ্কার ট্র্যাকিং ও পিলিং-মুক্ত ফ্যাব্রিক সারফেস",
-    bgClass: "bg-[#1E293B] text-white",
-    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
+    bgClass: "bg-[#F9F8F6] text-[#2D2D2D]",
+    gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
     icon: Waves,
   },
   {
@@ -133,8 +133,8 @@ const SECTORS_DATA: IndustrySector[] = [
     targetFabricsBn: "ফ্যাশন জ্যাকার্ড নিটওয়্যার, ম্যাট্রেস টিকিং, অ্যাথলেটিক জ্যাকার্ড মেশ",
     advantageEn: "Microsecond actuator needle selection & digital pattern memory",
     advantageBn: "ইউএসবি ও সফটওয়্যার নিয়ন্ত্রিত তাৎক্ষণিক ডিজাইন চেঞ্জ",
-    bgClass: "bg-[#0F172A] text-white",
-    gridClass: "bg-[linear-gradient(to_right,#ffffff0f_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0f_1px,transparent_1px)]",
+    bgClass: "bg-[#F9F8F6] text-[#2D2D2D]",
+    gridClass: "bg-[linear-gradient(to_right,#0000000d_1px,transparent_1px),linear-gradient(to_bottom,#0000000d_1px,transparent_1px)]",
     icon: Sparkles,
   },
 ];
@@ -156,7 +156,7 @@ export function IndustriesSection() {
               sector.bgClass
             } ${
               !isFirst
-                ? "rounded-t-[32px] sm:rounded-t-[48px] lg:rounded-t-[56px] shadow-[0_-30px_70px_rgba(0,0,0,0.35)] border-t border-white/10"
+                ? "rounded-t-[32px] sm:rounded-t-[48px] lg:rounded-t-[56px] shadow-[0_-25px_60px_rgba(0,0,0,0.09)] border-t border-[#E8E5DF]"
                 : ""
             }`}
           >
@@ -166,7 +166,7 @@ export function IndustriesSection() {
             />
 
             {/* Huge Watermark Number in Background */}
-            <div className="absolute right-4 sm:right-10 bottom-2 sm:bottom-6 text-[18vw] lg:text-[16vw] font-black font-mono leading-none select-none pointer-events-none text-white/[0.04]">
+            <div className="absolute right-4 sm:right-10 bottom-2 sm:bottom-6 text-[18vw] lg:text-[16vw] font-black font-mono leading-none select-none pointer-events-none text-neutral-900/[0.04]">
               {sector.num}
             </div>
 
@@ -326,7 +326,7 @@ export function IndustriesSection() {
 
               {/* Next Sector Hint (for sticky scroll affordance) */}
               {index < SECTORS_DATA.length - 1 && (
-                <div className="mt-3 hidden sm:flex items-center justify-end gap-2 text-xs font-mono opacity-80 text-white font-semibold">
+                <div className="mt-3 hidden sm:flex items-center justify-end gap-2 text-xs font-mono text-neutral-600 font-semibold">
                   <ChevronDown className="w-4 h-4 animate-bounce text-[#D8A4AF]" />
                   <span>
                     {locale === "bn"
