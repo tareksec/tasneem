@@ -195,7 +195,7 @@ export function Header() {
       animate={{
         opacity: 1,
         y: 0,
-        maxWidth: isExpanded ? "1152px" : "540px",
+        maxWidth: isExpanded ? "1340px" : "540px",
       }}
       transition={{
         type: "spring",
@@ -206,7 +206,7 @@ export function Header() {
     >
       {/* Floating Capsule Bar */}
       <div
-        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-3 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between relative ${
+        className={`rounded-full backdrop-blur-xl sm:backdrop-blur-2xl transition-all duration-300 px-3.5 sm:px-4 lg:px-5 xl:px-6 py-1.5 sm:py-2 flex items-center justify-between relative ${
           scrolled
             ? "bg-white/85 border border-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.1)]"
             : "bg-white/60 border border-white/70 shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
@@ -215,12 +215,12 @@ export function Header() {
         {/* Left: Brand Logo */}
         <Link
           href="/"
-          className={`${isExpanded ? "flex" : "hidden sm:flex"} items-center gap-1.5 sm:gap-3 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg`}
+          className={`${isExpanded ? "flex" : "hidden sm:flex"} items-center gap-1.5 sm:gap-2.5 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg`}
           aria-label="Tasneem Knit Industry Home"
         >
           <div
             className={`relative transition-all duration-300 flex items-center ${
-              isExpanded ? "h-7 sm:h-9 w-28 sm:w-40" : "h-7 sm:h-8 w-24 sm:w-28"
+              isExpanded ? "h-7 sm:h-8 xl:h-9 w-28 sm:w-32 xl:w-36" : "h-7 sm:h-8 w-24 sm:w-28"
             }`}
           >
             <Image
@@ -235,7 +235,7 @@ export function Header() {
 
         {/* Center: Desktop Navigation Links (Visible when expanded) */}
         {isExpanded && (
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-semibold text-neutral-800 animate-in fade-in duration-200">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] 2xl:text-sm font-semibold text-neutral-800 animate-in fade-in duration-200">
             {/* Machines Dropdown (Features ∨ style) */}
             <div
               ref={dropdownRef}
@@ -369,28 +369,28 @@ export function Header() {
         )}
 
         {/* Right: Actions (Language, Log In, Primary CTA, or Compact Trigger) */}
-        <div className={`${isExpanded ? "flex gap-2 sm:gap-3 shrink-0" : "flex w-full sm:w-auto justify-center gap-1.5"} items-center`}>
+        <div className={`${isExpanded ? "flex gap-1.5 sm:gap-2 xl:gap-2.5 shrink-0" : "flex w-full sm:w-auto justify-center gap-1.5"} items-center`}>
           {isExpanded ? (
-            <div className="flex items-center gap-2 sm:gap-3 animate-in fade-in duration-200">
+            <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 animate-in fade-in duration-200">
               {/* Subtle Language Pill */}
               <LanguageSwitcher variant="capsule" />
 
               {/* Vertical Divider separating language toggle from user actions */}
-              <span className="hidden md:block h-4 w-px bg-neutral-200 shrink-0" aria-hidden="true" />
+              <span className="hidden md:block h-3.5 w-px bg-neutral-200/90 shrink-0" aria-hidden="true" />
 
               {/* Grouped User & Conversion CTAs */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 {customer ? (
                   <Link
                     href="/account/quotes"
-                    className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-3 py-1.5 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                    className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors px-2.5 xl:px-3 py-1.5 rounded-lg bg-[#FDF2F4] border border-[#D8A4AF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                   >
                     <span>{locale === "bn" ? "আমার কোটেশন" : "My Quotes"}</span>
                   </Link>
                 ) : (
                   <Link
                     href="/account/login"
-                    className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-semibold text-[#2D2D2D] hover:text-black transition-colors px-2.5 py-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md"
+                    className="hidden md:inline-flex whitespace-nowrap shrink-0 text-xs font-semibold text-[#2D2D2D] hover:text-[#800020] transition-colors px-2 py-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md"
                   >
                     {locale === "bn" ? "ক্রেতা পোর্টাল" : "Buyer Portal"}
                   </Link>
@@ -399,7 +399,7 @@ export function Header() {
                 {/* Primary CTA: Solid Burgundy Capsule Button */}
                 <Link
                   href="/quote"
-                  className="hidden min-[420px]:inline-flex whitespace-nowrap shrink-0 bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+                  className="hidden min-[420px]:inline-flex whitespace-nowrap shrink-0 bg-[#800020] hover:bg-[#5A0017] active:scale-[0.98] text-white px-3 xl:px-4 py-1.5 sm:py-2 rounded-full text-xs xl:text-sm font-semibold transition-all duration-200 shadow-xs items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
                 >
                   <span>{dict.nav.requestQuote}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
