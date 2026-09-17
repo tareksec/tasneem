@@ -10,10 +10,9 @@ import { trackWhatsAppClick } from "@/components/analytics/GoogleAnalytics";
 export function MobileGlassDock() {
   const pathname = usePathname();
 
-    // Keep the specialized catalog docks on listing pages, but show the public dock on machine details.
-    const pathSegments = pathname?.split("/").filter(Boolean) ?? [];
-    const isMachineCatalogRoute = pathname === "/machines" || (pathname?.startsWith("/machines/") && pathSegments.length === 2);
-    if (!pathname || pathname.startsWith("/admin") || isMachineCatalogRoute || pathname.startsWith("/shop")) {
+  // The current machine catalog uses the shared responsive layout, so it also
+  // needs the public dock. Only private admin and legacy shop routes hide it.
+  if (!pathname || pathname.startsWith("/admin") || pathname.startsWith("/shop")) {
     return null;
   }
 

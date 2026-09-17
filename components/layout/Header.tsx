@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  MessageCircle,
   Menu,
   X,
   ChevronDown,
@@ -15,6 +14,7 @@ import {
   Sliders,
   Box,
   ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 import {
   motion,
@@ -23,11 +23,9 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useCustomerAuth } from "@/lib/customer/customer-context";
-import { useLenis } from "lenis/react";
 
 export function Header() {
   const { customer } = useCustomerAuth();
@@ -44,14 +42,43 @@ export function Header() {
   const { scrollY } = useScroll();
   const lastScrollY = useRef(0);
   const scrollPositionOnCollapse = useRef(0);
+  const manualExpandScrollY = useRef<number | null>(null);
+  const manualExpandScrollReadyAt = useRef(0);
 
   // Scroll detection to smoothly shrink / expand the navbar
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = lastScrollY.current;
 
+    // A manually opened navbar returns to its compact state on the next scroll.
+    if (manualExpandScrollY.current !== null) {
+      // Ignore the tail of the smooth-scroll gesture that was already running
+      // when the user clicked Menu. Without this grace period the navbar opens
+      // and immediately collapses again, which looks like a crash.
+      if (performance.now() < manualExpandScrollReadyAt.current) {
+        manualExpandScrollY.current = latest;
+        lastScrollY.current = latest;
+        setScrolled(latest > 20);
+        return;
+      }
+
+      if (Math.abs(latest - manualExpandScrollY.current) > 12 && latest > 50) {
+        manualExpandScrollY.current = null;
+        setIsExpanded(false);
+        setMobileMenuOpen(false);
+        setMobileMachinesOpen(false);
+        setMachinesDropdownOpen(false);
+        scrollPositionOnCollapse.current = latest;
+      }
+
+      lastScrollY.current = latest;
+      setScrolled(latest > 20);
+      return;
+    }
+
     // Scrolling down past 120px -> shrink into compact pill
     if (isExpanded && latest > previous && latest > 120) {
       setIsExpanded(false);
+      setMachinesDropdownOpen(false);
       scrollPositionOnCollapse.current = latest;
     }
     // Scrolling up by >60px or reaching near top (<50px) -> expand back
@@ -66,31 +93,7 @@ export function Header() {
     setScrolled(latest > 20);
   });
 
-  // Close machines dropdown when navbar collapses
-  useEffect(() => {
-    if (!isExpanded) {
-      setMachinesDropdownOpen(false);
-    }
-  }, [isExpanded]);
-
-  const lenis = useLenis();
-
-  // Lock body scroll and pause Lenis virtual scrolling when menu drawer is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-      lenis?.stop();
-    } else {
-      document.body.style.overflow = "";
-      lenis?.start();
-    }
-    return () => {
-      document.body.style.overflow = "";
-      lenis?.start();
-    };
-  }, [mobileMenuOpen, lenis]);
-
-  // Close drawer on Escape key press
+  // Close the expanded mobile navigation on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
@@ -152,14 +155,21 @@ export function Header() {
       .then((res) => res.json())
       .then((data) => {
         if (data?.mainCategories && Array.isArray(data.mainCategories)) {
-          const iconMap: Record<string, any> = {
+          const iconMap: Record<string, LucideIcon> = {
             "circular-knitting": Cpu,
             dyeing: Layers,
             shearing: Sliders,
             finishing: Box,
             other: Sparkles,
           };
-          const mapped = data.mainCategories.map((c: any) => ({
+          const mapped = data.mainCategories.map((c: {
+            slug: string;
+            name: string;
+            name_bn?: string;
+            tagline?: string;
+            tagline_bn?: string;
+            description?: string;
+          }) => ({
             slug: c.slug,
             name: locale === "bn" && c.name_bn ? c.name_bn : c.name,
             desc: locale === "bn" && c.tagline_bn ? c.tagline_bn : (c.tagline || c.description || "Machinery for textile production"),
@@ -171,10 +181,11 @@ export function Header() {
       .catch(() => {});
   }, [locale]);
 
-  const handleNavClick = () => {
-    if (!isExpanded) {
-      setIsExpanded(true);
-    }
+  const handleCompactMenuClick = () => {
+    manualExpandScrollY.current = scrollY.get();
+    manualExpandScrollReadyAt.current = performance.now() + 700;
+    setIsExpanded(true);
+    setMobileMenuOpen(window.matchMedia("(max-width: 1023px)").matches);
   };
 
   return (
@@ -184,17 +195,14 @@ export function Header() {
       animate={{
         opacity: 1,
         y: 0,
-        maxWidth: isExpanded ? "1152px" : "280px",
+        maxWidth: isExpanded ? "1152px" : "540px",
       }}
       transition={{
         type: "spring",
         damping: 24,
         stiffness: 280,
       }}
-      onClick={handleNavClick}
-      className={`sticky top-3 sm:top-4 z-50 mx-auto w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] ${
-        !isExpanded ? "cursor-pointer" : ""
-      }`}
+      className="sticky top-3 sm:top-4 z-50 mx-auto w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)]"
     >
       {/* Floating Capsule Bar */}
       <div
@@ -207,7 +215,7 @@ export function Header() {
         {/* Left: Brand Logo */}
         <Link
           href="/"
-          className="flex items-center gap-1.5 sm:gap-3 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg"
+          className={`${isExpanded ? "flex" : "hidden sm:flex"} items-center gap-1.5 sm:gap-3 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-lg`}
           aria-label="Tasneem Knit Industry Home"
         >
           <div
@@ -355,7 +363,7 @@ export function Header() {
         )}
 
         {/* Right: Actions (Language, Log In, Primary CTA, or Compact Trigger) */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className={`${isExpanded ? "flex gap-2 sm:gap-3 shrink-0" : "flex w-full sm:w-auto justify-center gap-1.5"} items-center`}>
           {isExpanded ? (
             <div className="flex items-center gap-2 sm:gap-3 animate-in fade-in duration-200">
               {/* Subtle Language Pill */}
@@ -411,45 +419,43 @@ export function Header() {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setMobileMenuOpen(true);
+                  handleCompactMenuClick();
                 }}
-                className="px-3 py-1.5 rounded-full bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
+                className="min-h-9 px-2.5 sm:px-3 py-1.5 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-800 text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
                 title={locale === "bn" ? "মেনু খুলুন" : "Open menu"}
                 aria-label={locale === "bn" ? "মেনু খুলুন" : "Open menu"}
               >
                 <Menu className="w-3.5 h-3.5" />
-                <span className="text-[11px] font-semibold">{locale === "bn" ? "মেনু" : "Menu"}</span>
+                <span className="hidden min-[380px]:inline text-[11px] font-semibold">{locale === "bn" ? "মেনু" : "Menu"}</span>
               </button>
+
+              <LanguageSwitcher variant="capsule" />
+
+              <Link
+                href="/machines"
+                onClick={(e) => e.stopPropagation()}
+                className="min-h-9 px-3 sm:px-4 py-1.5 rounded-full bg-[#800020] hover:bg-[#600018] text-white text-[11px] sm:text-xs font-bold inline-flex items-center gap-1.5 shadow-sm transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] focus-visible:ring-offset-2"
+              >
+                <span>{locale === "bn" ? "পণ্যসমূহ" : "Products"}</span>
+                <ArrowRight className="hidden sm:block w-3.5 h-3.5" />
+              </Link>
             </div>
           )}
         </div>
       </div>
     </motion.header>
 
-    {/* Off-Canvas Navigation Drawer */}
+    {/* Small-screen navigation expands below the navbar instead of using a side drawer. */}
     <AnimatePresence>
       {mobileMenuOpen && (
-        <>
-          {/* Dimmed Backdrop */}
           <motion.div
-            key="drawer-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-xs"
-            aria-hidden="true"
-          />
-
-          {/* Slide-in Drawer */}
-          <motion.div
-            key="nav-drawer"
-            initial={{ x: shouldReduceMotion ? 0 : "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: shouldReduceMotion ? 0 : "100%" }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed top-0 right-0 bottom-0 z-[70] w-[85vw] max-w-xs sm:max-w-sm bg-white/95 backdrop-blur-2xl shadow-2xl flex flex-col justify-between p-4 sm:p-6 border-l border-white/60"
+            key="expanded-mobile-nav"
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-[60] w-[calc(100%-1.25rem)] sm:w-[calc(100%-2.5rem)] max-w-2xl max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-3xl bg-white/95 backdrop-blur-2xl shadow-2xl p-4 sm:p-6 border border-white/80 lg:hidden"
+            data-lenis-prevent
           >
             <div
               className="flex flex-col gap-6 overflow-y-auto flex-1 min-h-0 pr-1"
@@ -593,8 +599,7 @@ export function Header() {
                   </Link>
                 )}
               </div>
-            </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

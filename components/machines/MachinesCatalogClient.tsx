@@ -98,6 +98,17 @@ export function MachinesCatalogClient({
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (isMobileFilterOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileFilterOpen]);
+
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
     setSelectedSubCategory("all");
@@ -291,13 +302,18 @@ export function MachinesCatalogClient({
         </div>
       </div>
 
-      {/* Docked Floating Side Filter Button when Sidebar is Hidden */}
-      {!isSidebarVisible && (
+      {/* Docked Floating Side Filter Button (Mobile: always visible; Desktop: visible when sidebar hidden) */}
+      {!isMobileFilterOpen && (
         <button
           type="button"
-          onClick={() => setIsSidebarVisible(true)}
-          className="fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-[#800020] hover:bg-[#600018] text-white py-3.5 px-2.5 rounded-r-2xl shadow-xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:pl-3 group active:scale-95 border-y border-r border-rose-400/30"
-          title={locale === "bn" ? "ফিল্টার সাইডবার খুলুন" : "Open Filters"}
+          onClick={() => {
+            setIsMobileFilterOpen(true);
+            setIsSidebarVisible(true);
+          }}
+          className={`fixed left-0 top-1/2 -translate-y-1/2 z-40 bg-[#800020] hover:bg-[#600018] text-white py-3.5 px-2.5 rounded-r-2xl shadow-xl flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:pl-3 group active:scale-95 border-y border-r border-rose-400/30 ${
+            isSidebarVisible ? "flex lg:hidden" : "flex"
+          }`}
+          title={locale === "bn" ? "ফিল্টার খুলুন" : "Open Filters"}
           aria-label="Open Filters"
         >
           <SlidersHorizontal className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
@@ -305,7 +321,7 @@ export function MachinesCatalogClient({
             {locale === "bn" ? "ফিল্টার" : "Filters"}
           </span>
           {hasActiveFilters && (
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 ring-2 ring-white shadow-xs" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 ring-2 ring-white shadow-xs animate-pulse" />
           )}
         </button>
       )}
@@ -838,75 +854,128 @@ export function MachinesCatalogClient({
         </div>
       </div>
 
-      {/* ================= MOBILE FILTER SLIDE-OUT DRAWER ================= */}
+      {/* ================= MOBILE FILTER BOTTOM SHEET POPUP ================= */}
       {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
+        <div className="fixed inset-0 z-50 lg:hidden flex flex-col justify-end animate-in fade-in duration-200">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setIsMobileFilterOpen(false)}
           />
 
-          {/* Drawer Content */}
-          <div className="relative w-full max-w-xs bg-white h-full shadow-2xl z-10 flex flex-col justify-between overflow-y-auto p-5">
-            <div className="space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                  <SlidersHorizontal className="w-4 h-4 text-[#800020]" />
-                  <span>{locale === "bn" ? "ফিল্টার সমূহ" : "Filters"}</span>
+          {/* Bottom Sheet Modal */}
+          <div className="relative w-full max-h-[88vh] bg-white rounded-t-[28px] shadow-2xl z-10 flex flex-col animate-in slide-in-from-bottom duration-300 border-t border-slate-200/80">
+            {/* Drag Handle indicator */}
+            <div className="pt-3 pb-1 flex justify-center shrink-0">
+              <div className="w-12 h-1.5 bg-slate-300/80 rounded-full" />
+            </div>
+
+            {/* Header */}
+            <div className="px-5 py-3 flex items-center justify-between border-b border-slate-100 shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#FDF2F4] flex items-center justify-center text-[#800020]">
+                  <SlidersHorizontal className="w-4 h-4" />
                 </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    {locale === "bn" ? "ফিল্টার সমূহ" : "Filter Machinery"}
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    {locale === "bn"
+                      ? `${sortedMachines.length}টি মেশিন খুঁজে পাওয়া গেছে`
+                      : `${sortedMachines.length} machines available`}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearAllFilters}
+                    className="text-xs font-semibold text-[#800020] hover:underline flex items-center gap-1 cursor-pointer py-1 px-2"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>{locale === "bn" ? "রিসেট" : "Reset"}</span>
+                  </button>
+                )}
                 <button
                   onClick={() => setIsMobileFilterOpen(false)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+                  aria-label="Close filters"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
+            </div>
 
+            {/* Scrollable Filters Body */}
+            <div className="overflow-y-auto px-5 py-4 space-y-5 flex-1 overscroll-contain">
               {/* Mobile Search */}
               <div>
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-                  {locale === "bn" ? "অনুসন্ধান" : "Search"}
+                  {locale === "bn" ? "অনুসন্ধান" : "Search Machinery"}
                 </label>
-                <input
-                  type="text"
-                  placeholder={locale === "bn" ? "মডেল, ব্র্যান্ড..." : "Model, brand..."}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800"
-                />
+                <div className="relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder={locale === "bn" ? "মডেল, ব্র্যান্ড, গেজ..." : "Model, brand, gauge..."}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-[#800020] transition-colors"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
 
-              {/* Mobile Categories with Icons */}
+              {/* Mobile Categories Chips/Grid */}
               <div>
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-                  {locale === "bn" ? "ক্যাটাগরি" : "Categories"}
-                </label>
-                <div className="space-y-1.5">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    {locale === "bn" ? "ক্যাটাগরি" : "Categories"}
+                  </label>
+                  <span className="text-[10px] text-slate-400 font-semibold">
+                    ({mainCategoriesList.length + 1})
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => handleCategoryChange("all")}
-                    className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-semibold cursor-pointer ${
+                    className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-all ${
                       selectedCategory === "all"
-                        ? "bg-[#800020] text-white font-bold"
-                        : "text-slate-700 bg-slate-50"
+                        ? "bg-[#800020] text-white shadow-xs"
+                        : "text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200/60"
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <LayoutGrid className="w-3.5 h-3.5" />
-                      <span>All Categories</span>
+                    <div className="flex items-center gap-2 truncate">
+                      <LayoutGrid className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{locale === "bn" ? "সব ক্যাটাগরি" : "All Categories"}</span>
                     </div>
-                    <span>({machines.length})</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      selectedCategory === "all" ? "bg-white/20 text-white" : "bg-slate-200/70 text-slate-600"
+                    }`}>
+                      {machines.length}
+                    </span>
                   </button>
+
                   {mainCategoriesList.map((cat) => {
                     const Icon = CATEGORY_ICONS[cat.slug] || Layers;
+                    const isSelected = selectedCategory === cat.slug;
                     return (
                       <button
                         key={cat.slug}
                         onClick={() => handleCategoryChange(cat.slug)}
-                        className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-semibold cursor-pointer ${
-                          selectedCategory === cat.slug
-                            ? "bg-[#800020] text-white font-bold"
-                            : "text-slate-700 bg-slate-50"
+                        className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-all ${
+                          isSelected
+                            ? "bg-[#800020] text-white shadow-xs"
+                            : "text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200/60"
                         }`}
                       >
                         <div className="flex items-center gap-2 truncate">
@@ -919,7 +988,34 @@ export function MachinesCatalogClient({
                 </div>
               </div>
 
-              {/* Mobile Brand */}
+              {/* Circular Knitting Sub-categories if active */}
+              {selectedCategory === "circular-knitting" && (
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200/70 space-y-2">
+                  <label className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">
+                    {locale === "bn" ? "সার্কুলার টাইপ" : "Knitting Type"}
+                  </label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {CIRCULAR_SUB_CATEGORIES.map((sub) => {
+                      const isSubSelected = selectedSubCategory === sub.slug;
+                      return (
+                        <button
+                          key={sub.slug}
+                          onClick={() => setSelectedSubCategory(sub.slug)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                            isSubSelected
+                              ? "bg-[#800020] text-white"
+                              : "bg-white text-slate-700 border border-slate-200"
+                          }`}
+                        >
+                          {sub.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Mobile Brands */}
               <div>
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
                   {locale === "bn" ? "ব্র্যান্ড" : "Brands"}
@@ -927,56 +1023,66 @@ export function MachinesCatalogClient({
                 <select
                   value={selectedBrand}
                   onChange={(e) => setSelectedBrand(e.target.value)}
-                  className="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700"
+                  className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:bg-white focus:outline-none focus:border-[#800020]"
                 >
-                  <option value="all">All Brands</option>
+                  <option value="all">{locale === "bn" ? "সকল ব্র্যান্ড" : "All Brands"}</option>
                   {availableBrands.map((b) => (
                     <option key={b} value={b}>{b}</option>
                   ))}
                 </select>
               </div>
 
-              {/* Mobile Specs */}
-              <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                  {locale === "bn" ? "স্পেসিফিকেশন" : "Specs"}
-                </label>
-                <select
-                  value={selectedGauge}
-                  onChange={(e) => setSelectedGauge(e.target.value)}
-                  className="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700"
-                >
-                  <option value="all">All Gauges</option>
-                  {availableGauges.map((g) => (
-                    <option key={g} value={g}>Gauge: {g}</option>
-                  ))}
-                </select>
-                <select
-                  value={selectedDiameter}
-                  onChange={(e) => setSelectedDiameter(e.target.value)}
-                  className="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700"
-                >
-                  <option value="all">All Diameters</option>
-                  {availableDiameters.map((d) => (
-                    <option key={d} value={d}>Dia: {d}</option>
-                  ))}
-                </select>
+              {/* Mobile Technical Specs */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                    {locale === "bn" ? "গেজ (Gauge)" : "Gauge"}
+                  </label>
+                  <select
+                    value={selectedGauge}
+                    onChange={(e) => setSelectedGauge(e.target.value)}
+                    className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:bg-white focus:outline-none focus:border-[#800020]"
+                  >
+                    <option value="all">{locale === "bn" ? "সব গেজ" : "All Gauges"}</option>
+                    {availableGauges.map((g) => (
+                      <option key={g} value={g}>Gauge: {g}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                    {locale === "bn" ? "ডায়ামিটার (Diameter)" : "Diameter"}
+                  </label>
+                  <select
+                    value={selectedDiameter}
+                    onChange={(e) => setSelectedDiameter(e.target.value)}
+                    className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:bg-white focus:outline-none focus:border-[#800020]"
+                  >
+                    <option value="all">{locale === "bn" ? "সব ডায়ামিটার" : "All Diameters"}</option>
+                    {availableDiameters.map((d) => (
+                      <option key={d} value={d}>Dia: {d}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Drawer Apply Buttons */}
-            <div className="pt-4 border-t border-slate-100 flex items-center gap-2">
+            {/* Bottom Sheet Sticky Footer */}
+            <div className="p-4 border-t border-slate-100 bg-white/95 backdrop-blur-xs flex items-center gap-3 pb-6 shrink-0">
               <button
                 onClick={clearAllFilters}
-                className="w-1/2 py-2.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer"
+                className="w-1/3 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
               >
-                Reset
+                {locale === "bn" ? "রিসেট" : "Reset"}
               </button>
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-1/2 py-2.5 rounded-full bg-[#800020] text-white text-xs font-bold shadow-sm cursor-pointer"
+                className="w-2/3 py-3 rounded-xl bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold shadow-md transition-all active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2"
               >
-                Apply ({sortedMachines.length})
+                <span>{locale === "bn" ? "মেশিন দেখুন" : "View Machinery"}</span>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold">
+                  {sortedMachines.length}
+                </span>
               </button>
             </div>
           </div>

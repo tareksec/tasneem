@@ -1,5 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = "mysql://localhost:3306/tasneem_db";
+}
+
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };

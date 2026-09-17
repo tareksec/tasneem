@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { getCategoryInfo } from "@/lib/machines-data";
 import { getDbMachineById, getDbMachines } from "@/lib/db/machines";
-import prisma from "@/lib/prisma";
 import { COMPANY_INFO } from "@/lib/constants";
 import { MachineCategory } from "@/lib/types";
 import { MachineSpecTable, SpecRow } from "@/components/machines/MachineSpecTable";
@@ -42,10 +41,6 @@ export async function generateMetadata({
   params: Promise<{ category: string; id: string }>;
 }): Promise<Metadata> {
   const { category, id } = await params;
-  const dbRecord = await prisma.machine.findUnique({
-    where: { id },
-  });
-  if (!dbRecord) return {};
 
   const machine = await getDbMachineById(id);
   if (!machine) return {};
@@ -89,14 +84,6 @@ export default async function MachineDetailPage({
 }) {
   const { category, id } = await params;
 
-  // Immediately 404 if machine is not in database (prevents in-memory fallback)
-  const dbRecord = await prisma.machine.findUnique({
-    where: { id },
-  });
-
-  if (!dbRecord) {
-    notFound();
-  }
 
   const machine = await getDbMachineById(id);
 
