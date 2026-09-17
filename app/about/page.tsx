@@ -104,6 +104,16 @@ export default function AboutPage() {
                     </a>
                   </div>
                 </div>
+
+                <div className="pt-4 border-t border-[#E5E7EB] mt-3">
+                  <Link
+                    href="/founder"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#800020] hover:text-[#5A0017] transition-colors group"
+                  >
+                    <span>{locale === "bn" ? "প্রতিষ্ঠাতার বিস্তারিত প্রোফাইল ও দর্শন দেখুন" : "View Founder's Full Story & Leadership Vision"}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

@@ -348,6 +348,12 @@ export function Header() {
               {dict.nav.about}
             </Link>
             <Link
+              href="/founder"
+              className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
+            >
+              {dict.nav.founder}
+            </Link>
+            <Link
               href="/blog"
               className="whitespace-nowrap shrink-0 hover:text-black transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] rounded-md px-1"
             >
@@ -545,6 +551,13 @@ export function Header() {
                     className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
                   >
                     {dict.nav.about}
+                  </Link>
+                  <Link
+                    href="/founder"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2.5 px-3 rounded-xl hover:bg-neutral-50 transition-colors"
+                  >
+                    {dict.nav.founder}
                   </Link>
                   <Link
                     href="/blog"

@@ -14,6 +14,7 @@ import {
   X,
   Filter,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { AdminStore } from "@/lib/admin/admin-store";
@@ -227,103 +228,127 @@ export default function ProjectsPage() {
             ))}
           </StaggerContainer>
         ) : (
-          /* Live Real Installation Gallery Grid */
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          /* Live Real Installation Gallery Grid with Stagger & Media Animations */
+          <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {filteredItems.map((item) => {
               const isVideo = item.type === "video";
               const title = locale === "bn" && item.title_bn ? item.title_bn : item.title_en;
               const desc = locale === "bn" && item.description_bn ? item.description_bn : item.description_en;
 
               return (
-                <div
-                  key={item.id}
-                  onClick={() => setActiveMedia(item)}
-                  className="group cursor-pointer border border-[#E5E7EB] rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-lg hover:border-neutral-400 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Media Thumbnail Container */}
-                    <div className="relative w-full aspect-[16/10] bg-neutral-900 overflow-hidden">
-                      {item.thumbnail || (!isVideo && item.file) ? (
-                        <Image
-                          src={item.thumbnail || item.file}
-                          alt={title}
-                          fill
-                          unoptimized={Boolean((item.thumbnail || item.file)?.startsWith("http"))}
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center text-neutral-400">
-                          <Video className="w-8 h-8" />
-                          <span className="text-xs mt-1">Video Record</span>
-                        </div>
-                      )}
+                <StaggerItem key={item.id}>
+                  <div
+                    onClick={() => setActiveMedia(item)}
+                    className="group cursor-pointer border border-[#E5E7EB] rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#800020]/30 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between h-full"
+                  >
+                    <div>
+                      {/* Media Thumbnail Container with Shimmer Light Sweep */}
+                      <div className="relative w-full aspect-[16/10] bg-neutral-900 overflow-hidden">
+                        {/* Shimmer Light Reflection Sweep on Hover */}
+                        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
 
-                      {/* Video Play Affordance */}
-                      {isVideo && (
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors flex items-center justify-center">
-                          <div className="w-13 h-13 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                            <Play className="w-6 h-6 ml-0.5 fill-current" />
+                        {item.thumbnail || (!isVideo && item.file) ? (
+                          <Image
+                            src={item.thumbnail || item.file}
+                            alt={title}
+                            fill
+                            unoptimized={Boolean((item.thumbnail || item.file)?.startsWith("http"))}
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-[0.5deg]"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center text-neutral-400 group-hover:scale-105 transition-transform duration-500">
+                            <Video className="w-8 h-8 animate-pulse" />
+                            <span className="text-xs mt-1 font-medium">Video Record</span>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      {/* Badges */}
-                      <div className="absolute top-3 left-3 flex items-center gap-2 z-10">
-                        <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-xs ${
-                            isVideo ? "bg-purple-600 text-white" : "bg-neutral-900/85 backdrop-blur-xs text-white"
-                          }`}
-                        >
-                          {isVideo ? <Video className="w-3 h-3" /> : <ImageIcon className="w-3 h-3" />}
-                          <span>{isVideo ? "Video" : "Photo"}</span>
-                        </span>
+                        {/* Video Play Affordance with Pulsing Radar Waves */}
+                        {isVideo && (
+                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors duration-300 flex items-center justify-center">
+                            <div className="relative flex items-center justify-center">
+                              <span className="absolute -inset-3 rounded-full bg-[#800020]/40 animate-ping duration-1000 pointer-events-none" />
+                              <span className="absolute -inset-1.5 rounded-full bg-[#800020]/30 animate-pulse pointer-events-none" />
+                              <div className="relative w-14 h-14 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-xl group-hover:scale-115 group-hover:bg-[#600018] group-hover:shadow-[0_0_30px_rgba(128,0,32,0.6)] transition-all duration-300">
+                                <Play className="w-6 h-6 ml-0.5 fill-current transition-transform duration-300 group-hover:scale-110" />
+                              </div>
+                            </div>
+                          </div>
+                        )}
 
-                        {item.relatedCategory && (
-                          <span className="bg-white/95 backdrop-blur-xs text-neutral-900 text-[10px] font-semibold px-2.5 py-0.5 rounded-full shadow-2xs capitalize">
-                            {item.relatedCategory.replace("-", " ")}
+                        {/* Photo Hover Zoom Affordance */}
+                        {!isVideo && (
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center pointer-events-none">
+                            <div className="opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300 w-11 h-11 rounded-full bg-white/95 backdrop-blur-xs text-[#800020] flex items-center justify-center shadow-lg">
+                              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Top Badges */}
+                        <div className="absolute top-3 left-3 flex items-center gap-2 z-20">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-xs backdrop-blur-xs transition-transform duration-300 group-hover:scale-105 ${
+                              isVideo ? "bg-purple-600/90 text-white" : "bg-neutral-900/85 text-white"
+                            }`}
+                          >
+                            {isVideo ? (
+                              <>
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                                <Video className="w-3 h-3" />
+                              </>
+                            ) : (
+                              <ImageIcon className="w-3 h-3 transition-transform duration-300 group-hover:scale-110" />
+                            )}
+                            <span>{isVideo ? "Video" : "Photo"}</span>
                           </span>
+
+                          {item.relatedCategory && (
+                            <span className="bg-white/95 backdrop-blur-xs text-neutral-900 text-[10px] font-semibold px-2.5 py-0.5 rounded-full shadow-2xs capitalize">
+                              {item.relatedCategory.replace("-", " ")}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Information */}
+                      <div className="p-6">
+                        {item.location && (
+                          <div className="flex items-center gap-1.5 text-xs text-[#6B7280] mb-2 font-medium">
+                            <MapPin className="w-3.5 h-3.5 text-[#800020]" />
+                            <span>{item.location}</span>
+                          </div>
+                        )}
+
+                        <h2 className="font-bold text-lg text-[#2D2D2D] mb-2 group-hover:text-[#800020] transition-colors line-clamp-2">
+                          {title}
+                        </h2>
+
+                        {desc && (
+                          <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed line-clamp-3 mb-2">
+                            {desc}
+                          </p>
                         )}
                       </div>
                     </div>
 
-                    {/* Information */}
-                    <div className="p-6">
-                      {item.location && (
-                        <div className="flex items-center gap-1.5 text-xs text-[#6B7280] mb-2 font-medium">
-                          <MapPin className="w-3.5 h-3.5 text-[#800020]" />
-                          <span>{item.location}</span>
-                        </div>
-                      )}
+                    {/* Footer Meta */}
+                    <div className="px-6 py-3.5 border-t border-[#E5E7EB] bg-[#F9FAFB] flex items-center justify-between text-xs text-[#6B7280]">
+                      <div className="flex items-center gap-1.5 font-semibold text-emerald-700">
+                        <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                        <span>{locale === "bn" ? "সফলভাবে ইনস্টলকৃত" : "Verified Installation"}</span>
+                      </div>
 
-                      <h2 className="font-bold text-lg text-[#2D2D2D] mb-2 group-hover:text-[#800020] transition-colors line-clamp-2">
-                        {title}
-                      </h2>
-
-                      {desc && (
-                        <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed line-clamp-3 mb-2">
-                          {desc}
-                        </p>
+                      {item.installedDate && (
+                        <span className="font-mono text-[11px] text-neutral-500">
+                          {item.installedDate}
+                        </span>
                       )}
                     </div>
                   </div>
-
-                  {/* Footer Meta */}
-                  <div className="px-6 py-3.5 border-t border-[#E5E7EB] bg-[#F9FAFB] flex items-center justify-between text-xs text-[#6B7280]">
-                    <div className="flex items-center gap-1.5 font-semibold text-emerald-700">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                      <span>{locale === "bn" ? "সফলভাবে ইনস্টলকৃত" : "Verified Installation"}</span>
-                    </div>
-
-                    {item.installedDate && (
-                      <span className="font-mono text-[11px] text-neutral-500">
-                        {item.installedDate}
-                      </span>
-                    )}
-                  </div>
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         )}
 
         {/* CTA Banner */}
@@ -352,88 +377,105 @@ export default function ProjectsPage() {
       </div>
 
       {/* Public Interactive Lightbox Modal */}
-      {activeMedia && (
-        <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
-          onClick={() => setActiveMedia(null)}
-        >
-          <div
-            className="relative w-full max-w-4xl bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {activeMedia && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setActiveMedia(null)}
           >
-            {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-neutral-200 flex items-center justify-between gap-4 bg-neutral-50">
-              <div>
-                <h3 className="font-bold text-base sm:text-lg text-neutral-900 line-clamp-1">
-                  {locale === "bn" && activeMedia.title_bn ? activeMedia.title_bn : activeMedia.title_en}
-                </h3>
-                <div className="flex items-center gap-3 text-xs text-neutral-500 mt-0.5">
-                  {activeMedia.location && (
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#800020]" />
-                      <span>{activeMedia.location}</span>
-                    </span>
-                  )}
-                  {activeMedia.installedDate && (
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-neutral-400" />
-                      <span>{activeMedia.installedDate}</span>
-                    </span>
-                  )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 320 }}
+              className="relative w-full max-w-4xl bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="p-4 sm:p-5 border-b border-neutral-200 flex items-center justify-between gap-4 bg-neutral-50">
+                <div>
+                  <h3 className="font-bold text-base sm:text-lg text-neutral-900 line-clamp-1">
+                    {locale === "bn" && activeMedia.title_bn ? activeMedia.title_bn : activeMedia.title_en}
+                  </h3>
+                  <div className="flex items-center gap-3 text-xs text-neutral-500 mt-0.5">
+                    {activeMedia.location && (
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-[#800020]" />
+                        <span>{activeMedia.location}</span>
+                      </span>
+                    )}
+                    {activeMedia.installedDate && (
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 text-neutral-400" />
+                        <span>{activeMedia.installedDate}</span>
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveMedia(null)}
+                  className="w-8 h-8 rounded-full bg-white border border-neutral-300 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 flex items-center justify-center transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setActiveMedia(null)}
-                className="w-8 h-8 rounded-full bg-white border border-neutral-300 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 flex items-center justify-center transition-colors shrink-0"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Media Player / Canvas */}
-            <div className="relative w-full aspect-video bg-neutral-950 flex items-center justify-center overflow-hidden">
-              {activeMedia.type === "video" ? (
-                activeMedia.file.includes("youtube") || activeMedia.file.includes("embed") ? (
-                  <iframe
-                    src={ensureYouTubeAutoplayUrl(activeMedia.file)}
-                    title={activeMedia.title_en}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
+              {/* Media Player / Canvas */}
+              <div className="relative w-full aspect-video bg-neutral-950 flex items-center justify-center overflow-hidden">
+                {activeMedia.type === "video" ? (
+                  activeMedia.file.includes("youtube") || activeMedia.file.includes("embed") ? (
+                    <iframe
+                      src={ensureYouTubeAutoplayUrl(activeMedia.file)}
+                      title={activeMedia.title_en}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <video
+                      src={activeMedia.file}
+                      controls
+                      autoPlay
+                      muted
+                      playsInline
+                      className="w-full h-full object-contain"
+                    />
+                  )
                 ) : (
-                  <video
-                    src={activeMedia.file}
-                    controls
-                    autoPlay
-                    muted
-                    playsInline
-                    className="w-full h-full object-contain"
-                  />
-                )
-              ) : (
-                <Image
-                  src={activeMedia.file}
-                  alt={activeMedia.title_en}
-                  fill
-                  className="object-contain"
-                />
-              )}
-            </div>
-
-            {/* Description */}
-            {(activeMedia.description_en || activeMedia.description_bn) && (
-              <div className="p-4 sm:p-5 bg-white border-t border-neutral-100 text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                {locale === "bn" && activeMedia.description_bn
-                  ? activeMedia.description_bn
-                  : activeMedia.description_en}
+                  <motion.div
+                    initial={{ scale: 0.98, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.25 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={activeMedia.file}
+                      alt={activeMedia.title_en}
+                      fill
+                      className="object-contain"
+                    />
+                  </motion.div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-      )}
+
+              {/* Description */}
+              {(activeMedia.description_en || activeMedia.description_bn) && (
+                <div className="p-4 sm:p-5 bg-white border-t border-neutral-100 text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                  {locale === "bn" && activeMedia.description_bn
+                    ? activeMedia.description_bn
+                    : activeMedia.description_en}
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

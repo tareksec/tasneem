@@ -27,7 +27,7 @@ export function Footer() {
       .then((data) => {
         if (data?.mainCategories && Array.isArray(data.mainCategories)) {
           setCategories(
-            data.mainCategories.map((c: any) => ({
+            data.mainCategories.map((c: { slug: string; name: string; name_bn?: string }) => ({
               slug: c.slug,
               name: c.name,
               name_bn: c.name_bn || c.name,
@@ -116,6 +116,11 @@ export function Footer() {
                 <li>
                   <Link href="/about" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">
                     {dict.nav.about}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/founder" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">
+                    {dict.nav.founder} ({locale === "bn" ? "মোঃ মামুনুর রশীদ" : "Md. Mamunur Rashid"})
                   </Link>
                 </li>
                 <li>

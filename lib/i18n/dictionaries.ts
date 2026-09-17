@@ -11,6 +11,7 @@ export interface Dictionary {
     projects: string;
     resources: string;
     faq: string;
+    founder: string;
     contact: string;
     requestQuote: string;
   };
@@ -212,6 +213,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       projects: "Projects",
       resources: "Resources",
       faq: "FAQ",
+      founder: "Founder",
       contact: "Contact",
       requestQuote: "Request a Quote",
     },
@@ -438,6 +440,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       projects: "প্রজেক্ট গ্যালারি",
       resources: "টেকনিক্যাল গাইড",
       faq: "সাধারণ জিজ্ঞাসা",
+      founder: "প্রতিষ্ঠাতা",
       contact: "যোগাযোগ",
       requestQuote: "কোটেশন নিন",
     },
