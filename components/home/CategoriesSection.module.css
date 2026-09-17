@@ -1,0 +1,18 @@
+/* Reserve space for the heading, category controls and progress indicator. */
+.card {
+  height: clamp(360px, calc(100svh - 280px), 570px);
+}
+
+@media (min-width: 768px) and (max-height: 740px) {
+  .stage {
+    padding-top: 4.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Short landscape windows must scroll vertically to reach every card action. */
+@media (min-width: 768px) and (max-height: 620px) {
+  .stage {
+    overflow-y: auto;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, HelpCircle } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FaqAccordionItem } from "@/components/ui/FaqAccordionItem";
 import { MotionSection, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -19,15 +19,15 @@ export function HomeFaqSection() {
   ];
 
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5]">
+    <section className="py-16 sm:py-24 lg:py-28 bg-[#FAFAFA] border-b border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionSection className="text-center max-w-2xl mx-auto mb-12">
           <span className="sr-only">{dict.faq.badge}</span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight leading-[1.35] text-balance text-[#2D2D2D]">
             {dict.faq.title}
           </h2>
-          <p className="mt-3 text-sm text-[#4A4A4A]">
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#4A4A4A]">
             {dict.faq.subtitle}
           </p>
         </MotionSection>

@@ -5,7 +5,6 @@ import {
   ShieldCheck,
   Factory,
   Ship,
-  Wrench,
   ArrowUpRight,
   Phone,
   CheckCircle2,
@@ -57,7 +56,7 @@ export function HomeAboutSection() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 pt-2 border-t border-slate-200/80">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 pt-8 border-t border-slate-200/80">
             {pillars.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
@@ -68,7 +67,7 @@ export function HomeAboutSection() {
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                     {pillar.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-[1.8]">
                     {pillar.desc}
                   </p>
                 </div>
@@ -83,7 +82,7 @@ export function HomeAboutSection() {
           <div className="lg:col-span-6 relative">
             <SlideIn direction="left" distance={24} duration={0.45}>
               {/* Asymmetric Curved Container (rounded-3xl with large custom curve) */}
-              <div className="relative rounded-[32px] rounded-br-[90px] sm:rounded-br-[120px] overflow-hidden border border-slate-200/90 bg-white p-3 sm:p-4 shadow-2xl shadow-slate-900/6">
+              <div className="relative rounded-[32px] rounded-br-[90px] sm:rounded-br-[120px] overflow-hidden border border-slate-200/90 bg-white p-3 sm:p-4 shadow-[0_16px_48px_-24px_rgba(15,23,42,0.18)]">
                 {/* Top Video Stream Bar */}
                 <div className="flex items-center justify-between px-3 py-2 mb-2 border-b border-slate-100 text-xs font-semibold text-slate-600">
                   <div className="flex items-center gap-2">
@@ -158,10 +157,10 @@ export function HomeAboutSection() {
           {/* Right Column: Editorial Quote, Stat Card & Clean Narrative (Inspired by Screenshot 2) */}
           <div className="lg:col-span-6 space-y-6">
             <SlideIn direction="right" distance={24} duration={0.45}>
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-2">
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row sm:items-start justify-between gap-6 mb-2">
                 {/* Editorial Headline */}
                 <div className="max-w-md">
-                  <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-[1.4] text-balance">
                     {isBn ? (
                       <>
                         “সরাসরি কারখানা থেকে আমদানি ও বিশ্বস্ত টেকনিক্যাল সাপোর্ট”
@@ -175,7 +174,7 @@ export function HomeAboutSection() {
                 </div>
 
                 {/* Modern Floating Stat Card (Inspired by Screenshot 2: "30+ Years Experience") */}
-                <div className="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-lg shadow-slate-900/5 sm:w-56 shrink-0 space-y-3">
+                <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm w-full sm:w-48 lg:w-full xl:w-48 shrink-0 space-y-3">
                   <div>
                     <div className="text-4xl font-extrabold text-slate-900 tracking-tight flex items-baseline gap-1">
                       <span>25</span>
@@ -192,7 +191,7 @@ export function HomeAboutSection() {
                   </p>
                   <Link
                     href="/about"
-                    className="inline-flex items-center justify-center w-full py-2 px-3.5 rounded-full bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                    className="inline-flex items-center justify-center w-full py-2.5 px-3 rounded-full bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold whitespace-nowrap shadow-xs transition-all cursor-pointer"
                   >
                     <span>{isBn ? "প্রোফাইল দেখুন" : "About Founder"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
@@ -201,7 +200,7 @@ export function HomeAboutSection() {
               </div>
 
               {/* Editorial Description Paragraph */}
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed pt-2">
+              <p className="text-sm sm:text-base text-slate-600 leading-[1.85] pt-4">
                 {isBn
                   ? "তাসনীম নিট ইন্ডাস্ট্রি কোনো মধ্যস্বত্বভোগী বা ব্রোকার ছাড়াই চীন ও তাইওয়ানের শীর্ষস্থানীয় OEM প্রস্তুতকারকদের সাথে সরাসরি সমন্বয় করে আন্তর্জাতিক মানের সার্কুলার নিটিং মেশিন আমদানি করে। প্রতিটি মেশিনের শিপমেন্টের পূর্বে কোয়ালিটি ইন্সপেকশন, সিএফআর চট্টগ্রাম পোর্ট ক্লিয়ারেন্স ও কারখানা ফ্লোরে নিখুঁত অন-সাইট কমিশনিং নিশ্চিত করা হয়।"
                   : "With a client-focused approach, Tasneem Knit Industry connects composite knitwear mills directly with global machinery builders. We eliminate intermediate markups, ensuring authentic components, guaranteed CFR shipping terms, and factory-level after-sales maintenance."}

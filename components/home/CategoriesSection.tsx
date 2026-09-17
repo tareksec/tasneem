@@ -8,6 +8,7 @@ import { ArrowUpRight, Layers } from "lucide-react";
 import { MAIN_CATEGORIES } from "@/lib/machines-data";
 import { CategoryInfo } from "@/lib/types";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import styles from "./CategoriesSection.module.css";
 
 const getCategoryImageUrl = (slug: string) => {
   if (slug === "circular-knitting") return "/images/machines/cat-circular-knitting.webp";
@@ -97,8 +98,8 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                   {locale === "bn" ? `${categories.length}টি মূল ক্যাটাগরি` : `${categories.length} Primary Categories`}
                 </span>
               </div>
-              <h2 className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-base sm:text-3xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
-                Industrial Machinery Catalog
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#2D2D2D] leading-[1.4] text-balance">
+                {locale === "bn" ? "আমদানিকৃত টেক্সটাইল ও গার্মেন্টস মেশিনারি" : "Industrial Machinery Catalog"}
               </h2>
             </div>
             <Link href="/machines" className="inline-flex items-center gap-1 text-xs font-bold text-[#800020] whitespace-nowrap">
@@ -162,7 +163,7 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                         {category.typicalGauge !== "Universal" ? category.typicalGauge : "CFR"}
                       </span>
                     </div>
-                    <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-neutral-500">{catTagline}</p>
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-neutral-600">{catTagline}</p>
                     <div className="mt-2 flex items-center justify-between border-t border-neutral-100 pt-2">
                       <span className="text-[10px] font-bold text-[#800020]">{locale === "bn" ? "মেশিন দেখুন" : "View machines"}</span>
                       <ArrowUpRight className="h-3.5 w-3.5 text-[#800020]" />
@@ -181,9 +182,9 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
         className="hidden md:block relative h-[300vh] sm:h-[350vh] bg-[#F9F9F9] text-[#2D2D2D] border-b border-[#E5E5E5]"
       >
         {/* Sticky Viewport Stage */}
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between pt-16 sm:pt-20 pb-8 sm:pb-10 px-4 sm:px-8 lg:px-12 overflow-hidden bg-[#F9F9F9]">
+        <div className={`${styles.stage} sticky top-0 h-screen w-full flex flex-col justify-between pt-16 sm:pt-20 pb-8 sm:pb-10 px-4 sm:px-8 lg:px-12 overflow-hidden bg-[#F9F9F9]`}>
           {/* Architectural Grid Accent */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+          <div className="absolute inset-0 opacity-40 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
           {/* 1. Header Zone: Title & Horizontal Tab Navigation */}
           <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col gap-4">
@@ -196,7 +197,7 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                     {locale === "bn" ? `${categories.length}টি মূল ক্যাটাগরি` : `${categories.length} Primary Categories`}
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#2D2D2D] leading-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D2D2D] leading-[1.35] text-balance">
                   {locale === "bn"
                     ? "আমদানিকৃত টেক্সটাইল ও গার্মেন্টস মেশিনারি"
                     : "Industrial Machinery Catalog"}
@@ -222,6 +223,7 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                   <button
                     key={category.slug}
                     onClick={() => scrollToCategory(idx)}
+                    aria-pressed={isActive}
                     className={`relative isolate px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020] ${isActive
                         ? "text-white shadow-md shadow-rose-950/25"
                         : "text-neutral-600 hover:text-[#2D2D2D] bg-white hover:bg-neutral-100 border border-neutral-200/90 shadow-xs"
@@ -259,7 +261,7 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
                 <Link
                   key={category.slug}
                   href={`/machines/${category.slug}`}
-                  className="relative w-[85vw] sm:w-[370px] lg:w-[410px] h-[530px] sm:h-[570px] shrink-0 rounded-3xl overflow-hidden bg-neutral-900 border border-[#E5E5E5] shadow-[0_15px_40px_-10px_rgba(0,0,0,0.12)] hover:shadow-[0_25px_50px_-12px_rgba(128,0,32,0.22)] hover:border-[#800020]/50 transition-all duration-500 flex flex-col justify-between p-4 sm:p-5 group select-none block cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]"
+                  className={`${styles.card} relative w-[85vw] sm:w-[370px] lg:w-[410px] shrink-0 rounded-3xl overflow-hidden bg-neutral-900 border border-[#E5E5E5] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.14)] hover:shadow-[0_20px_40px_-16px_rgba(128,0,32,0.18)] hover:border-[#800020]/50 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#800020]`}
                 >
                   {/* 1. Full-bleed background image */}
                   <Image
@@ -373,4 +375,3 @@ export function CategoriesSection({ initialCategories }: CategoriesSectionProps 
     </>
   );
 }
-

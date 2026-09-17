@@ -33,7 +33,7 @@ export function HeroSection() {
   }, [shouldReduceMotion, isSlowConnection]);
 
   return (
-    <section className="relative -mt-[68px] sm:-mt-[74px] pt-28 sm:pt-36 pb-20 sm:pb-28 lg:pb-32 min-h-[90vh] lg:min-h-[94vh] flex items-center overflow-hidden bg-neutral-950">
+    <section className="relative -mt-[68px] sm:-mt-[74px] pt-32 sm:pt-40 pb-16 sm:pb-24 lg:pb-28 min-h-[90svh] lg:min-h-[94svh] flex items-center overflow-hidden bg-neutral-950">
       {/* 1. Full-Bleed Video Background (Edge-to-Edge) */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {shouldReduceMotion || isSlowConnection ? (
@@ -65,11 +65,10 @@ export function HeroSection() {
         )}
       </div>
 
-      {/* 2. Localized Gradient Behind Text Region (NOT a full-frame overlay) */}
-      {/* Confined to the left 60-65% on desktop; widened on mobile for stacked readability */}
+      {/* Keep text legible across bright video frames at every screen size. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/35 max-md:bg-none lg:bg-gradient-to-r lg:from-black/90 lg:via-black/65 lg:to-transparent lg:w-[68%] xl:w-[60%] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-black/80 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/55 lg:via-45% lg:to-black/10 pointer-events-none"
       />
 
       {/* Subtle top & bottom vignette to blend seamlessly with navbar and following section */}
@@ -84,7 +83,7 @@ export function HeroSection() {
 
       {/* 3. Hero Text Content (Positioned Upper-Left / Left-Aligned on Top of Video) */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left max-md:min-h-[calc(100svh-12rem)]">
+        <div className="max-w-2xl lg:max-w-3xl flex flex-col text-left max-md:min-h-[calc(90svh-12rem)]">
           
           {/* Top Status Pill (Visually hidden for clean UI, preserved in DOM for SEO/GEO) */}
           <span className="sr-only">{dict.hero.badge}</span>
@@ -94,7 +93,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 }}
-            className="max-md:order-1 max-md:mt-6 text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] drop-shadow-sm break-words"
+            className="max-md:order-1 max-md:mt-4 text-3xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-white leading-[1.28] text-balance drop-shadow-sm break-words"
           >
             {dict.hero.title}
           </motion.h1>
@@ -104,7 +103,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
-            className="max-md:hidden mt-3.5 sm:mt-5 text-sm min-[360px]:text-base sm:text-lg text-neutral-200 leading-relaxed max-w-xl sm:max-w-2xl drop-shadow-xs"
+            className="max-md:hidden mt-5 sm:mt-6 text-base sm:text-lg text-white/85 leading-[1.8] max-w-xl sm:max-w-2xl"
           >
             {dict.hero.subtitle}
           </motion.p>
@@ -130,7 +129,7 @@ export function HeroSection() {
               href="/services"
               className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white px-5 sm:px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              <span>Visit Our Services</span>
+              <span>{locale === "bn" ? "আমাদের সার্ভিস দেখুন" : "Visit Our Services"}</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -140,7 +139,7 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.3 }}
-            className="max-md:order-2 max-md:mt-6 max-md:pt-0 max-md:border-0 mt-7 sm:mt-10 pt-5 sm:pt-7 border-t border-white/15 flex flex-col max-md:items-start sm:flex-row sm:items-center justify-between gap-2 max-md:gap-1.5 sm:gap-7 text-xs text-neutral-200 font-medium"
+            className="max-md:order-2 max-md:mt-6 max-md:mb-8 max-md:pt-0 max-md:border-0 mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-white/20 flex flex-col max-md:items-start sm:flex-row sm:items-center gap-3 sm:gap-6 text-xs leading-relaxed text-neutral-200 font-medium"
           >
             <div aria-label={dict.hero.cfrBadge} className="flex items-center gap-2 max-md:border-l-2 max-md:border-rose-200/70 max-md:pl-2">
               <div className="max-md:hidden w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">

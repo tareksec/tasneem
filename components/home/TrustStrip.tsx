@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldCheck, CheckCircle2, FileCheck, ExternalLink } from "lucide-react";
+import { ShieldCheck, CheckCircle2, FileCheck } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
@@ -49,7 +49,7 @@ export function TrustStrip() {
   };
 
   return (
-    <section className="bg-[#F9FAFB] border-b border-[#E5E7EB] py-8 sm:py-10 lg:py-12">
+    <section className="bg-white border-b border-[#E5E5E5] py-7 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -61,14 +61,14 @@ export function TrustStrip() {
           {/* Registration Status */}
           <motion.div
             variants={itemVariants}
-            className="md:col-span-4 border-b md:border-b-0 md:border-r border-[#E5E7EB] pb-4 md:pb-0 md:pr-6"
+            className="md:col-span-3 border-b md:border-b-0 md:border-r border-[#E5E7EB] pb-5 md:pb-0 md:pr-6"
           >
             <span className="sr-only">{dict.common.complianceBadge}</span>
             <p className="text-sm font-semibold text-[#2D2D2D] flex items-center gap-2">
               <FileCheck className="w-4 h-4 text-[#800020] shrink-0" />
               <span>Tasneem Knit Industry</span>
             </p>
-            <p className="text-xs text-[#4B5563] mt-0.5">
+            <p className="text-xs text-[#4B5563] mt-2 leading-relaxed">
               <span>{dict.footer.binLabel}: <span className="font-medium text-[#2D2D2D]">{COMPANY_INFO.registration.bin}</span></span>
             </p>
           </motion.div>
@@ -76,7 +76,7 @@ export function TrustStrip() {
           {/* Third-Party Inspection Support */}
           <motion.div
             variants={itemVariants}
-            className="md:col-span-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            className="md:col-span-9 flex flex-col items-start gap-3.5"
           >
             <div>
               <span className="sr-only">{dict.trustStrip.inspectionTitle}</span>
@@ -123,4 +123,3 @@ export function TrustStrip() {
     </section>
   );
 }
-

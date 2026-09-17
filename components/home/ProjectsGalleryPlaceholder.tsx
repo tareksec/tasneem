@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Camera,
   Image as ImageIcon,
   ArrowUpRight,
   Play,
@@ -21,7 +20,7 @@ import { GalleryItem } from "@/lib/types";
 import { ensureYouTubeAutoplayUrl } from "@/lib/admin/media-upload";
 
 export function ProjectsGalleryPlaceholder() {
-  const { dict, locale } = useTranslation();
+  const { locale } = useTranslation();
   const [publishedItems, setPublishedItems] = useState<GalleryItem[]>(() => {
     try {
       return AdminStore.getGalleryItems().filter((i) => i.published);
@@ -50,15 +49,15 @@ export function ProjectsGalleryPlaceholder() {
     <section className="py-20 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5] text-[#2D2D2D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <div>
+        <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12">
+          <div className="max-w-3xl">
             <span className="sr-only">
               {locale === "bn" ? "বাস্তব কাজের প্রমাণ" : "Field Verification"}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight leading-[1.35] text-balance text-[#2D2D2D]">
               {locale === "bn" ? "সরাসরি ফ্যাক্টরি ইনস্টলেশন ও প্রজেক্ট গ্যালারি" : "Projects & Installation Gallery"}
             </h2>
-            <p className="mt-2 text-sm text-[#4A4A4A] max-w-xl">
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#4A4A4A] max-w-xl">
               {locale === "bn"
                 ? "দেশের শীর্ষ টেক্সটাইল মিলগুলোতে আমাদের সরবরাহকৃত মেশিনের বাস্তব চিত্র।"
                 : "Verified industrial machinery installations operating in textile mills across Bangladesh."}

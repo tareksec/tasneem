@@ -30,18 +30,18 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
   const featured = machines.slice(0, 4);
 
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-[#F9F9F9] border-b border-[#E5E5E5]">
+    <section className="py-16 sm:py-24 lg:py-28 bg-white border-b border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <div>
+        <MotionSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12">
+          <div className="max-w-3xl">
             <span className="sr-only">
               {dict.featured.badge}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#2D2D2D]">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight leading-[1.35] text-balance text-[#2D2D2D]">
               {dict.featured.title}
             </h2>
-            <p className="mt-2 text-sm text-[#4A4A4A] max-w-xl">
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#4A4A4A] max-w-xl">
               {dict.featured.subtitle}
             </p>
           </div>
@@ -60,7 +60,7 @@ export function FeaturedMachines({ initialMachines }: { initialMachines?: Machin
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {featured.map((machine) => (
-            <StaggerItem key={machine.id}>
+            <StaggerItem key={machine.id} className="h-full min-w-0">
               <MachineCard machine={machine} />
             </StaggerItem>
           ))}
