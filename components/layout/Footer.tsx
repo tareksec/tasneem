@@ -288,6 +288,53 @@ export function Footer() {
               </div>
             </div>
           </div>
+
+          {/* Sourcing & Technical Guides (SEO / GEO / AEO Knowledge Hub) */}
+          <div className="mt-10 pt-6 border-t border-neutral-200/80">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3.5">
+              <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#800020] inline-block" />
+                {locale === "bn" ? "টেক্সটাইল মেশিনারি ও সোর্সিং গাইড" : "Textile Machinery Sourcing & Technical Guides"}
+              </h4>
+              <span className="text-[11px] text-neutral-500 font-medium">
+                {locale === "bn" ? "প্রাইস লিস্ট, টেকনিক্যাল স্পেসিফিকেশন ও এল/সি তথ্য" : "Pricing, Technical Specs & Bank L/C Procedures"}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2.5 text-xs text-neutral-600 font-medium">
+              <Link href="/circular-knitting-machine-price-in-bangladesh" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "সার্কুলার মেশিনের দাম" : "Circular Machine Prices"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/double-jersey-circular-knitting-machine-sourcing" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "ডাবল জার্সি সোর্সিং" : "Double Jersey Sourcing"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/single-jersey-circular-knitting-machine-sourcing" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "সিঙ্গেল জার্সি সোর্সিং" : "Single Jersey Sourcing"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/import-circular-knitting-machine-bangladesh" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "মেশিন আমদানি গাইড" : "Machine Import Guide"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/spare-parts-needles-narayanganj" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "স্পেয়ার পার্টস ও নিডল হাব" : "Spare Parts & Needles Hub"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/dyeing-finishing-machinery-importer-bangladesh" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "ডাইং ও ফিনিশিং মেশিন" : "Dyeing & Finishing Machinery"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/pre-shipment-inspection-textile-machinery" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "পিএসআই কোয়ালিটি অডিট" : "Pre-Shipment Inspection (PSI)"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+              <Link href="/knitwear-factory-setup-consultancy-bangladesh" className="hover:text-[#800020] transition-colors inline-flex items-center gap-1 hover:translate-x-0.5">
+                <span>{locale === "bn" ? "ফ্যাক্টরি সেটআপ কনসালটেন্সি" : "Factory Setup Consultancy"}</span>
+                <ArrowUpRight className="w-3 h-3 text-neutral-400" />
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Lower Banner Section with Requested Graphic & Panoramic Machinery */}

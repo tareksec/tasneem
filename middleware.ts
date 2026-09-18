@@ -37,7 +37,15 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     url.pathname = strippedPath;
 
-    const res = NextResponse.rewrite(url);
+    // Pass x-locale in request headers so Server Components can read it via headers()
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-locale", locale);
+
+    const res = NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
     res.cookies.set("NEXT_LOCALE", locale, {
       path: "/",
       maxAge: 31536000,

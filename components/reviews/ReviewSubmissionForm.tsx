@@ -96,6 +96,30 @@ export function ReviewSubmissionForm({
       return;
     }
 
+    const combined = `${name} ${message}`.toLowerCase();
+    const garbagePatterns = [
+      "pendingdiffsession",
+      "floatingwidget",
+      "dsfbhsdbdb",
+      "console.",
+      "typeerror",
+      "400 (bad request)",
+      "net::err",
+      "net::",
+      "[object object]",
+      "webpack",
+      "evalmachine",
+      "stack trace",
+    ];
+    if (garbagePatterns.some((p) => combined.includes(p)) || /^[bcdfghjklmnpqrstvwxyz]{8,}$/i.test(message.trim())) {
+      setErrorMessage(
+        locale === "bn"
+          ? "সঠিক টেক্সট লিখুন। কোনো কনসোল লগ বা এরর কোড গ্রহণযোগ্য নয়।"
+          : "Please enter valid review feedback. Debug/console text is not permitted."
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {

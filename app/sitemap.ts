@@ -36,6 +36,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   }));
 
+  // High-Impact Sourcing & Technical Guides (SEO / GEO / AEO)
+  const sourcingGuidesRoutes = [
+    "/circular-knitting-machine-price-in-bangladesh",
+    "/double-jersey-circular-knitting-machine-sourcing",
+    "/single-jersey-circular-knitting-machine-sourcing",
+    "/import-circular-knitting-machine-bangladesh",
+    "/spare-parts-needles-narayanganj",
+    "/dyeing-finishing-machinery-importer-bangladesh",
+    "/pre-shipment-inspection-textile-machinery",
+    "/knitwear-factory-setup-consultancy-bangladesh",
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+    alternates: {
+      languages: {
+        en: `${baseUrl}/en${route}`,
+        bn: `${baseUrl}/bn${route}`,
+        "x-default": `${baseUrl}${route}`,
+      },
+    },
+  }));
+
   // Dynamic category routes
   const categoryRoutes = CATEGORIES.map((cat) => ({
     url: `${baseUrl}/machines/${cat.slug}`,
@@ -91,5 +115,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // fallback if db unavailable
   }
 
-  return [...staticRoutes, ...categoryRoutes, ...machineRoutes, ...blogRoutes];
+  return [...staticRoutes, ...sourcingGuidesRoutes, ...categoryRoutes, ...machineRoutes, ...blogRoutes];
 }

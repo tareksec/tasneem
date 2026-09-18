@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { BlogPost } from "@/lib/admin/types";
+import { STATIC_BLOG_POSTS } from "@/lib/blog-data";
 
 function formatDbBlogPost(raw: any): BlogPost {
   return {
@@ -50,10 +51,19 @@ export async function getDbBlogPosts(options: {
       return records.map(formatDbBlogPost);
     }
   } catch (error) {
-    console.warn("Prisma getDbBlogPosts fallback:", error);
+    console.warn("Prisma getDbBlogPosts fallback to static blog data:", error);
   }
 
-  return [];
+  // Fallback to static blog posts for reliable production and SEO
+  let fallbackPosts = [...STATIC_BLOG_POSTS];
+  if (!includeDrafts) {
+    fallbackPosts = fallbackPosts.filter((p) => p.status === "published");
+  }
+  if (category && category !== "All") {
+    fallbackPosts = fallbackPosts.filter((p) => p.category === category);
+  }
+
+  return fallbackPosts;
 }
 
 export async function getDbBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
@@ -68,8 +78,10 @@ export async function getDbBlogPostBySlug(slug: string): Promise<BlogPost | unde
       return formatDbBlogPost(record);
     }
   } catch (error) {
-    console.warn(`Prisma getDbBlogPostBySlug(${slug}) fallback:`, error);
+    console.warn(`Prisma getDbBlogPostBySlug(${slug}) fallback to static blog data:`, error);
   }
 
-  return undefined;
+  return STATIC_BLOG_POSTS.find(
+    (p) => p.slug_en === slug || p.slug_bn === slug || p.id === slug
+  );
 }

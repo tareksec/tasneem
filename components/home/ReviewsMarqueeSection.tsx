@@ -46,8 +46,24 @@ export function ReviewsMarqueeSection({
     return () => window.removeEventListener("tasneem-store-updated", handleStoreUpdate);
   }, [initialReviews]);
 
-  // Only display approved reviews
-  const approvedList = reviews.filter((r) => r.status === "approved");
+  // Only display valid approved reviews (exclude any debug/console log leak)
+  const approvedList = reviews.filter((r) => {
+    if (r.status !== "approved") return false;
+    const combined = `${r.name || ""} ${r.company || ""} ${r.message || ""}`.toLowerCase();
+    if (
+      combined.includes("pendingdiffsession") ||
+      combined.includes("floatingwidget") ||
+      combined.includes("dsfbhsdbdb") ||
+      combined.includes("400 (bad request)") ||
+      combined.includes("console.") ||
+      combined.includes("typeerror") ||
+      combined.includes("net::") ||
+      /^[bcdfghjklmnpqrstvwxyz]{8,}$/i.test((r.message || "").trim())
+    ) {
+      return false;
+    }
+    return true;
+  });
 
   if (approvedList.length === 0) {
     return null;

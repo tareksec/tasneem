@@ -83,8 +83,8 @@ const PARTNER_BRANDS: PartnerBrand[] = [
 export function InfinityBandScroll() {
   const { locale } = useTranslation();
 
-  // Create duplicate arrays for continuous gap-free scrolling
-  const marqueeItems = [...PARTNER_BRANDS, ...PARTNER_BRANDS, ...PARTNER_BRANDS];
+  // Single array without JS duplication; seamless continuous loop handled via CSS animate-infinite-scroll
+  const marqueeItems = PARTNER_BRANDS;
 
   return (
     <section className="w-full bg-[#FAFBFD] py-8 sm:py-10 border-b border-[#E5E7EB] overflow-hidden select-none">

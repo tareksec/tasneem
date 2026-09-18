@@ -18,7 +18,7 @@ import { getDbReviews } from "@/lib/db/reviews";
 import { getDbMainCategories } from "@/lib/db/categories";
 
 export const metadata: Metadata = {
-  title: "Tasneem Knitting Industry | Industrial Circular Knitting Machine Importer Bangladesh",
+  title: "Circular Knitting Machine Importer | Tasneem Knit Industry",
   description:
     "Direct overseas importer of industrial circular knitting machines in Bangladesh. Double Jersey, Single Jersey, Interlock, Jacquard & Terry machines with 3rd-party pre-shipment inspection, CFR Chattogram sea delivery, and factory installation. বাংলাদেশে উচ্চমানের সার্কুলার নিটিং মেশিন সরাসরি আমদানি।",
   alternates: {

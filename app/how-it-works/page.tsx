@@ -12,12 +12,34 @@ import {
   Settings,
   HelpCircle,
 } from "lucide-react";
-import { ProcessWaveSection } from "@/components/how-it-works/ProcessWaveSection";
+import { ProcessWaveSection, PROCESS_STEPS } from "@/components/how-it-works/ProcessWaveSection";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { COMPANY_INFO } from "@/lib/constants";
 
 export default function HowItWorksPage() {
   const { locale } = useTranslation();
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name:
+      locale === "bn"
+        ? "বাংলাদেশে সার্কুলার নিটিং মেশিন আমদানির নিয়ম ও ধাপসমূহ"
+        : "How to Import Industrial Circular Knitting Machinery in Bangladesh",
+    description:
+      locale === "bn"
+        ? "চীন ও তাইওয়ান থেকে সরাসরি সার্কুলার নিটিং মেশিন আমদানি, L/C খোলা, প্রি-শিপমেন্ট ইন্সপেকশন এবং ফ্যাক্টরি কমিশনিংয়ের পূর্ণাঙ্গ ধাপসমূহ।"
+        : "End-to-end guide on importing industrial circular knitting machines to Bangladesh under CFR Chattogram terms with bank L/C and turnkey commissioning.",
+    image: `${COMPANY_INFO.domain}/logo/og-image.png`,
+    totalTime: "P45D",
+    step: PROCESS_STEPS.map((step, idx) => ({
+      "@type": "HowToStep",
+      position: idx + 1,
+      name: locale === "bn" ? step.titleBn : step.titleEn,
+      text: locale === "bn" ? step.descBn : step.descEn,
+      url: `${COMPANY_INFO.domain}/how-it-works#${step.id}`,
+    })),
+  };
 
   const guarantees = [
     {
@@ -52,6 +74,10 @@ export default function HowItWorksPage() {
 
   return (
     <div className="min-h-screen bg-engineering-grid text-[#2D2D2D] selection:bg-[#800020] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       {/* 1. Main Process Section with User Reference Wave Design & Animations */}
       <ProcessWaveSection />
 

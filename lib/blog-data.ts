@@ -1,0 +1,428 @@
+import { BlogPost } from "@/lib/admin/types";
+
+export const STATIC_BLOG_POSTS: BlogPost[] = [
+  {
+    id: "blog-post-1",
+    title_en: "Single Jersey vs Double Jersey Circular Knitting Machines: Bangladesh Factory Sourcing Guide",
+    title_bn: "সিঙ্গেল জার্সি বনাম ডাবল জার্সি সার্কুলার নিটিং মেশিন: বাংলাদেশ ফ্যাক্টরি সোর্সিং গাইড",
+    slug_en: "single-jersey-vs-double-jersey-circular-knitting-machines-bangladesh",
+    slug_bn: "single-jersey-vs-double-jersey-circular-knitting-machines-bangladesh-bn",
+    cover_image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "A technical comparison of single jersey 4-track and double jersey interlock/rib circular knitting machines for export composite mills in Narayanganj and Gazipur.",
+    excerpt_bn:
+      "নারায়ণগঞ্জ ও গাজীপুরের রপ্তানিমুখী নিট কারখানার জন্য সিঙ্গেল জার্সি ৪-ট্র্যাক ও ডাবল জার্সি ইন্টারলক/রিব মেশিনের তুলনামূলক কারিগরি পর্যালোচনা ও সোর্সিং গাইড।",
+    body_en: `## Strategic Differences Between Single and Double Jersey Circular Knitting
+
+When expanding knitting floor capacity in Bangladesh, selecting between Single Jersey and Double Jersey circular knitting machines dictates fabric capability, production speed, and profitability.
+
+### 1. Structural Architecture & Needles
+- **Single Jersey Machines**: Utilize a single vertical cylinder equipped with one set of latch needles and matching sinkers. Commonly configured with a 4-track cam system allowing knit, tuck, and miss loop configurations.
+- **Double Jersey Machines**: Employ two distinct needle systems — a vertical cylinder and a horizontal dial at 90 degrees. Needle-to-needle arrangements can be set to rib gating or interlock gating without requiring conventional sinkers.
+
+### 2. Fabric Capabilities & GSM Range
+- **Single Jersey**: Standard plain jersey (130–180 GSM), Lycra stretch single jersey, single and double pique (polo fabrics), and 2-thread inlay fleece.
+- **Double Jersey**: Heavy interlock (180–300 GSM), 1x1 and 2x2 rib trims, Roman fabric (Ponte di Roma), scuba sportswear, and thermal waffle structures.
+
+### 3. Machine Speeds and Output Capacity
+Single jersey machines typically rotate at higher peripheral speeds (25–35 RPM for a 34-inch cylinder) yielding up to 450–550 kg of fabric per 24 hours. Double jersey machines operate at 18–26 RPM due to dial-cylinder intermeshing, producing 320–420 kg per day.
+
+### Sourcing Recommendations for Bangladesh Mills
+For composite export mills catering to European basic tees, invest in 30"–34" 24G/28G Single Jersey lines with open-width slitters. For luxury outerwear, activewear, and infantswear, 34" 28G Double Jersey Interlock machines offer premium margins.`,
+    body_bn: `## সিঙ্গেল জার্সি বনাম ডাবল জার্সি সার্কুলার নিটিং মেশিনের মূল পার্থক্য
+
+বাংলাদেশের নিটিং কারখানায় উৎপাদন সক্ষমতা বাড়ানোর ক্ষেত্রে সিঙ্গেল জার্সি নাকি ডাবল জার্সি মেশিন নেওয়া উচিত—তা নির্ভর করে আপনি কী ধরনের ফ্যাব্রিক রপ্তানি করতে চান তার ওপর।
+
+### ১. মেকানিক্যাল কাঠামো ও নিডল সিস্টেম
+- **সিঙ্গেল জার্সি মেশিন**: এতে একটি মাত্র খাঁড়া সিলিন্ডার থাকে, যাতে নিডল ও সিঙ্কারের সমন্বয়ে লুপ তৈরি হয়। ৪-ট্র্যাক ক্যাম বক্সের মাধ্যমে নিট, টাক ও মিস স্টিচ সহজে পরিবর্তন করা যায়।
+- **ডাবল জার্সি মেশিন**: এতে সিলিন্ডার ছাড়াও অনুভূমিকভাবে একটি ডায়াল (Dial) থাকে। নিডলগুলো একে অপরের সাথে ৯০ ডিগ্রি কোণে কাজ করে। এতে সিঙ্কারের প্রয়োজন হয় না এবং ইন্টারলক বা রিব গেটিংয়ে বোনা যায়।
+
+### ২. ফেব্রিকের ধরন ও GSM রেঞ্জ
+- **সিঙ্গেল জার্সি**: সাধারণ প্লেন টি-শার্ট ফেব্রিক (১৩০-১৮০ GSM), লাইক্রা কটন সিঙ্গেল জার্সি, পোলো পিক ও ২-থ্রেড ফ্লিস।
+- **ডাবল জার্সি**: ভারী এক্সপোর্ট ইন্টারলক (১৮০-৩০০ GSM), ১x১ ও ২x২ রিব, স্কুবা, অটোমান ও রোমা ফেব্রিক।
+
+### ৩. উৎপাদন গতি ও দৈনিক আউটপুট
+সিঙ্গেল জার্সি মেশিনে গতি বেশি পাওয়া যায় (৩৪ ইঞ্চি ডায়ামিটারে ২৫-৩৫ RPM), যা ২৪ ঘণ্টায় ৪৫০ থেকে ৫৫০ কেজি ফেব্রিক দিতে পারে। ডাবল জার্সিতে গতি কিছুটা নিয়ন্ত্রিত থাকে (১৮-২৬ RPM), ফলে দৈনিক আউটপুট সাধারণত ৩২০ থেকে ৪২০ কেজি হয়ে থাকে।`,
+    category: "Technical Guide",
+    tags: ["Circular Knitting", "Single Jersey", "Double Jersey", "Narayanganj Mills"],
+    seo_title_en: "Single vs Double Jersey Circular Knitting Machines | Tasneem",
+    seo_title_bn: "সিঙ্গেল বনাম ডাবল জার্সি সার্কুলার নিটিং মেশিন | তাসনীম",
+    seo_desc_en:
+      "Comprehensive comparison of single jersey vs double jersey circular knitting machines for Bangladesh export textile factories. Technical specs and sourcing guidance.",
+    seo_desc_bn:
+      "বাংলাদেশের নিটিং কারখানার জন্য সিঙ্গেল ও ডাবল জার্সি সার্কুলার নিটিং মেশিনের কারিগরি তুলনা ও সোর্সিং পরামর্শ।",
+    status: "published",
+    published_at: "2026-03-12",
+    updated_at: "2026-03-12",
+    author: "Engr. M. Rahman",
+  },
+  {
+    id: "blog-post-2",
+    title_en: "10 Essential Technical Checks Before Opening Bank L/C for Circular Knitting Machinery",
+    title_bn: "সার্কুলার নিটিং মেশিন আমদানিতে ব্যাংক এল/সি খোলার আগে ১০টি জরুরি টেকনিক্যাল চেকলিস্ট",
+    slug_en: "top-10-technical-checks-circular-knitting-machine-import-lc",
+    slug_bn: "top-10-technical-checks-circular-knitting-machine-import-lc-bn",
+    cover_image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "Crucial pre-import engineering checklist covering cylinder runout tolerances, cam track hardness, inverter drives, and ocean seaworthy packaging.",
+    excerpt_bn:
+      "চীন বা তাইওয়ান থেকে মেশিন আমদানিতে এল/সি ইস্যু করার আগে সিলিন্ডার রানআউট, ক্যাম হার্ডনেস এবং প্যাকেজিং যাচাই করার ১০টি আবশ্যিক কারিগরি নিরীক্ষা।",
+    body_en: `## Preventing Costly Sourcing Mistakes Under CFR Chattogram Terms
+
+Opening an irrevocable Letter of Credit (L/C) through authorized dealer banks in Bangladesh requires rigorous technical parameters specified right inside the Proforma Invoice (PI).
+
+### 10-Point Technical Verification Checklist:
+1. **Cylinder Runout Tolerance**: Dial indicator testing must ensure concentric runout is under 0.02 mm to prevent needle channel distortion.
+2. **Cam Metallurgy**: Insist on Japanese alloy steel cam blocks heat-treated to Rockwell C 58–62 hardness.
+3. **Needle Bed Cleanliness**: Check needle channel milling with zero burrs or micro-pitting under magnification.
+4. **Feeder Density Ratio**: Ensure feeder count per inch matches production expectations (e.g. 3.0 to 3.2 feeders/inch for high-speed single jersey).
+5. **Positive Yarn Feeder Compatibility**: Verify genuine Memminger-IRO or premium ceramic eyelet storage feeders.
+6. **Inverter Drive & Electronics**: Confirm Delta, Siemens, or Inovance vector drives with digital frequency control.
+7. **Automated Lubrication System**: Pulsed electronic micro-mist lubricators (Uniwave or Pulsar) to eliminate oil drops on gray fabric.
+8. **Motor Wattage & Electrical Safety**: 3-phase induction motor sized properly (5.5 kW to 7.5 kW) with overload thermal protection.
+9. **Pre-Shipment Inspection (PSI) Clause**: Include mandatory pre-shipment quality audit and running test video verification in L/C terms.
+10. **Seaworthy Packaging**: Vacuum-sealed aluminum barrier foil with industrial desiccants inside fumigated plywood boxes (ISPM-15).`,
+    body_bn: `## ব্যাংক এল/সি খোলার আগে মেশিন আমদানির কারিগরি নিরাপত্তা
+
+ব্যাংকের মাধ্যমে শতভাগ অপরিবর্তনীয় এল/সি (100% Irrevocable L/C at Sight) খোলার পূর্বে মেশিনের স্পেসিফিকেশন পিআই-তে সুনির্দিষ্টভাবে উল্লেখ করা বাধ্যতামূলক।
+
+### ১০টি আবশ্যিক টেকনিক্যাল চেকলিস্ট:
+১. **সিলিন্ডার রানআউট সহনশীলতা**: ডায়াল গেজ পরীক্ষায় সিলিন্ডারের রানআউট ০.০২ মিলিমিটারের মধ্যে থাকা নিশ্চিত করুন।
+২. **ক্যাম মেটাল হার্ডনেস**: জাপানি অ্যালয় স্টিলের ক্যাম ট্র্যাকসের হার্ডনেস HRC 58-62 হওয়া প্রয়োজন।
+৩. **নিডল চ্যানেল ফিনিশিং**: সিএনসি মিলিং খাঁজে কোনো অমসৃণতা বা বার (burr) থাকা চলবে না।
+৪. **ফিডার ডেনসিটি**: প্রতি ইঞ্চি ডায়ামিটারে ফিডার সংখ্যা ৩.০ থেকে ৩.২ টি থাকা বাঞ্ছনীয়।
+৫. **পজিটিভ সুতা ফিডার**: মেমিঙ্গার স্টাইল সিরামিক আইলেটযুক্ত স্টোরেজ ফিডার নিশ্চিত করুন।
+৬. **ইনভার্টার ও কন্ট্রোল প্যানেল**: ডেল্টা বা ইনোভ্যান্স ভেক্টর ড্রাইভ সমৃদ্ধ ডিজিটাল ডিসপ্লে।
+৭. **অটো লুব্রিকেশন মিস্টার**: ইউনিওয়েভ স্টাইল প্রেসারাইজড অয়েল স্প্রেয়ার যাতে কাপড়ে দাগ না পড়ে।
+৮. **মোটর ক্যাপাসিটি**: ৫.৫ কিলোওয়াট থেকে ৭.৫ কিলোওয়াটের থ্রি-ফেজ ড্রাইভ মোটর।
+৯. **পিএসআই শর্তাবলী**: এল/সি ক্লজে আন্তর্জাতিক প্রি-শিপমেন্ট ইন্সপেকশন শর্ত রাখা।
+১০. **সমুদ্র উপযোগী প্যাকিং**: ভ্যাকুয়াম অ্যালুমিনিয়াম ফয়েল ও ফিউমিগেটেড কাঠের বাক্সে প্যাকিং।`,
+    category: "Import & Compliance",
+    tags: ["Import Compliance", "Bank LC", "Chattogram Port", "Textile Machinery"],
+    seo_title_en: "10 Technical Checks Before Opening Machinery L/C | Tasneem",
+    seo_title_bn: "মেশিন আমদানির এল/সি চেকলিস্ট | তাসনীম নিট ইন্ডাস্ট্রি",
+    seo_desc_en:
+      "Essential engineering checklist for Bangladesh textile factory owners before issuing irrevocable bank L/C for circular knitting machines.",
+    seo_desc_bn:
+      "সার্কুলার নিটিং মেশিন আমদানির ব্যাংক এল/সি খোলার আগে ১০টি জরুরি কারিগরি যাচাই নির্দেশিকা।",
+    status: "published",
+    published_at: "2026-03-08",
+    updated_at: "2026-03-08",
+    author: "Tasneem Sourcing Desk",
+  },
+  {
+    id: "blog-post-3",
+    title_en: "Groz-Beckert Needles & Sinker Replacement Protocol: Eliminating Fabric Holes & Drop Stitches",
+    title_bn: "গ্রোজ-বেকার্ট নিডল ও সিঙ্কার প্রতিস্থাপন রুটিন: কাপড়ে ড্রপ স্টিচ ও ছিদ্র বন্ধ করার উপায়",
+    slug_en: "groz-beckert-needles-sinker-replacement-routine-circular-knitting",
+    slug_bn: "groz-beckert-needles-sinker-replacement-routine-circular-knitting-bn",
+    cover_image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "A maintenance protocol for circular knitting mills to diagnose needle hook fatigue, latch clearance, and sinker throat wear to avoid expensive fabric rejection.",
+    excerpt_bn:
+      "নিটিং কারখানায় নিডল হুক ক্ষয়, ল্যাচ প্লে এবং সিঙ্কারের থ্রোট পরিধান চিহ্নিত করে কাপড়ের ড্রপ স্টিচ ও ছিদ্র দূর করার কার্যকরী মেইনটেন্যান্স গাইড।",
+    body_en: `## Maximizing Fabric Quality Through Systematic Needle & Sinker Care
+
+Needle and sinker damage accounts for more than 75% of unrecoverable fabric defects on circular knitting floors, causing pinholes, dropped stitches, and vertical needle lines.
+
+### Key Indicators of Needle Wear
+- **Hook Deformation**: Micro-cracks caused by high-tension Lycra yarn friction.
+- **Latch Loose Play**: Worn latch rivets resulting in delayed closing and missed stitches.
+- **Cheek Wear**: Side abrasion inside the cylinder trick wall leading to uneven stitch length.
+
+### Sinker Throat Inspection
+Sinkers control fabric loop knock-over. When abrasive synthetic filament or carded cotton wears a groove into the sinker throat, yarn cuts occur during stitch clearing. Always replace sinkers in complete cylinder batches every 6 to 9 months of continuous 24/7 operation.
+
+### The Advantage of Genuine Groz-Beckert Needles
+Authentic German Groz-Beckert needles feature patented Vota latch geometries and polished hook transitions that reduce loop friction by up to 20%. Tasneem maintains dedicated local inventory in Narayanganj for rapid same-day factory dispatch.`,
+    body_bn: `## কাপড়ের মান ঠিক রাখতে নিডল ও সিঙ্কার মেইনটেন্যান্স রুটিন
+
+সার্কুলার নিটিং ফ্লোরে কাপড়ে পিনহোল, ড্রপ স্টিচ বা খাড়া দাগের জন্য ৭৫% ক্ষেত্রে নিডল ও সিঙ্কারের ক্ষয় দায়ী থাকে।
+
+### নিডল ক্ষয়ের প্রাথমিক লক্ষণ
+- **হুকের সূক্ষ্ম ফাটল**: অতিরিক্ত টেনশনে সুতা টানার ফলে হুক বাঁকা বা ভেঙে যাওয়া।
+- **ল্যাচের ঢিলেঢালা ভাব**: ল্যাচ পিন ক্ষয়ে যাওয়ার কারণে সময়মতো বন্ধ না হওয়া এবং স্টিচ বাদ পড়া।
+- **নিডলের গায়ের ঘর্ষণ**: সিলিন্ডার খাঁজে ঘষা খেয়ে নিডল সরু হয়ে যাওয়া।
+
+### সিঙ্কারের যত্ন ও প্রতিস্থাপন
+সিঙ্কার কাপড়ের লুপ তৈরি ও ধরে রাখতে সাহায্য করে। সিঙ্কারের থ্রোটে খাঁজ পড়ে গেলে সুতা কেটে যায় এবং কাপড়ে ফুটো তৈরি হয়। টানা ২৪ ঘণ্টা চলা মেশিনে প্রতি ৬ থেকে ৯ মাস পর পুরো সিলিন্ডারের সিঙ্কার সেট পরিবর্তন করা উচিত।
+
+### আসল গ্রোজ-বেকার্ট নিডল ব্যবহারের সুবিধা
+জার্মানির অরিজিনাল Groz-Beckert নিডলে বিশেষ কোটিং ও মসৃণ হুক ডিজাইন থাকে, যা সুতার ঘর্ষণ প্রায় ২০% কমিয়ে দেয়। নারায়ণগঞ্জে তাসনীমের সেন্ট্রাল ওয়্যারহাউসে আসল গ্রোজ-বেকার্ট নিডলের সার্বক্ষণিক রেডি স্টক রয়েছে।`,
+    category: "Maintenance & Parts",
+    tags: ["Groz-Beckert", "Needles", "Sinkers", "Maintenance"],
+    seo_title_en: "Groz-Beckert Needle Care & Sinker Protocol | Tasneem",
+    seo_title_bn: "গ্রোজ-বেকার্ট নিডল ও সিঙ্কার মেইনটেন্যান্স | তাসনীম",
+    seo_desc_en:
+      "Expert guide on circular knitting needle fatigue, latch clearance, sinker throat wear, and how genuine Groz-Beckert needles eliminate export fabric defects.",
+    seo_desc_bn:
+      "সার্কুলার নিটিং মেশিনের নিডল ও সিঙ্কার নিয়মিত পরিচর্যা করে কাপড়ে ছিদ্র ও স্টিচ ফল্ট রোধ করার উপায়।",
+    status: "published",
+    published_at: "2026-03-04",
+    updated_at: "2026-03-04",
+    author: "Technical Service Team",
+  },
+  {
+    id: "blog-post-4",
+    title_en: "HS Code 8447 Classification & Concessional 1% Customs Duty for Textile Machinery in Bangladesh",
+    title_bn: "এইচএস কোড ৮৪৪৭ ও টেক্সটাইল ক্যাপিটাল মেশিনারি আমদানিতে ১% শুল্ক ছাড়ের পূর্ণাঙ্গ গাইড",
+    slug_en: "hs-code-8447-customs-duty-concession-machinery-import-bangladesh",
+    slug_bn: "hs-code-8447-customs-duty-concession-machinery-import-bangladesh-bn",
+    cover_image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "How Bangladeshi textile manufacturers leverage National Board of Revenue (NBR) capital machinery statutory orders under HS Code 8447 for 1% customs duty clearance at Chattogram Port.",
+    excerpt_bn:
+      "চট্টগ্রাম বন্দরে এইচএস কোড ৮৪৪৭ এর অধীনে এনবিআরের ক্যাপিটাল মেশিনারি এসআরও সুবিধার মাধ্যমে মাত্র ১% শুল্কে সার্কুলার নিটিং মেশিন খালাসের সরকারি নিয়মাবলী।",
+    body_en: `## Navigating NBR Capital Machinery Concessions at Chattogram Port
+
+Importing industrial textile machinery into Bangladesh offers significant fiscal benefits when classified properly under statutory capital equipment orders issued by the National Board of Revenue (NBR).
+
+### HS Code 8447 Subheading Breakdown:
+- **HS 8447.11.00**: Circular knitting machines with cylinder diameter not exceeding 165 mm.
+- **HS 8447.12.00**: Industrial circular knitting machines with cylinder diameter exceeding 165 mm (standard 30" to 38" machines fall strictly under this classification).
+
+### Qualifying for Concessional 1% Customs Duty (CD):
+1. **Valid Industrial Import Registration Certificate (IRC)**: Endorsed for capital machinery rather than commercial trading.
+2. **Export-Oriented Knitwear Factory Utilization**: Factories registered with BGMEA or BKMEA qualify for full VAT waiver and nominal 1% customs duty.
+3. **Bill of Entry Documentation**: Ensure clean correspondence between the Bill of Lading, Certificate of Origin, and packing list.`,
+    body_bn: `## চট্টগ্রাম বন্দরে এনবিআরের ক্যাপিটাল মেশিনারি সুবিধা গ্রহণের উপায়
+
+জাতীয় রাজস্ব বোর্ডের (NBR) স্থায়ী এসআরও বিধিমালার আওতায় শিল্পোন্নত টেক্সটাইল ক্যাপিটাল মেশিনারিজ আমদানিতে বিশাল শুল্ক সুবিধা পাওয়া যায়।
+
+### এইচএস কোড ৮৪৪৭ ক্লাসিফিকেশন:
+- **৮৪৪৭.১১.০০**: ১৬৫ মিলিমিটারের কম সিলিন্ডার ব্যাসের সার্কুলার নিটিং মেশিন।
+- **৮৪৪৭.১২.০০**: ১৬৫ মিলিমিটারের বেশি সিলিন্ডার ব্যাসের সার্কুলার মেশিন (বাংলাদেশের ৩০" থেকে ৩৮" ডায়ামিটারের সব এক্সপোর্ট মেশিন এই কোডের অন্তর্ভুক্ত)।
+
+### ১% শুল্ক ছাড়ের জন্য প্রয়োজনীয় শর্তাবলী:
+১. **বৈধ ইন্ডাস্ট্রিয়াল আইআরসি (IRC)**: ক্যাপিটাল মেশিনারিজ আমদানির জন্য অনুমোদিত শিল্প আইআরসি থাকতে হবে।
+২. **রপ্তানিমুখী কারখানার বন্ড সুবিধা**: বিজিএমইএ বা বিকেএমইএ নিবন্ধিত রপ্তানিমুখী নিট কারখানার ক্ষেত্রে এনবিআর বিধি অনুযায়ী ১% সিডি এবং ভ্যাট অব্যাহতি সুবিধা প্রযোজ্য।
+৩. **সঠিক ডকুমেন্টেশন**: প্রোফরমা ইনভয়েস, এল/সি, বিল অব লেডিং ও সার্টিফিকেট অব অরিজিনের বিবরণীতে সম্পূর্ণ মিল থাকতে হবে।`,
+    category: "Import & Compliance",
+    tags: ["HS Code 8447", "Customs Duty", "NBR Compliance", "CFR Chattogram"],
+    seo_title_en: "HS Code 8447 Textile Machinery Customs Guide | Tasneem",
+    seo_title_bn: "এইচএস কোড ৮৪৪৭ মেশিনারি কাস্টমস গাইড | তাসনীম",
+    seo_desc_en:
+      "Guide to HS Code 8447 customs classification and 1% concessional capital machinery duty at Chattogram Port for Bangladesh textile mills.",
+    seo_desc_bn:
+      "বাংলাদেশে এইচএস কোড ৮৪৪৭ এর আওতায় ক্যাপিটাল নিটিং মেশিনারি আমদানিতে ১% শুল্ক সুবিধার বিস্তারিত নিয়ম।",
+    status: "published",
+    published_at: "2026-02-28",
+    updated_at: "2026-02-28",
+    author: "Customs Compliance Desk",
+  },
+  {
+    id: "blog-post-5",
+    title_en: "Low-Liquor Ratio Soft-Flow Fabric Dyeing (1:4.5) vs Conventional Dyeing: Slashing Water & Gas Bills",
+    title_bn: "লো-লিকুয়ার রেশিও সফট-ফ্লো ডাইং বনাম কনভেনশনাল ডাইং: পানি ও গ্যাস খরচ কমানোর প্রযুক্তি",
+    slug_en: "low-liquor-ratio-soft-flow-dyeing-slashing-water-gas-costs",
+    slug_bn: "low-liquor-ratio-soft-flow-dyeing-slashing-water-gas-costs-bn",
+    cover_image: "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "How eco-efficient 1:4.5 liquor ratio soft-flow dyeing machinery cuts water, steam boiler gas, and ETP effluent costs by up to 40% in Bangladesh composite mills.",
+    excerpt_bn:
+      "আধুনিক ১:৪.৫ লো-লিকুয়ার সফট-ফ্লো ডাইং মেশিন কীভাবে প্রচলিত ডাইংয়ের তুলনায় পানি, বয়লার গ্যাস ও ইটিপি পরিচালন খরচ ৪০% কমিয়ে কারখানার মুনাফা বাড়ায়।",
+    body_en: `## The Economic and Environmental Case for Low-Liquor Ratio Dyeing
+
+In Bangladesh's textile wet processing sector, natural gas tariff hikes and groundwater extraction restrictions have made utility efficiency the single largest cost differentiator.
+
+### The Physics of Liquor Ratio: 1:4.5 vs 1:10
+Liquor ratio represents the ratio of dry fabric weight to total dye bath volume. 
+- In a traditional 1:8 or 1:10 machine, dyeing 1,000 kg of cotton fabric requires 8,000 to 10,000 liters of water.
+- In a modern soft-flow vessel running at 1:4.5, that same batch requires only 4,500 liters of water.
+
+### Direct Financial Savings:
+1. **Steam & Gas Savings**: Heating 4,500 liters to 98°C requires nearly 50% less boiler steam than heating 9,000 liters, drastically slashing monthly gas bills.
+2. **Salt and Auxiliary Chemical Savings**: Salt concentration is calculated per liter of liquor bath, resulting in 30% lower salt procurement costs.
+3. **ETP Load Reduction**: Effluent treatment plants process substantially lower daily hydraulic loads, reducing chemical dosing and sludge handling fees.`,
+    body_bn: `## লো-লিকুয়ার রেশিও ডাইংয়ের অর্থনৈতিক ও পরিবেশগত সুবিধা
+
+বাংলাদেশে বর্তমান সময়ে গ্যাসের মূল্য বৃদ্ধি এবং ভূগর্ভস্থ পানির ওপর বিধিনিষেধের কারণে ডাইং কারখানায় ইউটিলিটি খরচ কমানো সবচেয়ে বড় চ্যালেঞ্জ।
+
+### লিকুয়ার রেশিও কী: ১:৪.৫ বনাম ১:১০
+লিকুয়ার রেশিও হলো কাপড়ের ওজনের সাথে ডাইং বাথের পানির অনুপাত।
+- প্রচলিত ১:৮ বা ১:১০ মেশিনে ১,০০০ কেজি কাপড় ডাইং করতে ৮,০০০ থেকে ১০,০০০ লিটার পানি লাগে।
+- আধুনিক সফট-ফ্লো ১:৪.৫ মেশিনে একই পরিমাণ কাপড়ে মাত্র ৪,৫০০ লিটার পানি লাগে।
+
+### সরাসরি আর্থিক সাশ্রয়:
+১. **বাষ্প ও গ্যাস সাশ্রয়**: ৪,৫০০ লিটার পানি ফুটাতে ৯,০০০ লিটার পানির তুলনায় প্রায় অর্ধেক গ্যাস ও স্টিম লাগে।
+২. **লবণ ও কেমিক্যাল সাশ্রয়**: ডাইং বাথের পানি কম লাগায় লবণ ও প্রসেসিং কেমিক্যাল খরচ প্রায় ৩০% কমে যায়।
+৩. **ইটিপি খরচ হ্রাস**: কারখানার ইটিপিতে প্রতিদিন কম পরিমাণ বর্জ্য পানি জমা হওয়ায় কেমিক্যাল ট্রিটমেন্ট খরচ উল্লেখযোগ্যভাবে কমে আসে।`,
+    category: "Technical Guide",
+    tags: ["Dyeing Machinery", "Soft-Flow", "Energy Savings", "Green RMG"],
+    seo_title_en: "Low-Liquor Ratio Soft-Flow Dyeing Cost Guide | Tasneem",
+    seo_title_bn: "লো-লিকুয়ার সফট-ফ্লো ডাইং গাইড | তাসনীম",
+    seo_desc_en:
+      "Analysis of water, boiler gas, and chemical savings achieved by modern 1:4.5 soft-flow fabric dyeing machines in Bangladesh textile mills.",
+    seo_desc_bn:
+      "টেক্সটাইল মিলে আধুনিক লো-লিকুয়ার সফট-ফ্লো ডাইং মেশিনের মাধ্যমে গ্যাস, পানি ও কেমিক্যাল খরচ বাঁচানোর বিশ্লেষণ।",
+    status: "published",
+    published_at: "2026-02-20",
+    updated_at: "2026-02-20",
+    author: "Wet Processing Engineering Team",
+  },
+  {
+    id: "blog-post-6",
+    title_en: "Optimal Floor Layout & Electrical Load Planning for a 10-Machine Circular Knitting Unit",
+    title_bn: "১০টি সার্কুলার নিটিং মেশিনের কারখানা স্থাপন: ফ্লোর লেআউট ও বিদ্যুৎ লোড প্ল্যানিং",
+    slug_en: "optimal-floor-layout-electrical-load-circular-knitting-factory-bangladesh",
+    slug_bn: "optimal-floor-layout-electrical-load-circular-knitting-factory-bangladesh-bn",
+    cover_image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "Engineering blueprint for setting up a 10-machine circular knitting mill: Floor bay dimensions, screw compressor CFM requirements, and relative humidity control.",
+    excerpt_bn:
+      "১০টি সার্কুলার নিটিং মেশিন স্থাপনের আদর্শ ফ্লোর লেআউট, কমপ্রেসড এয়ার সিএফএম রিকোয়ারমেন্ট এবং বিদ্যুৎ ও আর্দ্রতা নিয়ন্ত্রণের পূর্ণাঙ্গ পরিকল্পনা।",
+    body_en: `## Architectural & Engineering Blueprint for New Knitting Mills
+
+Setting up a productive circular knitting unit in industrial zones like Narayanganj BSCIC, Fatullah, or Gazipur requires careful space, electrical, and pneumatic utility planning.
+
+### 1. Floor Space & Machine Bay Sizing
+- A standard 34-inch circular machine with circular yarn creel occupies approximately 3.8m x 3.8m of floor area.
+- For 10 machines, plan a column-free floor area of 3,500 to 4,500 sq. ft. to provide adequate 1.5m aisles for yarn trolleys and finished fabric roll transport.
+
+### 2. Electrical Connected Load
+- Each circular machine features a 5.5 kW to 7.5 kW main inverter motor, plus top/bottom oscillating creel fans (approx. 1.0 kW).
+- Total connected machine load for 10 units: approximately 75 kW to 85 kW.
+- Ensure automated voltage regulators (AVR) and a dedicated 125 kVA standby diesel generator to prevent inverter trips during power brownouts.
+
+### 3. Compressed Air (CFM) & Pneumatic Ring Line
+Continuous lint cleaning requires dry, oil-free compressed air:
+- Provide 0.4 to 0.6 m³/min per machine at 0.6 to 0.8 MPa pressure.
+- A 15 HP to 20 HP rotary screw compressor equipped with an air refrigerated dryer and storage receiver ensures clean airflow without moisture buildup on needles.
+
+### 4. Humidity & Temperature Standards
+Maintain room temperature at 24°C–28°C and relative humidity (RH) at 65%–70% to retain cotton yarn elasticity and prevent thread breakage.`,
+    body_bn: `## নতুন নিটিং মিল স্থাপনের ইঞ্জিনিয়ারিং ব্লুপ্রিন্ট
+
+নারায়ণগঞ্জ বিসিক, ফতুল্লা বা গাজীপুরে নতুন সার্কুলার নিটিং কারখানা করার ক্ষেত্রে ফ্লোর লেআউট, বিদ্যুৎ লোড ও কমপ্রেসার লাইনের সঠিক পরিমাপ আগে থেকেই করা জরুরি।
+
+### ১. ফ্লোর স্পেস ও মেশিন প্লেসমেন্ট
+- একটি ৩৪ ইঞ্চি সার্কুলার মেশিন ও সাইড ক্রিলের জন্য ৩.৮ মিটার x ৩.৮ মিটার জায়গা লাগে।
+- ১০টি মেশিনের জন্য সুতা পরিবহন ও কাপড় রাখার করিডোরসহ প্রায় ৩,৫০০ থেকে ৪,৫০০ বর্গফুট কলাম-মুক্ত ফ্লোর স্পেস প্রয়োজন।
+
+### ২. বৈদ্যুতিক লোড হিসাব
+- প্রতিটি মেশিনের মেইন মোটর ৫.৫ থেকে ৭.৫ কিলোওয়াট এবং ক্রিল ফ্যান প্রায় ১ কিলোওয়াট বিদ্যুৎ খরচ করে।
+- ১০টি মেশিনের জন্য মোট লোড প্রায় ৭৫ থেকে ৮৫ কিলোওয়াট। এর জন্য ১২৫ kVA ব্যাকআপ জেনারেটর রাখা নিরাপদ।
+
+### ৩. কমপ্রেসড এয়ার ও সিএফএম (CFM)
+সিলিন্ডার ও নিডলে তুলার ডাস্ট পরিষ্কার রাখতে স্ক্রু এয়ার কম্প্রেসার প্রয়োজন:
+- প্রতিটি মেশিনের জন্য ০.৪ থেকে ০.৬ m³/min হারে ০.৬ থেকে ০.৮ MPa প্রেশার দরকার।
+- ১০টি মেশিনের জন্য একটি ১৫ থেকে ২০ হর্সপাওয়ারের স্ক্রু কম্প্রেসার এবং এয়ার ড্রায়ার আদর্শ।
+
+### ৪. আর্দ্রতা ও তাপমাত্রা নিয়ন্ত্রণ
+ফ্লোরে ২৪°-২৮° সেলসিয়াস তাপমাত্রা এবং ৬৫%-৭০% রিলেটিভ হিউমিডিটি বজায় রাখলে কটন সুতা ছিঁড়ে যাওয়ার সমস্যা বহুলাংশে কমে যায়।`,
+    category: "Technical Guide",
+    tags: ["Factory Setup", "Electrical Load", "Compressor CFM", "Narayanganj"],
+    seo_title_en: "10-Machine Knitting Unit Floor Layout & Power Plan | Tasneem",
+    seo_title_bn: "১০টি নিটিং মেশিনের কারখানা স্থাপন পরিকল্পনা | তাসনীম",
+    seo_desc_en:
+      "Engineering blueprint for 10 circular knitting machines: Space layout, electrical power calculation, screw compressor CFM, and humidity control in Bangladesh.",
+    seo_desc_bn:
+      "বাংলাদেশে ১০টি সার্কুলার নিটিং মেশিন স্থাপনের আদর্শ ফ্লোর লেআউট, বিদ্যুৎ লোড ও কম্প্রেসার সিএফএম হিসাব।",
+    status: "published",
+    published_at: "2026-02-15",
+    updated_at: "2026-02-15",
+    author: "Industrial Consultancy Division",
+  },
+  {
+    id: "blog-post-7",
+    title_en: "Preventing Center Crease Marks in Lycra Single Jersey: Open-Width Slitting vs Tubular Winders",
+    title_bn: "লাইক্রা সিঙ্গেল জার্সিতে সেন্ট্রাল ক্রিস দাগ প্রতিরোধ: ওপেন-উইডথ স্লিটার বনাম টিউবুলার মেশিন",
+    slug_en: "preventing-crease-marks-lycra-cotton-open-width-circular-knitting",
+    slug_bn: "preventing-crease-marks-lycra-cotton-open-width-circular-knitting-bn",
+    cover_image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "How open-width slitting circular knitting machines eliminate irreversible edge crease marks and fabric bowing in export-grade cotton-spandex stretch fabrics.",
+    excerpt_bn:
+      "কটন-লাইক্রা স্ট্রেচ কাপড়ে মাঝখানের স্থায়ী ভাঁজ দাগ বা ক্রিস মার্ক দূর করতে ওপেন-উইডথ স্লিটিং সার্কুলার মেশিনের উপযোগিতা ও কারিগরি বিশ্লেষণ।",
+    body_en: `## Overcoming Edge Creases and Bowing in Elastic Knitted Fabrics
+
+When knitting single jersey with 4% to 8% elastane (Lycra/spandex), using a conventional tubular winder creates sharp side fold marks that become permanent during stenter heat setting.
+
+### Why Tubular Winders Fail on Lycra Knits
+1. **Edge Pressure Lines**: Heavy winding rollers press the tubular edges together under high tension, causing localized fiber flattening.
+2. **Fabric Skewing and Bowing**: Asymmetric tension across tubular rolls introduces spiral torque, making garment panel cutting misaligned.
+
+### How Open-Width Slitting Solves the Problem
+Open-width circular knitting machines feature a synchronized rotating cutter blade that automatically slits the fabric tube down one side before rolling. The cloth is gently flattened across a curved spreader bar and batched directly into open, tensionless rolls.
+
+### Operational Benefits for Export Knitters:
+- **Zero Crease Waste**: Eliminates 3% to 5% edge scrap loss during fabric cutting.
+- **Uniform Heat Setting**: Stenter entry width is flat and smooth, allowing optimal spandex heat stabilization.
+- **Lower Dyeing Shade Variations**: Center-to-selvedge shade consistency is guaranteed without edge dark marks.`,
+    body_bn: `## লাইক্রা নিট কাপড়ে ক্রিস দাগ দূর করার কার্যকর সমাধান
+
+কটন কাপড়ে ৪% থেকে ৮% লাইক্রা (স্প্যানডেক্স) যোগ করে বোনার সময় সাধারণ টিউবুলার উইন্ডার ব্যবহার করলে কাপড়ের দুই পাশে গভীর ভাঁজ বা ক্রিস মার্ক পড়ে যায়, যা ডাইং ফিনিশিংয়েও পুরোপুরি দূর হয় না।
+
+### টিউবুলার মেশিনে লাইক্রা ফেব্রিকের সমস্যা
+১. **স্থায়ী এজ প্রেশার দাগ**: উইন্ডিং রোলারের চাপে ভাঁজের মুখে সুতা চ্যাপ্টা হয়ে দাগ বসে যায়।
+২. **স্পাইরালিটি বা বোরিং সমস্যা**: কাপড়ের টিউব রোল বাঁকা হয়ে যায়, ফলে ডায়িংয়ের পর কাটিং টেবিলে ফেব্রিক অ্যালাইনমেন্ট নষ্ট হয়।
+
+### ওপেন-উইডথ স্লিটিং কীভাবে সমাধান করে
+ওপেন-উইডথ সার্কুলার মেশিনে একটি সুনির্দিষ্ট কাটিং ব্লেড থাকে, যা বোনার সাথে সাথেই স্বয়ংক্রিয়ভাবে কাপড়ের এক পাশ কেটে সমান করে দেয়। কাপড়টি সুন্দরভাবে চওড়া রোলে প্যাক হয়, যাতে কোনো ভাঁজ পড়ে না।
+
+### রপ্তানিমুখী কারখানার ব্যবসায়িক লাভ:
+- **ওয়েস্টেজ হ্রাস**: কাটিং টেবিলে ৩% থেকে ৫% পর্যন্ত ফেব্রিক ওয়েস্টেজ রোধ হয়।
+- **নিখুঁত স্টেনটার ফিনিশিং**: ওপেন ফ্যাব্রিক সোজাভাবে স্টেনটারে প্রবেশ করায় লাইক্রা হিট-সেটিং নিখুঁত হয়।
+- **শেড ভ্যারিয়েশন দূর**: কাপড়ের মাঝখানে ও ধারে সমান শেড বজায় থাকে।`,
+    category: "Maintenance & Parts",
+    tags: ["Open Width", "Lycra Fabric", "Slitting Machine", "Quality Control"],
+    seo_title_en: "Preventing Lycra Crease Marks | Open-Width Circular Knitting",
+    seo_title_bn: "লাইক্রা কাপড়ে ক্রিস দাগ প্রতিরোধ | ওপেন-উইডথ মেশিন",
+    seo_desc_en:
+      "Technical analysis of why open-width slitting circular knitting machines eliminate permanent crease marks in export cotton-spandex stretch fabrics.",
+    seo_desc_bn:
+      "এক্সপোর্ট কটন-লাইক্রা কাপড়ে ক্রিস দাগ ও ওয়েস্টেজ বন্ধ করতে ওপেন-উইডথ সার্কুলার নিটিং মেশিনের প্রযুক্তিগত সুবিধা।",
+    status: "published",
+    published_at: "2026-02-10",
+    updated_at: "2026-02-10",
+    author: "Knitting Technology Specialist",
+  },
+  {
+    id: "blog-post-8",
+    title_en: "Why Narayanganj Remains Bangladesh's Knitting Capital: Sourcing, Clusters & Spare Parts Network",
+    title_bn: "নারায়ণগঞ্জ কেন বাংলাদেশের নিটিং ও টেক্সটাইল ক্যাপিটাল: মেশিনারিজ ও স্পেয়ার পার্টস হাবের সুবিধা",
+    slug_en: "why-narayanganj-remains-bangladesh-knitwear-circular-knitting-hub",
+    slug_bn: "why-narayanganj-remains-bangladesh-knitwear-circular-knitting-hub-bn",
+    cover_image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "A strategic analysis of Narayanganj's BSCIC industrial zone, Fatullah knitting cluster, skilled mechanics, and readily accessible circular machine spare parts.",
+    excerpt_bn:
+      "নারায়ণগঞ্জ বিসিক শিল্পনগরী, ফতুল্লা ও পঞ্চবটীর টেক্সটাইল ক্লাস্টার কেন বাংলাদেশের নিটওয়্যার শিল্পের প্রাণকেন্দ্র এবং এখানে মেশিনারি হাব থাকার সুবিধাসমূহ।",
+    body_en: `## The Strategic Supremacy of Narayanganj in Bangladesh's RMG Ecosystem
+
+Historically known as the "Dundee of Bangladesh" for its riverine jute trade, Narayanganj has transformed into the nation's undisputed circular knitting and hosiery manufacturing capital.
+
+### Why the Narayanganj Cluster Excels:
+1. **Concentration of Spinning & Yarn Markets**: Tanbazar in Narayanganj is the country's oldest yarn trading hub, allowing knitters to procure combed and carded cotton yarn on same-day credit terms.
+2. **Dense Density of Specialized Master Knitters**: Decades of hosiery tradition have bred an elite workforce of machine operators, gauge tuners, and electronic mechanics.
+3. **Immediate Proximity of Spare Parts & Needle Depots**: When a circular machine cylinder or inverter drive suffers an emergency breakdown, spare parts are accessible within 1 to 2 hours from local hubs like Tasneem Knitting Industry.
+4. **Logistical Link to Chattogram Seaport**: Direct highway corridors to Dhaka and Chattogram streamline raw machinery container clearance and finished garment exports.
+
+### Setting Up Machinery in Narayanganj
+Establishing knitting operations within Narayanganj BSCIC, Sasongaon, or Enayetnagar provides instant access to industrial electricity grids, experienced technical mechanics, and immediate machinery support.`,
+    body_bn: `## বাংলাদেশের নিটওয়্যার শিল্পের প্রাণকেন্দ্র নারায়ণগঞ্জ
+
+ঐতিহাসিকভাবে "প্রাচ্যের ডান্ডি" নামে পরিচিত নারায়ণগঞ্জ এখন বাংলাদেশের সবচেয়ে বড় সার্কুলার নিটিং ও হোসিয়ারি ক্লাস্টারে পরিণত হয়েছে।
+
+### নারায়ণগঞ্জের প্রধান সুবিধাসমূহ:
+১. **টানবাজার সুতার মার্কেট**: দেশের প্রধান সুতার বাজার টানবাজার এখানেই অবস্থিত, ফলে মিলগুলো দ্রুত ও সহজে কটন সুতা সংগ্রহ করতে পারে।
+২. **দক্ষ মেকানিক ও মাস্টার টেকনিশিয়ান**: কয়েক দশকের নিটিং ঐতিহ্যের কারণে এখানে অভিজ্ঞ সিলিন্ডার মাস্টার ও টেকনিশিয়ান সহজলভ্য।
+৩. **জরুরি স্পেয়ার পার্টস ও নিডল হাব**: মেশিনের নিডল, সিঙ্কার বা ইনভার্টার নষ্ট হলে নারায়ণগঞ্জ বিসিকের লোকাল হাব (যেমন তাসনীম নিট ইন্ডাস্ট্রি) থেকে মাত্র ১-২ ঘণ্টায় জরুরি পার্টস পাওয়া যায়।
+৪. **চট্টগ্রাম বন্দরের সহজ যোগাযোগ**: ঢাকা-চট্টগ্রাম মহাসড়কের মাধ্যমে মেশিনারি কনটেইনার পৌঁছানো এবং তৈরি পোশাক পরিবহন অত্যন্ত সহজ।
+
+### নারায়ণগঞ্জে মেশিন স্থাপনের উপযোগিতা
+নারায়ণগঞ্জ বিসিক, ফতুল্লা বা এনায়েতনগরে কারখানা স্থাপন করলে সার্বক্ষণিক কারিগরি সহায়তা, বিদ্যুৎ ব্যাকআপ ও স্পেয়ার পার্টসের নিশ্চয়তা পাওয়া যায়।`,
+    category: "Technical Guide",
+    tags: ["Narayanganj BSCIC", "Textile Hub", "Circular Knitting", "Local Sourcing"],
+    seo_title_en: "Why Narayanganj is Bangladesh Knitting Capital | Tasneem",
+    seo_title_bn: "নারায়ণগঞ্জ টেক্সটাইল ও নিটিং হাব | তাসনীম",
+    seo_desc_en:
+      "Strategic analysis of why Narayanganj BSCIC and Fatullah lead Bangladesh knitwear industry in circular knitting technology and spare parts support.",
+    seo_desc_bn:
+      "নারায়ণগঞ্জ বিসিক ও টেক্সটাইল ক্লাস্টারে সার্কুলার নিটিং কারখানা স্থাপন ও স্থানীয় স্পেয়ার পার্টস নেটওয়ার্কের গুরুত্ব।",
+    status: "published",
+    published_at: "2026-02-05",
+    updated_at: "2026-02-05",
+    author: "Industry Research Desk",
+  },
+];

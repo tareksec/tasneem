@@ -14,6 +14,31 @@ export async function GET() {
   }
 }
 
+function isGarbageOrDebugReview(name: string, message: string): boolean {
+  const combined = `${name || ""} ${message || ""}`.toLowerCase();
+  const garbagePatterns = [
+    "pendingdiffsession",
+    "floatingwidget",
+    "dsfbhsdbdb",
+    "console.",
+    "typeerror",
+    "400 (bad request)",
+    "net::err",
+    "net::",
+    "[object object]",
+    "webpack",
+    "evalmachine",
+    "stack trace",
+  ];
+  if (garbagePatterns.some((p) => combined.includes(p))) {
+    return true;
+  }
+  if (/^[bcdfghjklmnpqrstvwxyz]{8,}$/i.test(message.trim())) {
+    return true;
+  }
+  return false;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -27,9 +52,16 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!message || typeof message !== "string" || !message.trim()) {
+    if (!message || typeof message !== "string" || !message.trim() || message.trim().length < 10) {
       return NextResponse.json(
-        { success: false, error: "Review message is required." },
+        { success: false, error: "Review message must be at least 10 characters long." },
+        { status: 400 }
+      );
+    }
+
+    if (isGarbageOrDebugReview(name, message)) {
+      return NextResponse.json(
+        { success: false, error: "Review contains invalid debug/console output or spam text." },
         { status: 400 }
       );
     }

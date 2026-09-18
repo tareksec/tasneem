@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
@@ -17,7 +18,7 @@ const notoSerifBengali = Noto_Serif_Bengali({
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY_INFO.domain),
   title: {
-    default: "Tasneem Knitting Industry | Industrial Circular Knitting Machine Importer Bangladesh • সার্কুলার নিটিং মেশিন",
+    default: "Circular Knitting Machine Importer | Tasneem Knit Industry",
     template: "%s | Tasneem Knitting Industry",
   },
   alternates: {
@@ -85,13 +86,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headerList = await headers();
+  const locale = (headerList.get("x-locale") as "en" | "bn") || "bn";
+
   return (
-    <html lang="bn" className={`${notoSerifBengali.variable} h-full antialiased`}>
+    <html lang={locale} className={`${notoSerifBengali.variable} h-full antialiased`}>
       <head>
         <meta name="google-site-verification" content="wGKuU1wkzeFDwhHUp-7bNHpZsxE1cc9jD5a1tcbId7E" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -99,12 +103,6 @@ export default function RootLayout({
         <link rel="icon" href="/logo/icon.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&family=Scoutie+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-          rel="stylesheet"
-        />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <VideoObjectSchema />
@@ -112,7 +110,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-white text-[#2D2D2D] font-sans antialiased selection:bg-[#800020] selection:text-white">
         <GoogleAnalytics />
-        <LanguageProvider initialLocale="bn">
+        <LanguageProvider initialLocale={locale}>
           <PublicLayoutWrapper>{children}</PublicLayoutWrapper>
         </LanguageProvider>
       </body>

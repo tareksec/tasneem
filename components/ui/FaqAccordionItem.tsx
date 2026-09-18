@@ -6,10 +6,11 @@ import { ArrowUpRight } from "lucide-react";
 interface FaqItemProps {
   question: string;
   answer: string;
+  defaultOpen?: boolean;
 }
 
-export function FaqAccordionItem({ question, answer }: FaqItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function FaqAccordionItem({ question, answer, defaultOpen = false }: FaqItemProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div
