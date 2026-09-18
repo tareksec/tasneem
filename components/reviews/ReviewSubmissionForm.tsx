@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Star, Loader2, CheckCircle2, Clock, AlertCircle } from "lucide-react";
+import { Star, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { adminStore } from "@/lib/admin/admin-store";
 import { Review } from "@/lib/types";
-
-const RATE_LIMIT_STORAGE_KEY = "tasneem_last_review_submitted";
-const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
 
 interface ReviewSubmissionFormProps {
   onSuccess?: (review?: Review) => void;
@@ -34,23 +31,10 @@ export function ReviewSubmissionForm({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
-  // Rate Limiting State
-  const [isRateLimited, setIsRateLimited] = useState<boolean>(false);
-  const [hoursRemaining, setHoursRemaining] = useState<number>(0);
-
   useEffect(() => {
-    // Check client localStorage for last submission timestamp
+    // Clear any previous legacy 24-hour lock from client storage
     try {
-      const lastSubmission = localStorage.getItem(RATE_LIMIT_STORAGE_KEY);
-      if (lastSubmission) {
-        const timestamp = parseInt(lastSubmission, 10);
-        const elapsed = Date.now() - timestamp;
-        if (elapsed < TWENTY_FOUR_HOURS_MS) {
-          setIsRateLimited(true);
-          const remainingMs = TWENTY_FOUR_HOURS_MS - elapsed;
-          setHoursRemaining(Math.ceil(remainingMs / (1000 * 60 * 60)));
-        }
-      }
+      localStorage.removeItem("tasneem_last_review_submitted");
     } catch {
       // Storage unavailable or disabled
     }
@@ -151,16 +135,7 @@ export function ReviewSubmissionForm({
         id: result.review?.id,
       });
 
-      // 3. Set 24-hour rate limit timestamp
-      try {
-        localStorage.setItem(RATE_LIMIT_STORAGE_KEY, Date.now().toString());
-      } catch {
-        // LocalStorage disabled
-      }
-
       setSuccess(true);
-      setIsRateLimited(true);
-      setHoursRemaining(24);
 
       if (onSuccess) {
         onSuccess(createdReview);
@@ -178,41 +153,6 @@ export function ReviewSubmissionForm({
     }
   };
 
-  // If rate limited, display clear notice
-  if (isRateLimited && !success) {
-    return (
-      <div className="bg-[#FAFBFD] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 text-center flex flex-col items-center">
-        <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
-          <Clock className="w-6 h-6" />
-        </div>
-        <h3 className="text-lg font-bold text-[#2D2D2D] mb-2">
-          {locale === "bn"
-            ? "দৈনিক রিভিউ কোটা পূর্ণ হয়েছে"
-            : "Review Submitted for Today"}
-        </h3>
-        <p className="text-sm text-[#4A4A4A] max-w-md mb-4 leading-relaxed">
-          {locale === "bn"
-            ? "আপনি আজ ইতিমধ্যে একটি রিভিউ জমা দিয়েছেন — অনুগ্রহ করে আগামীকাল আবার চেষ্টা করুন।"
-            : "You've already submitted a review today — please come back tomorrow."}
-        </p>
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 text-neutral-600 text-xs font-mono">
-          {locale === "bn"
-            ? `পরবর্তী সাবমিশন প্রায় ${hoursRemaining} ঘণ্টার মধ্যে চালু হবে`
-            : `Next submission available in ~${hoursRemaining} hours`}
-        </span>
-        {onCancel && isModal && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="mt-6 px-5 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
-          >
-            {locale === "bn" ? "বন্ধ করুন" : "Close"}
-          </button>
-        )}
-      </div>
-    );
-  }
-
   // Success Feedback
   if (success) {
     return (
@@ -228,15 +168,30 @@ export function ReviewSubmissionForm({
             ? "ধন্যবাদ! আপনার রিভিউটি আমাদের অ্যাডমিন প্যানেলে যাচাইয়ের জন্য পাঠানো হয়েছে। অনুমোদনের পর এটি ওয়েবসাইটে দৃশ্যমান হবে।"
             : "Thank you! Your feedback has been sent to our moderation queue and will appear publicly once verified by our team."}
         </p>
-        {onCancel && isModal && (
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
-            onClick={onCancel}
-            className="btn-primary"
+            onClick={() => {
+              setSuccess(false);
+              setName("");
+              setCompany("");
+              setMessage("");
+              setRating(5);
+            }}
+            className="px-4 py-2 border border-neutral-300 hover:border-[#800020] text-[#2D2D2D] hover:text-[#800020] text-xs font-semibold rounded-xl transition-colors cursor-pointer"
           >
-            {locale === "bn" ? "সম্পন্ন" : "Done"}
+            {locale === "bn" ? "আরেকটি রিভিউ দিন" : "Submit Another Review"}
           </button>
-        )}
+          {onCancel && isModal && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="btn-primary"
+            >
+              {locale === "bn" ? "সম্পন্ন" : "Done"}
+            </button>
+          )}
+        </div>
       </div>
     );
   }
