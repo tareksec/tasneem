@@ -306,9 +306,13 @@ export default function CustomerRegisterPage() {
                     />
                     <span>
                       Yes, I agree to the{" "}
-                      <span className="text-[#E11D48] font-medium underline">
+                      <Link
+                        href="/terms"
+                        target="_blank"
+                        className="text-[#E11D48] font-medium underline hover:text-red-400"
+                      >
                         Terms of Service
-                      </span>{" "}
+                      </Link>{" "}
                       & Buyer Confidentiality.
                     </span>
                   </label>

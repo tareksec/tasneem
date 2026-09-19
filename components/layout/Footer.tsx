@@ -160,6 +160,16 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/careers" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5 font-semibold text-rose-800">
+                    {locale === "bn" ? "ক্যারিয়ার / চাকরির সুযোগ" : "Careers & Jobs"}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5">
+                    {locale === "bn" ? "ব্যবহারের শর্তাবলী" : "Terms of Service"}
+                  </Link>
+                </li>
+                <li>
                   <Link href="/privacy-policy" className="hover:text-neutral-950 transition-colors inline-block hover:translate-x-0.5 text-[#800020] font-semibold">
                     {locale === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
                   </Link>
