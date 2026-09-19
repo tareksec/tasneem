@@ -24,6 +24,7 @@ export async function POST(request: Request) {
         phoneOrWhatsApp: customer.phone || "",
         status: customer.status,
         isApproved: customer.isApproved,
+        email_verified: customer.email_verified,
         createdAt: customer.createdAt.toISOString(),
       },
     });

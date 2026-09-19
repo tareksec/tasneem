@@ -14,6 +14,9 @@ import {
   ExternalLink,
   ShieldCheck,
   Building2,
+  Mail,
+  AlertTriangle,
+  Loader2,
 } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer/customer-context";
 import { cn } from "@/lib/utils";
@@ -24,9 +27,17 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   const router = useRouter();
   const { customer, logout } = useCustomerAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [resendStatus, setResendStatus] = useState<string | null>(null);
 
-  // If on login or register, render cleanly centered inside warm canvas
-  const isAuthPage = pathname === "/account/login" || pathname === "/account/register";
+  // If on login, register, or auth flow pages, render cleanly centered inside warm canvas
+  const isAuthPage =
+    pathname === "/account/login" ||
+    pathname === "/account/register" ||
+    pathname === "/account/forgot-password" ||
+    pathname === "/account/reset-password" ||
+    pathname === "/account/verify-email";
+
   if (isAuthPage) {
     return (
       <div className="min-h-screen bg-[#ECE9E4] flex items-center justify-center p-4 sm:p-6 font-sans">
@@ -34,6 +45,30 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
       </div>
     );
   }
+
+  const handleResendBannerVerification = async () => {
+    if (!customer?.email) return;
+    setIsResending(true);
+    setResendStatus(null);
+    try {
+      const res = await fetch("/api/auth/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: customer.email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setResendStatus("Link Sent! Check your inbox.");
+      } else {
+        setResendStatus("Could not send. Try again later.");
+      }
+    } catch {
+      setResendStatus("Network error.");
+    } finally {
+      setIsResending(false);
+      setTimeout(() => setResendStatus(null), 5000);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -217,6 +252,51 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
               </button>
             </div>
           </header>
+
+          {/* Unverified Email Warning Banner */}
+          {customer && customer.email_verified === false && (
+            <div className="mx-6 sm:mx-8 lg:mx-10 mb-4 p-3.5 sm:p-4 rounded-2xl bg-amber-50/90 border border-amber-300 text-amber-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="p-1.5 rounded-lg bg-amber-100 text-amber-700 shrink-0 mt-0.5 sm:mt-0">
+                  <AlertTriangle className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-amber-950">
+                    Please verify your business email ({customer.email})
+                  </p>
+                  <p className="text-[11px] text-amber-800/90 leading-relaxed">
+                    Verify your email address to receive real-time machinery quotes and formal Proforma Invoices (PI).
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                {resendStatus && (
+                  <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-lg">
+                    {resendStatus}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={handleResendBannerVerification}
+                  disabled={isResending}
+                  className="px-3.5 py-1.5 rounded-xl bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-colors cursor-pointer disabled:opacity-60 flex items-center gap-1.5"
+                >
+                  {isResending ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Resend Verification Email</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Page Body Viewport */}
           <main className="flex-1 px-6 sm:px-8 lg:px-10 pb-8 sm:pb-10 max-w-7xl w-full mx-auto">

@@ -133,6 +133,11 @@ export interface CustomerUser {
   password?: string;
   status: CustomerApprovalStatus;
   isApproved?: boolean;
+  email_verified?: boolean;
+  verification_token?: string | null;
+  verification_token_expires?: string | null;
+  reset_token?: string | null;
+  reset_token_expires?: string | null;
   createdAt: string;
   updatedAt?: string;
 }

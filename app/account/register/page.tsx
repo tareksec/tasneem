@@ -113,6 +113,17 @@ export default function CustomerRegisterPage() {
             </div>
           </div>
 
+          {/* Email Verification Sent Alert */}
+          <div className="mt-4 p-3.5 rounded-xl bg-blue-50/80 border border-blue-200 text-left space-y-1.5 text-xs text-blue-900">
+            <div className="flex items-center gap-2 font-bold text-blue-800">
+              <Mail className="w-4 h-4 text-blue-600 shrink-0" />
+              <span>ইমেইল ভেরিফিকেশন লিংক পাঠানো হয়েছে</span>
+            </div>
+            <p className="text-[11px] text-blue-800/90 leading-relaxed">
+              We have sent a verification email to <strong>{submittedData.email}</strong>. Please check your inbox (or spam folder) and click the link to confirm your email.
+            </p>
+          </div>
+
           {/* WhatsApp Fast Approval Button */}
           <div className="mt-5 space-y-2.5">
             <a
