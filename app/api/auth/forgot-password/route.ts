@@ -42,16 +42,13 @@ export async function POST(request: Request) {
       },
     });
 
-    console.log(`[Forgot Password Route] Sending reset email to ${customer.email}...`);
-    const mailResult = await sendPasswordResetEmail({
+    await sendPasswordResetEmail({
       email: customer.email,
       name: customer.name,
       token: resetToken,
     }).catch((mailErr) => {
-      console.error("[Forgot Password Route] Error sending password reset email:", mailErr);
-      return { success: false, error: mailErr?.message };
+      console.error("[Forgot Password] Error sending reset email:", mailErr?.message || mailErr);
     });
-    console.log(`[Forgot Password Route] Mail dispatch result:`, mailResult);
 
     return NextResponse.json(genericResponse);
   } catch (error) {

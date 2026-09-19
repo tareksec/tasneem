@@ -41,11 +41,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
     pathname === "/account/verify-email";
 
   if (isAuthPage) {
-    return (
-      <div className="min-h-screen bg-[#ECE9E4] flex items-center justify-center p-4 sm:p-6 font-sans">
-        {children}
-      </div>
-    );
+    return <>{children}</>;
   }
 
   const handleResendBannerVerification = async () => {

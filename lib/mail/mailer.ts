@@ -27,34 +27,22 @@ export function getMailTransporter() {
   const pass = sanitizeEnv(process.env.SMTP_PASS);
   const isSecure = port === 465;
 
-  console.log("[Mailer Diagnostics] Transporter init config:", {
-    host,
-    port,
-    secure: isSecure,
-    hasUser: Boolean(user),
-    userEmail: user ? `${user.slice(0, 3)}***@${user.split("@")[1] || "unknown"}` : "EMPTY",
-    hasPass: Boolean(pass),
-    passLength: pass ? pass.length : 0,
-    hasFrom: Boolean(process.env.SMTP_FROM),
-    hasAdminEmail: Boolean(process.env.ADMIN_EMAIL),
-  });
-
   if (!user || !pass) {
     console.warn(
-      "[Mailer] CRITICAL WARNING: SMTP_USER or SMTP_PASS is missing or empty in environment! Emails will fail to dispatch."
+      "[Mailer] Warning: SMTP_USER or SMTP_PASS is missing in environment. Real emails cannot be sent."
     );
   }
 
   return nodemailer.createTransport({
     host,
     port,
-    secure: isSecure, // true for port 465, false for 587
+    secure: isSecure,
     auth: {
       user,
       pass,
     },
     tls: {
-      rejectUnauthorized: false, // Prevents certificate chain validation failures on cloud hosting
+      rejectUnauthorized: false,
     },
     connectionTimeout: 15000,
     greetingTimeout: 15000,
@@ -78,12 +66,9 @@ export async function sendMail({ to, subject, html, text }: SendMailOptions) {
   const pass = sanitizeEnv(process.env.SMTP_PASS);
   const from = sanitizeEnv(process.env.SMTP_FROM) || `"Tasneem Knitting Industry" <${user || "no-reply@tasneemknitindustry.com"}>`;
 
-  console.log(`[Mailer] Initiating sendMail to: ${to} | Subject: "${subject}" | From: ${from}`);
-
-  // In development without credentials, log details for testing
   if (!user || !pass) {
-    console.warn(`[Mailer Fallback] SMTP_USER or SMTP_PASS missing. Email to ${to} not sent to inbox.`);
-    return { success: false, error: "SMTP credentials (SMTP_USER or SMTP_PASS) are not set in environment." };
+    console.warn(`[Mailer] Missing SMTP credentials. Email to ${to} was not dispatched.`);
+    return { success: false, error: "SMTP credentials not configured." };
   }
 
   try {
@@ -95,17 +80,9 @@ export async function sendMail({ to, subject, html, text }: SendMailOptions) {
       text: text || html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
       html,
     });
-    console.log(`[Mailer Success] Email successfully sent to ${to}! Message ID: ${info.messageId}`);
     return { success: true, messageId: info.messageId };
   } catch (error: any) {
-    console.error(`[Mailer Error] Full failure sending email to ${to}:`, {
-      message: error.message,
-      code: error.code,
-      command: error.command,
-      response: error.response,
-      responseCode: error.responseCode,
-      stack: error.stack,
-    });
+    console.error(`[Mailer] Error sending email to ${to}:`, error.message || error);
     return { success: false, error: error.message || "Failed to send email" };
   }
 }

@@ -47,16 +47,13 @@ export async function POST(request: Request) {
       },
     });
 
-    console.log(`[Resend Route] Sending verification email to ${customer.email}...`);
-    const mailResult = await sendVerificationEmail({
+    await sendVerificationEmail({
       email: customer.email,
       name: customer.name,
       token: newToken,
     }).catch((mailErr) => {
-      console.error("[Resend Route] Error resending verification email:", mailErr);
-      return { success: false, error: mailErr?.message };
+      console.error("[Resend] Error resending verification email:", mailErr?.message || mailErr);
     });
-    console.log(`[Resend Route] Mail dispatch result:`, mailResult);
 
     return NextResponse.json({
       success: true,

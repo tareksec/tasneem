@@ -44,8 +44,7 @@ export async function POST(request: Request) {
     });
 
     // Await both user verification email and admin notification email concurrently
-    console.log(`[Register Route] Triggering email dispatches for user ${customer.email} and admin...`);
-    const [userMailRes, adminMailRes] = await Promise.allSettled([
+    await Promise.allSettled([
       sendVerificationEmail({
         email: customer.email,
         name: customer.name,
@@ -59,19 +58,14 @@ export async function POST(request: Request) {
           phoneOrWhatsApp: customer.phone || "",
         },
       }),
-    ]);
-
-    if (userMailRes.status === "rejected") {
-      console.error("[Register Route] Verification email promise rejected:", userMailRes.reason);
-    } else {
-      console.log("[Register Route] Verification email result:", userMailRes.value);
-    }
-
-    if (adminMailRes.status === "rejected") {
-      console.error("[Register Route] Admin alert email promise rejected:", adminMailRes.reason);
-    } else {
-      console.log("[Register Route] Admin alert email result:", adminMailRes.value);
-    }
+    ]).then(([userRes, adminRes]) => {
+      if (userRes.status === "rejected") {
+        console.error("[Register] Verification email dispatch error:", userRes.reason);
+      }
+      if (adminRes.status === "rejected") {
+        console.error("[Register] Admin notification email dispatch error:", adminRes.reason);
+      }
+    });
 
     return NextResponse.json({
       success: true,

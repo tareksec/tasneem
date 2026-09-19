@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Mail, ArrowRight, ArrowLeft, Building2, CheckCircle2, ShieldCheck, Loader2 } from "lucide-react";
+import { AuthSunsetBackdrop } from "@/components/auth/AuthSunsetBackdrop";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -42,9 +43,9 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ECE9E4] flex items-center justify-center p-4 sm:p-6 font-sans">
+    <AuthSunsetBackdrop>
       <div className="max-w-md w-full mx-auto">
-        <div className="bg-white border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div className="bg-white rounded-[32px] sm:rounded-[36px] p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.3)] border border-white/60">
           {/* Header */}
           <div className="text-center mb-6">
             <div className="w-12 h-12 rounded-xl bg-[#FDF2F4] border border-[#D8A4AF] text-[#800020] flex items-center justify-center mx-auto mb-3">
@@ -161,6 +162,6 @@ export default function ForgotPasswordPage() {
           )}
         </div>
       </div>
-    </div>
+    </AuthSunsetBackdrop>
   );
 }
