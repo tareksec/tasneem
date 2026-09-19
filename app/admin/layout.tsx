@@ -11,15 +11,9 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // If on login page, render clean centered layout
+  // If on login page, render clean auth layout directly without card wrapper
   if (pathname === "/admin/login") {
-    return (
-      <div className="min-h-screen bg-[#ECE9E4] flex items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-md bg-[#F4F3EF] rounded-[36px] shadow-2xl overflow-hidden border border-black/5 p-6 sm:p-8">
-          {children}
-        </div>
-      </div>
-    );
+    return <>{children}</>;
   }
 
   return (

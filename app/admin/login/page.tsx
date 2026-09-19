@@ -104,8 +104,8 @@ function LoginForm() {
             
             {/* Header */}
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-950/80 border border-rose-800/80 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-rose-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-950/80 border border-rose-800/80 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
+                <ShieldCheck className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                 Staff Authentication
               </span>
             </div>
@@ -180,13 +180,13 @@ function LoginForm() {
               </div>
 
               {/* Remember Me & Quick Demo */}
-              <div className="flex items-center justify-between pt-1 text-xs">
-                <label className="flex items-center gap-2 cursor-pointer select-none text-slate-400">
+              <div className="flex items-center justify-between pt-1 text-xs gap-2">
+                <label className="flex items-center gap-2 cursor-pointer select-none text-slate-400 whitespace-nowrap">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-[#E11D48] accent-[#E11D48] focus:ring-[#E11D48] cursor-pointer"
+                    className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-[#E11D48] accent-[#E11D48] focus:ring-[#E11D48] cursor-pointer shrink-0"
                   />
                   <span>Stay signed in</span>
                 </label>
@@ -194,7 +194,7 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={fillDemoCredentials}
-                  className="text-slate-400 hover:text-white font-medium underline text-[11px] cursor-pointer"
+                  className="text-slate-400 hover:text-white font-medium underline text-[11px] cursor-pointer whitespace-nowrap"
                 >
                   Quick Fill Demo
                 </button>
