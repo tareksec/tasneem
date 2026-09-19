@@ -559,7 +559,7 @@ export default function SiteContentPage() {
                     type="email"
                     value={companyInfo.email}
                     onChange={(e) => setCompanyInfo({ ...companyInfo, email: e.target.value })}
-                    placeholder="tasneemknit@gmail.com"
+                    placeholder="info@tasneemknitindustry.com"
                   />
                   <span className="text-[11px] text-slate-400">
                     Primary inbox for company inquiries and notifications.

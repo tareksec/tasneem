@@ -68,8 +68,8 @@ export const COMPANY_INFO = {
   phoneAlt: "+880 1884-611888", // Secondary phone alias
   whatsapp: "+8801884611888", // Main WhatsApp Button Number (Mr Hasan)
   whatsappFormatted: "+880 1884-611888",
-  email: "tasneemknit@gmail.com", // Main Email
-  mainEmail: "tasneemknit@gmail.com",
+  email: "info@tasneemknitindustry.com", // Main Email
+  mainEmail: "info@tasneemknitindustry.com",
   businessEmail: "hello@tasneemknitindustry.com", // Business Email
   facebook: "https://www.facebook.com/tasneemknitind", // Official Facebook Page
   facebookUrl: "https://www.facebook.com/tasneemknitind",
