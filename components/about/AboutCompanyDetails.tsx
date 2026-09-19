@@ -1,25 +1,22 @@
 "use client";
 
-import Link from "next/link";
 import {
-  ArrowRight,
   ArrowUpRight,
   Building2,
   FileText,
   Globe2,
   Mail,
   MapPin,
-  MessageCircle,
   Phone,
 } from "lucide-react";
 import { OfficeMap } from "@/components/ui/OfficeMap";
+import { QuoteCtaBanner } from "@/components/home/QuoteCtaBanner";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 export function AboutCompanyDetails() {
   const { locale } = useTranslation();
   const isBn = locale === "bn";
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp.replace(/\D/g, "")}`;
   const offices = [
     {
       icon: MapPin,
@@ -165,45 +162,10 @@ export function AboutCompanyDetails() {
             </div>
           </div>
 
-          <div className="relative mt-16 overflow-hidden rounded-3xl bg-burgundy px-6 py-10 text-white sm:mt-24 sm:px-10 sm:py-12 lg:px-12">
-            <div className="pointer-events-none absolute -right-24 -top-40 h-96 w-96 rounded-full border border-white/10" aria-hidden="true" />
-            <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-12">
-              <div>
-                <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-white/75">
-                  {isBn ? "আপনার পরবর্তী পদক্ষেপ" : "Your next step"}
-                </p>
-                <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                  {isBn ? "আপনার কারখানার জন্য সঠিক মেশিন খুঁজছেন?" : "Let’s find the right machine for your mill."}
-                </h2>
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85">
-                  {isBn
-                    ? "আপনার কাঙ্ক্ষিত স্পেসিফিকেশন জানান। সোর্সিং, শিপিং ও ইনস্টলেশন নিয়ে আমাদের টিমের সাথে আলোচনা করুন।"
-                    : "Share your specifications. Talk sourcing, shipping, and installation with a team that understands your production needs."}
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                <Link
-                  href={`/${locale}/quote`}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-burgundy transition-colors hover:bg-burgundy-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                  {isBn ? "কোটেশন নিন" : "Request a quote"}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                  {isBn ? "হোয়াটসঅ্যাপে কথা বলুন" : "Chat on WhatsApp"}
-                  <span className="sr-only">{isBn ? "(নতুন ট্যাবে খুলবে)" : "(opens in a new tab)"}</span>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
+
+      <QuoteCtaBanner />
     </>
   );
 }
