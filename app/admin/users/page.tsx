@@ -414,26 +414,39 @@ export default function AdminUsersPage() {
                         }) : "Recent"}
                       </td>
 
-                      {/* Status Badge */}
+                      {/* Status & Verification Badges */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        {isPending && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                            <Clock className="w-3 h-3 text-amber-600 animate-pulse" />
-                            <span>Pending Review</span>
-                          </span>
-                        )}
-                        {isApproved && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                            <Check className="w-3 h-3 text-emerald-600" />
-                            <span>Approved</span>
-                          </span>
-                        )}
-                        {isRejected && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
-                            <X className="w-3 h-3 text-rose-600" />
-                            <span>Rejected</span>
-                          </span>
-                        )}
+                        <div className="flex flex-col items-start gap-1">
+                          {isPending && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                              <Clock className="w-3 h-3 text-amber-600 animate-pulse" />
+                              <span>Pending Review</span>
+                            </span>
+                          )}
+                          {isApproved && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                              <Check className="w-3 h-3 text-emerald-600" />
+                              <span>Approved</span>
+                            </span>
+                          )}
+                          {isRejected && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                              <X className="w-3 h-3 text-rose-600" />
+                              <span>Rejected</span>
+                            </span>
+                          )}
+
+                          {c.email_verified ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                              <CheckCircle className="w-2.5 h-2.5 text-blue-600" />
+                              <span>Email Verified</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 text-slate-500 border border-slate-200">
+                              <span>Email Unverified</span>
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       {/* Approval Actions */}

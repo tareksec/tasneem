@@ -9,6 +9,7 @@ function formatCustomer(customer: {
   phone: string | null;
   status: string;
   isApproved: boolean;
+  email_verified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }) {
@@ -20,6 +21,7 @@ function formatCustomer(customer: {
     phoneOrWhatsApp: customer.phone || "",
     status: customer.status,
     isApproved: customer.isApproved,
+    email_verified: customer.email_verified,
     createdAt: customer.createdAt.toISOString(),
     updatedAt: customer.updatedAt.toISOString(),
   };

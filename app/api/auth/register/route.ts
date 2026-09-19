@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
-import { sendVerificationEmail } from "@/lib/mail/mailer";
+import { sendVerificationEmail, sendAdminNewRegistrationNotice } from "@/lib/mail/mailer";
 
 export async function POST(request: Request) {
   try {
@@ -43,13 +43,25 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send verification email in background
+    // Send verification email to user
     sendVerificationEmail({
       email: customer.email,
       name: customer.name,
       token: verificationToken,
     }).catch((mailErr) => {
       console.error("Failed to send verification email:", mailErr);
+    });
+
+    // Send alert email to admin
+    sendAdminNewRegistrationNotice({
+      user: {
+        name: customer.name,
+        company: customer.company,
+        email: customer.email,
+        phoneOrWhatsApp: customer.phone || "",
+      },
+    }).catch((adminMailErr) => {
+      console.error("Failed to send admin registration alert:", adminMailErr);
     });
 
     return NextResponse.json({

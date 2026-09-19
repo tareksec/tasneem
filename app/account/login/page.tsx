@@ -21,10 +21,39 @@ export default function CustomerLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isResending, setIsResending] = useState(false);
+  const [resendNotice, setResendNotice] = useState<string | null>(null);
+
+  const handleResendFromLogin = async () => {
+    if (!email || !email.includes("@")) {
+      setResendNotice("Please enter a valid email address first.");
+      return;
+    }
+    setIsResending(true);
+    setResendNotice(null);
+    try {
+      const res = await fetch("/api/auth/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setResendNotice("Verification email sent! Please check your inbox & spam folder.");
+      } else {
+        setResendNotice(data.error || "Could not send verification email.");
+      }
+    } catch {
+      setResendNotice("Network error. Please try again.");
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setResendNotice(null);
 
     if (!email || !email.includes("@")) {
       setError("Please enter a valid business email address.");
@@ -69,19 +98,45 @@ export default function CustomerLoginPage() {
         </div>
 
         {error && (
-          <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 space-y-2">
-            {error.includes("PENDING_APPROVAL") ? (
-              <div className="space-y-2 text-amber-900 bg-amber-50/80 -m-1.5 p-3.5 rounded-lg border border-amber-300">
-                <div className="flex items-center gap-2 font-bold text-amber-800 text-xs">
+          <div className="mb-5 space-y-2">
+            {error.includes("EMAIL_NOT_VERIFIED") ? (
+              <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 space-y-2.5">
+                <div className="flex items-center gap-2 font-bold text-blue-950">
+                  <Mail className="w-4 h-4 text-blue-700 shrink-0" />
+                  <span>ইমেইল ভেরিফিকেশন বাকি রয়েছে (Email Not Verified)</span>
+                </div>
+                <p className="text-[11px] text-blue-800/90 leading-relaxed">
+                  {error.replace("EMAIL_NOT_VERIFIED: ", "")}
+                </p>
+
+                {resendNotice && (
+                  <div className="p-2 rounded-lg bg-white/90 border border-blue-200 text-[11px] font-semibold text-blue-950">
+                    {resendNotice}
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleResendFromLogin}
+                  disabled={isResending}
+                  className="w-full py-2 px-3 rounded-lg bg-[#800020] hover:bg-[#5A0017] text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>{isResending ? "Sending New Link..." : "Resend Verification Email"}</span>
+                </button>
+              </div>
+            ) : error.includes("PENDING_APPROVAL") ? (
+              <div className="p-3.5 rounded-xl bg-amber-50/90 border border-amber-300 text-xs text-amber-900 space-y-2">
+                <div className="flex items-center gap-2 font-bold text-amber-800">
                   <Clock className="w-4 h-4 shrink-0 text-amber-600 animate-pulse" />
                   <span>অ্যাকাউন্টটি অনুমোদনের অপেক্ষায় (Pending Approval)</span>
                 </div>
                 <p className="text-[11px] text-amber-800/90 leading-relaxed">
-                  আপনার রেজিস্ট্রেশনটি অ্যাডমিন পর্যালোচনায় রয়েছে। অ্যাডমিন অনুমোদন সম্পন্ন করলে এই অ্যাকাউন্ট দিয়ে সমস্ত তথ্য দেখা যাবে।
+                  আপনার ইমেইলটি সফলভাবে ভেরিফাই হয়েছে। অ্যাডমিন টিম আপনার কোম্পানি তথ্য যাচাই করে অনুমোদন দেওয়ার পর লগইন করতে পারবেন।
                 </p>
                 <a
                   href={`https://wa.me/8801715024479?text=${encodeURIComponent(
-                    `Hello Tasneem Knit Industry, I have registered a buyer account with email: ${email}. Please approve my account.`
+                    `Hello Tasneem Knit Industry, I have registered and verified my email (${email}). Please approve my buyer account.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -92,7 +147,7 @@ export default function CustomerLoginPage() {
                 </a>
               </div>
             ) : (
-              <div className="flex items-start gap-2">
+              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2">
                 <span className="shrink-0 font-bold">•</span>
                 <span>{error}</span>
               </div>

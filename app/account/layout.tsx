@@ -17,6 +17,8 @@ import {
   Mail,
   AlertTriangle,
   Loader2,
+  Clock,
+  MessageCircle,
 } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer/customer-context";
 import { cn } from "@/lib/utils";
@@ -253,8 +255,8 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
             </div>
           </header>
 
-          {/* Unverified Email Warning Banner */}
-          {customer && customer.email_verified === false && (
+          {/* Account Status Notice Banners */}
+          {customer && !customer.email_verified && (
             <div className="mx-6 sm:mx-8 lg:mx-10 mb-4 p-3.5 sm:p-4 rounded-2xl bg-amber-50/90 border border-amber-300 text-amber-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
               <div className="flex items-start sm:items-center gap-3">
                 <div className="p-1.5 rounded-lg bg-amber-100 text-amber-700 shrink-0 mt-0.5 sm:mt-0">
@@ -262,10 +264,12 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                 </div>
                 <div>
                   <p className="text-xs font-bold text-amber-950">
-                    Please verify your business email ({customer.email})
+                    Email Verification Required ({customer.email})
                   </p>
                   <p className="text-[11px] text-amber-800/90 leading-relaxed">
-                    Verify your email address to receive real-time machinery quotes and formal Proforma Invoices (PI).
+                    {customer.status === "pending"
+                      ? "Please verify your email address. Note: Your account is also pending admin approval before full commercial access is granted."
+                      : "Please verify your email address to ensure you receive formal Proforma Invoices (PI) and quote updates."}
                   </p>
                 </div>
               </div>
@@ -295,6 +299,36 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   )}
                 </button>
               </div>
+            </div>
+          )}
+
+          {customer && customer.email_verified && customer.status === "pending" && (
+            <div className="mx-6 sm:mx-8 lg:mx-10 mb-4 p-3.5 sm:p-4 rounded-2xl bg-blue-50/90 border border-blue-200 text-blue-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="p-1.5 rounded-lg bg-blue-100 text-blue-700 shrink-0 mt-0.5 sm:mt-0">
+                  <Clock className="w-4 h-4 text-blue-600 animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-blue-950">
+                    Email Verified • Account Awaiting Admin Approval
+                  </p>
+                  <p className="text-[11px] text-blue-800/90 leading-relaxed">
+                    Your email is verified. Tasneem administration is currently reviewing your factory credentials to activate full quotation submission and Proforma Invoice tracking.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={`https://wa.me/8801715024479?text=${encodeURIComponent(
+                  `Hello Tasneem Knit Industry, I have registered and verified my email (${customer.email}) for ${customer.company}. Please review and approve my account.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="self-end sm:self-auto shrink-0 px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>Fast-Track Approval</span>
+              </a>
             </div>
           )}
 

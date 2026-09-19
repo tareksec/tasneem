@@ -321,3 +321,133 @@ export async function sendPasswordResetEmail({
     text: `Reset Your Password - Tasneem Knitting Industry\n\nClick the link below to reset your password:\n${resetUrl}\n\nThis single-use link expires in 1 hour.\n\nIf you did not request a password reset, please disregard this message.`,
   });
 }
+
+/**
+ * Send notification to administrator when a new buyer registers and needs approval
+ */
+export async function sendAdminNewRegistrationNotice({
+  user,
+}: {
+  user: {
+    name: string;
+    company: string;
+    email: string;
+    phoneOrWhatsApp?: string;
+  };
+}) {
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@tasneemknitindustry.com";
+  const baseUrl = getAppBaseUrl();
+  const adminPortalUrl = `${baseUrl}/admin/users?status=pending`;
+
+  const subject = `Action Required: New Buyer Registration Pending Approval — ${user.company}`;
+  const formattedDate = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Dhaka",
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #333333; line-height: 1.6;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f7; padding: 30px 15px;">
+    <tr>
+      <td align="center">
+        <!-- Main Card -->
+        <table role="presentation" width="100%" style="max-width: 580px; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);" cellspacing="0" cellpadding="0">
+          
+          <!-- Burgundy Brand Header -->
+          <tr>
+            <td style="background-color: #800020; padding: 28px 32px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 19px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">
+                TASNEEM KNITTING INDUSTRY
+              </h1>
+              <p style="margin: 4px 0 0 0; color: #f9e6ea; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">
+                Admin Portal Alert • New Buyer Account Request
+              </p>
+            </td>
+          </tr>
+
+          <!-- Body Content -->
+          <tr>
+            <td style="padding: 32px 32px 24px 32px;">
+              <div style="background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 24px;">
+                <p style="margin: 0; font-size: 13px; font-weight: 600; color: #92400e;">
+                  ⚠️ New registration pending your review and approval.
+                </p>
+              </div>
+
+              <h2 style="margin: 0 0 16px 0; font-size: 18px; color: #1f2937; font-weight: 700;">
+                Buyer Registration Details
+              </h2>
+              
+              <table role="presentation" width="100%" style="border-collapse: collapse; margin-bottom: 24px; font-size: 13px;">
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 10px 0; color: #6b7280; width: 140px; font-weight: 600;">Factory / Mill:</td>
+                  <td style="padding: 10px 0; color: #111827; font-weight: 700;">${user.company}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 10px 0; color: #6b7280; font-weight: 600;">Contact Person:</td>
+                  <td style="padding: 10px 0; color: #111827;">${user.name}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 10px 0; color: #6b7280; font-weight: 600;">Business Email:</td>
+                  <td style="padding: 10px 0; color: #111827; font-family: monospace;">${user.email}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 10px 0; color: #6b7280; font-weight: 600;">Phone / WhatsApp:</td>
+                  <td style="padding: 10px 0; color: #111827; font-family: monospace;">${user.phoneOrWhatsApp || "Not provided"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #6b7280; font-weight: 600;">Submission Time:</td>
+                  <td style="padding: 10px 0; color: #111827;">${formattedDate} (BST)</td>
+                </tr>
+              </table>
+
+              <!-- Action Buttons -->
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 24px auto;">
+                <tr>
+                  <td align="center" style="border-radius: 8px; background-color: #800020;">
+                    <a href="${adminPortalUrl}" target="_blank" style="display: inline-block; padding: 14px 32px; color: #ffffff; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; border-radius: 8px;">
+                      Open Admin Pending Approvals →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin: 0; font-size: 12px; color: #6b7280; text-align: center;">
+                Direct admin link: <a href="${adminPortalUrl}" style="color: #800020;">${adminPortalUrl}</a>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 18px 32px; border-top: 1px solid #e5e7eb; text-align: center;">
+              <p style="margin: 0; font-size: 11px; color: #9ca3af;">
+                This is an automated system notification for Tasneem Knitting Industry Administrative Staff.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+
+  return sendMail({
+    to: adminEmail,
+    subject,
+    html,
+    text: `New Buyer Account Pending Approval - Tasneem Knitting Industry\n\nFactory: ${user.company}\nContact: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phoneOrWhatsApp || "N/A"}\nDate: ${formattedDate}\n\nReview and approve here:\n${adminPortalUrl}`,
+  });
+}
+
