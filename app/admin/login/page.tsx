@@ -23,8 +23,8 @@ function LoginForm() {
   const callbackUrl = searchParams.get("callbackUrl") || "/admin";
   const { user, login } = useAdminAuth();
 
-  const [email, setEmail] = useState("admin@tasneem.com");
-  const [password, setPassword] = useState("TasneemAdmin2026!Secure");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -52,12 +52,6 @@ function LoginForm() {
     } else {
       setErrorMessage(result.error || "Authentication failed. Please check your staff credentials.");
     }
-  };
-
-  const fillDemoCredentials = () => {
-    setEmail("admin@tasneem.com");
-    setPassword("TasneemAdmin2026!Secure");
-    setErrorMessage("");
   };
 
   return (
@@ -179,9 +173,9 @@ function LoginForm() {
                 </div>
               </div>
 
-              {/* Remember Me & Quick Demo */}
-              <div className="flex items-center justify-between pt-1 text-xs gap-2">
-                <label className="flex items-center gap-2 cursor-pointer select-none text-slate-400 whitespace-nowrap">
+              {/* Remember Me */}
+              <div className="flex items-center justify-between pt-1 text-xs">
+                <label className="flex items-center gap-2 cursor-pointer select-none text-slate-400">
                   <input
                     type="checkbox"
                     checked={rememberMe}
@@ -190,14 +184,6 @@ function LoginForm() {
                   />
                   <span>Stay signed in</span>
                 </label>
-
-                <button
-                  type="button"
-                  onClick={fillDemoCredentials}
-                  className="text-slate-400 hover:text-white font-medium underline text-[11px] cursor-pointer whitespace-nowrap"
-                >
-                  Quick Fill Demo
-                </button>
               </div>
 
               {/* Red Submit Button */}

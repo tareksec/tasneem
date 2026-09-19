@@ -79,20 +79,6 @@ export default function CustomerLoginPage() {
     }
   };
 
-  const handleDemoLogin = async () => {
-    setEmail("buyer@demo.com");
-    setPassword("password123");
-    setIsSubmitting(true);
-    try {
-      const res = await login("buyer@demo.com", "password123");
-      if (res.success) {
-        router.push("/account/quotes");
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const [rememberMe, setRememberMe] = useState(true);
 
   return (
@@ -264,17 +250,6 @@ export default function CustomerLoginPage() {
               >
                 <span>{isSubmitting ? "Signing in..." : "Login"}</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
-
-              {/* Demo Quick Access */}
-              <button
-                type="button"
-                onClick={handleDemoLogin}
-                disabled={isSubmitting}
-                className="w-full py-2 px-3 rounded-lg border border-slate-800 bg-slate-900/40 hover:bg-slate-800/60 text-slate-400 hover:text-slate-200 text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-3"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#E11D48]" />
-                <span>Quick Demo Access (Square Fashion Fabrics)</span>
               </button>
 
               {/* Create Account Link */}
