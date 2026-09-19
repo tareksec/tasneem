@@ -14,10 +14,7 @@ export function AuthSunsetBackdrop({ children }: { children: React.ReactNode }) 
           sizes="100vw"
           className="object-cover object-right lg:object-center scale-[1.02]"
         />
-        {/* Cinematic Vignette & Atmospheric Contrast Overlays */}
-        <div className="absolute inset-0 bg-slate-950/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/60" />
+        {/* Clear Image without dark overlay */}
       </div>
 
       {/* Foreground Content Container */}
