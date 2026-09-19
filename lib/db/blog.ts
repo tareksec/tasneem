@@ -48,7 +48,15 @@ export async function getDbBlogPosts(options: {
     });
 
     if (records && records.length > 0) {
-      return records.map(formatDbBlogPost);
+      const dbPosts = records.map(formatDbBlogPost);
+      const dbSlugs = new Set(dbPosts.map((p) => p.slug_en));
+      const missingStatic = STATIC_BLOG_POSTS.filter(
+        (p) =>
+          !dbSlugs.has(p.slug_en) &&
+          (includeDrafts || p.status === "published") &&
+          (!category || category === "All" || p.category === category)
+      );
+      return [...dbPosts, ...missingStatic];
     }
   } catch (error) {
     console.warn("Prisma getDbBlogPosts fallback to static blog data:", error);

@@ -425,4 +425,147 @@ Establishing knitting operations within Narayanganj BSCIC, Sasongaon, or Enayetn
     updated_at: "2026-02-05",
     author: "Industry Research Desk",
   },
+  {
+    id: "blog-post-9",
+    title_en: "How to Import Circular Knitting Machines from China to Bangladesh: Factory Sourcing & L/C Guide",
+    title_bn: "চায়না থেকে নিটিং মেশিন আমদানি করার নিয়ম: নিট ফ্যাক্টরির পূর্ণাঙ্গ গাইডলাইন",
+    slug_en: "china-theke-knitting-machine-import-korar-niyom",
+    slug_bn: "china-theke-knitting-machine-import-korar-niyom-bn",
+    cover_image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1200&auto=format&fit=crop",
+    excerpt_en:
+      "A step-by-step practical procurement guide for Bangladesh knitwear factories on importing circular knitting machines from China under CFR Chattogram and 100% L/C terms.",
+    excerpt_bn:
+      "চায়না থেকে সার্কুলার নিটিং মেশিন আমদানির নিয়ম, ব্যাংকিং এলসি (L/C) প্রক্রিয়া, CFR Chattogram শিপিং এবং প্রি-শিপমেন্ট ইন্সপেকশন সংক্রান্ত পূর্ণাঙ্গ গাইডলাইন।",
+    body_en: `## Essential Procurement Guide for Importing Textile Machinery from China
+
+Circular knitting machinery constitutes the backbone of Bangladesh's export knitwear and composite textile industry. Selecting and importing the right equipment directly from Chinese manufacturers demands strict technical diligence, banking compliance, and international shipping coordination.
+
+![China Industrial Circular Knitting Machine Production](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+### 1. Defining Factory Technical Specifications
+Before contacting suppliers in China, determine your exact fabric requirements:
+- **Machine Class**: Decide between [Single Jersey Circular Knitting Machines](/machines/single-jersey), double jersey interlock, rib, auto-striper, or jacquard units.
+- **Diameter & Gauge Selection**: For Bangladesh knit composite mills, 30" to 34" cylinder diameters and 24G, 28G, or 32G gauges are the primary standard.
+- **Inverter Drives & Feeders**: Verify high-grade Japanese or Taiwanese servos, computerized lubrication units, and genuine storage feeders.
+
+### 2. Sourcing from Manufacturing Hubs
+Shaoxing and Quanzhou represent China's leading textile machinery manufacturing clusters. Verifying actual manufacturing capability versus intermediary trading houses ensures build quality and direct after-sales warranty. Having an on-the-ground presence in Shaoxing provides real-time trial-run verification before packaging.
+
+![Chattogram Port Container Shipping Terminal](https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80)
+
+### 3. Commercial Contract & Irrevocable 100% L/C
+Capital machinery imports into Bangladesh operate strictly through banking channels under authorized dealer guidelines:
+- **Proforma Invoice (PI)**: Specify the exact HS Code (Heading 8447.11), technical motor ratings, needle specifications, and spare parts inclusions.
+- **Incoterms**: Contract under **CFR Chattogram** (Cost and Freight) where sea freight to Chattogram port is borne by the exporter.
+- **Payment Structure**: Open an irrevocable **100% Letter of Credit (L/C)** with your nominated commercial bank.
+
+### 4. Third-Party Pre-Shipment Inspection (PSI)
+Mandating an independent inspection via **SGS** or **Intertek** ensures machine condition, cylinder runout tolerances, and seaworthy rust-proof barrier packing before container sealing.
+
+### 5. Customs Clearance & Showroom Demonstration
+Once your cargo arrives at Chattogram Port, endorsed documents (Commercial Invoice, Packing List, Bill of Lading, Certificate of Origin, and PSI report) are processed by your licensed C&F agent. 
+
+For factory owners seeking to avoid import complexity, **Tasneem Knitting Industry** operates a direct China sourcing office in Shaoxing and an operational showroom at Narayanganj BSCIC Industrial Park, offering ready running demonstrations and full CFR/LC facilitation.`,
+    body_bn: `## ১. মেশিন নির্বাচন ও টেকনিক্যাল স্পেসিফিকেশন নির্ধারণ
+
+চায়নার কোনো ম্যানুফ্যাকচারার বা সাপ্লায়ারের সাথে যোগাযোগের পূর্বে আপনার কারখানার নিজস্ব ফেবব্রিক রিকোয়ারমেন্ট নির্ধারণ করতে হবে। ভুল সিলিন্ডার ডায়ামিটার (Cylinder Diameter) বা গেজ (Gauge) নির্বাচন করলে প্রোডাকশন লাইনে মারাত্মক প্রভাব পড়ে।
+
+মেশিন নির্বাচনের সময় নিচের প্যারামিটারগুলো চূড়ান্ত করুন:
+- **মেশিনের ধরন:** আপনার প্রোডাকশনে কী ধরণের ফেব্রিক প্রয়োজন? যেমন— [সিঙ্গেল জার্সি সার্কুলার নিটিং মেশিন](/machines/single-jersey), ডাবল জার্সি ইন্টারলক মেশিন, অটো স্ট্রাইপার, জ্যাকোয়ার্ড কিংবা টেরি নিটিং মেশিন।
+- **গেজ (Gauge) ও ডায়ামিটার (Diameter):** সাধারণত দেশীয় নিট কম্পোজিট কারখানায় ২৪G, ২৮G, কিংবা ৩২G গেজ এবং ৩০ থেকে ৩৪ ইঞ্চি ডায়ামিটারের চাহিদা বেশি থাকে।
+- **ফিডার ও ট্র্যাক ক্যাপাসিটি:** হাই-স্পিড প্রোডাকশনের জন্য ফিডার সংখ্যা এবং ক্যাম বক্স ডিজাইন যাচাই করা জরুরি।
+- **ইনভার্টার ও কন্ট্রোল সিস্টেম:** ভালো মানের তাইওয়ান বা জাপানিজ ইনভার্টার, সার্ভো মোটর এবং ডিজিটাল অয়েলার প্যানেল থাকলে মেশিনের আয়ু ও ফেব্রিকের ফিনিশিং মানসম্মত হয়।
+
+![China Industrial Circular Knitting Machine Production](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+## ২. চায়না ফ্যাক্টরি ভেরিফিকেশন ও সোর্সিং প্রক্রিয়া
+
+অনলাইনে অনেক ট্রেডিং কোম্পানি নিজেদের ম্যানুফ্যাকচারার দাবি করে থাকে। তাই চায়নার স্থানীয় ইন্ডাস্ট্রিয়াল বেল্ট থেকে সরাসরি প্রস্তুতকারক কারখানা যাচাই করা অত্যন্ত গুরুত্বপূর্ণ।
+
+চীনের ঝেজিয়াং প্রদেশের শাওক্সিং (Shaoxing) ও কুয়ানঝু (Quanzhou) সার্কুলার নিটিং মেশিন ও টেক্সটাইল যন্ত্রপাতির প্রধান উৎপাদন হাব।
+- প্রস্তুতকারক কারখানার উৎপাদন লাইসেন্স ও ওয়ার্কশপ ক্যাপাসিটি যাচাই করুন।
+- ব্যবহৃত মেটেরিয়াল (যেমন: জাপানি নিডল, জার্মানির সিঙ্কার ও উচ্চমানের অ্যালয় সিলিন্ডার) প্রস্তুতকারক কোম্পানি সরাসরি ব্যবহার করছে কি না তা নিশ্চিত করুন।
+- প্রয়োজনে চীনের স্থানীয় সোর্সিং অফিসের মাধ্যমে সরাসরি কারখানায় উপস্থিত হয়ে ট্রায়াল রান পর্যবেক্ষণ করা সবচেয়ে নিরাপদ।
+
+![Chattogram Port Container Shipping Terminal](https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80)
+
+## ৩. প্রোফরমা ইনভয়েস (PI) ও ব্যাংকিং এলসি (L/C) প্রক্রিয়া
+
+মেশিনের কনফিগারেশন ও ইউনিট চূড়ান্ত হওয়ার পর আমদানিকারক ও রপ্তানিকারকের মধ্যে বাণিজ্যিক চুক্তি হয়। চায়না থেকে বৈধ উপায়ে মূলধনী যন্ত্রপাতি আমদানির প্রধান মাধ্যম হলো লেটার অব ক্রেডিট বা এলসি (Letter of Credit)।
+
+### প্রোফরমা ইনভয়েস (Proforma Invoice - PI) সংগ্রহ
+সাপ্লায়ারের কাছ থেকে একটি পূর্ণাঙ্গ পিআই সংগ্রহ করতে হবে, যেখানে স্পষ্টভাবে উল্লেখ থাকবে:
+1. মেশিনের পূর্ণ টেকনিক্যাল স্পেসিফিকেশন ও আনুষঙ্গিক যন্ত্রাংশের তালিকা।
+2. এইচএস কোড (HS Code - সাধারণত ৮৪৪৭.১১ বা সংশ্লিষ্ট টেক্সটাইল হেডিং)।
+3. ডেলিভারি টার্ম: **CFR Chattogram** (Cost and Freight)। এর অর্থ পণ্য চট্টগ্রাম বন্দর পর্যন্ত জাহাজে পৌঁছানোর ভাড়া সাপ্লায়ার বহন করবে।
+4. পেমেন্ট শর্ত: আন্তর্জাতিক ব্যাংকিং চ্যানেলের মাধ্যমে **100% Irrevocable L/C**।
+
+### ব্যাংক এলসি ওপেনিং
+আপনার মনোনীত অথরাইজড ডিলার (AD) ব্যাংকে গিয়ে আমদানি অনুমতিপত্র (IRC), টিআইএন, ভ্যাট সার্টিফিকেট ও প্রোফরমা ইনভয়েস জমা দিয়ে এলসি খুলতে হবে। বাংলাদেশ ব্যাংক ও কাস্টমসের ক্যাপিটাল মেশিনারি সংক্রান্ত শুল্ক সুবিধার আওতায় প্রযোজ্য ছাড়পত্র এলসি কন্ডিশনে স্পষ্টভাবে সংযুক্ত রাখা শ্রেয়।
+
+## ৪. প্রি-শিপমেন্ট ইন্সপেকশন (PSI) ও মান নিয়ন্ত্রণ
+
+মেশিন তৈরির পর শিপমেন্টের আগে থার্ড-পার্টি প্রি-শিপমেন্ট ইন্সপেকশন (Pre-Shipment Inspection - PSI) করা একটি সেরা শিল্প চর্চা। 
+
+আন্তর্জাতিকভাবে স্বীকৃত স্বাধীন নিরীক্ষা সংস্থা—যেমন **SGS** কিংবা **Intertek**-এর মাধ্যমে কারখানায় শিপমেন্টের পূর্বে ফিজিক্যাল ভেরিফিকেশন করানো যায়:
+- পিআই অনুযায়ী মেশিনের ব্র‍্যান্ড, মডেল ও সিরিয়াল নম্বর সঠিক আছে কি না।
+- যন্ত্রাংশের ফিনিশিং, মোটর, সিলিন্ডার এবং নিডল ট্র্যাক অক্ষত আছে কি না।
+- সমুদ্রপথে পরিবহনের উপযোগী প্রটেক্টিভ রাস্ট-প্রুফ কোটিং ও কাঠের ক্রেটে নিরাপদ সি-ওয়ার্থি প্যাকিং (Sea-worthy packaging) নিশ্চিত করা হয়েছে কি না।
+
+ইন্সপেকশন সফল হলে ইন্সপেকশন সার্টিফিকেট ইস্যু করা হয় এবং কন্টেইনারে সিল মেরে পোর্টে পাঠানো হয়।
+
+## ৫. CFR Chattogram শিপিং, কাস্টমস ক্লিয়ারেন্স ও ডেলিভারি
+
+মেশিন কন্টেইনারে লোড হওয়ার পর শিপিং লাইন বিল অব লেডিং (Bill of Lading - B/L) ইস্যু করে।
+
+1. **ডকুমেন্টেশন এন্ডোর্সমেন্ট:** কমার্শিয়াল ইনভয়েস, প্যাকিং লিস্ট, কান্ট্রি অব অরিজিন (CO), বি/এল এবং ইন্সপেকশন সার্টিফিকেট ব্যাংকের মাধ্যমে আপনার কাছে পৌঁছাবে।
+2. **কাস্টমস ক্লিয়ারেন্স:** জাহাজ চট্টগ্রাম বন্দরে নোঙর করার পর আপনার লাইসেন্সপ্রাপ্ত সিঅ্যান্ডএফ (C&F) এজেন্টের মাধ্যমে কাস্টমস ডিউটি ও অ্যাসেসমেন্ট সম্পন্ন করে কন্টেইনার খালাস করতে হবে।
+3. **ফ্যাক্টরি ট্রান্সপোর্টেশন ও আনলোডিং:** চট্টগ্রাম বন্দর থেকে ট্রেলার বা ট্রাকে করে সরাসরি আপনার ফ্যাক্টরি বা ওয়্যারহাউজে মেশিন নিয়ে এসে দক্ষ টেকনিশিয়ান দিয়ে আনলোডিং করাতে হবে।
+
+## সরাসরি আমদানির ঝামেলা এড়াতে আমাদের সহযোগিতা
+
+অনেক কারখানার ক্ষেত্রে এলসি ওপেনিং, চীনের কারখানায় গিয়ে ইন্সপেকশন করা কিংবা কাস্টমস সংক্রান্ত জটিলতা সামলানো সময়সাপেক্ষ বিষয়। 
+
+**Tasneem Knitting Industry** দীর্ঘ সময় ধরে চায়না থেকে মানসম্মত সার্কুলার নিটিং মেশিন ও টেক্সটাইল ফিনিশিং মেশিনারি আমদানি করে বাংলাদেশের নিটওয়্যার শিল্পে সরবরাহ করে আসছে:
+- **চীনের শাওক্সিং-এ নিজস্ব অফিস:** আমাদের নিজস্ব সোর্সিং টিমের মাধ্যমে সরাসরি প্রস্তুতকারক কারখানায় গিয়ে মেটেরিয়াল কোয়ালিটি ও প্রোডাকশন মনিটর করা হয়।
+- **CFR Chattogram ও ১০০% L/C সুবিধা:** স্বচ্ছ আন্তর্জাতিক বাণিজ্য শর্তে আপনার ফ্যাক্টরির নামে সরাসরি এলসির মাধ্যমে আমদানির সার্বিক সহযোগিতা।
+- **SGS ও Intertek ইন্সপেকশন সাপোর্ট:** কোয়ালিটি নিয়ে কোনো ছাড় না দিয়ে শিপমেন্টের পূর্বেই আন্তর্জাতিক এজেন্সির মাধ্যমে মেশিনের সক্ষমতা যাচাই।
+- **শো-রুম ও টেকনিক্যাল ব্যাকআপ:** অর্ডার করার আগে সরাসরি আমাদের নারায়ণগঞ্জ বিসিক ইন্ডাস্ট্রিয়াল পার্কের শো-রুমে এসে রানিং মেশিনের পারফরম্যান্স ও টেকনিক্যাল স্পেসিফিকেশন দেখে নেওয়ার সুযোগ।
+
+## সাধারণ প্রশ্নোত্তর (FAQ)
+
+### ১. চায়না থেকে সার্কুলার নিটিং মেশিন আমদানিতে কোন পেমেন্ট মেথড সবচেয়ে নিরাপদ?
+চায়না থেকে ভারী টেক্সটাইল ক্যাপিটাল মেশিনারি আমদানির ক্ষেত্রে আন্তর্জাতিক ব্যাংকিং চ্যানেলের মাধ্যমে **100% L/C (Letter of Credit)** সবচেয়ে নিরাপদ পদ্ধতি। এটি আমদানিকারক ও রপ্তানিকারক—উভয় পক্ষের আর্থিক সুরক্ষা নিশ্চিত করে।
+
+### ২. আমদানির পূর্বে মেশিনের গুণগত মান কীভাবে নিশ্চিত করা যায়?
+শিপমেন্টের পূর্বে SGS বা Intertek-এর মতো আন্তর্জাতিক স্বাধীন এজেন্সির মাধ্যমে প্রি-শিপমেন্ট ইন্সপেকশন (PSI) করিয়ে নেওয়া উচিত। এছাড়া চীনের শাওক্সিং-এ আমাদের নিজস্ব সোর্সিং অফিস থাকায় সরাসরি ম্যানুফ্যাকচারিং প্ল্যান্ট পরিদর্শন ও ট্রায়াল নিশ্চিত করা সম্ভব হয়।
+
+### ৩. একটি সার্কুলার নিটিং মেশিনের মোট আমদানি খরচ ও বর্তমান দাম কেমন?
+মেশিনের মোট খরচ নির্ভর করে সিলিন্ডার ডায়ামিটার, গেজ, ফিডার সংখ্যা, ইনভার্টার ব্র‍্যান্ড এবং আন্তর্জাতিক ফ্রেইট রেটের ওপর। আপনার ফ্যাক্টরির সুনির্দিষ্ট টেকনিক্যাল রিকোয়ারমেন্ট অনুযায়ী হালনাগাদ প্রাইজ কোটেশন জানতে সরাসরি আমাদের সেলস টিমের সাথে যোগাযোগ করুন।
+
+> **আপনার ফ্যাক্টরির জন্য সার্কুলার নিটিং মেশিন প্রয়োজন?**  
+> আপনার কাঙ্ক্ষিত স্পেসিফিকেশন অনুযায়ী সরাসরি ফ্যাক্টরি প্রাইস কোটেশন ও এলসি নির্দেশনার জন্য আমাদের সাথে যোগাযোগ করুন।  
+> 📞 **সরাসরি কথা বলুন / WhatsApp:** +8801715024479  
+> 🏢 **শো-রুম:** নারায়ণগঞ্জ বিসিক ইন্ডাস্ট্রিয়াল পার্ক | **হেড অফিস:** উত্তরা, ঢাকা  
+> 🌐 **অনলাইন কোটেশন রিকোয়েস্ট:** [tasneemknitindustry.com/quote](/quote)`,
+    category: "Compliance & Sourcing",
+    tags: [
+      "China Import",
+      "CFR Chattogram",
+      "Circular Knitting Machine",
+      "L/C Process",
+      "SGS Inspection",
+      "Narayanganj BSCIC",
+    ],
+    seo_title_en: "Import Circular Knitting Machine from China to Bangladesh | Tasneem",
+    seo_title_bn: "চায়না থেকে নিটিং মেশিন আমদানি করার নিয়ম | Tasneem Knitting",
+    seo_desc_en:
+      "Complete guide on importing circular knitting machines from China to Bangladesh under CFR Chattogram and 100% L/C terms. Sourcing, inspection and customs.",
+    seo_desc_bn:
+      "চায়না থেকে নিটিং মেশিন আমদানি করার নিয়ম, L/C প্রসেস, CFR Chattogram শিপিং ও ইন্সপেকশন গাইডলাইন। Tasneem Knitting Industry-র সম্পূর্ণ গাইড।",
+    status: "published",
+    published_at: "2026-03-18",
+    updated_at: "2026-03-18",
+    author: "Tasneem Sourcing Desk",
+  },
 ];
