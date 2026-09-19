@@ -7,19 +7,41 @@ interface SendMailOptions {
   text?: string;
 }
 
+function sanitizeEnv(value?: string): string {
+  if (!value) return "";
+  let clean = value.trim();
+  if ((clean.startsWith('"') && clean.endsWith('"')) || (clean.startsWith("'") && clean.endsWith("'"))) {
+    clean = clean.slice(1, -1).trim();
+  }
+  return clean;
+}
+
 /**
  * Creates and returns the Nodemailer transporter configured with Hostinger SMTP.
  */
 export function getMailTransporter() {
-  const host = process.env.SMTP_HOST || "smtp.hostinger.com";
-  const port = parseInt(process.env.SMTP_PORT || "465", 10);
-  const user = process.env.SMTP_USER || "";
-  const pass = process.env.SMTP_PASS || "";
+  const host = sanitizeEnv(process.env.SMTP_HOST) || "smtp.hostinger.com";
+  const rawPort = sanitizeEnv(process.env.SMTP_PORT) || "465";
+  const port = parseInt(rawPort, 10) || 465;
+  const user = sanitizeEnv(process.env.SMTP_USER);
+  const pass = sanitizeEnv(process.env.SMTP_PASS);
   const isSecure = port === 465;
+
+  console.log("[Mailer Diagnostics] Transporter init config:", {
+    host,
+    port,
+    secure: isSecure,
+    hasUser: Boolean(user),
+    userEmail: user ? `${user.slice(0, 3)}***@${user.split("@")[1] || "unknown"}` : "EMPTY",
+    hasPass: Boolean(pass),
+    passLength: pass ? pass.length : 0,
+    hasFrom: Boolean(process.env.SMTP_FROM),
+    hasAdminEmail: Boolean(process.env.ADMIN_EMAIL),
+  });
 
   if (!user || !pass) {
     console.warn(
-      "[Mailer] Warning: SMTP_USER or SMTP_PASS is missing. Emails will not be sent to real inboxes until credentials are configured."
+      "[Mailer] CRITICAL WARNING: SMTP_USER or SMTP_PASS is missing or empty in environment! Emails will fail to dispatch."
     );
   }
 
@@ -31,10 +53,12 @@ export function getMailTransporter() {
       user,
       pass,
     },
-    // Useful timeout settings for cloud hosting
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
+    tls: {
+      rejectUnauthorized: false, // Prevents certificate chain validation failures on cloud hosting
+    },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 20000,
   });
 }
 
@@ -42,7 +66,7 @@ export function getMailTransporter() {
  * Base app URL resolver (supports APP_URL, NEXTAUTH_URL, or defaults to production)
  */
 export function getAppBaseUrl(): string {
-  const url = process.env.APP_URL || process.env.NEXTAUTH_URL || "https://tasneemknitindustry.com";
+  const url = sanitizeEnv(process.env.APP_URL) || sanitizeEnv(process.env.NEXTAUTH_URL) || "https://tasneemknitindustry.com";
   return url.replace(/\/+$/, "");
 }
 
@@ -50,18 +74,16 @@ export function getAppBaseUrl(): string {
  * Low-level email sending function
  */
 export async function sendMail({ to, subject, html, text }: SendMailOptions) {
-  const from = process.env.SMTP_FROM || `"Tasneem Knitting Industry" <${process.env.SMTP_USER || "no-reply@tasneemknitindustry.com"}>`;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = sanitizeEnv(process.env.SMTP_USER);
+  const pass = sanitizeEnv(process.env.SMTP_PASS);
+  const from = sanitizeEnv(process.env.SMTP_FROM) || `"Tasneem Knitting Industry" <${user || "no-reply@tasneemknitindustry.com"}>`;
+
+  console.log(`[Mailer] Initiating sendMail to: ${to} | Subject: "${subject}" | From: ${from}`);
 
   // In development without credentials, log details for testing
   if (!user || !pass) {
-    console.log("------------------------------------------------------------");
-    console.log(`[Mailer Mock/Dev] Would send email to: ${to}`);
-    console.log(`[Mailer Mock/Dev] Subject: ${subject}`);
-    console.log(`[Mailer Mock/Dev] Body preview:\n${text || html.slice(0, 300)}...`);
-    console.log("------------------------------------------------------------");
-    return { success: true, mocked: true };
+    console.warn(`[Mailer Fallback] SMTP_USER or SMTP_PASS missing. Email to ${to} not sent to inbox.`);
+    return { success: false, error: "SMTP credentials (SMTP_USER or SMTP_PASS) are not set in environment." };
   }
 
   try {
@@ -73,9 +95,17 @@ export async function sendMail({ to, subject, html, text }: SendMailOptions) {
       text: text || html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
       html,
     });
+    console.log(`[Mailer Success] Email successfully sent to ${to}! Message ID: ${info.messageId}`);
     return { success: true, messageId: info.messageId };
   } catch (error: any) {
-    console.error(`[Mailer] Error sending email to ${to}:`, error);
+    console.error(`[Mailer Error] Full failure sending email to ${to}:`, {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode,
+      stack: error.stack,
+    });
     return { success: false, error: error.message || "Failed to send email" };
   }
 }

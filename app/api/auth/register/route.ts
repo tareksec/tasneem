@@ -43,26 +43,35 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send verification email to user
-    sendVerificationEmail({
-      email: customer.email,
-      name: customer.name,
-      token: verificationToken,
-    }).catch((mailErr) => {
-      console.error("Failed to send verification email:", mailErr);
-    });
-
-    // Send alert email to admin
-    sendAdminNewRegistrationNotice({
-      user: {
-        name: customer.name,
-        company: customer.company,
+    // Await both user verification email and admin notification email concurrently
+    console.log(`[Register Route] Triggering email dispatches for user ${customer.email} and admin...`);
+    const [userMailRes, adminMailRes] = await Promise.allSettled([
+      sendVerificationEmail({
         email: customer.email,
-        phoneOrWhatsApp: customer.phone || "",
-      },
-    }).catch((adminMailErr) => {
-      console.error("Failed to send admin registration alert:", adminMailErr);
-    });
+        name: customer.name,
+        token: verificationToken,
+      }),
+      sendAdminNewRegistrationNotice({
+        user: {
+          name: customer.name,
+          company: customer.company,
+          email: customer.email,
+          phoneOrWhatsApp: customer.phone || "",
+        },
+      }),
+    ]);
+
+    if (userMailRes.status === "rejected") {
+      console.error("[Register Route] Verification email promise rejected:", userMailRes.reason);
+    } else {
+      console.log("[Register Route] Verification email result:", userMailRes.value);
+    }
+
+    if (adminMailRes.status === "rejected") {
+      console.error("[Register Route] Admin alert email promise rejected:", adminMailRes.reason);
+    } else {
+      console.log("[Register Route] Admin alert email result:", adminMailRes.value);
+    }
 
     return NextResponse.json({
       success: true,
