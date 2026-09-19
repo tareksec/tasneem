@@ -13,6 +13,7 @@ export function OrganizationSchema() {
     email: COMPANY_INFO.email,
     sameAs: [
       COMPANY_INFO.facebook,
+      COMPANY_INFO.linkedin,
       "https://youtu.be/ONTd4X4M-Vo",
     ],
     vatID: COMPANY_INFO.registration.bin,
@@ -103,6 +104,7 @@ export function LocalBusinessSchema() {
     url: COMPANY_INFO.domain,
     sameAs: [
       COMPANY_INFO.facebook,
+      COMPANY_INFO.linkedin,
       "https://youtu.be/ONTd4X4M-Vo",
     ],
     vatID: COMPANY_INFO.registration.bin,

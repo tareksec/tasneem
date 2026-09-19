@@ -1,457 +1,145 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import {
-  ShieldCheck,
-  Ship,
-  Wrench,
-  ArrowUpRight,
-  Factory,
-  ExternalLink,
-  Award,
-  Globe2,
-  Building2,
-  Phone,
-  Mail,
-  MapPin,
-  CheckCircle2,
-  Sparkles,
-  ArrowRight,
-  TrendingUp,
-  Cpu,
-  Clock,
-  FileText,
+  ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight,
+  Factory, Globe2, MapPin, ShieldCheck, Ship, Wrench,
 } from "lucide-react";
-import { MotionSection } from "@/components/ui/MotionWrapper";
+import { AboutCompanyDetails } from "@/components/about/AboutCompanyDetails";
 import { LiteYouTubeEmbed } from "@/components/ui/LiteYouTubeEmbed";
 import { COMPANY_INFO } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
-import { OfficeMap } from "@/components/ui/OfficeMap";
+import styles from "./page.module.css";
 
 export default function AboutPage() {
-  const { t, locale } = useTranslation();
+  const { locale } = useTranslation();
   const isBn = locale === "bn";
+  const copy = (en: string, bn: string) => (isBn ? bn : en);
+
+  const strengths = [
+    { icon: Factory, value: copy("Direct sourcing", "সরাসরি সোর্সিং"), label: copy("From the manufacturer", "প্রস্তুতকারকের কাছ থেকে") },
+    { icon: ShieldCheck, value: copy("30–60 min", "৩০–৬০ মিনিট"), label: copy("Pre-shipment trial run", "শিপমেন্টের আগে ট্রায়াল রান") },
+    { icon: Ship, value: copy("CFR Chattogram", "সিএফআর চট্টগ্রাম"), label: copy("Coordinated sea freight", "সমন্বিত সমুদ্র পরিবহন") },
+    { icon: Wrench, value: copy("12 months", "১২ মাস"), label: copy("Manufacturer warranty", "প্রস্তুতকারকের ওয়ারেন্টি") },
+  ];
+  const steps = [
+    { icon: Factory, title: copy("Find the right fit", "সঠিক মেশিন নির্বাচন"), text: copy("We match your fabric, gauge, cylinder diameter, and production needs with the right machine builder.", "আপনার ফ্যাব্রিক, গেজ, সিলিন্ডারের ব্যাস ও উৎপাদনের চাহিদা অনুযায়ী সঠিক প্রস্তুতকারক ও মেশিন নির্বাচন করি।") },
+    { icon: ShieldCheck, title: copy("Inspect before shipping", "শিপমেন্টের আগে যাচাই"), text: copy("Machine checks, trial runs, and fabric tests help verify the specifications before your machine is packed.", "প্যাকিংয়ের আগে মেশিন পরীক্ষা, ট্রায়াল রান ও ফ্যাব্রিক টেস্টের মাধ্যমে নির্ধারিত স্পেসিফিকেশন যাচাই করি।") },
+    { icon: Ship, title: copy("Bring it to Bangladesh", "বাংলাদেশে পৌঁছে দেওয়া"), text: copy("We coordinate CFR Chattogram sea freight, L/C documentation, and the import process.", "সিএফআর চট্টগ্রাম সমুদ্র পরিবহন, এল/সি ডকুমেন্টেশন ও আমদানির প্রতিটি ধাপ সমন্বয় করি।") },
+    { icon: Wrench, title: copy("Get your mill running", "আপনার মিলে উৎপাদন শুরু"), text: copy("On-site installation, commissioning, operator guidance, and spare parts support keep you moving forward.", "অন-সাইট ইনস্টলেশন, কমিশনিং, অপারেটর প্রশিক্ষণ ও স্পেয়ার পার্টস সাপোর্ট দিয়ে আপনার পাশে থাকি।") },
+  ];
 
   return (
-    <div className="bg-[#FAF9F6] text-slate-800 font-sans selection:bg-[#E11D48] selection:text-white">
-      
-      {/* 1. Cinematic Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#090D1A] via-[#0E1629] to-[#0A0F1E] text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold uppercase tracking-wider mb-5">
-              <ShieldCheck className="w-4 h-4 text-rose-400" />
-              <span>
-                {isBn
-                  ? "নিবন্ধিত টেক্সটাইল মেশিনারি আমদানিকারক • বিসিক, নারায়ণগঞ্জ"
-                  : "Verified Industrial Machinery Importer • BSCIC Narayanganj"}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.15]">
-              {isBn ? (
-                <>
-                  বাংলাদেশের নিট খাতের জন্য{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-red-500 to-amber-400">
-                    চীন থেকে সরাসরি
-                  </span>{" "}
-                  মেশিনারি সোর্সিং পার্টনার
-                </>
-              ) : (
-                <>
-                  Direct China Machinery Sourcing for{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-red-500 to-amber-400">
-                    Bangladesh Knit Mills
-                  </span>
-                </>
-              )}
-            </h1>
-
-            {/* Description */}
-            <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed max-w-2xl">
-              {isBn
-                ? "কোনো মধ্যস্বত্বভোগী ছাড়াই চীন থেকে সরাসরি আধুনিক Circular Knitting, Dyeing, Shearing ও Finishing মেশিন আমদানি, বন্দর ছাড়করণ, ফ্যাক্টরিতে ইনস্টলেশন এবং সার্বক্ষণিক জেনুইন স্পেয়ার পার্টস সরবরাহ করে তাসনীম নিট ইন্ডাস্ট্রি।"
-                : "Tasneem Knitting Industry bridges Bangladesh composite mills directly with premier overseas manufacturing plants in China. We manage technical specification matching, 100% factory trial runs, CFR ocean transit, and nationwide mill commissioning."}
-            </p>
-
-            {/* Quick Action Pills */}
-            <div className="mt-8 flex flex-wrap items-center gap-3.5">
-              <Link
-                href="/machines"
-                className="px-6 py-3.5 rounded-xl bg-[#DF1E38] hover:bg-[#C2162E] active:scale-[0.98] text-white text-xs sm:text-sm font-bold shadow-lg shadow-red-950/50 transition-all flex items-center gap-2"
-              >
-                <span>{isBn ? "মেশিনারি ক্যাটালগ দেখুন" : "Explore Machinery Catalog"}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/quote"
-                className="px-6 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 text-xs sm:text-sm font-semibold transition-all flex items-center gap-2"
-              >
-                <span>{isBn ? "সরাসরি কোটেশন নিন" : "Request Commercial PI Quote"}</span>
-                <ArrowUpRight className="w-4 h-4 text-rose-400" />
-              </Link>
-            </div>
-          </div>
-
-          {/* 4 Stat Highlights */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12 pt-10 border-t border-slate-800/80">
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-rose-400 mb-1">
-                <Factory className="w-4 h-4" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Direct Sourcing</span>
+    <div className={`${styles.page} bg-white text-gray-dark`}>
+      <section className="overflow-hidden" aria-labelledby="about-heading">
+        <div className="mx-auto max-w-7xl px-4 pb-14 pt-6 sm:px-6 sm:pb-20 lg:px-8">
+          <nav aria-label={copy("Breadcrumb", "ব্রেডক্রাম্ব")} className="mb-10 flex items-center gap-2 text-xs text-gray-secondary sm:mb-14">
+            <Link href={`/${locale}`} className="transition-colors hover:text-burgundy">{copy("Home", "হোম")}</Link>
+            <ChevronRight aria-hidden="true" className="size-3.5 text-gray-muted" />
+            <span aria-current="page" className="text-burgundy">{copy("About us", "আমাদের সম্পর্কে")}</span>
+          </nav>
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className={styles.eyebrow}><span />{copy("THE PEOPLE BEHIND THE MACHINERY", "মেশিনারির পেছনের মানুষগুলো")}</p>
+              <h1 id="about-heading" className={`mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl ${isBn ? "leading-[1.4]" : "leading-[1.12]"}`}>
+                {copy("Better machinery.", "উন্নত মেশিনারি।")}<br />
+                <span className="text-burgundy">{copy("Stronger partnerships.", "বিশ্বস্ত অংশীদারিত্ব।")}</span>
+              </h1>
+              <p className="mt-6 max-w-lg text-base leading-8 text-gray-secondary">
+                {copy("We connect Bangladesh’s textile mills with machinery builders in China. From the first conversation to your first production run, Tasneem is with you at every step.", "বাংলাদেশের টেক্সটাইল মিলগুলোকে চীনের মেশিন প্রস্তুতকারকদের সঙ্গে যুক্ত করি আমরা। প্রথম আলোচনা থেকে আপনার কারখানায় উৎপাদন শুরু—প্রতিটি ধাপে পাশে আছে তাসনীম।")}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href={`/${locale}/machines`} className="btn-primary">{copy("Explore our machinery", "আমাদের মেশিনারি দেখুন")}<ArrowUpRight aria-hidden="true" className="size-4" /></Link>
+                <a href="#our-story" className="btn-secondary">{copy("Meet Tasneem", "তাসনীমকে জানুন")}<ArrowDown aria-hidden="true" className="size-4" /></a>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-white">100% Direct</div>
-              <p className="text-[11px] text-slate-400 mt-1">Direct from China manufacturing plants without broker markups.</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-rose-400 mb-1">
-                <ShieldCheck className="w-4 h-4" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Quality Inspection</span>
+              <div className="mt-8 flex items-center gap-2 text-sm text-gray-secondary">
+                <MapPin aria-hidden="true" className="size-4 shrink-0 text-burgundy" />
+                <span>{copy("Rooted in Narayanganj. Connected to the world.", "নারায়ণগঞ্জে আমাদের ঠিকানা। সংযোগ বিশ্বজুড়ে।")}</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-white">30–60 Min</div>
-              <p className="text-[11px] text-slate-400 mt-1">Mandatory dry running trial & fabric test before container crating.</p>
             </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-rose-400 mb-1">
-                <Ship className="w-4 h-4" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Port Delivery</span>
+            <div className={styles.heroVisual}>
+              <div className={styles.heroImage}>
+                <Image src="/video/hero-video-poster.png" alt={copy("Circular knitting machines arranged on a textile factory floor", "টেক্সটাইল কারখানায় সাজানো সার্কুলার নিটিং মেশিন")} fill preload sizes="(max-width: 1023px) calc(100vw - 48px), 560px" className="object-cover" />
+                <span className={styles.imageLabel}><Factory aria-hidden="true" className="size-4" />{copy("BUILT FOR YOUR NEXT CHAPTER", "আপনার আগামী দিনের জন্য")}</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-white">CFR Sea Freight</div>
-              <p className="text-[11px] text-slate-400 mt-1">Transparent CFR Chattogram delivery with full banking LC documentation.</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-rose-400 mb-1">
-                <Wrench className="w-4 h-4" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">After-Sales</span>
+              <div className={styles.routeCard}>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-xs font-medium tracking-wider text-white/75">{copy("DIRECT CONNECTION", "সরাসরি সংযোগ")}</span>
+                  <Globe2 aria-hidden="true" className="size-5 text-white/80" />
+                </div>
+                <div className="mt-4 flex items-center gap-4 text-lg font-semibold sm:text-xl">
+                  <span>{copy("China", "চীন")}</span><span className={styles.routeLine}><ArrowRight aria-hidden="true" className="size-4" /></span><span>{copy("Bangladesh", "বাংলাদেশ")}</span>
+                </div>
+                <p className="mt-3 text-xs leading-5 text-white/80">{copy("Factory sourcing. Local expertise. Lasting support.", "ফ্যাক্টরি সোর্সিং। দেশীয় দক্ষতা। নির্ভরযোগ্য সাপোর্ট।")}</p>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-white">12 Months</div>
-              <p className="text-[11px] text-slate-400 mt-1">Comprehensive manufacturer warranty & on-site mill commissioning.</p>
             </div>
           </div>
         </div>
-
-        {/* Ambient Radial Gradient */}
-        <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
-      {/* Main Content Body */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 space-y-16 sm:space-y-24">
-
-        {/* 2. Operational Pipeline Visual Strip */}
-        <MotionSection className="rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl group">
-          <div className="px-6 sm:px-10 pt-6 sm:pt-8 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#800020] block mb-1">
-                {isBn ? "প্রক্রিয়া ও স্বচ্ছতা" : "Operational Transparency"}
-              </span>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
-                {isBn
-                  ? "চীন ফ্যাক্টরি থেকে আপনার টেক্সটাইল মিলে পৌঁছানোর ৪ ধাপ"
-                  : "End-to-End Operational Pipeline from Factory to Your Mill"}
-              </h2>
+      <div className="border-y border-gray-border bg-surface-offwhite">
+        <dl className="mx-auto grid max-w-7xl grid-cols-2 px-4 py-7 sm:px-6 sm:py-9 lg:grid-cols-4 lg:px-8">
+          {strengths.map(({ icon: Icon, value, label }, index) => (
+            <div key={value} className={`flex flex-col gap-3 px-3 py-4 sm:flex-row sm:gap-4 sm:px-6 ${index % 2 ? "border-l border-gray-border" : ""} ${index === 2 ? "lg:border-l lg:border-gray-border" : ""}`}>
+              <Icon aria-hidden="true" className="mt-1 size-6 shrink-0 text-burgundy" strokeWidth={1.5} />
+              <div className="flex flex-col"><dt className="order-2 mt-1 text-xs leading-5 text-gray-secondary sm:text-sm">{label}</dt><dd className="text-base font-semibold sm:text-lg">{value}</dd></div>
             </div>
-            <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 border border-slate-300 px-3.5 py-1.5 rounded-full self-start sm:self-auto shadow-2xs">
-              4-Stage Sourcing Pipeline
-            </span>
-          </div>
-
-          <div className="relative w-full aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/7] min-h-[340px] sm:min-h-[460px] lg:min-h-[520px] bg-white">
-            <Image
-              src="/illustrations/process-strip.jpg"
-              alt="4-step process visual: Direct Factory Sourcing, Pre-Shipment Inspection, CFR Ocean Shipping, On-Site Installation"
-              fill
-              priority
-              className="object-contain object-bottom sm:object-center px-3 sm:px-8 pb-4 sm:pb-6"
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 95vw, 1200px"
-            />
-          </div>
-        </MotionSection>
-
-        {/* 3. Founder Video & Leadership Vision */}
-        <MotionSection className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-10 lg:p-12 shadow-md">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Video Column (7 Cols) */}
-            <div className="lg:col-span-7 rounded-2xl overflow-hidden shadow-xl border border-slate-200">
-              <LiteYouTubeEmbed
-                videoId="ONTd4X4M-Vo"
-                title="Md Mamunur Rashid - Owner Introduction | Tasneem Knit Industry"
-              />
-            </div>
-
-            {/* Founder Info Column (5 Cols) */}
-            <div className="lg:col-span-5 flex flex-col justify-center text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-xs font-bold text-[#800020] mb-3 w-fit shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-[#DF1E38] animate-pulse" />
-                <span>{isBn ? "প্রতিষ্ঠাতা ও ব্যবস্থাপনা দর্শন" : "Founder & Managing Director"}</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 leading-tight">
-                {isBn ? "মোঃ মামুনুর রশীদ" : COMPANY_INFO.owner}
-              </h2>
-              <p className="text-xs sm:text-sm font-bold text-[#DF1E38] uppercase tracking-wider mt-1 mb-4">
-                {isBn ? "স্বত্বাধিকারী, তাসনীম নিট ইন্ডাস্ট্রি" : "Proprietor, Tasneem Knitting Industry"}
-              </p>
-
-              <blockquote className="text-xs sm:text-sm text-slate-700 leading-relaxed mb-6 italic border-l-4 border-[#DF1E38] pl-4 py-2 bg-slate-50/80 rounded-r-xl">
-                {isBn
-                  ? "“আমাদের একটাই লক্ষ্য — দেশের নিট ও টেক্সটাইল মিলগুলোতে কোনো দালাল বা বাড়তি খরচ ছাড়া সরাসরি আন্তর্জাতিক মানের Circular Knitting, Dyeing ও Finishing মেশিন পৌঁছে দেওয়া এবং সার্বক্ষণিক পার্টস ও টেকনিক্যাল সাপোর্ট নিশ্চিত করা।”"
-                  : '"Our commitment is clear: eliminate speculative middlemen and deliver top-tier circular knitting and dyeing machinery directly from proven overseas manufacturing lines with full technical assurance and zero friction."'}
-              </blockquote>
-
-              <div className="grid grid-cols-2 gap-4 py-4 border-y border-slate-100 text-xs">
-                <div>
-                  <span className="text-slate-400 block font-medium uppercase tracking-wider text-[10px]">
-                    {isBn ? "প্রধান হাব" : "Operational Hub"}
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm">
-                    {isBn ? "বিসিক, নারায়ণগঞ্জ" : "BSCIC, Narayanganj"}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block font-medium uppercase tracking-wider text-[10px]">
-                    {isBn ? "সরাসরি হটলাইন" : "Direct Helpline"}
-                  </span>
-                  <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="font-bold text-[#DF1E38] text-sm hover:underline">
-                    {COMPANY_INFO.hotline}
-                  </a>
-                </div>
-              </div>
-
-              <div className="pt-4 flex items-center justify-between">
-                <Link
-                  href="/founder"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#DF1E38] hover:text-red-700 transition-colors group"
-                >
-                  <span>{isBn ? "প্রতিষ্ঠাতার বিস্তারিত প্রোফাইল ও দর্শন দেখুন" : "Read Founder's Full Story & Mill Journey"}</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </MotionSection>
-
-        {/* 4. Strategic Mission & Operational Excellence */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          
-          {/* Left Column: Mission & Core Value Cards (7 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-9 shadow-xs text-left">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#800020] bg-rose-50 px-3 py-1 rounded-full border border-rose-200 inline-block mb-3">
-                {isBn ? "আমাদের লক্ষ্য ও প্রতিশ্রুতি" : "Our Mission & Commercial Focus"}
-              </span>
-
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
-                {isBn
-                  ? "বিশ্বমানের মেশিনারি ও দেশীয় নিট খাতের মধ্যে সরাসরি সেতু"
-                  : "Bridging Bangladesh Textile Mills With World-Class Machine Builders"}
-              </h2>
-
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed mb-4">
-                {isBn
-                  ? "বাংলাদেশের নিটওয়্যার খাত আজ বিশ্ববাজারে দ্বিতীয় বৃহত্তম। আন্তর্জাতিক ফ্যাশন ব্র্যান্ডগুলোর চাহিদা অনুযায়ী রপ্তানি বজায় রাখতে দেশীয় মিলগুলোর জন্য প্রয়োজন উচ্চগতির ও নিখুঁত Gauge সম্পন্ন মেশিন। তাসনীম নিট ইন্ডাস্ট্রি কোনো মধ্যস্বত্বভোগী ছাড়া সরাসরি প্রস্তুতকারক ফ্যাক্টরি থেকে আমদানির স্বচ্ছ প্ল্যাটফর্ম তৈরি করেছে।"
-                  : "Bangladesh's knit composite industry produces billions in global export apparel each year. Meeting strict buyer tolerances requires constant machinery upgrades, precision cylinder engineering, and minimal mechanical downtime. Tasneem Knitting Industry provides direct factory procurement with complete institutional accountability."}
-              </p>
-
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                {isBn
-                  ? "Cylinder ব্যাস, Gauge এবং Feeder রেশিও নির্ধারণ থেকে শুরু করে প্রাক-জাহাজিকরণ (PSI) কোয়ালিটি ট্রায়াল, চট্টগ্রাম সি-পোর্ট সমুদ্র লজিস্টিকস এবং আপনার মিলে মেশিন ইনস্টলেশন ও ট্রায়াল রান—প্রতিটি ধাপ আমরা দায়িত্বের সাথে সম্পন্ন করি।"
-                  : "From matching technical specifications (single jersey 4-track, double jersey interlock, open-width slitters, high-efficiency dyeing vessels) to remote video trial runs, customs documentation, and on-site factory commissioning, we stand behind every single machine."}
-              </p>
-            </div>
-
-            {/* 4 Pillars of Excellence */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-rose-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-3">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <h3 className="font-bold text-sm text-slate-900">
-                  {isBn ? "নিখুঁত স্পেসিফিকেশন চেক" : "Rigorous Pre-Shipment Inspection"}
-                </h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  {isBn
-                    ? "শিপমেন্টের আগে ক্যাম ট্র্যাক, সিলিন্ডার কনসেন্ট্রিসিটি ও পজিটিভ ফিডার নির্ভুলতা ৩০-৬০ মিনিট রানিং টেস্টে যাচাই করা হয়।"
-                    : "Continuous running trial tests in China inspect cam tracks, cylinder concentricity, and feeder timing before crating."}
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-rose-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mb-3">
-                  <Ship className="w-5 h-5" />
-                </div>
-                <h3 className="font-bold text-sm text-slate-900">
-                  {isBn ? "CFR Chattogram সমুদ্র লজিস্টিকস" : "CFR Chattogram Sea Delivery"}
-                </h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  {isBn
-                    ? "স্বচ্ছ আন্তর্জাতিক সমুদ্র ফ্রেইট ও বাংলাদেশ ব্যাংকের নিয়মানুযায়ী শতভাগ নির্ভুল কমার্শিয়াল এলসি ডকুমেন্টেশন।"
-                    : "Transparent CFR freight terms and zero-defect import documentation complying with Bangladesh Bank rules."}
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-rose-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 text-[#800020] flex items-center justify-center mb-3">
-                  <Wrench className="w-5 h-5" />
-                </div>
-                <h3 className="font-bold text-sm text-slate-900">
-                  {isBn ? "আপনার মিলে ইনস্টলেশন ও কমিশনিং" : "On-Site Mill Commissioning"}
-                </h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  {isBn
-                    ? "নারায়ণগঞ্জ, গাজীপুরসহ সারা দেশে আমাদের অভিজ্ঞ টেক্সটাইল ইঞ্জিনিয়াররা সরাসরি মিলে গিয়ে মেশিন চালু করে দেন।"
-                    : "Experienced field service engineers handle machine leveling, lubrication, and trial fabric runs at your factory."}
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-rose-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-3">
-                  <Factory className="w-5 h-5" />
-                </div>
-                <h3 className="font-bold text-sm text-slate-900">
-                  {isBn ? "আসল স্পেয়ার পার্টস ব্যাকআপ" : "Genuine Spare Parts Inventory"}
-                </h3>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  {isBn
-                    ? "প্রয়োজনীয় Groz-Beckert নিডল, সিঙ্কার, টাইমিং বেল্ট এবং ইনভার্টার কার্ড সবসময় আমাদের নারায়ণগঞ্জ স্টকে থাকে।"
-                    : "Instant local stock of genuine needles, sinkers, yarn storage belts, and inverter electronics in Narayanganj."}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Institutional Fast Facts Card (5 Cols) */}
-          <div className="lg:col-span-5">
-            <div className="bg-[#0B1220] border border-slate-800 rounded-3xl text-white p-6 sm:p-8 shadow-2xl text-left relative overflow-hidden">
-              {/* Header Badge */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-400 bg-rose-950/80 border border-rose-800 px-2.5 py-0.5 rounded-full">
-                    Official Entity
-                  </span>
-                  <h3 className="text-lg sm:text-xl font-bold text-white mt-1.5">
-                    {COMPANY_INFO.name}
-                  </h3>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-rose-600/20 border border-rose-500/30 flex items-center justify-center text-rose-400">
-                  <Building2 className="w-5 h-5" />
-                </div>
-              </div>
-
-              {/* Data Rows */}
-              <div className="divide-y divide-slate-800/80 text-xs">
-                <div className="py-3">
-                  <span className="text-slate-400 block text-[11px]">{isBn ? "প্রধান ব্যবসা" : "Core Business"}</span>
-                  <span className="font-semibold text-slate-200 text-xs sm:text-sm mt-0.5 block">
-                    {isBn ? "শিল্পমানের টেক্সটাইল মেশিনারি আমদানিকারক ও সরবরাহকারী" : "Industrial Textile Machinery Direct Importer & Supplier"}
-                  </span>
-                </div>
-
-                <div className="py-3">
-                  <span className="text-slate-400 block text-[11px]">{isBn ? "শোরুম ও মেশিনারি হাব (নারায়ণগঞ্জ)" : "Showroom & Hub (Narayanganj)"}</span>
-                  <span className="font-semibold text-slate-200 text-xs sm:text-sm mt-0.5 block">
-                    {isBn ? COMPANY_INFO.showroomOffice.addressBn : COMPANY_INFO.showroomOffice.address}
-                  </span>
-                </div>
-
-                <div className="py-3">
-                  <span className="text-slate-400 block text-[11px]">{isBn ? "ঢাকা হেড অফিস" : "Dhaka Corporate Office"}</span>
-                  <span className="font-semibold text-slate-200 text-xs sm:text-sm mt-0.5 block">
-                    {isBn ? COMPANY_INFO.headOffice.addressBn : COMPANY_INFO.headOffice.address}
-                  </span>
-                </div>
-
-                <div className="py-3">
-                  <span className="text-slate-400 block text-[11px]">{isBn ? "চীন সোর্সিং পার্টনার অফিস" : "China Sourcing Office"}</span>
-                  <span className="font-semibold text-rose-300 text-xs block">{COMPANY_INFO.chinaOffice.company}</span>
-                  <span className="text-slate-400 text-[11px] mt-0.5 block leading-normal">
-                    {isBn ? COMPANY_INFO.chinaOffice.addressBn : COMPANY_INFO.chinaOffice.address}
-                  </span>
-                </div>
-
-                <div className="py-3 grid grid-cols-2 gap-2">
-                  <div>
-                    <span className="text-slate-400 block text-[11px]">BIN (VAT ID)</span>
-                    <span className="font-mono font-bold text-white text-xs">{COMPANY_INFO.bin}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[11px]">e-TIN</span>
-                    <span className="font-mono font-bold text-white text-xs">{COMPANY_INFO.etin}</span>
-                  </div>
-                </div>
-
-                <div className="py-3 flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-slate-400 block text-[11px]">{isBn ? "ট্রেড লাইসেন্স" : "Trade License"}</span>
-                    <span className="font-mono font-bold text-white text-xs">{COMPANY_INFO.tradeLicense}</span>
-                  </div>
-                  <a
-                    href={COMPANY_INFO.tradeLicenseUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-[#DF1E38] hover:bg-[#C2162E] text-white text-xs font-bold transition-all inline-flex items-center gap-1 shadow-sm"
-                  >
-                    <span>{isBn ? "লাইসেন্স দেখুন" : "View License"}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
-                <div className="py-3">
-                  <span className="text-slate-400 block text-[11px]">{isBn ? "অফিসিয়াল যোগাযোগ" : "Official Inquiries"}</span>
-                  <div className="mt-1 space-y-1">
-                    <a href={`mailto:${COMPANY_INFO.email}`} className="text-rose-400 hover:underline block font-semibold">
-                      {COMPANY_INFO.email}
-                    </a>
-                    <a href={`tel:${COMPANY_INFO.phoneIntl}`} className="text-slate-300 hover:underline block font-mono">
-                      Hotline: {COMPANY_INFO.hotline}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Direct Quote CTA */}
-              <div className="mt-6 pt-4 border-t border-slate-800">
-                <Link
-                  href="/quote"
-                  className="w-full py-3 px-4 rounded-xl bg-[#DF1E38] hover:bg-[#C2162E] active:scale-[0.98] text-white text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-red-950/60 cursor-pointer"
-                >
-                  <span>{isBn ? "মেশিনের কোটেশন ও এলসি তথ্য নিন" : "Request Commercial PI Quote"}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* 5. Showroom & Office Location Map */}
-        <MotionSection className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-sm">
-          <div className="mb-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#800020] bg-rose-50 px-3 py-1 rounded-full border border-rose-200 inline-block mb-2">
-              {isBn ? "সরাসরি ভিজিট করুন" : "Visit Our Hub"}
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              {isBn ? "আমাদের শোরুম ও হেড অফিসের অবস্থান" : "Showroom & Corporate Locations"}
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              {isBn
-                ? "নারায়ণগঞ্জ বিসিক ইন্ডাস্ট্রিয়াল পার্ক শোরুমে সরাসরি মেশিনারি দেখতে ও স্পেসিফিকেশন পর্যালোচনা করতে আপনাকে আমন্ত্রণ।"
-                : "Schedule a visit to our Narayanganj BSCIC showroom to inspect live circular knitting machinery and discuss custom configurations."}
-            </p>
-          </div>
-
-          <OfficeMap variant="standard" />
-        </MotionSection>
-
+          ))}
+        </dl>
       </div>
+
+      <section id="our-story" aria-labelledby="story-heading" className="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <p className={styles.eyebrow}><span />{copy("OUR PURPOSE", "আমাদের উদ্দেশ্য")}</p>
+            <h2 id="story-heading" className="mt-5 text-3xl font-bold leading-snug tracking-tight sm:text-4xl">{copy("More than a machine. A partner in your progress.", "শুধু মেশিন সরবরাহ নয়, আপনার অগ্রযাত্রার সঙ্গী।")}</h2>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="text-base leading-8 text-gray-secondary">{copy("The right equipment can change what a mill is capable of. Our role is to make that equipment easier to source, understand, and put to work—with a team you can reach here in Bangladesh.", "সঠিক মেশিন একটি কারখানার উৎপাদন সক্ষমতা বদলে দিতে পারে। সেই মেশিন খুঁজে পাওয়া, বুঝে নেওয়া ও কাজে লাগানো সহজ করাই আমাদের কাজ—বাংলাদেশে বসেই আপনি পাবেন আমাদের দলের সহায়তা।")}</p>
+            <p className="mt-4 text-base leading-8 text-gray-secondary">{copy("Based in BSCIC, Narayanganj, Tasneem Knitting Industry imports circular knitting, dyeing, shearing, and finishing machinery. We connect technical requirements with direct factory sourcing, shipping, and on-site commissioning.", "বিসিক, নারায়ণগঞ্জভিত্তিক তাসনীম নিট ইন্ডাস্ট্রি সার্কুলার নিটিং, ডাইং, শিয়ারিং ও ফিনিশিং মেশিন আমদানি করে। আপনার কারিগরি চাহিদার সঙ্গে মিল রেখে সরাসরি সোর্সিং, পরিবহন ও অন-সাইট কমিশনিংয়ের দায়িত্ব নিই আমরা।")}</p>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+              {[copy("Direct factory relationships", "প্রস্তুতকারকের সঙ্গে সরাসরি সম্পর্ক"), copy("Technical guidance", "কারিগরি পরামর্শ"), copy("Local after-sales support", "দেশেই বিক্রয়োত্তর সেবা")].map((item) => <li key={item} className="flex items-center gap-2"><Check aria-hidden="true" className="size-4 shrink-0 text-burgundy" />{item}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div className="mt-12 grid overflow-hidden rounded-3xl border border-gray-border bg-surface-offwhite lg:mt-16 lg:grid-cols-2">
+          <div className="flex flex-col justify-center p-4 sm:p-7">
+            <LiteYouTubeEmbed videoId="ONTd4X4M-Vo" title={copy("Meet Md. Mamunur Rashid, proprietor of Tasneem Knitting Industry", "তাসনীম নিট ইন্ডাস্ট্রির স্বত্বাধিকারী মোঃ মামুনুর রশীদের পরিচিতি")} autoPlay={false} className={styles.founderVideo} />
+            <p className="mt-4 flex items-center gap-2 px-1 text-xs text-gray-secondary"><span className="size-1.5 rounded-full bg-burgundy" />{copy("A conversation with our founder", "আমাদের প্রতিষ্ঠাতার কথা")}</p>
+          </div>
+          <div className="flex flex-col justify-center p-6 pt-4 sm:p-9 lg:p-10">
+            <p className={styles.eyebrow}>{copy("A PERSONAL COMMITMENT", "ব্যক্তিগত অঙ্গীকার")}</p>
+            <h3 className="mt-4 text-2xl font-semibold leading-snug sm:text-3xl">{copy("Behind every machine, there should be someone you trust.", "প্রতিটি মেশিনের পেছনে থাকুক একজন বিশ্বস্ত মানুষ।")}</h3>
+            <p className="mt-4 text-sm leading-7 text-gray-secondary">{copy("Led by Md. Mamunur Rashid, our approach brings direct sourcing and hands-on technical support together. We believe the relationship continues long after a machine arrives at your mill.", "মোঃ মামুনুর রশীদের নেতৃত্বে আমরা সরাসরি সোর্সিং ও হাতে-কলমে কারিগরি সহায়তাকে একসঙ্গে নিয়ে কাজ করি। মেশিন আপনার মিলে পৌঁছে যাওয়ার পরও আমাদের সম্পর্ক ও দায়িত্ব চলতে থাকে।")}</p>
+            <div className="mt-6 border-t border-gray-border pt-5"><p className="font-semibold">{isBn ? "মোঃ মামুনুর রশীদ" : COMPANY_INFO.owner}</p><p className="mt-1 text-xs text-gray-secondary">{copy("Proprietor · Tasneem Knitting Industry", "স্বত্বাধিকারী · তাসনীম নিট ইন্ডাস্ট্রি")}</p></div>
+            <Link href={`/${locale}/founder`} className="mt-4 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-burgundy hover:underline underline-offset-4">{copy("Meet our founder", "আমাদের প্রতিষ্ঠাতাকে জানুন")}<ArrowUpRight aria-hidden="true" className="size-4" /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="our-process" aria-labelledby="process-heading" className="scroll-mt-28 border-y border-gray-border bg-surface-offwhite">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-2xl">
+              <p className={styles.eyebrow}><span />{copy("ONE CONNECTED PROCESS", "একটি সমন্বিত প্রক্রিয়া")}</p>
+              <h2 id="process-heading" className="mt-5 text-3xl font-bold leading-snug tracking-tight sm:text-4xl">{copy("From their factory to your floor.", "প্রস্তুতকারকের কারখানা থেকে আপনার মিলে।")}</h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-gray-secondary">{copy("Four clear steps. One team taking care of the details.", "চারটি সুস্পষ্ট ধাপ। প্রতিটি কাজের দায়িত্বে একটি দল।")}</p>
+            </div>
+            <Link href={`/${locale}/how-it-works`} className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-burgundy hover:underline underline-offset-4">{copy("Explore the full process", "পুরো প্রক্রিয়াটি দেখুন")}<ArrowUpRight aria-hidden="true" className="size-4" /></Link>
+          </div>
+          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
+            {steps.map(({ icon: Icon, title, text }, index) => (
+              <li key={title} className={styles.processCard}>
+                <div className="flex items-center justify-between"><span className="flex size-12 items-center justify-center rounded-2xl bg-burgundy-light text-burgundy"><Icon aria-hidden="true" className="size-6" strokeWidth={1.5} /></span><span className="text-sm font-medium tabular-nums text-gray-muted">{isBn ? ["০১", "০২", "০৩", "০৪"][index] : `0${index + 1}`}</span></div>
+                <h3 className="mt-7 text-lg font-semibold leading-7">{title}</h3><p className="mt-3 text-sm leading-7 text-gray-secondary">{text}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-7 flex items-start gap-3 text-sm leading-6 text-gray-secondary"><Wrench aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-burgundy" /><p>{copy("And we stay connected—with operator training, genuine spare parts, and after-sales support.", "এরপরও পাশে থাকি—অপারেটর প্রশিক্ষণ, জেনুইন স্পেয়ার পার্টস ও বিক্রয়োত্তর সেবা নিয়ে।")}</p></div>
+        </div>
+      </section>
+      <AboutCompanyDetails />
     </div>
   );
 }

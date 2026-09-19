@@ -1,0 +1,24 @@
+.page { overflow-wrap: break-word; }
+.page a:focus-visible, .page [role="button"]:focus-visible { outline: 3px solid var(--burgundy); outline-offset: 5px; }
+.eyebrow { display: flex; align-items: center; gap: 0.625rem; color: var(--burgundy); font-size: 0.75rem; font-weight: 600; line-height: 1.8; letter-spacing: 0.1em; }
+.eyebrow > span { width: 1.5rem; height: 2px; flex-shrink: 0; background: currentColor; }
+.heroVisual { position: relative; padding: 0 0 2.75rem 1.5rem; }
+.heroImage { position: relative; aspect-ratio: 1.12; overflow: hidden; border-radius: 1.5rem 1.5rem 1.5rem 6rem; background: var(--surface-muted); }
+.imageLabel { position: absolute; top: 1.25rem; left: 1.25rem; right: 1.25rem; display: flex; align-items: center; gap: 0.5rem; width: fit-content; padding: 0.625rem 0.875rem; border: 1px solid rgb(255 255 255 / 60%); border-radius: 2rem; background: rgb(255 255 255 / 92%); color: var(--gray-dark); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.08em; }
+.routeCard { position: absolute; bottom: 0; left: 0; width: min(22rem, 90%); padding: 1.5rem; border: 5px solid white; border-radius: 1.5rem; background: var(--burgundy); color: white; }
+.routeLine { display: flex; flex: 1; align-items: center; color: rgb(255 255 255 / 70%); }
+.routeLine::before { content: ""; flex: 1; border-top: 1px dashed currentColor; }
+.founderVideo { box-shadow: none; }
+.processCard { padding: 1.5rem; border: 1px solid var(--gray-border); border-radius: 1.25rem; background: white; transition: border-color 180ms ease, transform 180ms ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .processCard:hover { transform: translateY(-4px); border-color: var(--burgundy-border); }
+}
+@media (max-width: 639px) {
+  .heroVisual { padding-left: 0.75rem; }
+  .heroImage { aspect-ratio: 1.1; border-bottom-left-radius: 4rem; }
+  .routeCard { padding: 1.125rem; }
+  .eyebrow { letter-spacing: 0.06em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
+}

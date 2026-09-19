@@ -74,6 +74,9 @@ export const COMPANY_INFO = {
   facebook: "https://www.facebook.com/tasneemknitind", // Official Facebook Page
   facebookUrl: "https://www.facebook.com/tasneemknitind",
   facebookHandle: "facebook.com/tasneemknitind",
+  linkedin: "https://www.linkedin.com/company/tasneem-knitting-industry/", // Official LinkedIn Page
+  linkedinUrl: "https://www.linkedin.com/company/tasneem-knitting-industry/",
+  linkedinHandle: "linkedin.com/company/tasneem-knitting-industry",
   domain: "https://tasneemknitindustry.com",
   businessHours: "Saturday – Thursday: 9:00 AM – 7:00 PM (BST)",
 
